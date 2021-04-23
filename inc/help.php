@@ -3,7 +3,7 @@
  #############################################################################
  # IMDb Link transformer                                                     #
  # written by Prometheus group                                               #
- # http://www.ikiru.ch/blog                                                  #
+ # https://www.jcvignoli.com/blog                                                  #
  # ------------------------------------------------------------------------- #
  # This program is free software; you can redistribute and/or modify it      #
  # under the terms of the GNU General Public License (see LICENSE)           #
@@ -159,10 +159,10 @@ if ($_GET['helpsub'] == "faqs")  { 	// Readme section ?>
 				<div class="inside">
 					<div class="helpdiv">
 						<?php _e('You will never believe there is so many ways to thank me. Yes, you can:', 'imdb'); ?><br />
-		<strong>1</strong>. <?php _e('vote for IMDb link transformer on ', 'imdb'); ?> <a href="http://wordpress.org/extend/plugins/imdb-link-transformer/">Wordpress' website</a>.<br />
+		<strong>1</strong>. <?php _e('vote for IMDb link transformer on ', 'imdb'); ?> <a href="https://wordpress.org/extend/plugins/imdb-link-transformer/">Wordpress' website</a>.<br />
 		<strong>2</strong>. <?php _e('vote for IMDb link transformer on its own', 'imdb'); ?> <a href="<?php echo IMDBHOMEPAGE ?>">website</a>.<br />
 		<strong>3</strong>. <?php _e("send as many bugfixes and propositions as you can on IMDb link transformer website.", 'imdb'); ?><br />
-		<strong>4</strong>. <?php _e('pay whatever you want on paypal', 'imdb'); ?> <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8426296"><img src="<?php echo IMDBLTURLPATH ?>pics/paypal-donate.png" border="0" width="60px" style="border:0px;align:bottom;" align="center"/><?php _e('website', 'imdb'); ?></a>.<br />
+		<strong>4</strong>. <?php _e('pay whatever you want on paypal', 'imdb'); ?> <a href="https://www.paypal.me/jcvignoli"><img src="<?php echo IMDBLTURLPATH ?>pics/paypal-donate.png" border="0" width="60px" style="border:0px;align:bottom;" align="center"/><?php _e('website', 'imdb'); ?></a>.<br />
 		<strong>5</strong>. <?php _e("translate the plugin into your own language.", 'imdb'); ?><br />
 		<strong>6</strong>. <?php _e("help me to improve the plugin's design. I'm not gifted at all.", 'imdb'); ?><br />
 		<strong>7</strong>. <?php _e("place a trackback, talk about this tool, and so on.", 'imdb'); ?><br />
@@ -181,13 +181,13 @@ if ($_GET['helpsub'] == "faqs")  { 	// Readme section ?>
 				<div class="inside">
 					<div class="helpdiv">
 						<?php _e('Special thanks to:', 'imdb'); ?><br /><br />
-						<li><a href="http://www.izzysoft.de/">Andreas Itzchak Rehberg</a>, imdbphp project classes (core)</li>
+						<li><a href="https://github.com/tboothman/imdbphp">tboothman</a>, imdbphp project classes (core)</li>
 						<li>Murillo Ferrari, Brazilian translation</li>
 						<li>Andr&eacute;s Cabrera, Spanish translation</li>
 						<li>Peter, Bulgarian translation</li>
-						<li>Web Geek Sciense (<a href="http://webhostinggeeks.com/">Web Hosting Geeks</a>), Romanian translation</li>
-						<li><a href="http://highslide.com">Highslide JS</a>, smart & pretty js libraries collection -> BTW, discovered thanks to <a href="http://www.fots.nl/index.php/imdb-tag/">Hans Sleurink</a>, an inspiring plugin maker</li>
-						<li>Several icons made by <a href="http://p.yusukekamiyamane.com/">Yusuke Kamiyamane</a></li>
+						<li>Web Geek Sciense (<a href="https://webhostinggeeks.com/">Web Hosting Geeks</a>), Romanian translation</li>
+						<li><a href="https://highslide.com">Highslide JS</a>, smart & pretty js libraries collection -> BTW, discovered thanks to <a href="https://www.fots.nl/index.php/imdb-tag/">Hans Sleurink</a>, an inspiring plugin maker</li>
+						<li>Several icons made by <a href="https://p.yusukekamiyamane.com/">Yusuke Kamiyamane</a></li>
 					</div>
 				</div>		
 			</div>
@@ -376,7 +376,7 @@ function imdblt_help_adminbigmenu_function () {
 	
 	<div class="helpdiv">
 		<a href="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/imdblt_menubig_ozh.jpg" title="<?php _e('click to get a larger picture', 'imdb'); ?>"><img align="left" width="20%" src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/imdblt_menubig_ozh.jpg" alt="imdblt big menu with Admin Drop Down Menu plugin" /></a>
-		<?php _e ("One can go still further; if installing <a href='http://planetozh.com/blog/my-projects/wordpress-admin-menu-drop-down-css/ '>Ozh Admin Drop Down Menu</a>, a plugin to switch classical vertical admin menu to horizontal and which gives the admin area more of a 'desktop application' feel. IMDb link transformer is ready to use improvements from Ozh's plugin, adding icons (when user select IMDb's plugin from the settings menu). Also, if you activate both Ozh's plugin and IMDb link transformer's big admin menu, you will get a nice and complete horizontal menu. Very useful.", 'imdb'); ?>
+		<?php _e ("One can go still further; if installing <a href='https://planetozh.com/blog/my-projects/wordpress-admin-menu-drop-down-css/ '>Ozh Admin Drop Down Menu</a>, a plugin to switch classical vertical admin menu to horizontal and which gives the admin area more of a 'desktop application' feel. IMDb link transformer is ready to use improvements from Ozh's plugin, adding icons (when user select IMDb's plugin from the settings menu). Also, if you activate both Ozh's plugin and IMDb link transformer's big admin menu, you will get a nice and complete horizontal menu. Very useful.", 'imdb'); ?>
 	</div>
 <?php } // end function imdblt_help_adminbigmenu_function
 

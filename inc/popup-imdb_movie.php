@@ -16,32 +16,19 @@
 //---------------------------------------=[Vars]=----------------
 
 require_once (dirname(__FILE__).'/../../../../wp-blog-header.php');
+require_once (dirname(__FILE__).'/../bootstrap.php');
 require_once ("functions.php"); 
 
-## toute la partie, avec le choix de imdb ou de pilot :
-if ($imdb_admin_values['imdbsourceout']) 
-	$engine = 'pilot';
+# Initialization of IMDBphp
+require_once(dirname(__FILE__)."/../src/Imdb/TitleSearch.php");
+require_once(dirname(__FILE__)."/../src/Imdb/MdbBase.php");
+$search = new Imdb\TitleSearch();
 
-switch($engine) {
-	case "pilot":
-	  require_once(dirname(__FILE__)."/../class/pilotsearch.class.php");
-	  require_once(dirname(__FILE__)."/../class/pilot.class.php");
-	  $search = new pilotsearch();
-	  break;
-	default:
-	  require_once(dirname(__FILE__)."/../class/imdbsearch.class.php");
-	  require_once(dirname(__FILE__)."/../class/imdb.class.php");
-	  $search = new imdbsearch();
-	  break;
-}
+global $imdb_admin_values, $imdb_widget_values;
 
-if ($engine=="pilot") $movie = new pilot ($_GET["mid"]);
-	else $movie = new imdb ($_GET["mid"]);
+if ($_GET["searchtype"]=="episode") $movie = $search->search ($_GET["film"], array(\Imdb\TitleSearch::TV_SERIES))[0];
+else $movie = $search->search ($_GET["film"], array(\Imdb\TitleSearch::MOVIE))[0];
 
-if (isset ($_GET["mid"])) {
-    $movieid = $_GET["mid"];
-    $movie->setid ($movieid);
-    // $imdblt = new imdblt; // class from imdb-link-transformer.php -> to activate when class will be used
 //--------------------------------------=[Layout]=---------------
 
 		require_once ('popup-header.php'); ?>

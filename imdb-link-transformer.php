@@ -1,8 +1,8 @@
 <?php
 // IMDb link transformer wordpress plugin
 //
-// (c) 2005-14 Prometheus group
-// http://www.ikiru.ch/blog
+// (c) 2005-21 Prometheus group
+// https://www.jcvignoli.com/blog
 //
 // **********************************************************************
 // This program is distributed in the hope that it will be useful, but
@@ -12,15 +12,17 @@
 
 /*
 Plugin Name: IMDb link transformer
-Plugin URI: http://www.ikiru.ch/blog/imdb-link-transformer-wordpress-plugin
+Plugin URI: https://www.jcvignoli.com/blog/imdb-link-transformer-wordpress-plugin
 Description: Add to every movie title tagged with &lt;!--imdb--&gt; (...) &lt;!--/imdb--&gt; a link to an <a href="http://www.imdb.com"><acronym title="internet movie database">imdb</acronym></a> popup. Can also display data related to movies either in a <a href="widgets.php">widget</a> or inside a post. Perfect for your movie reviews. Cache handling. Have a look at the <a href="admin.php?page=imdblt_options">options page</a>.
-Version: 2.3.2
+Version: 3
 Author: jcv
-Author URI: http://www.ikiru.ch/blog
+Author URI: https://www.jcvignoli.com/blog
 */ 
 
-define('WP_DEBUG', false);
-define('SCRIPT_DEBUG', false);
+if (!defined('WP_DEBUG'))
+	define('WP_DEBUG', false);
+if (!defined('SCRIPT_DEBUG'))
+	define('SCRIPT_DEBUG', false);
 
 // Stop direct call
 if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) 

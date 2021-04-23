@@ -3,7 +3,7 @@
  #############################################################################
  # IMDb Link transformer                                                     #
  # written by Prometheus group                                               #
- # http://www.ikiru.ch/blog                                                  #
+ # https://www.jcvignoli.com/blog                                                  #
  # ------------------------------------------------------------------------- #
  # This program is free software; you can redistribute and/or modify it      #
  # under the terms of the GNU General Public License (see LICENSE)           #
@@ -18,10 +18,9 @@
 define('IMDBLTURLPATH', plugins_url() . '/' . plugin_basename( dirname(__FILE__) ) . '/' );
 define('IMDBLTFILE', plugin_basename( dirname(__FILE__)) );
 define('IMDBLTABSPATH', str_replace("\\","/", WP_PLUGIN_DIR . '/' . plugin_basename( dirname(__FILE__) ) . '/' ));
-define('IMDBBLOG', 'http://www.ikiru.ch/blog');
-define('IMDBHOMEPAGE', 'http://www.ikiru.ch/blog/imdb-link-transformer-wordpress-plugin');
+define('IMDBBLOG', 'https://www.jcvignoli.com/blog');
+define('IMDBHOMEPAGE', 'https://www.jcvignoli.com/blog/imdb-link-transformer-wordpress-plugin');
 define('IMDBPHP_CONFIG',dirname(__FILE__).'/config.php');
-define('PILOT_IMDBFALLBACK', TRUE);
 
 #--------------------------------------------------=[ configuration class ]=--
 
@@ -31,7 +30,7 @@ class imdb_settings_conf extends mdb_config {
 	var $imdbWidgetOptionsName = "imdbWidgetOptions";
 	var $imdbCacheOptionsName = "imdbCacheOptions";
 
-	function imdb_settings_conf() { //constructor
+	function imdb_settings_conf_constr() { //constructor
 	}
 	
 	function notice($code, $msg) { // from more smilies plugin
@@ -67,13 +66,10 @@ class imdb_settings_conf extends mdb_config {
 	'blog_adress' => get_bloginfo('url'),
 	'imdbplugindirectory' => get_bloginfo('url').'/wp-content/plugins/imdb-link-transformer/',
 	'imdbwebsite' => "akas.imdb.com",
-	'pilotsite' => "uk.moviepilot.com",
 	'imdbcoversize' => false,
 	'imdbcoversizewidth' => '100',
 	#--------------------------------------------------=[ Technical ]=--
 
-	'pilot_imdbfill'=> '1',
-	'pilot_apikey'=> "",
 	'imdb_utf8recode'=> true,
 	'imdbmaxresults' => 10,
 	'popupLarg' => '540',
@@ -83,7 +79,7 @@ class imdb_settings_conf extends mdb_config {
 	'imdbimgdir' => 'pics/',
 	'imdbsearchvariant' => "",
 	'imdbdirectsearch' => true,
-	'imdbsourceout' => false,
+	/*'imdbsourceout' => false,*/
 	'imdbdisplaylinktoimdb' => true,
 	'imdbdebug' => 0,
 	'PEAR' => false,
@@ -108,7 +104,7 @@ class imdb_settings_conf extends mdb_config {
 	$imdbCacheOptions = array(
 	#--------------------------------------------------=[ Cache ]=--
 	'imdbcachedir' => ABSPATH . 'wp-content/cache/imdb/',
-	'imdbphotoroot' => get_bloginfo('siteurl').'/wp-content/cache/imdb/images/',
+	'imdbphotoroot' => get_bloginfo('url').'/wp-content/cache/imdb/images/',
 	'imdbphotodir' => ABSPATH . 'wp-content/cache/imdb/images/',
 	'imdbstorecache' => true,
 	'imdbusecache' => true,
@@ -451,36 +447,32 @@ class imdb_settings_conf extends mdb_config {
 // Where the language files resides
 // Edit only if you know what you are doing
 
-load_plugin_textdomain('imdb', 'wp-content/plugins/imdb-link-transformer/lang');
+load_plugin_textdomain('imdb', false, dirname( plugin_basename( __FILE__ ) ) . 'wp-content/plugins/imdb-link-transformer/lang');
 
 #--------------------------------------------------=[ Class to be called from original imdb classes ]=--
 
 class mdb_config {
 	var $imdb_admin_values;
 	var $imdb_cache_values;
-	protected $pilot_imdbfill;
 
 	function __construct() {
 	global $imdb_admin_values, $imdb_cache_values;
 
-	$this->pilotsite = $imdb_admin_values['pilotsite'];
-	$this->pilot_imdbfill = $imdb_admin_values['pilot_imdbfill'];
-	$this->pilot_apikey = $imdb_admin_values['pilot_apikey'];
-	$this->imdb_utf8recode = $imdb_admin_values['imdb_utf8recode'];
-	$this->imdbsite = $imdb_admin_values['imdbwebsite'];
-	$this->imdbplugindirectory = $imdb_admin_values['imdbplugindirectory'];
-	$this->searchvariant = $imdb_admin_values['imdbsearchvariant'];
-	$this->debug = $imdb_admin_values['imdbdebug'];
-	$this->maxresults = $imdb_admin_values['imdbmaxresults'];
-	$this->cachedir = $imdb_cache_values['imdbcachedir'];
-	$this->photodir = $imdb_cache_values['imdbphotodir'];
-	$this->imdb_img_url = $imdb_cache_values['imdbimgdir'];
-	$this->cache_expire = $imdb_cache_values['imdbcacheexpire'];
-	$this->photoroot = $imdb_cache_values['imdbphotoroot'];
-	$this->storecache = $imdb_cache_values['imdbstorecache'];
-	$this->usecache = $imdb_cache_values['imdbusecache'];
-	$this->converttozip = $imdb_cache_values['imdbconverttozip'];
-	$this->usezip = $imdb_cache_values['imdbusezip'];
+	$this->imdb_utf8recode = $imdb_admin_values['imdb_utf8recode'] ?? NULL;
+	$this->imdbsite = $imdb_admin_values['imdbwebsite'] ?? NULL;
+	$this->imdbplugindirectory = $imdb_admin_values['imdbplugindirectory'] ?? NULL;
+	$this->searchvariant = $imdb_admin_values['imdbsearchvariant'] ?? NULL;
+	$this->debug = $imdb_admin_values['imdbdebug'] ?? NULL;
+	$this->maxresults = $imdb_admin_values['imdbmaxresults'] ?? NULL;
+	$this->cachedir = $imdb_cache_values['imdbcachedir'] ?? NULL;
+	$this->photodir = $imdb_cache_values['imdbphotodir'] ?? NULL;
+	$this->imdb_img_url = $imdb_cache_values['imdbimgdir'] ?? NULL;
+	$this->cache_expire = $imdb_cache_values['imdbcacheexpire'] ?? NULL;
+	$this->photoroot = $imdb_cache_values['imdbphotoroot'] ?? NULL;
+	$this->storecache = $imdb_cache_values['imdbstorecache'] ?? NULL;
+	$this->usecache = $imdb_cache_values['imdbusecache'] ?? NULL;
+	$this->converttozip = $imdb_cache_values['imdbconverttozip'] ?? NULL;
+	$this->usezip = $imdb_cache_values['imdbusezip'] ?? NULL;
 
 	/** Where the local IMDB images reside (look for the "showtimes/" directory)
 	*  This should be either a relative, an absolute, or an URL including the
@@ -489,7 +481,7 @@ class mdb_config {
 	* @attribute string imdb_img_url
 	* Cannot be changed in wordpress plugin 
 	*/
-	$this->imdb_img_url = $imdb_admin_values['imdbplugindirectory'].'/pics/showtimes';
+	$this->imdb_img_url = isset($imdb_admin_values['imdbplugindirectory']).'/pics/showtimes' ?? NULL;
 
 	################################################# Browser agent used to get data; usually, doesn't need any change
 	/** Set the default user agent (if none is detected)

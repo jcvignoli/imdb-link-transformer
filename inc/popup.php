@@ -3,7 +3,7 @@
  #############################################################################
  # IMDb Link transformer                                                     #
  # written by Prometheus group                                               #
- # http://www.ikiru.ch/blog                                                  #
+ # https://www.jcvignoli.com/blog                                                  #
  # ------------------------------------------------------------------------- #
  # This program is free software; you can redistribute and/or modify it      #
  # under the terms of the GNU General Public License (see LICENSE)           #
@@ -16,31 +16,19 @@
 //---------------------------------------=[Vars]=----------------
 
 require_once (dirname(__FILE__).'/../../../../wp-blog-header.php');
+require_once (dirname(__FILE__).'/../bootstrap.php');
 require_once ("functions.php"); 
+
+# Initialization of IMDBphp
+require_once(dirname(__FILE__)."/../src/Imdb/TitleSearch.php");
+require_once(dirname(__FILE__)."/../src/Imdb/MdbBase.php");
+$search = new Imdb\TitleSearch();
 
 global $imdb_admin_values, $imdb_widget_values;
 
-if ($imdb_admin_values['imdbsourceout']) $engine = 'pilot';
+if ($_GET["searchtype"]=="episode") $results = $search->search ($_GET["film"], array(\Imdb\TitleSearch::TV_SERIES));
+else $results = $search->search ($_GET["film"], array(\Imdb\TitleSearch::MOVIE));
 
-## toute la partie, avec le choix de imdb ou de pilot :
-switch($engine) {
-	case "pilot":
-	  require_once(dirname(__FILE__)."/../class/pilotsearch.class.php");
-	  require_once(dirname(__FILE__)."/../class/pilot.class.php");
-	  $search = new pilotsearch();
-	  break;
-	default:
-	  require_once(dirname(__FILE__)."/../class/imdbsearch.class.php");
-	  require_once(dirname(__FILE__)."/../class/imdb.class.php");
-	  $search = new imdbsearch();
-	  break;
-}
-
-if ($_GET["searchtype"]=="episode") $search->search_episodes(TRUE);
-else $search->search_episodes(FALSE);
-
-$search->setsearchname ($_GET["film"]);
-$results = $search->results ();
 
 //--------------------------------------=[Layout]=---------------
 
@@ -101,7 +89,7 @@ if (($imdb_admin_values[imdbdirectsearch] == false ) OR ($_GET["norecursive"] ==
 	} else {
 		$nbarrayresult = "1"; // lorsque résultats multiples, le premier film s'affiche dans l'array "1"
 	}	
-	$midPremierResultat = $results[$nbarrayresult]->imdbid();
+	$midPremierResultat = $results[$nbarrayresult]->imdbid() ?? NULL;
 	$_GET['mid'] = $midPremierResultat; //"mid" will be transmitted to next include
 	require_once ("popup-imdb_movie.php");
 }
