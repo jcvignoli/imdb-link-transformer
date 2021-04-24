@@ -15,33 +15,28 @@
  #									     #
  #############################################################################
 
+require_once (dirname(__FILE__).'/../../../../wp-blog-header.php');
+require_once (dirname(__FILE__).'/../bootstrap.php');
+require_once ("functions.php"); 
 
 //---------------------------------------=[Vars]=----------------
-
-require_once (dirname(__FILE__).'/../../../../wp-blog-header.php');
 
 global $imdb_admin_values, $imdb_widget_values;
 
 $count_me_siffer= 0; // value to allow movie total count (called from every 'taxonomised' part)
 
-if ($imdb_admin_values['imdbsourceout']) 
-	$engine = 'pilot';
-
-## toute la partie, avec le choix de imdb ou de pilot :
-switch($engine) {
-	case "pilot":
-	  require_once(dirname(__FILE__)."/../class/pilotsearch.class.php");
-	  require_once(dirname(__FILE__)."/../class/pilot.class.php");
-	  $search = new pilotsearch();
-	  break;
-	default:
-	  require_once(dirname(__FILE__)."/../class/imdbsearch.class.php");
-	  require_once(dirname(__FILE__)."/../class/imdb.class.php");
-	  $search = new imdbsearch();
-	  break;
+# Initialization of IMDBphp
+if (isset ($_GET["mid"])) {
+$movieid = filter_var( $_GET["mid"], FILTER_SANITIZE_NUMBER_INT);
+$movie = new Imdb\Title($movieid);
+} else {
+$search = new Imdb\TitleSearch();
+	if ($_GET["searchtype"]=="episode") {
+		$movie = $search->search ($_GET["film"], array(\Imdb\TitleSearch::TV_SERIES))[0];
+	} else {
+		$movie = $search->search ($_GET["film"], array(\Imdb\TitleSearch::MOVIE))[0];
+	}
 }
-if ($searchtype=="episode") $search->search_episodes(TRUE);
-else $search->search_episodes(FALSE);
 
 $imovie = 0;
 

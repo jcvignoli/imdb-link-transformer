@@ -3,7 +3,7 @@
  #############################################################################
  # IMDb Link transformer                                                     #
  # written by Prometheus group                                               #
- # http://www.ikiru.ch/blog                                                  #
+ # https://www.jcvignoli.com/blog                                            #
  # ------------------------------------------------------------------------- #
  # This program is free software; you can redistribute and/or modify it      #
  # under the terms of the GNU General Public License (see LICENSE)           #
@@ -291,22 +291,22 @@ echo '/ >'; ?>
 			  if (!empty($quotes)) { 
 	  			$tc = count($quotes); ?>
         <tr>
-            <td class="TitreSousRubriqueColGauche">
-                <div class="TitreSousRubrique">
-					<?php _e('Personal quotes', 'imdb') ?>
-				</div>
- 			</td>
+            	<td class="TitreSousRubriqueColGauche">
+               		<div class="TitreSousRubrique">
+				<?php _e('Personal quotes', 'imdb') ?>
+			</div>
+ 		</td>
 			
 		<td colspan="2" class="TitreSousRubriqueColDroite">
 			<div class="activatehidesection">[+] <?php _e('click to expand', 'imdb'); ?> [+]</div>
 			<div class="hidesection">
-			<?php 
+				<?php 
 				for ($i=0;$i<$tc;++$i) {
 					$ii = $i+"1";
 					echo "<li><strong>($ii)</strong> ".$quotes[$i]."</li>\n";
 				} ?>
-		</div>
-            </td>
+			</div>
+           	 </td>
         </tr>
 		<?php } 
 		flush(); // send to user data already run through ?>

@@ -13,11 +13,11 @@
  #									     #
  #############################################################################
 
-//---------------------------------------=[Vars]=----------------
-
 require_once (dirname(__FILE__).'/../../../../wp-blog-header.php');
 require_once (dirname(__FILE__).'/../bootstrap.php');
 require_once ("functions.php"); 
+
+//---------------------------------------=[Vars]=----------------
 
 global $imdb_admin_values, $imdb_widget_values;
 
@@ -27,9 +27,11 @@ $movieid = filter_var( $_GET["mid"], FILTER_SANITIZE_NUMBER_INT);
 $movie = new Imdb\Title($movieid);
 } else {
 $search = new Imdb\TitleSearch();
-if ($_GET["searchtype"]=="episode") $movie = $search->search ($_GET["film"], array(\Imdb\TitleSearch::TV_SERIES))[0];
-else $movie = $search->search ($_GET["film"], array(\Imdb\TitleSearch::MOVIE))[0];
-
+	if ($_GET["searchtype"]=="episode") {
+		$movie = $search->search ($_GET["film"], array(\Imdb\TitleSearch::TV_SERIES))[0];
+	} else {
+		$movie = $search->search ($_GET["film"], array(\Imdb\TitleSearch::MOVIE))[0];
+	}
 }
 
 //--------------------------------------=[Layout]=---------------
@@ -438,7 +440,7 @@ echo '/ >'; ?>
 			for ($i=0;$i<$gc;++$i) {
      				if (empty($trivia[$i])) break;
 					$ii = $i+"1";
-					echo "<li><strong>($ii)</strong>".preg_replace("/http\:\/\/".str_replace(".","\.",$movie->imdbsite)."\/name\/nm(\d{7})\//","popup-imdb_person.php?mid=\\1",$trivia[$i])."</li>\n";
+					echo "<li><strong>($ii)</strong>".preg_replace("/http\:\/\/".str_replace(".","\.",$movie->imdbsite)."\/name\/nm(\d{7})\//","popup-imdb_person.php?mid=\\1",$trivia[$i])."</li><br />\n";
 		    }; ?>
 				</div>
             		</td>
@@ -456,16 +458,11 @@ echo '/ >'; ?>
                 <div class="TitreSousRubrique">
 					<?php echo(sprintf(_n('Soundtrack', 'Soundtracks', count($soundtracks), 'imdb'))); ?> 
 				</div>
-            </td>
+           	</td>
 
-				<td colspan="2" class="TitreSousRubriqueColDroite">
-					<a href="javascript:toggleLayer('soundtrackfield')">[+] <?php _e('click to expand', 'imdb'); ?> [+]</a>
-				</td>
-			</tr>
-			<tr>
-				<td></td>
-
-				<td colspan="2" id="soundtrackfield" class="TitreSousRubriqueColDroite">			            
+		<td colspan="2" class="TitreSousRubriqueColDroite">
+			<div class="activatehidesection">[+] <?php _e('click to expand', 'imdb'); ?> [+]</div>
+			<div class="hidesection">            
 	 			<?php for ($i=0;$i<$gc;++$i) {
 						$ii = $i+"1";
 							if (empty($soundtracks[$i])) break;
@@ -474,8 +471,9 @@ echo '/ >'; ?>
 						echo "<li><strong>($ii)</strong> ".$soundtracks[$i]["soundtrack"]." ".$credit1." ".$credit2."</li><br />";
     				} 
 					flush(); // send to user data already run through ?>
-		    </td>
-        </tr>
+			</div>
+		</td>
+	</tr>
 		<?php } ?>
 
                                                 <!-- Goofs --> 
@@ -483,24 +481,20 @@ echo '/ >'; ?>
 		  $gc    = count($goofs);
 		  if ($gc > 0) { ?>
         <tr>
-            <td class="TitreSousRubriqueColGauche">
-                <div class="TitreSousRubrique"><?php echo(sprintf(_n('Goof', 'Goofs', count($goofs), 'imdb'))); ?>&nbsp;</div>
-            </td>
-            	<td colspan="2" class="TitreSousRubriqueColDroite">
-					<a href="javascript:toggleLayer('goofsfield')">[+] <?php _e('click to expand', 'imdb'); ?> [+]</a>
-				</td>
-			</tr>
-			<tr>
-				<td></td>
-
-				<td colspan="2" id="goofsfield" class="TitreSousRubriqueColDroite">			            			  
+            	<td class="TitreSousRubriqueColGauche">
+                	<div class="TitreSousRubrique"><?php echo(sprintf(_n('Goof', 'Goofs', count($goofs), 'imdb'))); ?>&nbsp;</div>
+            	</td>
+		<td colspan="2" class="TitreSousRubriqueColDroite">
+			<div class="activatehidesection">[+] <?php _e('click to expand', 'imdb'); ?> [+]</div>
+			<div class="hidesection">       		            			  
 				<?php		
 				for ($i=0;$i<$gc;++$i) {
 					 if (empty($goofs[$i])) break;
 					 $ii = $i+"1";
 				echo "<li><strong>($ii) ".$goofs[$i]["type"]."</strong> ".$goofs[$i]["content"]."</li><br />";
 				}; ?>
-            </td>
+			</div>
+            	</td>
         </tr>
     	<?php } ?>
 
@@ -510,6 +504,8 @@ echo '/ >'; ?>
 
 </table>
 <br />
+
+<script src="<?php echo IMDBLTURLPATH; ?>js/hide-show_csp.js"></script>
 
 </body>
 </html>

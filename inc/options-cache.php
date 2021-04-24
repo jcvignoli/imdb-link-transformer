@@ -4,7 +4,7 @@
  #############################################################################
  # IMDb Link transformer                                                     #
  # written by Prometheus group                                               #
- # http://www.ikiru.ch/blog                                                  #
+ # https://www.jcvignoli.com/blog                                            #
  # ------------------------------------------------------------------------- #
  # This program is free software; you can redistribute and/or modify it      #
  # under the terms of the GNU General Public License (see LICENSE)           #
@@ -16,24 +16,12 @@
 
 
 // included files
-include_once ('functions.php');
+require_once ('functions.php');
 
 // get files to be able to make a search movie
 define('IMDBPHP_CONFIG',dirname(__FILE__).'/../config.php');
-require_once (dirname(__FILE__)."/../class/imdb.class.php");
-
-if ($engine) $engine = 'pilot'; // $engine variable comes from config.php
-switch($engine) { 		
-	case "pilot":
-	  require_once(dirname(__FILE__)."/../class/pilot.class.php");
-	  require_once(dirname(__FILE__)."/../class/pilot_person.class.php");
-	  break;
-	default:
-	  require_once(dirname(__FILE__)."/../class/imdb.class.php");
-	  require_once(dirname(__FILE__)."/../class/imdb_person.class.php");
-	  break;
-}
-
+require_once (dirname(__FILE__).'/../bootstrap.php');
+ 
 ##################################### delete a specific file
 
 if (($_GET['dothis'] == 'delete') && ($_GET['type'])) {
