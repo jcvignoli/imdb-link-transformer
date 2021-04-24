@@ -19,15 +19,18 @@ require_once (dirname(__FILE__).'/../../../../wp-blog-header.php');
 require_once (dirname(__FILE__).'/../bootstrap.php');
 require_once ("functions.php"); 
 
-# Initialization of IMDBphp
-require_once(dirname(__FILE__)."/../src/Imdb/TitleSearch.php");
-require_once(dirname(__FILE__)."/../src/Imdb/MdbBase.php");
-$search = new Imdb\TitleSearch();
-
 global $imdb_admin_values, $imdb_widget_values;
 
+# Initialization of IMDBphp
+if (isset ($_GET["mid"])) {
+$movieid = filter_var( $_GET["mid"], FILTER_SANITIZE_NUMBER_INT);
+$movie = new Imdb\Title($movieid);
+} else {
+$search = new Imdb\TitleSearch();
 if ($_GET["searchtype"]=="episode") $movie = $search->search ($_GET["film"], array(\Imdb\TitleSearch::TV_SERIES))[0];
 else $movie = $search->search ($_GET["film"], array(\Imdb\TitleSearch::MOVIE))[0];
+
+}
 
 //--------------------------------------=[Layout]=---------------
 
@@ -425,27 +428,22 @@ echo '/ >'; ?>
 		  $gc = count($trivia);
 		  if ($gc > 0) { ?>
 	        <tr>
-				<td class="TitreSousRubriqueColGauche">
-					<div class="TitreSousRubrique"><?php echo(sprintf(_n('Trivia', 'Trivias', count($trivia), 'imdb'))); ?>&nbsp;</div>
-				</td>
-				<td colspan="2" class="TitreSousRubriqueColDroite">
-					<a href="javascript:toggleLayer('triviafieldmovie')" >[+] <?php _e('click to expand', 'imdb'); ?> [+]</a>
-				</td>
-			</tr>
-			<tr>
-				<td></td>
-
-				<td colspan="2" id="triviafieldmovie" class="TitreSousRubriqueColDroite">
+			<td class="TitreSousRubriqueColGauche">
+				<div class="TitreSousRubrique"><?php echo(sprintf(_n('Trivia', 'Trivias', count($trivia), 'imdb'))); ?>&nbsp;</div>
+			</td>
+			<td colspan="2" class="TitreSousRubriqueColDroite">
+				<div class="activatehidesection">[+] <?php _e('click to expand', 'imdb'); ?> [+]</div>
+				<div class="hidesection">
 			<?php		
 			for ($i=0;$i<$gc;++$i) {
-     			 if (empty($trivia[$i])) break;
-				 $ii = $i+"1";
-				 echo "<li><strong>($ii)</strong>".preg_replace("/http\:\/\/".str_replace(".","\.",$movie->imdbsite)."\/name\/nm(\d{7})\//","popup-imdb_person.php?mid=\\1",$trivia[$i])."</li>\n<br />";
+     				if (empty($trivia[$i])) break;
+					$ii = $i+"1";
+					echo "<li><strong>($ii)</strong>".preg_replace("/http\:\/\/".str_replace(".","\.",$movie->imdbsite)."\/name\/nm(\d{7})\//","popup-imdb_person.php?mid=\\1",$trivia[$i])."</li>\n";
 		    }; ?>
-			<br />
-            	</td>
-    	    </tr>	
-    	<?php } ?>
+				</div>
+            		</td>
+    	    	</tr>	
+    		<?php } ?>
 
 
                                                 <!-- Soundtrack -->
@@ -512,7 +510,6 @@ echo '/ >'; ?>
 
 </table>
 <br />
-<?php }; ?>
 
 </body>
 </html>

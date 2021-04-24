@@ -3,6 +3,7 @@ Changelog
 v3
 * [major] updated to imdbphp-6.5 library
 * [minor] removed Pilot search options, was useless anyway
+* [minor] made click to expand "content security policy" compliant 
 
 v2.3.2
 * [major] updated to imdbphp-2.3.2 library

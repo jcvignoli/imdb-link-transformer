@@ -1,1 +1,0 @@
-not all classes are of use. many of them (ie, imdb_charts.class.php, imdb_nowplaying.class.php) are included only in the purpose of personnal and specialized development.

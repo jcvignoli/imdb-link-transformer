@@ -16,33 +16,18 @@
 //---------------------------------------=[Vars]=----------------
 
 require_once (dirname(__FILE__).'/../../../../wp-blog-header.php');
+require_once (dirname(__FILE__).'/../bootstrap.php');
 require_once ("functions.php"); 
 
-if ($_GET["mid"]) {
+# Initialization of IMDBphp
+if (isset ($_GET["mid"])) {
+$pid = filter_var( $_GET["mid"], FILTER_SANITIZE_NUMBER_INT);
+$person = new Imdb\Person($pid);
 
-## choix de imdb ou de pilot :
-if ($imdb_admin_values['imdbsourceout']) 
-	$engine = 'pilot';
-
-switch($engine) {
-	case "pilot":
-	  require_once(dirname(__FILE__)."/../class/pilot_person.class.php");
-	  $person = new pilot_person ($_GET["mid"]);
-	  break;
-	default:
-	  require_once(dirname(__FILE__)."/../class/imdb_person.class.php");
-	  $person = new imdb_person ($_GET["mid"]);
-	  break;
-}
-
-
-
-  $pid = $_GET["mid"];
-  $person->setid ($pid);
 
 //--------------------------------------=[Layout]=---------------
 
-		require_once ('popup-header.php'); ?>
+require_once ('popup-header.php'); ?>
 
 
                                                 <!-- top page menu -->
@@ -111,7 +96,6 @@ echo '/ >'; ?>
 
                                                 <!-- under section  -->
 
-
 <table class="TableauSousRubrique">
 	<?php if (empty($_GET['info'])){      // display only when nothing is selected from the menu
 	//---------------------------------------------------------------------------start filmography part ?>
@@ -128,12 +112,9 @@ echo '/ >'; ?>
 					<div class="TitreSousRubrique"><?php echo $flname;?> filmo</div>
 				</td>
 			
-				<td colspan="2" class="TitreSousRubriqueColDroite"><a href="javascript:toggleLayer('<?php echo $var;?>filmofield');" >[+] <?php _e('click to expand', 'imdb'); ?> [+]</a></td>
-			</tr>
-			<tr>
-				<td></td>
-
-				<td colspan="2" id="<?php echo $var;?>filmofield" class="TitreSousRubriqueColDroite">
+				<td colspan="2" class="TitreSousRubriqueColDroite">
+					<div class="activatehidesection">[+] <?php _e('click to expand', 'imdb'); ?> [+]</div>
+					<div class="hidesection">
 			<?php
 				$ii = "0";
 				$tc = count($filmo);
@@ -153,7 +134,7 @@ echo '/ >'; ?>
 					if (empty($film["chid"])) { 
 						echo " as ".$film["chname"];
 					} else { 
-						echo " as <a href='http://".$person->imdbsite."/character/ch".$film["chid"]."/'>".$film["chname"]."</a>"; }
+						echo " as <a href='https://".$person->imdbsite."/character/ch".$film["chid"]."/'>".$film["chname"]."</a>"; }
 				}
 
 				echo "</li>\n\t\t";
@@ -161,7 +142,8 @@ echo '/ >'; ?>
 
 			  } //end for each filmo
 			} // endif filmo ?>
-		    	</td>
+		    			</div>
+		    		</td>
 	    	    	</tr>			
 		<?php } //endforeach
 		flush(); // send to user data already run through ?>
@@ -175,11 +157,9 @@ echo '/ >'; ?>
 					<td class="TitreSousRubriqueColGauche">
 						<div class="TitreSousRubrique"><?php _e('Soundtrack', 'imdb'); ?> filmo</div>
 					</td>		
-					<td colspan="2" class="TitreSousRubriqueColDroite"><a href="javascript:toggleLayer('soundtrackfield');" >[+] <?php _e('click to expand', 'imdb'); ?> [+]</a></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td colspan="2" id="soundtrackfield" class="TitreSousRubriqueColDroite">
+				<td colspan="2" class="TitreSousRubriqueColDroite">
+					<div class="activatehidesection">[+] <?php _e('click to expand', 'imdb'); ?> [+]</div>
+					<div class="hidesection">
 						<?php
 						for ($i=0;$i<count($soundtrack);++$i) {
 							$ii = $i+"1";
@@ -189,8 +169,9 @@ echo '/ >'; ?>
 								echo " (".$soundtrack[$i]["year"].")";
 							echo "</li>\n";
 						} ?>
-				    	</td>
-		    	    	</tr>	
+		    			</div>
+		    		</td>
+	    	    	</tr>
 
 	<?php		}
 
@@ -212,12 +193,9 @@ echo '/ >'; ?>
 				</div>
  			</td>
 			
-			<td colspan="2" class="TitreSousRubriqueColDroite"><a href="javascript:toggleLayer('biographicalfield');" >[+] <?php _e('click to expand', 'imdb'); ?> [+]</a></td>
-		</tr>
-		<tr>
-			<td></td>
-
-			<td colspan="2" id="biographicalfield" class="TitreSousRubriqueColDroite">
+				<td colspan="2" class="TitreSousRubriqueColDroite">
+					<div class="activatehidesection">[+] <?php _e('click to expand', 'imdb'); ?> [+]</div>
+					<div class="hidesection">
 			<?php
 				for ($i=0;$i<count($pm);++$i) {
 					$ii = $i+"1";
@@ -227,6 +205,7 @@ echo '/ >'; ?>
 						echo " (".$pm[$i]["year"].")";
 					echo "</li>\n";
 				} ?>
+				</div>
            		</td>
         	</tr>
 		<?php	} 
@@ -268,19 +247,17 @@ echo '/ >'; ?>
 				</div>
             </td>
 			
-			<td colspan="2" class="TitreSousRubriqueColDroite"><a href="javascript:toggleLayer('triviafield');" >[+] <?php _e('click to expand', 'imdb'); ?> [+]</a></td>
-		</tr>
-		<tr>
-			<td></td>
-
-			<td colspan="2" id="triviafield" class="TitreSousRubriqueColDroite">
+				<td colspan="2" class="TitreSousRubriqueColDroite">
+					<div class="activatehidesection">[+] <?php _e('click to expand', 'imdb'); ?> [+]</div>
+					<div class="hidesection">
 			            
  			<?php 	for ($i=0;$i<$tc;++$i) {
 					$ii = $i+"1";
 					echo "<li><strong>($ii)</strong> ".$trivia[$i]."</li>\n";
 				} ?>
-		    </td>
-        </tr>
+					</div>
+				</td>
+       			</tr>
 		<?php } 
 		flush(); // send to user data already run through ?>
 
@@ -293,12 +270,9 @@ echo '/ >'; ?>
                 <div class="TitreSousRubrique"><?php echo _e('Nicknames', 'imdb') ?></div>
             </td>
 			
-			<td colspan="2" class="TitreSousRubriqueColDroite"><a href="javascript:toggleLayer('nicknamesfield');" >[+] <?php _e('click to expand', 'imdb'); ?> [+]</a></td>			
-		</tr>
-		<tr>
-			<td></td>
-
-			<td colspan="2" id="nicknamesfield" class="TitreSousRubriqueColDroite">
+		<td colspan="2" class="TitreSousRubriqueColDroite">
+			<div class="activatehidesection">[+] <?php _e('click to expand', 'imdb'); ?> [+]</div>
+			<div class="hidesection">
 			<?php 
 			$txt = "";
 			$i = "1";
@@ -307,7 +281,8 @@ echo '/ >'; ?>
 				echo substr($txt,4)."</li>\n";
 				$i++;
   			} ?>
-            </td>
+			</div>
+            	</td>
         </tr>
 		<?php } ?>
 		
@@ -322,17 +297,15 @@ echo '/ >'; ?>
 				</div>
  			</td>
 			
-			<td colspan="2" class="TitreSousRubriqueColDroite"><a href="javascript:toggleLayer('quotesfield');" >[+] <?php _e('click to expand', 'imdb'); ?> [+]</a></td>
-		</tr>
-		<tr>
-			<td></td>
-
-			<td colspan="2" id="quotesfield" class="TitreSousRubriqueColDroite">
+		<td colspan="2" class="TitreSousRubriqueColDroite">
+			<div class="activatehidesection">[+] <?php _e('click to expand', 'imdb'); ?> [+]</div>
+			<div class="hidesection">
 			<?php 
 				for ($i=0;$i<$tc;++$i) {
 					$ii = $i+"1";
 					echo "<li><strong>($ii)</strong> ".$quotes[$i]."</li>\n";
 				} ?>
+		</div>
             </td>
         </tr>
 		<?php } 
@@ -349,17 +322,15 @@ echo '/ >'; ?>
 				</div>
  			</td>
 			
-			<td colspan="2" class="TitreSousRubriqueColDroite"><a href="javascript:toggleLayer('tradmarksfield');" >[+] <?php _e('click to expand', 'imdb'); ?> [+]</a></td>
-		</tr>
-		<tr>
-			<td></td>
-
-			<td colspan="2" id="tradmarksfield" class="TitreSousRubriqueColDroite">
+		<td colspan="2" class="TitreSousRubriqueColDroite">
+			<div class="activatehidesection">[+] <?php _e('click to expand', 'imdb'); ?> [+]</div>
+			<div class="hidesection">
 			<?php 
 				for ($i=0;$i<count($tm);++$i) {
 					$ii = $i+"1";
 					echo "<li><strong>($ii)</strong> ".$tm[$i]."</li>\n";
 				} ?>
+		</div>
             </td>
         </tr>
 		<?php } 
@@ -379,12 +350,9 @@ echo '/ >'; ?>
 					<div class="TitreSousRubrique"><?php echo $flname;?> filmo</div>
 				</td>
 			
-				<td colspan="2" class="TitreSousRubriqueColDroite"><a href="javascript:toggleLayer('selffilmofield');" >[+] <?php _e('click to expand', 'imdb'); ?> [+]</a></td>
-			</tr>
-			<tr>
-				<td></td>
-
-				<td colspan="2" id="selffilmofield" class="TitreSousRubriqueColDroite">
+		<td colspan="2" class="TitreSousRubriqueColDroite">
+			<div class="activatehidesection">[+] <?php _e('click to expand', 'imdb'); ?> [+]</div>
+			<div class="hidesection">
 			<?php
 				$ii = "0";
 				$tc = count($filmo);
@@ -403,6 +371,7 @@ echo '/ >'; ?>
 				$ii++;
 			  }
 			}?>
+					</div>
             			</td>
     	    		</tr>			
 			<?php }?>			
@@ -414,6 +383,7 @@ echo '/ >'; ?>
 </table>
 <br />
 
+<script src="<?php echo IMDBLTURLPATH; ?>js/hide-show_csp.js"></script>
 
 </body>
 </html>

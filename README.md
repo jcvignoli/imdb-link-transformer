@@ -1,23 +1,23 @@
 === IMDb link transformer ===
 Contributors: jcv
 Donate link: https://www.paypal.me/jcvignoli & https://en.tipeee.com/lost-highway
-Author URI: http://www.jcvignoli.com/blog
-Plugin URI: http://www.jcvignoli.com/blog/imdb-link-transformer-wordpress-plugin
-Version: 2.3.2
+Author URI: https://www.jcvignoli.com/blog
+Plugin URI: https://www.jcvignoli.com/blog/imdb-link-transformer-wordpress-plugin
+Version: 3
 Tags:  cinema, film, formatting, imdb, link, movie, plugin, review, tag, widget, moviepilot, taxonomy, popup
-Requires at least: 2.7
-Tested up to: 3.9
-Stable tag: 2.3.2
+Requires at least: 5.7
+Tested up to: 5.7.1
+Stable tag: 3
 
 IMDb link transformer adds to your movie review many useful information parsed from www.imdb.com. Cache, widget, admin options.
 
 == Description ==
 
-Visit [Official website](http://www.jcvignoli.com/blog/imdb-link-transformer-wordpress-plugin "Official website") to comment, get help, and so on.
+Visit [Official website](https://www.jcvignoli.com/blog/imdb-link-transformer-wordpress-plugin "Official website") to comment, get help, and so on.
 
 **IMDb changed its search method** Please prefer "imdbltid" method in your post/widget rather than "imdblt"
 
-**IMDb link transformer** aims to ease the movies information search process, for both writer and reader. All movies names which are tagged between < !--imdb-->nameMovie< !--/imdb--> are automatically turned into an url. This url can open a new window (a popup) containing many useful data related to the movie itself. IMDb link transformer **transforms all the words you tagged into links to an informative windows**. It means one can view the filmmaker, the casting or the goofs that [IMDb](http://www.imdb.com "Internet movie database") (or similar) website includes with one click; it can show either the director or the movie related data (biography, filmography, miscellaneous related to the director; casting, goofs, AKA titles, crew and many others related to the movie). 
+**IMDb link transformer** aims to ease the movies information search process, for both writer and reader. All movies names which are tagged between < !--imdb-->nameMovie< !--/imdb--> are automatically turned into an url. This url can open a new window (a popup) containing many useful data related to the movie itself. IMDb link transformer **transforms all the words you tagged into links to an informative windows**. It means one can view the filmmaker, the casting or the goofs that [IMDb](https://www.imdb.com "Internet movie database") (or similar) website includes with one click; it can show either the director or the movie related data (biography, filmography, miscellaneous related to the director; casting, goofs, AKA titles, crew and many others related to the movie). 
 
 This plugin also add **display buttons** in writing interfaces (both HTML and Visual).
 
@@ -31,7 +31,7 @@ In the same way, this plugin can display **many movie's related data inside a po
 
 = required =
 
-Php 5 is required.
+Php 7 is required.
 
 1. Unzip and put "imdb-link-transformer" folder into your plugin folder (usually wp-content/plugins/)
 2. Activate the plugin (using the settings tab from admin board)
@@ -47,13 +47,13 @@ There is three ways to use IMDb link transformer: popup link creator, widget and
 2. **Widget** can be activated, and used in a way where informations will be displayed inside it. Once the widget is activated, select closely what you want to display on your sidebar: options are available on 'imdb admin settings' tab. Also add "imdb-movie-widget" or "imdb-movie-widget-bymid" to your message's custom field; the value you add in will be the movie that is going to be displayed inside the widget. Check FAQs.
 3. The plugin can **show IMDb data inside a post**. When writing your post, put the movie name inside tags [imdblt][/imdblt] (which gives ie [imdblt]Fight club[/imdblt]) or better, using imdb movie's id instead of the name: [imdbltid]0137523[/imdbltid]
 4. You may also edit the "/* ---- imdbincluded */" part from imdb.css in order to customize layout according your taste.
-5. To activate Highslide (nice code displaying a integrated windows instead of popups) you have to download the library from [IMDBLt website](http://www.jcvignoli.com/blog/wp-content/files/wordpress-imdb-link-transformer-highslide.zip "IMDBLt website"). Once the file downloaded, put the folder "highslide" into the "js" one and check general options in order to activate it. Please note Highslide JS is licensed under a Creative Commons Attribution-NonCommercial 2.5 License, which means you need the author's permission to use Highslide JS on commercial websites.
+5. To activate Highslide (nice code displaying a integrated windows instead of popups) you have to download the library from [IMDBLt website](https://www.jcvignoli.com/blog/wp-content/files/wordpress-imdb-link-transformer-highslide.zip "IMDBLt website"). Once the file downloaded, put the folder "highslide" into the "js" one and check general options in order to activate it. Please note Highslide JS is licensed under a Creative Commons Attribution-NonCommercial 2.5 License, which means you need the author's permission to use Highslide JS on commercial websites.
 
 = Fine tuning: =
 
 1. The files inc/imdb-movie.inc.php, popup.php, imdb_movie.php and imdb_person.php could be modified to match your theme; check also /css/imdb.css if you want to customize default theme.
-2. A (front) page can be created to include all you movies' related messages. Have a look there : [personal critics page](http://www.jcvignoli.com/blog/critiques "Lost highway critics page").
-3. If your language is not included... translate .po file (inside /lang directory) to yours! And [send it to me](http://www.jcvignoli.com/blog/imdb-link-transformer-wordpress-plugin "IMDb link transformer home"), of course, thus many people would enjoy IMDb in a new language.
+2. A (front) page can be created to include all you movies' related messages. Have a look there : [personal critics page](https://www.jcvignoli.com/blog/critiques "Lost highway critics page").
+3. If your language is not included... translate .po file (inside /lang directory) to yours! And [send it to me](https://www.jcvignoli.com/blog/imdb-link-transformer-wordpress-plugin "IMDb link transformer home"), of course, thus many people would enjoy IMDb in a new language.
 
 = Advanced =
 
@@ -87,7 +87,7 @@ The ways to use IMDb link transformer are broadly explained in **How to** page f
 
 = Can I suggest a feature/report a bug regarding the plugin? =
 
-Of course, visit the [IMDb link transformer home](http://www.jcvignoli.com/blog/imdb-link-transformer-wordpress-plugin "IMDb link transformer home"). Does not hesitate to share your comments and desires; the plugin does more or less what I need. Since then, only users can still improve it.
+Of course, visit the [IMDb link transformer home](https://www.jcvignoli.com/blog/imdb-link-transformer-wordpress-plugin "IMDb link transformer home"). Does not hesitate to share your comments and desires; the plugin does more or less what I need. Since then, only users can still improve it.
 
 = I don't want to have links to a popup window! =
 
@@ -109,32 +109,32 @@ I'm not sure about the cause. It could happen that you get banned from IMDb webs
 
 * When the imdb widget is put under another widget which display a list (ie, "recent posts" plugin), the widget won't display what it should. Actually, it won't display anything. **Workaround:** put the imdb widget one level above the widget calling a list.
 
-* If you activate both "Display highslide popup" option and in [Next-Gen Gallery's](http://wordpress.org/plugins/nextgen-gallery/ "Next-Gen Gallery home") highslide effect option, NGG picture display will be broken. **Workaround:** Do not use "Display highslide popup" option or use another effect option for NGG.
+* If you activate both "Display highslide popup" option and in [Next-Gen Gallery's](https://wordpress.org/plugins/nextgen-gallery/ "Next-Gen Gallery home") highslide effect option, NGG picture display will be broken. **Workaround:** Do not use "Display highslide popup" option or use another effect option for NGG.
 
 == Contacts ==
 
-Please visit [contact page](http://www.jcvignoli.com/blog/about)
+Please visit [contact page](https://www.jcvignoli.com/blog/about)
 
 == Credits ==
 
-* Classes come from [imdbphp project](http://www.izzysoft.de "imdbphp project homepage"). The entire project is actually based on the Izzy's tremendous work.
-* New popup design thanks to Jeremie Boniface
+* Classes come from [imdbphp project](https://github.com/tboothman/imdbphp/ "imdbphp project git homepage"). 
+* Popup design thanks to Jeremie Boniface
 * Brazilian translation thanks to Murillo Ferrari 
 * Spanish translation thanks to Andres Cabrera
 * Bulgarian translation thanks to Peter
-* Romanian translation thanks to [Web Geek Sciense](http://webhostinggeeks.com "Web Hosting Geeks")
-* Croatian translation thanks to [Borisa Djuraskovic](http://www.webhostinghub.com/ "Hub webhosting")
-* Ukranian translation thanks to Michael Yunat [http://getvoip.com](http://getvoip.com "Getvoip com")
-* Several icons made by [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/ "Yusuke Kamiyamane homepage")
+* Romanian translation thanks to [Web Geek Sciense](https://webhostinggeeks.com "Web Hosting Geeks")
+* Croatian translation thanks to [Borisa Djuraskovic](https://www.webhostinghub.com/ "Hub webhosting")
+* Ukranian translation thanks to Michael Yunat [https://getvoip.com](https://getvoip.com "Getvoip com")
+* Several icons made by [Yusuke Kamiyamane](https://p.yusukekamiyamane.com/ "Yusuke Kamiyamane homepage")
 
 == Changelog == 
 
-Have a look to the [changelog](http://svn.wp-plugins.org/imdb-link-transformer/trunk/changelog.txt "latest changelog") to discover what amazing functions have been lately added.
+Have a look to the [changelog](https://svn.wp-plugins.org/imdb-link-transformer/trunk/changelog.txt "latest changelog") to discover what amazing functions have been lately added.
 
 But broadly speaking:
 
 = 2.1.3 =
-Changed the way to use highslide js (on Wordpress request, piece of code not GPL compliant); it is mandatory now to download the library from [IMDBLt website](http://www.jcvignoli.com/blog/wp-content/files/wordpress-imdb-link-transformer-highslide.zip "IMDBLt website") in order to get this damn cool window. Once the file downloaded, put the folder "highslide" into the "js" one and check general options in order to activate it
+Changed the way to use highslide js (on Wordpress request, piece of code not GPL compliant); it is mandatory now to download the library from [IMDBLt website](https://www.jcvignoli.com/blog/wp-content/files/wordpress-imdb-link-transformer-highslide.zip "IMDBLt website") in order to get this damn cool window. Once the file downloaded, put the folder "highslide" into the "js" one and check general options in order to activate it
 
 = 2.0.8 =
 
