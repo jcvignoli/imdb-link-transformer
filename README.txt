@@ -3,11 +3,11 @@ Contributors: jcv
 Donate link: https://www.paypal.me/jcvignoli & https://en.tipeee.com/lost-highway
 Author URI: https://www.jcvignoli.com/blog
 Plugin URI: https://www.jcvignoli.com/blog/imdb-link-transformer-wordpress-plugin
-Version: 3
+Version: 3.0
 Tags:  cinema, film, formatting, imdb, link, movie, plugin, review, tag, widget, moviepilot, taxonomy, popup
 Requires at least: 5.7
 Tested up to: 5.7.1
-Stable tag: 3
+Stable tag: 3.0
 
 IMDb link transformer adds to your movie review many useful information parsed from www.imdb.com. Cache, widget, admin options.
 
@@ -132,6 +132,9 @@ Please visit [contact page](https://www.jcvignoli.com/blog/about)
 Have a look to the [changelog](https://svn.wp-plugins.org/imdb-link-transformer/trunk/changelog.txt "latest changelog") to discover what amazing functions have been lately added.
 
 But broadly speaking:
+
+= 3.0 =
+Major update. Too many changes to be listed. Check the changelog.txt.
 
 = 2.1.3 =
 Changed the way to use highslide js (on Wordpress request, piece of code not GPL compliant); it is mandatory now to download the library from [IMDBLt website](https://www.jcvignoli.com/blog/wp-content/files/wordpress-imdb-link-transformer-highslide.zip "IMDBLt website") in order to get this damn cool window. Once the file downloaded, put the folder "highslide" into the "js" one and check general options in order to activate it
