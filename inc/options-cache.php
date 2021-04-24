@@ -16,12 +16,27 @@
 
 
 // included files
+require_once (dirname(__FILE__).'/../bootstrap.php');
 require_once ('functions.php');
+
+use \Imdb\Title;
+use \Imdb\Person;
+use \Imdb\Config;
 
 // get files to be able to make a search movie
 define('IMDBPHP_CONFIG',dirname(__FILE__).'/../config.php');
-require_once (dirname(__FILE__).'/../bootstrap.php');
- 
+
+global $imdb_admin_values, $imdb_widget_values, $imdb_cache_values;
+
+$config = new Config();
+$config->cachedir = $imdb_cache_values['imdbcachedir'] ?? NULL;
+$config->photodir = $imdb_cache_values['imdbphotodir'] ?? NULL;
+$config->imdb_img_url = $imdb_cache_values['imdbimgdir'] ?? NULL;
+$config->cache_expire = $imdb_cache_values['imdbcacheexpire'] ?? NULL;
+$config->photoroot = $imdb_cache_values['imdbphotoroot'] ?? NULL;
+$config->storecache = $imdb_cache_values['imdbstorecache'] ?? NULL;
+$config->usecache = $imdb_cache_values['imdbusecache'] ?? NULL;
+
 ##################################### delete a specific file
 
 if (($_GET['dothis'] == 'delete') && ($_GET['type'])) {
@@ -159,13 +174,12 @@ if (($_GET['dothis'] == 'refresh') && ($_GET['type'])) {
 		}
 
 		// get again the person
-		if ($engine=="pilot") $person = new pilot_person ($objpiple);	// depending of the previous $engine variable
-			      		else $person = new imdb_person ($objpiple);		 // choose between pilot & imdb class
+		$person = new Imdb\Person($objpiple);		 // choose between pilot & imdb class
 
-		$person->setid ($_GET['where']); // set object search
+		//$person->setid ($_GET['where']); // set object search
 		$name = $person->name(); // search title related to movie id
 		$bio = $person->bio(); 
-		$photo_url = $person->photo_localurl();
+		$photo_url = $person->photo();
 	}
 
 
@@ -236,7 +250,7 @@ background: url(highslide/graphics/resize.gif);
 					<?php _e('Cache directory (absolute path)', 'imdb'); ?>
 					<br />
 					<span style="font-size:smaller">
-					<?php 						// display cache folder size
+					<?php 	// display cache folder size
 					if (!isEmptyDir($imdbOptionsc['imdbcachedir'])) {
 						foreach (glob($imdbOptionsc['imdbcachedir']."*") as $filename) {
 							$filenamesize1 += filesize($filename);
@@ -429,16 +443,6 @@ background: url(highslide/graphics/resize.gif);
 			</div>
 		</form>
 
-
-
-
-
-
-
-
-
-
-
 <?php	}  // end cache options
 		if ($_GET['cacheoption'] == "manage")  { 	////////////////////////////////////////////// Cache management ?>
 
@@ -455,10 +459,9 @@ background: url(highslide/graphics/resize.gif);
 						<td colspan="3" class="titresection"><?php _e('Cache management', 'imdb'); ?></td>
 					</tr>
 		<?php	if (file_exists($imdbOptionsc['imdbcachedir']) && ($imdbOptionsc['imdbstorecache'])) { // check if folder exists & store cache option is selected
-				if ($imdbOptionsc['imdbcachedetails'] == "1") { // imdbcachedetails options is selected ?>
+				if ($imdbOptionsc['imdbcachedetails'] == "1") { // imdbcachedetails options is selected 
 
-
-		<?php //------------------------------------------------------------------ =[movies management]=- ?>
+			 //------------------------------------------------------------------ =[movies management]=- ?>
 		<tr>
 			<td>	
 				<div>::<?php _e('Movie\'s detailed cache', 'imdb'); ?>::</div>
@@ -470,48 +473,51 @@ background: url(highslide/graphics/resize.gif);
 				<br />
 				</div>
 				<table style="margin-left:auto;margin-right:auto;" width="90%"><tr>
-				<?php
-				if(!$dh = @opendir($imdbOptionsc['imdbcachedir'])){return;}
+<?php
+if (is_dir($imdb_cache_values['imdbcachedir'])) {
+  $files = glob($imdb_cache_values['imdbcachedir'] . '{title.tt*,name.nm*}', GLOB_BRACE);
+  foreach ($files as $file) {
+    if (preg_match('!^title\.tt(\d{7,8})$!i', basename($file), $match)) {
+      $results[] = new Title($match[1]);
+    }
+    if (preg_match('!^name\.nm(\d{7,8})$!i', basename($file), $match)) {
+      $results[] = new Person($match[1]);
+    }
+  }
+}
 
-				while (false !== ($obj = readdir($dh))) {
-					if($obj == '.' || $obj == '..' || $obj == 'images') {continue;} //exclude these files
-					if ( (substr( $obj, -5 ) != "Title" ) && (substr( $obj, -11 ) != "Title.pilot" ) ) {continue;} // keep only Title files
-				$filepath = $imdbOptionsc['imdbcachedir'].$obj;
-				$obj = substr($obj, 0, 7); // get correct id
+if (!empty($results)){
+	foreach ($results as $res){
+		if (get_class($res) === 'Imdb\Title') {
+		$title = $res->title(); // search title related to movie id
+		$obj = $res->imdbid();
+			if ($imdbOptionsc['imdbcachedetailsshort'] == 1)  { // display only cache movies' names, quicker loading
+				$data[] = '<input type="checkbox" id="imdb_cachedeletefor_'.$title.'" name="imdb_cachedeletefor[]" value="'.$obj.'" /><label for="imdb_cachedeletefor[]">'.$title.'</label>'; // send input and results into array
+				flush();
+			} else { // display every cache movie details, longer loading
 
-				if ($engine=="pilot") $movie = new pilot ($obj); // depending of the previous $engine variable
-			      		else $movie = new imdb ($obj);		 // choose between pilot & imdb class
+			$moviepicturelink = (($photo_url = $res->photo_localurl() ) != FALSE) ? 'src="'.$imdb_cache_values['imdbphotoroot'].$obj.'.jpg" alt="'.$title.'"' : 'src="'.IMDBLTURLPATH.'pics/no_pics.gif" alt="'.__('no picture', 'imdb').'"'; // get either local picture or if no local picture exists, display the default one
 
-				$movie->setid ($obj); // set object search
-				$title = $movie->title(); // search title related to movie id
+			$data[] = '	<td>
+						<img id="pic_'.$title.'" style="float:left;padding-right:5px;" '.$moviepicturelink.' width="40px">
 
-				if ($imdbOptionsc['imdbcachedetailsshort'] == 1)  { // display only cache movies' names, quicker loading
+						<input type="checkbox" id="imdb_cachedeletefor_'.$title.'" name="imdb_cachedeletefor[]" value="'.$obj.'" /><label for="imdb_cachedeletefor[]" style="font-weight:bold">'.$title.'</label> <br />'. __('last updated on ', 'imdb').date ("j M Y H:i:s", filemtime($filepath)).' 
 
-					$data[] = '<input type="checkbox" id="imdb_cachedeletefor_'.$title.'" name="imdb_cachedeletefor[]" value="'.$obj.'" /><label for="imdb_cachedeletefor[]">'.$title.'</label>'; // send input and results into array
-					flush();
+						<div id="refresh_edit_'.$title.'" class="row-actions" style="float:right;">
+							<span class="edit"><a href="?page=imdblt_options&subsection=cache&dothis=refresh&where='.$obj.'&type=movie" onclick="return hs.htmlExpand(this, { wrapperClassName: \'no-footer no-move\', objectType: \'iframe\', width: 30, objectWidth: 20, objectHeight: 1, headingEval: \'this.a.innerHTML\', headingText: \'Cache for this movie successfully refreshed! Please close.\', wrapperClassName: \'titlebar\' } )" title="Refresh cache for *'.$title.'*">'.__("refresh", "imdb").'</a></span>
 
-					} else { // display every cache movie details, longer loading
-
-				$moviepicturelink = (($photo_url = $movie->photo_localurl() ) != FALSE) ? 'src="'.$imdbOptionsc['imdbphotoroot'].$obj.'.jpg" alt="'.$title.'"' : 'src="'.IMDBLTURLPATH.'pics/no_pics.gif" alt="'.__('no picture', 'imdb').'"'; // get either local picture or if no local picture exists, display the default one
-				$data[] = '	<td>
-							<img id="pic_'.$title.'" style="float:left;padding-right:5px;" '.$moviepicturelink.' width="40px">
-
-							<input type="checkbox" id="imdb_cachedeletefor_'.$title.'" name="imdb_cachedeletefor[]" value="'.$obj.'" /><label for="imdb_cachedeletefor[]" style="font-weight:bold">'.$title.'</label> <br />'. __('last updated on ', 'imdb').date ("j M Y H:i:s", filemtime($filepath)).' 
-
-							<div id="refresh_edit_'.$title.'" class="row-actions" style="float:right;">
-								<span class="edit"><a href="?page=imdblt_options&subsection=cache&dothis=refresh&where='.$obj.'&type=movie" onclick="return hs.htmlExpand(this, { wrapperClassName: \'no-footer no-move\', objectType: \'iframe\', width: 30, objectWidth: 20, objectHeight: 1, headingEval: \'this.a.innerHTML\', headingText: \'Cache for this movie successfully refreshed! Please close.\', wrapperClassName: \'titlebar\' } )" title="Refresh cache for *'.$title.'*">'.__("refresh", "imdb").'</a></span>
-
-								<span class="delete"><a href="?page=imdblt_options&subsection=cache&dothis=delete&where='.$obj.'&type=movie" 
+							<span class="delete"><a href="?page=imdblt_options&subsection=cache&dothis=delete&where='.$obj.'&type=movie" 
 	onclick=\'if ( confirm( "You are about to delete *'.$title.'* from cache. Click Cancel to stop or OK to continue." ) ) { return true;}return false;\' title="Delete cache for *'.$title.'*">'.__("delete", "imdb").'</a></span>
-							</div>
-						</td>'; // send input and results into array
+						</div>
+					</td>'; // send input and results into array
 
-					flush();
+			flush();
 
-					} //end quick/long loading $imdbOptionsc['imdbcachedetailsshort']
-				} // end while
+			} //end quick/long loading $imdbOptionsc['imdbcachedetailsshort']
 
-				closedir($dh);
+		}
+	} 
+}
 
 				if (empty($data)){
 					echo '<div style="font-weight:bold;color:red;text-align:center;">'.__('No file found in cache folder.','imdb').'</div>';
@@ -526,9 +532,7 @@ background: url(highslide/graphics/resize.gif);
 						$nbfilm++;
 					}
 				}
-
-				
-				?>
+?>
 				</tr></table>
 				<br />
 					<div align="center">
@@ -560,30 +564,16 @@ background: url(highslide/graphics/resize.gif);
 				<br /><br />
 				<table style="margin-left:auto;margin-right:auto;" width="90%"><tr>
 				<?php
-				if(!$di = @opendir($imdbOptionsc['imdbcachedir'])){return;}
-				$datapeople="";
-
-				while (false !== ($objpiple = readdir($di))) {
-					if($objpiple == '.' || $objpiple == '..' || $objpiple == 'images') {continue;} //exclude these files
-					if ( (substr( $objpiple, -4 ) != "Name" ) && (substr( $objpiple, -10 ) != "Name.pilot" ) ) {continue;} // keep only Name files
-				$filepath = $imdbOptionsc['imdbcachedir'].$objpiple;
-				$objpiple = substr($objpiple, 0, 7); // get correct id
-
-				if ($engine=="pilot") $person = new pilot_person ($objpiple);	// depending of the previous $engine variable
-			      		else $person = new imdb_person ($objpiple);		 // choose between pilot & imdb class
-
-				$person->setid ($objpiple); // set object search
-				$name = $person->name(); // search title related to movie id
-
-					if ($imdbOptionsc['imdbcachedetailsshort'] == 1)  { // display only cache peoples' names, quicker loading
-
-						$datapeople[] = '<input type="checkbox" id="imdb_cachedeletefor_people_'.$name.'" name="imdb_cachedeletefor_people[]" value="'.$objpiple.'" /><label for="imdb_cachedeletefor_people[]">'.$name.'</label>'; // send input and results into array
-
-					flush();
-					} else { // display every cache people details, longer loading
-
-
-				$picturelink = (($photo_url = $person->photo_localurl() ) != FALSE) ? 'src="'.$imdbOptionsc['imdbphotoroot']."nm".$objpiple.'.jpg" alt="'.$name.'"' : 'src="'.IMDBLTURLPATH.'pics/no_pics.gif" alt="'.__('no picture', 'imdb').'"'; // get either local picture or if no local picture exists, display the default one
+if (!empty($results)){
+	foreach ($results as $res){
+		if (get_class($res) === 'Imdb\Person') {
+			$name = $res->name(); // search title related to movie id
+			$objpiple = $res->imdbid();
+			if ($imdbOptionsc['imdbcachedetailsshort'] == 1)  { // display only cache peoples' names, quicker loading
+				$datapeople[] = '<input type="checkbox" id="imdb_cachedeletefor_people_'.$name.'" name="imdb_cachedeletefor_people[]" value="'.$objpiple.'" /><label for="imdb_cachedeletefor_people[]">'.$name.'</label>'; // send input and results into array
+				flush();
+			} else { // display every cache people details, longer loading
+				$picturelink = (($photo_url = $res->photo_localurl() ) != FALSE) ? 'src="'.$imdb_cache_values['imdbphotoroot']."nm".$objpiple.'.jpg" alt="'.$name.'"' : 'src="'.IMDBLTURLPATH.'pics/no_pics.gif" alt="'.__('no picture', 'imdb').'"'; // get either local picture or if no local picture exists, display the default one
 				$datapeople[] = '	
 						<td>
 							<img id="pic_'.$name.'" style="float:left;padding-right:5px;" '.$picturelink.' width="40px" alt="no pic">
@@ -597,10 +587,11 @@ background: url(highslide/graphics/resize.gif);
 						</td>'; // send input and results into array
 
 				flush();
-					} //end quick/long loading $imdbOptionsc['imdbcachedetailsshort']
+			} //end quick/long loading $imdbOptionsc['imdbcachedetailsshort']
 
-				} // end while
-				closedir($di);
+		}
+	} 
+}
 
 				if (empty($datapeople)){
 					echo '<div style="font-weight:bold;color:red;text-align:center;">'.__('No file found in cache folder.','imdb').'</div>';

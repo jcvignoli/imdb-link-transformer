@@ -19,10 +19,21 @@ require_once (dirname(__FILE__).'/../../../../wp-blog-header.php');
 require_once (dirname(__FILE__).'/../bootstrap.php');
 require_once ("functions.php"); 
 
+use \Imdb\Config;
+
+//---------------------------------------=[Vars]=----------------
+global $imdb_admin_values, $imdb_widget_values, $imdb_cache_values;
+
 # Initialization of IMDBphp
+$config = new Config();
+$config->cachedir = $imdb_cache_values['imdbcachedir'] ?? NULL;
+$config->photodir = $imdb_cache_values['imdbphotodir'] ?? NULL;
+$config->imdb_img_url = $imdb_cache_values['imdbimgdir'] ?? NULL;
+$config->photoroot = $imdb_cache_values['imdbphotoroot'] ?? NULL;
+
 if (isset ($_GET["mid"])) {
 $pid = filter_var( $_GET["mid"], FILTER_SANITIZE_NUMBER_INT);
-$person = new Imdb\Person($pid);
+$person = new Imdb\Person($pid, $config);
 
 
 //--------------------------------------=[Layout]=---------------

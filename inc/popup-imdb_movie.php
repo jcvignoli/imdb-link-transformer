@@ -17,16 +17,24 @@ require_once (dirname(__FILE__).'/../../../../wp-blog-header.php');
 require_once (dirname(__FILE__).'/../bootstrap.php');
 require_once ("functions.php"); 
 
-//---------------------------------------=[Vars]=----------------
+use \Imdb\Title;
+use \Imdb\Config;
 
-global $imdb_admin_values, $imdb_widget_values;
+//---------------------------------------=[Vars]=----------------
+global $imdb_admin_values, $imdb_widget_values, $imdb_cache_values;
 
 # Initialization of IMDBphp
+$config = new Config();
+$config->cachedir = $imdb_cache_values['imdbcachedir'] ?? NULL;
+$config->photodir = $imdb_cache_values['imdbphotodir'] ?? NULL;
+$config->imdb_img_url = $imdb_cache_values['imdbimgdir'] ?? NULL;
+$config->photoroot = $imdb_cache_values['imdbphotoroot'] ?? NULL;
+
 if (isset ($_GET["mid"])) {
 $movieid = filter_var( $_GET["mid"], FILTER_SANITIZE_NUMBER_INT);
-$movie = new Imdb\Title($movieid);
+$movie = new Imdb\Title($movieid, $config);
 } else {
-$search = new Imdb\TitleSearch();
+$search = new Imdb\TitleSearch($config);
 	if ($_GET["searchtype"]=="episode") {
 		$movie = $search->search ($_GET["film"], array(\Imdb\TitleSearch::TV_SERIES))[0];
 	} else {
@@ -74,7 +82,7 @@ $search = new Imdb\TitleSearch();
 		## The width value is taken from plugin settings, and added if the "thumbnail" option is unactivated
 echo '<img class="imdbincluded-picture" src="';
 
-	if (($photo_url = $movie->photo_localurl() ) != FALSE){ 
+	if ($photo_url = $movie->photo_localurl() ) { 
 		echo $photo_url.'" alt="'.$movie->title().'" '; 
 	} else { 
 		echo $imdb_admin_values[imdbplugindirectory].'pics/no_pics.gif" alt="'.__('no picture', 'imdb').'" '; 
