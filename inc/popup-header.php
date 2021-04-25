@@ -43,11 +43,11 @@ if (empty ($_SERVER[HTTP_REFERER]) ) { // does not allow to call popup without a
 		<title><?php bloginfo('name'); ?><?php echo " - ".__('Search', 'imdb')." \"".$_GET["film"]."\""; ?></title>
 	<?php } ?>
 
-	<meta http-equiv="Content-Type" content="text/html; charset=<?php bloginfo('charset'); ?>" />
 	<meta name="keywords" lang="en" content="imdb, internet, movie, database, cinema, movie, wordpress, plugin, <?php echo $_GET["film"]; ?><?php if (isset($person)) echo ", ".$person->name(); ?>" />
 	<meta name="description" lang="en" content="This page include the data related to <?php echo $_GET["film"]; ?>" />
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php bloginfo('charset'); ?>" />	
-	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 	<link rel="stylesheet" type="text/css" href="<?php echo IMDBLTURLPATH; ?>css/imdb.css">
 	<link rel="shortcut icon" href="<?php echo IMDBLTURLPATH; ?>pics/favico.ico" />
 

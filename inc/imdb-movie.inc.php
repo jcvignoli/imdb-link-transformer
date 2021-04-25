@@ -19,23 +19,27 @@ require_once (dirname(__FILE__).'/../../../../wp-blog-header.php');
 require_once (dirname(__FILE__).'/../bootstrap.php');
 require_once ("functions.php"); 
 
+use \Imdb\Title;
+use \Imdb\Config;
+
 //---------------------------------------=[Vars]=----------------
 
-global $imdb_admin_values, $imdb_widget_values;
+global $imdb_admin_values, $imdb_widget_values, $imdb_cache_values;
 
 $count_me_siffer= 0; // value to allow movie total count (called from every 'taxonomised' part)
 
 # Initialization of IMDBphp
+$config = new Config();
+$config->cachedir = $imdb_cache_values['imdbcachedir'] ?? NULL;
+$config->photodir = $imdb_cache_values['imdbphotodir'] ?? NULL;
+$config->imdb_img_url = $imdb_cache_values['imdbimgdir'] ?? NULL;
+$config->photoroot = $imdb_cache_values['imdbphotoroot'] ?? NULL;
+
 if (isset ($_GET["mid"])) {
 $movieid = filter_var( $_GET["mid"], FILTER_SANITIZE_NUMBER_INT);
-$movie = new Imdb\Title($movieid);
+$movie = new Imdb\Title($movieid, $config);
 } else {
-$search = new Imdb\TitleSearch();
-	if ($_GET["searchtype"]=="episode") {
-		$movie = $search->search ($_GET["film"], array(\Imdb\TitleSearch::TV_SERIES))[0];
-	} else {
-		$movie = $search->search ($_GET["film"], array(\Imdb\TitleSearch::MOVIE))[0];
-	}
+$search = new Imdb\TitleSearch($config);
 }
 
 $imovie = 0;
@@ -51,29 +55,28 @@ while ($imovie < count($imdballmeta)) {
 
 	} else {
 
-	$search->setsearchname($film);
-	$results = $search->results ();
+	
+	if ($_GET["searchtype"]=="episode") {
+		$results = $search->search ($film, array(\Imdb\TitleSearch::TV_SERIES));
+	} else {
+		$results = $search->search ($film, array(\Imdb\TitleSearch::MOVIE));
+	}
 
 	// no movie ID has been specified
 		if (! empty($results[0])) { 	// when imdb find everytime a result, which is not the case for moviepilot
-			if ($engine=="pilot") { 
 				$midPremierResultat = $results[0]->imdbid(); // search for the movie id
-
-			} else { 
-				$midPremierResultat = $results[0]->imdbid(); // search for the movie id
-			}
 		} else {			// escape if no result found, otherwise imdblt fails
 			imdblt_noresults_text();
 		break;
 		}
 	}	
 
-	if ($engine=="pilot") $movie = new pilot ($midPremierResultat);
-      		else $movie = new imdb ($midPremierResultat);
+	//$movie = new imdb ($midPremierResultat);
+$movie = new Imdb\Title($midPremierResultat, $config);
 
 	if (isset ($midPremierResultat) ) {
 		$movieid = $midPremierResultat;
-		$movie->setid ($movieid);
+		
 
 		$imovie++;
 
