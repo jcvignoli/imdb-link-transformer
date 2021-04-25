@@ -1,2 +1,4 @@
 .wordpress-org
 .todo
+.git
+.gitignore
