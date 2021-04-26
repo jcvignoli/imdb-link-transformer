@@ -2,3 +2,4 @@ svn
 composer.lock
 .todo
 .distignore
+vendor
