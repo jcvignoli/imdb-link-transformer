@@ -39,6 +39,9 @@ $config->usecache = $imdb_cache_values['imdbusecache'] ?? NULL;
 
 ##################################### delete a specific file
 
+// TODO : include the following process to refresh/delete when using the multiple choice form
+//if (isset($_POST['imdb_cachedeletefor_people']))
+
 if (($_GET['dothis'] == 'delete') && ($_GET['type'])) {
 
 	// prevent drama
@@ -588,7 +591,6 @@ if (!empty($results)){
 			$name = $res->name(); // search title related to movie id
 			$objpiple = $res->imdbid();
 			$filepath = $imdbOptionsc['imdbcachedir']."name.nm".substr($objpiple, 0, 7);
-print_r($filepath);
 			if ($imdbOptionsc['imdbcachedetailsshort'] == 1)  { // display only cache peoples' names, quicker loading
 				$datapeople[] = '<input type="checkbox" id="imdb_cachedeletefor_people_'.$name.'" name="imdb_cachedeletefor_people[]" value="'.$objpiple.'" /><label for="imdb_cachedeletefor_people[]">'.$name.'</label>'; // send input and results into array
 				flush();
