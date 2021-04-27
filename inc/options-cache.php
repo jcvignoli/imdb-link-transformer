@@ -272,7 +272,7 @@ background: url(highslide/graphics/resize.gif);
 					<br />
 					<span style="font-size:smaller">
 					<?php 	// display cache folder size
-					if (!isEmptyDir($imdbOptionsc['imdbcachedir'])) {
+					if (!imdblt_isEmptyDir($imdbOptionsc['imdbcachedir'])) { // from functions.php
 						foreach (glob($imdbOptionsc['imdbcachedir']."*") as $filename) {
 							$filenamesize1 += filesize($filename);
 						}
@@ -313,7 +313,7 @@ background: url(highslide/graphics/resize.gif);
 					<br />
 					<span style="font-size:smaller">
 					<?php						// display cache folder size
-					if (!isEmptyDir($imdbOptionsc['imdbphotodir'], "2")) { // isEmptyDir with "2"
+					if (!imdblt_isEmptyDir($imdbOptionsc['imdbphotodir'], "2")) { // from functions.php
 						foreach (glob($imdbOptionsc['imdbphotodir']."*") as $filename) {
 							$filenamesize2 += filesize($filename);
 						}

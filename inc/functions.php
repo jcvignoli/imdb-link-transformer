@@ -6,7 +6,7 @@
  * @param string $dir Directory name
  * credits to http://ch.php.net/manual/en/function.unlink.php#87045
  */
-function unlinkRecursive($dir){
+function imdblt_unlinkRecursive($dir){
     if(!$dh = @opendir($dir)){
         return;
     }
@@ -33,7 +33,7 @@ function unlinkRecursive($dir){
  * credits to http://ch2.php.net/manual/en/function.is-dir.php#85961 & myself
  */
 
-function isEmptyDir($dir, $filesbydefault= "3"){	
+function imdblt_isEmptyDir($dir, $filesbydefault= "3"){	
 	return (($files = @scandir($dir)) && count($files) <= $filesbydefault);
 } 
 
