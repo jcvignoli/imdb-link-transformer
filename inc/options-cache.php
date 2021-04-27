@@ -46,21 +46,26 @@ if (($_GET['dothis'] == 'delete') && ($_GET['type'])) {
 		exit( __("Cannot work this way.", "imdb") );
 
 		if (($_GET['type'])== 'movie') {
+			$wheresanitized = filter_var( $_GET["where"], FILTER_SANITIZE_NUMBER_INT) ?? NULL;
+			
 			// things to delete
-			$filetodeletetitle=$imdb_cache_values['imdbcachedir'].$_GET['where'].".Title";
-			$filetodeletetaglines=$imdb_cache_values['imdbcachedir'].$_GET['where'].".Taglines";
-			$filetodeletesoundtrack=$imdb_cache_values['imdbcachedir'].$_GET['where'].".Soundtrack";
-			$filetodeletereleaseinfo=$imdb_cache_values['imdbcachedir'].$_GET['where'].".ReleaseInfo";
-			$filetodeletetitlefoot=$imdb_cache_values['imdbcachedir'].$_GET['where'].".TitleFoot";
-			$filetodeletegoofs=$imdb_cache_values['imdbcachedir'].$_GET['where'].".Goofs";
-			$filetodeletecredits=$imdb_cache_values['imdbcachedir'].$_GET['where'].".Credits";
-			$filetodeletemovieconnections=$imdb_cache_values['imdbcachedir'].$_GET['where'].".MovieConnections";
-			$filetodeleteofficialsites=$imdb_cache_values['imdbcachedir'].$_GET['where'].".OfficialSites";
-			$filetodeleteplot=$imdb_cache_values['imdbcachedir'].$_GET['where'].".Plot";
-			$filetodeletequotes=$imdb_cache_values['imdbcachedir'].$_GET['where'].".Quotes";
-			$filetodeletetrailers=$imdb_cache_values['imdbcachedir'].$_GET['where'].".Trailers";
-			$filetodeletepics=$imdb_cache_values['imdbphotodir'].$_GET['where']."_big.jpg";
-			$filetodeletepics2=$imdb_cache_values['imdbphotodir'].$_GET['where'].".jpg";
+			$filetodeletetitle=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized;
+			$filetodeletetaglines=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".taglines";
+			$filetodeletesoundtrack=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".soundtrack";
+			$filetodeletereleaseinfo=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".releaseinfo";
+			$filetodeletefullcredits=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".fullcredits";
+			$filetodeleteplotsummary=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".plotsummary";
+			$filetodeletecompanycredits=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".companycredits";
+			$filetodeletemovieconnections=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".MovieConnections";
+			$filetodeleteexternalsites=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".externalsites";
+			$filetodeleteplot=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized."plot";
+			$filetodeletequotes=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".quotes";
+			$filetodeletetrivia=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".trivia";
+			$filetodeletevideogallery=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".videogallery.content_type-trailer";
+			$filetodeletetechnical=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".technical";
+			$filetodeletetriviatab=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".trivia.tab=gf";
+			$filetodeletepics=$imdb_cache_values['imdbphotodir'].$wheresanitized."_big.jpg";
+			$filetodeletepics2=$imdb_cache_values['imdbphotodir'].$wheresanitized.".jpg";
 
 			// delete things
 			if( file_exists($filetodeletetitle ) && fopen($filetodeletetitle, 'w') or die( __("This file does not exist", "imdb") ) ) {
@@ -68,14 +73,17 @@ if (($_GET['dothis'] == 'delete') && ($_GET['type'])) {
 			 	if (file_exists($filetodeletetaglines )) unlink ($filetodeletetaglines);
 			 	if (file_exists($filetodeletesoundtrack )) unlink ($filetodeletesoundtrack);
 			 	if (file_exists($filetodeletereleaseinfo )) unlink ($filetodeletereleaseinfo);
-			 	if (file_exists($filetodeletetitlefoot )) unlink ($filetodeletetitlefoot);
-			 	if (file_exists($filetodeletegoofs )) unlink ($filetodeletegoofs);
-			 	if (file_exists($filetodeletecredits )) unlink ($filetodeletecredits);
+			 	if (file_exists($filetodeletefullcredits )) unlink ($filetodeletefullcredits);
+			 	if (file_exists($filetodeleteplotsummary )) unlink ($filetodeleteplotsummary);
+			 	if (file_exists($filetodeletecompanycredits )) unlink ($filetodeletecompanycredits);
 			 	if (file_exists($filetodeletemovieconnections )) unlink ($filetodeletemovieconnections);
-			 	if (file_exists($filetodeleteofficialsites )) unlink ($filetodeleteofficialsites);
+			 	if (file_exists($filetodeleteexternalsites )) unlink ($filetodeleteexternalsites);
 			 	if (file_exists($filetodeleteplot )) unlink ($filetodeleteplot);
 			 	if (file_exists($filetodeletequotes )) unlink ($filetodeletequotes);
-			 	if (file_exists($filetodeletetrailers )) unlink ($filetodeletetrailers);
+			 	if (file_exists($filetodeletetrivia )) unlink ($filetodeletetrivia);
+			 	if (file_exists($filetodeletevideogallery )) unlink ($filetodeletevideogallery);
+			 	if (file_exists($filetodeletetechnical )) unlink ($filetodeletetechnical);
+			 	if (file_exists($filetodeletetriviatab )) unlink ($filetodeletetriviatab);
 			 	if (file_exists($filetodeletepics )) unlink ($filetodeletepics);
 			 	if (file_exists($filetodeletepics2 )) unlink ($filetodeletepics2);
 			}
@@ -83,11 +91,13 @@ if (($_GET['dothis'] == 'delete') && ($_GET['type'])) {
 
 
 		if (($_GET['type'])== 'people') {
+			$wheresanitized = filter_var( $_GET["where"], FILTER_SANITIZE_NUMBER_INT) ?? NULL;
+
 			// things to delete
-			$filetodeletebio=$imdb_cache_values['imdbcachedir'].$_GET['where'].".Bio";
-			$filetodeletename=$imdb_cache_values['imdbcachedir'].$_GET['where'].".Name";
-			$filetodeletepublicity=$imdb_cache_values['imdbcachedir'].$_GET['where'].".Publicity";
-			$filetodeletepics=$imdb_cache_values['imdbphotodir']."nm".$_GET['where'].".jpg";
+			$filetodeletebio=$imdb_cache_values['imdbcachedir']."name.nm".$wheresanitized.".bio";
+			$filetodeletename=$imdb_cache_values['imdbcachedir']."name.nm".$wheresanitized;
+			$filetodeletepublicity=$imdb_cache_values['imdbcachedir']."name.nm".$wheresanitized.".publicity";
+			$filetodeletepics=$imdb_cache_values['imdbphotodir']."nm".$wheresanitized.".jpg";
 
 			// delete things
 			if( file_exists($filetodeletename ) && fopen($filetodeletename, 'w') or die( __("This file does not exist", "imdb") ) ) {
@@ -113,22 +123,26 @@ if (($_GET['dothis'] == 'refresh') && ($_GET['type'])) {
 		exit( __("Cannot work this way.", "imdb") );
 
 	if (($_GET['type'])== 'movie') {
+		$wheresanitized = filter_var( $_GET["where"], FILTER_SANITIZE_NUMBER_INT) ?? NULL;
 
 		// things to delete
-		$filetodeletetitle=$imdb_cache_values['imdbcachedir']."title.tt".$_GET['where'];
-		$filetodeletetaglines=$imdb_cache_values['imdbcachedir']."title.tt".$_GET['where'].".Taglines";
-		$filetodeletesoundtrack=$imdb_cache_values['imdbcachedir']."title.tt".$_GET['where'].".Soundtrack";
-		$filetodeletereleaseinfo=$imdb_cache_values['imdbcachedir']."title.tt".$_GET['where'].".ReleaseInfo";
-		$filetodeletetitlefoot=$imdb_cache_values['imdbcachedir']."title.tt".$_GET['where'].".TitleFoot";
-		$filetodeletegoofs=$imdb_cache_values['imdbcachedir']."title.tt".$_GET['where'].".Goofs";
-		$filetodeletecredits=$imdb_cache_values['imdbcachedir']."title.tt".$_GET['where'].".Credits";
-		$filetodeletemovieconnections=$imdb_cache_values['imdbcachedir']."title.tt".$_GET['where'].".MovieConnections";
-		$filetodeleteofficialsites=$imdb_cache_values['imdbcachedir']."title.tt".$_GET['where'].".OfficialSites";
-		$filetodeleteplot=$imdb_cache_values['imdbcachedir']."title.tt".$_GET['where'].".Plot";
-		$filetodeletequotes=$imdb_cache_values['imdbcachedir']."title.tt".$_GET['where'].".Quotes";
-		$filetodeletetrailers=$imdb_cache_values['imdbcachedir']."title.tt".$_GET['where'].".Trailers";
-		$filetodeletepics=$imdb_cache_values['imdbphotodir'].$_GET['where']."_big.jpg";
-		$filetodeletepics2=$imdb_cache_values['imdbphotodir'].$_GET['where'].".jpg";
+		$filetodeletetitle=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized;
+		$filetodeletetaglines=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".taglines";
+		$filetodeletesoundtrack=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".soundtrack";
+		$filetodeletereleaseinfo=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".releaseinfo";
+		$filetodeletefullcredits=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".fullcredits";
+		$filetodeleteplotsummary=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".plotsummary";
+		$filetodeletecompanycredits=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".companycredits";
+		$filetodeletemovieconnections=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".MovieConnections";
+		$filetodeleteexternalsites=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".externalsites";
+		$filetodeleteplot=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized."plot";
+		$filetodeletequotes=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".quotes";
+		$filetodeletetrivia=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".trivia";
+		$filetodeletevideogallery=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".videogallery.content_type-trailer";
+		$filetodeletetechnical=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".technical";
+		$filetodeletetriviatab=$imdb_cache_values['imdbcachedir']."title.tt".$wheresanitized.".trivia.tab=gf";
+		$filetodeletepics=$imdb_cache_values['imdbphotodir'].$wheresanitized."_big.jpg";
+		$filetodeletepics2=$imdb_cache_values['imdbphotodir'].$wheresanitized.".jpg";
 
 		// delete things
 		if( file_exists($filetodeletetitle ) && fopen($filetodeletetitle, 'w') or die( __("This file does not exist", "imdb") ) ) {
@@ -136,21 +150,24 @@ if (($_GET['dothis'] == 'refresh') && ($_GET['type'])) {
 		 	if (file_exists($filetodeletetaglines )) unlink ($filetodeletetaglines);
 		 	if (file_exists($filetodeletesoundtrack )) unlink ($filetodeletesoundtrack);
 		 	if (file_exists($filetodeletereleaseinfo )) unlink ($filetodeletereleaseinfo);
-		 	if (file_exists($filetodeletetitlefoot )) unlink ($filetodeletetitlefoot);
-		 	if (file_exists($filetodeletegoofs )) unlink ($filetodeletegoofs);
-		 	if (file_exists($filetodeletecredits )) unlink ($filetodeletecredits);
+		 	if (file_exists($filetodeletefullcredits )) unlink ($filetodeletefullcredits);
+		 	if (file_exists($filetodeleteplotsummary )) unlink ($filetodeleteplotsummary);
+		 	if (file_exists($filetodeletecompanycredits )) unlink ($filetodeletecompanycredits);
 		 	if (file_exists($filetodeletemovieconnections )) unlink ($filetodeletemovieconnections);
-		 	if (file_exists($filetodeleteofficialsites )) unlink ($filetodeleteofficialsites);
+		 	if (file_exists($filetodeleteexternalsites )) unlink ($filetodeleteexternalsites);
 		 	if (file_exists($filetodeleteplot )) unlink ($filetodeleteplot);
 		 	if (file_exists($filetodeletequotes )) unlink ($filetodeletequotes);
-		 	if (file_exists($filetodeletetrailers )) unlink ($filetodeletetrailers);
+		 	if (file_exists($filetodeletetrivia )) unlink ($filetodeletetrivia);
+		 	if (file_exists($filetodeletevideogallery )) unlink ($filetodeletevideogallery);
+		 	if (file_exists($filetodeletetechnical )) unlink ($filetodeletetechnical);
+		 	if (file_exists($filetodeletetriviatab )) unlink ($filetodeletetriviatab);
 		 	if (file_exists($filetodeletepics )) unlink ($filetodeletepics);
 		 	if (file_exists($filetodeletepics2 )) unlink ($filetodeletepics2);
 		}
 
 		// get again the movie
 		ob_start();
-		$moviespecificid = $_GET['where'];
+		$moviespecificid = filter_var( $_GET["where"], FILTER_SANITIZE_NUMBER_INT) ?? NULL;
 		$imdballmeta = "imdb-movie-widget-noname";
 		include( 'imdb-movie.inc.php');
 		$out = ob_get_contents();
@@ -159,11 +176,13 @@ if (($_GET['dothis'] == 'refresh') && ($_GET['type'])) {
 	}
 
 	if (($_GET['type'])== 'people') {
+		$wheresanitized = filter_var( $_GET["where"], FILTER_SANITIZE_NUMBER_INT) ?? NULL;
+
 		// things to delete
-		$filetodeletebio=$imdbOptionsc['imdbcachedir'].$_GET['where'].".Bio";
-		$filetodeletename=$imdbOptionsc['imdbcachedir'].$_GET['where'].".Name";
-		$filetodeletepublicity=$imdbOptionsc['imdbcachedir'].$_GET['where'].".Publicity";
-		$filetodeletepics=$imdbOptionsc['imdbphotodir']."nm".$_GET['where'].".jpg";
+		$filetodeletebio=$imdb_cache_values['imdbcachedir']."name.nm".$wheresanitized.".bio";
+		$filetodeletename=$imdb_cache_values['imdbcachedir']."name.nm".$wheresanitized;
+		$filetodeletepublicity=$imdb_cache_values['imdbcachedir']."name.nm".$wheresanitized.".publicity";
+		$filetodeletepics=$imdb_cache_values['imdbphotodir']."nm".$wheresanitized.".jpg";
 
 		// delete things
 		if( file_exists($filetodeletename ) && fopen($filetodeletename, 'w') or die( __("This file does not exist", "imdb") ) ) {
@@ -174,9 +193,8 @@ if (($_GET['dothis'] == 'refresh') && ($_GET['type'])) {
 		}
 
 		// get again the person
-		$person = new Imdb\Person($objpiple);		 // choose between pilot & imdb class
+		$person = new Imdb\Person($wheresanitized);
 
-		//$person->setid ($_GET['where']); // set object search
 		$name = $person->name(); // search title related to movie id
 		$bio = $person->bio(); 
 		$photo_url = $person->photo();
@@ -195,8 +213,8 @@ exit();
 <script type="text/javascript" src="<?php echo IMDBLTURLPATH; ?>js/highslide/highslide-with-html.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo IMDBLTURLPATH; ?>css/highslide.css" type="text/css" media="screen" />
 <script type="text/javascript">
-hs.graphicsDir = '<?php echo IMDBLTURLPATH; ?>js/highslide/graphics/';
-hs.showCredits = false;
+	hs.graphicsDir = '<?php echo IMDBLTURLPATH; ?>js/highslide/graphics/';
+	hs.showCredits = false;
 	hs.outlineType = 'custom';
 	hs.easing = 'linearTween';
 	hs.align = 'center';
@@ -507,8 +525,7 @@ if (!empty($results)){
 						<div id="refresh_edit_'.$title.'" class="row-actions" style="float:right;">
 							<span class="edit"><a href="?page=imdblt_options&subsection=cache&dothis=refresh&where='.$obj.'&type=movie" onclick="return hs.htmlExpand(this, { wrapperClassName: \'no-footer no-move\', objectType: \'iframe\', width: 30, objectWidth: 20, objectHeight: 1, headingEval: \'this.a.innerHTML\', headingText: \'Cache for this movie successfully refreshed! Please close.\', wrapperClassName: \'titlebar\' } )" title="Refresh cache for *'.$title.'*">'.__("refresh", "imdb").'</a></span>
 
-							<span class="delete"><a href="?page=imdblt_options&subsection=cache&dothis=delete&where='.$obj.'&type=movie" 
-	onclick=\'if ( confirm( "You are about to delete *'.$title.'* from cache. Click Cancel to stop or OK to continue." ) ) { return true;}return false;\' title="Delete cache for *'.$title.'*">'.__("delete", "imdb").'</a></span>
+							<span class="delete"><a href="?page=imdblt_options&subsection=cache&dothis=delete&where='.$obj.'&type=movie" data-confirm="You are about to delete *'.$title.'* from cache. Click Cancel to stop or OK to continue." class="confirmation-basic" title="Delete cache for *'.$title.'*">'.__("delete", "imdb").'</a></span>
 						</div>
 					</td>'; // send input and results into array
 
@@ -571,6 +588,7 @@ if (!empty($results)){
 			$name = $res->name(); // search title related to movie id
 			$objpiple = $res->imdbid();
 			$filepath = $imdbOptionsc['imdbcachedir']."name.nm".substr($objpiple, 0, 7);
+print_r($filepath);
 			if ($imdbOptionsc['imdbcachedetailsshort'] == 1)  { // display only cache peoples' names, quicker loading
 				$datapeople[] = '<input type="checkbox" id="imdb_cachedeletefor_people_'.$name.'" name="imdb_cachedeletefor_people[]" value="'.$objpiple.'" /><label for="imdb_cachedeletefor_people[]">'.$name.'</label>'; // send input and results into array
 				flush();
@@ -584,7 +602,7 @@ if (!empty($results)){
 							<div class="row-actions" style="float:right;">
 								<span class="view"><a href="?page=imdblt_options&subsection=cache&dothis=refresh&where='.$objpiple.'&type=people" onclick="return hs.htmlExpand(this, { wrapperClassName: \'no-footer no-move\', objectType: \'iframe\', width: 30, objectWidth: 20, objectHeight: 1, headingEval: \'this.a.innerHTML\', headingText: \'Cache for this person successfully refreshed! Please close.\', wrapperClassName: \'titlebar\' } )" title="Refresh cache for *'.$name.'*">'.__("refresh", "imdb").'</a></span> 
 
-								<span class="delete"><a href="?page=imdblt_options&subsection=cache&dothis=delete&where='.$objpiple.'&type=people" onclick=\'if ( confirm( "You are about to delete *'.$name.'* from cache. Click Cancel to stop or OK to continue." ) ) { return true;}return false;\' title="Delete cache for *'.$name.'*">'.__("delete", "imdb").'</a></span>
+								<span class="delete"><a href="?page=imdblt_options&subsection=cache&dothis=delete&where='.$objpiple.'&type=people" data-confirm="You are about to delete *'.$name.'* from cache. Click Cancel to stop or OK to continue." class="confirmation-basic" title="Delete cache for *'.$name.'*">'.__("delete", "imdb").'</a></span>
 							</div>
 						</td>'; // send input and results into array
 
@@ -673,3 +691,14 @@ if (!empty($results)){
 </div>
 <br clear="all">
 
+<script>
+  /* confirm dialog if attribute "data-confirm" in "a" tag */
+(function ($) {
+  $(document).on('click', 'a[data-confirm]',function(e){
+	if(!confirm($(this).data('confirm'))){
+	  e.stopImmediatePropagation();
+	  e.preventDefault();
+	}
+  });
+})(jQuery);
+</script>

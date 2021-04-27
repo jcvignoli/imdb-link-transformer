@@ -230,6 +230,12 @@ function imdb_add_js_admin () {
 	wp_enqueue_script('common'); // script needed for meta_boxes (ie, help.php)
 	wp_enqueue_script('wp-lists'); // script needed for meta_boxes (ie, help.php)
 	wp_enqueue_script('postbox'); // script needed for meta_boxes (ie, help.php)
+	wp_enqueue_script('jquery');
+
+// change all to get these two lines for everything 2021/04/26
+// wp_register_script( 'my_plugin_script', plugins_url('/my_plugin.js', __FILE__), array('jquery'));
+//wp_enqueue_script( 'my_plugin_script' );
+
 } 
 
 /**

@@ -36,10 +36,10 @@ $config->imdb_img_url = $imdb_cache_values['imdbimgdir'] ?? NULL;
 $config->photoroot = $imdb_cache_values['imdbphotoroot'] ?? NULL;
 
 if (isset ($_GET["mid"])) {
-$movieid = filter_var( $_GET["mid"], FILTER_SANITIZE_NUMBER_INT);
-$movie = new Imdb\Title($movieid, $config);
+	$movieid = filter_var( $_GET["mid"], FILTER_SANITIZE_NUMBER_INT);
+	$movie = new Imdb\Title($movieid, $config);
 } else {
-$search = new Imdb\TitleSearch($config);
+	$search = new Imdb\TitleSearch($config);
 }
 
 $imovie = 0;
@@ -47,32 +47,30 @@ $imovie = 0;
 while ($imovie < count($imdballmeta)) {	
 
 	$film = $imdballmeta[$imovie];  // get meta data (movie's name) 
-					// from custom post's field imdb-movie-widget
 
+	// from custom post's field imdb-movie-widget
 	if ($imdballmeta == "imdb-movie-widget-noname") {
-	// a movie ID has been specified
+		// a movie ID has been specified
 		$midPremierResultat = $moviespecificid; // get the movie id entered
 
 	} else {
 
-	
-	if ($_GET["searchtype"]=="episode") {
-		$results = $search->search ($film, array(\Imdb\TitleSearch::TV_SERIES));
-	} else {
-		$results = $search->search ($film, array(\Imdb\TitleSearch::MOVIE));
-	}
+		if ($_GET["searchtype"]=="episode") {
+			$results = $search->search ($film, array(\Imdb\TitleSearch::TV_SERIES));
+		} else {
+			$results = $search->search ($film, array(\Imdb\TitleSearch::MOVIE));
+		}
 
-	// no movie ID has been specified
+		// no movie ID has been specified
 		if (! empty($results[0])) { 	// when imdb find everytime a result, which is not the case for moviepilot
-				$midPremierResultat = $results[0]->imdbid(); // search for the movie id
+			$midPremierResultat = $results[0]->imdbid(); // search for the movie id
 		} else {			// escape if no result found, otherwise imdblt fails
 			imdblt_noresults_text();
-		break;
+			break;
 		}
 	}	
 
-	//$movie = new imdb ($midPremierResultat);
-$movie = new Imdb\Title($midPremierResultat, $config);
+	$movie = new Imdb\Title($midPremierResultat, $config);
 
 	if (isset ($midPremierResultat) ) {
 		$movieid = $midPremierResultat;
