@@ -226,7 +226,7 @@ function imdb_add_js_admin () {
 	wp_enqueue_script('wp-lists'); // script needed for meta_boxes (ie, help.php)
 	wp_enqueue_script('postbox'); // script needed for meta_boxes (ie, help.php)
 	wp_enqueue_script('jquery'); // script needed by highslide and maybe others
-	wp_enqueue_script("imdblt_highslide", IMDBLTURLPATH ."js/highslide/highslide-with-html.min.js");
+	wp_enqueue_script("imdblt_highslide", IMDBLTURLPATH ."js/highslide/highslide-with-html.min.js", array(), "5.0");
 	wp_enqueue_script('imdblt_un-active-boxes', IMDBLTURLPATH . "js/un-active-boxes.js");
 	wp_enqueue_script('imdblt_movevalues-formeselectboxes', IMDBLTURLPATH . "js/movevalues-formselectboxes.js");
 } 

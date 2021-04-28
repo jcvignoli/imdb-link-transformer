@@ -62,11 +62,6 @@ There is three ways to use IMDb link transformer: popup link creator, widget and
 3. Would you like to display automatically a widget in accordance with your post title? Just turn on "Widget/Inside post Options -> Misc ->Auto widget" option. Especially useful for blogs focusing on movies, where every post is related to cinema.
 4. You are an expert in tags and categories. And using movie details as taxonomy (sort of tags) has always been your greatest dream. IMDb link transformer will make you happy ! Use taxonomy; check plugin's help to figure out how to.
 
-= How to update? =
-
-* Remove the old **IMDb link transformer** and install the new one. Or use the automated update from Wordpress.
-* If needed, go to **IMDb link transformer** settings, and click on "reset". Every release with new movie details should have a reset on "Widget/Inside post Options" section from Wordpress admin.
-
 == Screenshots ==
 
 1. Popup displayed when an imdb link is selected. In background (on the right), one can see the widget

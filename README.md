@@ -133,6 +133,10 @@ Have a look to the [changelog](https://svn.wp-plugins.org/imdb-link-transformer/
 
 But broadly speaking:
 
+= 3.0 =
+
+Updated to imdbphp 6.5. Security fixes. Coded in a more modern way.
+
 = 2.1.3 =
 Changed the way to use highslide js (on Wordpress request, piece of code not GPL compliant); it is mandatory now to download the library from [IMDBLt website](https://www.jcvignoli.com/blog/wp-content/files/wordpress-imdb-link-transformer-highslide.zip "IMDBLt website") in order to get this damn cool window. Once the file downloaded, put the folder "highslide" into the "js" one and check general options in order to activate it
 
