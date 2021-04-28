@@ -1,5 +1,8 @@
 {
     "require": {
         "imdbphp/imdbphp": "dev-master"
+    },
+    "require-dev": {
+        "wpreadme2markdown/wpreadme2markdown": "dev-master"
     }
 }
