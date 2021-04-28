@@ -212,30 +212,23 @@ hs.showCredits = false;
 
 ##### b) admin part
 function imdb_add_head_admin () {
-	echo "\n<!-- Added by \"Imdb link transformer\" plugin -->\n";
 	$this->imdb_add_css_admin ();
 	$this->imdb_add_js_admin ();
-	echo "\n<!-- /Added by \"Imdb link transformer\" plugin -->\n";
 }
 function imdb_add_css_admin() {
 	global $imdb_admin_values;
-	echo "<link rel=\"stylesheet\" href=\"".$imdb_admin_values[imdbplugindirectory]."css/imdb-admin.css\" type=\"text/css\" />\n";
-	//wp_enqueue_style('imdb_css_admin', $imdb_admin_values[imdbplugindirectory] . "css/imdb-admin.css"); -- new way
+	wp_enqueue_style('imdblt_css_admin', IMDBLTURLPATH . "css/imdb-admin.css");
+	wp_enqueue_style("imdblt_highslide", IMDBLTURLPATH ."css/highslide.css");
 }
 function imdb_add_js_admin () {
 	global $imdb_admin_values;
-	echo "<script type=\"text/javascript\" src=\"".$imdb_admin_values[imdbplugindirectory]."js/un-active-boxes.js\" /></script>\n";
-	echo "<script type=\"text/javascript\" src=\"".$imdb_admin_values[imdbplugindirectory]."js/movevalues-formselectboxes.js\" /></script>";
-	// wp_enqueue_script('imdb_js_admin', $imdb_admin_values[imdbplugindirectory] . "js/un-active-boxes.js"); -- new way
 	wp_enqueue_script('common'); // script needed for meta_boxes (ie, help.php)
 	wp_enqueue_script('wp-lists'); // script needed for meta_boxes (ie, help.php)
 	wp_enqueue_script('postbox'); // script needed for meta_boxes (ie, help.php)
-	wp_enqueue_script('jquery');
-
-// change all to get these two lines for everything 2021/04/26
-// wp_register_script( 'my_plugin_script', plugins_url('/my_plugin.js', __FILE__), array('jquery'));
-//wp_enqueue_script( 'my_plugin_script' );
-
+	wp_enqueue_script('jquery'); // script needed by highslide and maybe others
+	wp_enqueue_script("imdblt_highslide", IMDBLTURLPATH ."js/highslide/highslide-with-html.min.js");
+	wp_enqueue_script('imdblt_un-active-boxes', IMDBLTURLPATH . "js/un-active-boxes.js");
+	wp_enqueue_script('imdblt_movevalues-formeselectboxes', IMDBLTURLPATH . "js/movevalues-formselectboxes.js");
 } 
 
 /**

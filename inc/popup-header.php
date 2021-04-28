@@ -51,7 +51,8 @@ if (empty ($_SERVER[HTTP_REFERER]) ) { // does not allow to call popup without a
 	<link rel="stylesheet" type="text/css" href="<?php echo IMDBLTURLPATH; ?>css/imdb.css">
 	<link rel="shortcut icon" href="<?php echo IMDBLTURLPATH; ?>pics/favico.ico" />
 
-	<script src="<?php echo IMDBLTURLPATH; ?>js/jquery.min.js"></script>
+	<!--<script src="<?php echo IMDBLTURLPATH; ?>js/jquery.min.js"></script>-->
+<?php wp_enqueue_script('jquery'); ?>
 
 	<style>
 		.hidesection{display:none;}

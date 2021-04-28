@@ -277,10 +277,8 @@ exit();
 }
 
 ##################################### let's display real cache option page
+?>
 
-
-wp_enqueue_script("imdb_highslide", IMDBLTURLPATH ."js/highslide/highslide-with-html.min.js");
-wp_enqueue_style("imdb_highslide", IMDBLTURLPATH ."css/highslide.css"); ?>
 <script type="text/javascript">
 	hs.graphicsDir = '<?php echo IMDBLTURLPATH; ?>js/highslide/graphics/';
 	hs.showCredits = false;
