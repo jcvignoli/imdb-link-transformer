@@ -2,6 +2,7 @@ Changelog
 
 v3
 * [major] updated to imdbphp-6.5 library
+* [medium] updated to highslide 5.0
 * [minor] removed Pilot search options, was useless anyway
 * [minor] made click to expand "content security policy" compliant 
 

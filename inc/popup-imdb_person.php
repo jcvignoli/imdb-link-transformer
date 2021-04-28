@@ -143,7 +143,8 @@ echo '/ >'; ?>
 					echo "";
 				} else {
 					if (empty($film["chid"])) { 
-						echo " as ".$film["chname"];
+						if (!empty($film["chname"]))
+							echo " as ".$film["chname"];
 					} else { 
 						echo " as <a href='https://".$person->imdbsite."/character/ch".$film["chid"]."/'>".$film["chname"]."</a>"; }
 				}
