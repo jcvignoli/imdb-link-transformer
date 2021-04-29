@@ -188,17 +188,18 @@ if ($imdb_admin_values['imdbpopup_highslide'] == 1) {
 <script type="text/javascript" src="<?php echo $imdb_admin_values[imdbplugindirectory] ?>js/highslide/highslide-with-html.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo $imdb_admin_values[imdbplugindirectory] ?>css/highslide.css" media="screen" />
 <script type="text/javascript">
+hs.allowWidthReduction = true
 hs.graphicsDir = '<?php echo $imdb_admin_values[imdbplugindirectory] ?>js/highslide/graphics/';
 hs.showCredits = false;
-	hs.outlineType = 'custom';
-	hs.easing = 'linearTween';
-	hs.align = 'center';
-	hs.useBox = true;
-	hs.registerOverlay(
-		{ html: '<div class=\"closebutton\" onclick=\"return hs.close(this)\" title=\"Close\"></div>',
-		position: 'top right',
-		useOnHtml: true, fade: 2 }
-	);
+hs.outlineType = 'custom';
+hs.easing = 'linearTween';
+hs.align = 'center';
+hs.useBox = true;
+hs.registerOverlay(
+	{ html: '<div class=\"closebutton\" onclick=\"return hs.close(this)\" title=\"Close\"></div>',
+	position: 'top right',
+	useOnHtml: true, fade: 2 }
+);
 </script>
 <!--[if lt IE 7]>'
 	<link rel="stylesheet" type="text/css" href="<?php echo $imdb_admin_values[imdbplugindirectory] ?>css/highslide-ie6.css" type="text/css" media="screen" />
