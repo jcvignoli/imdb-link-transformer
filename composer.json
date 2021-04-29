@@ -3,6 +3,6 @@
         "imdbphp/imdbphp": "dev-master"
     },
     "require-dev": {
-        "wpreadme2markdown/wpreadme2markdown": "dev-master"
+        "wpreadme2markdown/wpreadme2markdown": "^3.1"
     }
 }
