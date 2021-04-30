@@ -3,7 +3,7 @@
  #############################################################################
  # IMDb Link transformer                                                     #
  # written by Prometheus group                                               #
- # https://www.jcvignoli.com/blog                                                  #
+ # https://www.jcvignoli.com/blog                                            #
  # ------------------------------------------------------------------------- #
  # This program is free software; you can redistribute and/or modify it      #
  # under the terms of the GNU General Public License (see LICENSE)           #
@@ -13,29 +13,27 @@
  #									     #
  #############################################################################
 
+
+//require_once (dirname(__FILE__).'/../../../../wp-load.php');
+require_once (plugin_dir_path( __FILE__ ).'/../bootstrap.php');
+require_once (plugin_dir_path( __FILE__ )."/functions.php"); 
+
 //---------------------------------------=[Vars]=----------------
 
-require_once (dirname(__FILE__).'/../../../../wp-blog-header.php');
-require_once (dirname(__FILE__).'/../bootstrap.php');
-require_once ("functions.php"); 
+global $imdb_admin_values, $imdb_widget_values;
 
 # Initialization of IMDBphp
-require_once(dirname(__FILE__)."/../src/Imdb/TitleSearch.php");
-require_once(dirname(__FILE__)."/../src/Imdb/MdbBase.php");
 $search = new Imdb\TitleSearch();
-
-global $imdb_admin_values, $imdb_widget_values;
 
 if ($_GET["searchtype"]=="episode") $results = $search->search ($_GET["film"], array(\Imdb\TitleSearch::TV_SERIES));
 else $results = $search->search ($_GET["film"], array(\Imdb\TitleSearch::MOVIE));
 
-
 //--------------------------------------=[Layout]=---------------
 
 if (($imdb_admin_values[imdbdirectsearch] == false ) OR ($_GET["norecursive"] == 'yes')) { //------------------------- 1. recherche, comportement classique
-	require_once ('popup-header.php'); ?>
-
-
+	//require_once ('popup-header.php'); 
+get_header(); 
+?>
 <h1><?php _e('Results related to this film', 'imdb'); ?></h1>
 
 <table class='TableListeResultats'>
@@ -49,7 +47,7 @@ if (($imdb_admin_values[imdbdirectsearch] == false ) OR ($_GET["norecursive"] ==
 		echo "	<tr>\n";
 		
 		// ---- movie part
-		echo "		<td class='TableListeResultatsColGauche'><a href=\"popup-imdb_movie.php?mid=".$res->imdbid()."\" title=\"".__('more on', 'imdb')." ".$res->title()."\" >".$res->title()."(".$res->year().")"."</a> \n";
+		echo "		<td class='TableListeResultatsColGauche'><a href=\"".IMDBLTURLPATH."inc/popup-imdb_movie.php?mid=".$res->imdbid()."\" title=\"".__('more on', 'imdb')." ".$res->title()."\" >".$res->title()."(".$res->year().")"."</a> \n";
 		echo "&nbsp;&nbsp;<a class=\"imdblink\" href=\"http://us.imdb.com/title/tt".$res->imdbid()."\" target=\"_blank\" title='".__('link to imdb for', 'imdb')." ".$res->title()."'>";
 
 			if ($imdb_admin_values[imdbdisplaylinktoimdb] == true) { # if the user has selected so
@@ -61,7 +59,7 @@ if (($imdb_admin_values[imdbdirectsearch] == false ) OR ($_GET["norecursive"] ==
 		// ---- director part
 		$realisateur = $res->director();
 		if (! is_null ($realisateur['0']['name'])){
-		echo "		<td class='TableListeResultatsColDroite'><a href=\"popup-imdb_person.php?mid=".$realisateur['0']['imdb']."&film=".$_GET['film']."\" title=\"".__('more on', 'imdb')." ".$realisateur['0']['name']."\" >".$realisateur['0']['name']."</a>";
+		echo "		<td class='TableListeResultatsColDroite'><a href=\"".IMDBLTURLPATH."inc/popup-imdb_person.php?mid=".$realisateur['0']['imdb']."&film=".$_GET['film']."\" title=\"".__('more on', 'imdb')." ".$realisateur['0']['name']."\" >".$realisateur['0']['name']."</a>";
 
 			if ($imdb_admin_values[imdbdisplaylinktoimdb] == true) { # if the user has selected so
 		echo "&nbsp;&nbsp;<a class=\"imdblink\" href=\"http://imdb.com/name/nm".$realisateur['0']['imdb']."\" target=\"_blank\" title='".__('link to imdb for', 'imdb')." ".$realisateur['0']['name']."'>";

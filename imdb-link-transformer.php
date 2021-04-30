@@ -172,14 +172,12 @@ function add_imdb_tinymce_plugin($plugin_array) {
 
 ##### a) outside admin part
 function imdb_add_head_blog () {
-	global $imdb_admin_values; ?>
-
-<!-- Added by "Imdb link transformer" plugin -->
-<?php if (file_exists (TEMPLATEPATH . "/imdb.css") ) { // an imdb.css exists inside theme folder, take it! ?>
+	global $imdb_admin_values; 
+	if (file_exists (TEMPLATEPATH . "/imdb.css") ) { // an imdb.css exists inside theme folder, take it! ?>
 <link rel="stylesheet" href="<?php bloginfo('stylesheet_directory'); ?>/imdb.css" type="text/css" media="screen" />
-<?php } else { // no imdb.css exists in theme, add default one?>
+<?php 	} else { // no imdb.css exists in theme, add default one?>
 <link rel="stylesheet" href="<?php echo $imdb_admin_values[imdbplugindirectory] ?>css/imdb.css" type="text/css" media="screen" />
-<?php } 
+<?php 	} 
 
 // Highslide popup
 if ($imdb_admin_values['imdbpopup_highslide'] == 1) { 
@@ -201,14 +199,8 @@ hs.registerOverlay(
 	useOnHtml: true, fade: 2 }
 );
 </script>
-<!--[if lt IE 7]>'
-	<link rel="stylesheet" type="text/css" href="<?php echo $imdb_admin_values[imdbplugindirectory] ?>css/highslide-ie6.css" type="text/css" media="screen" />
-<![endif]--><?php
-}?>
-
-<!-- /Added by "Imdb link transformer" plugin -->
-
 <?php
+	}
 }
 
 ##### b) admin part
@@ -429,5 +421,67 @@ function create_imdblt_table() {
 									"PRIMARY KEY (imdblt_id)) $charset_collate;";
 	maybe_create_table($wpdb->prepare($wpdb->imdblt), $create_table['imdblt']);
 }*/
+
+/* 	Function imdblt_popup_redirect()
+*	Redirect popups to root url
+*/
+
+function imdblt_popup_redirect() {
+	// The popup is for films
+	if ( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/wp-content/plugins/imdb-link-transformer/inc/popup.php' ) ) {
+		$query_film=preg_match_all('#film=(.*)#', $_SERVER['REQUEST_URI'], $match_query_film, PREG_UNMATCHED_AS_NULL );
+		$match_query_film_film=explode("&",$match_query_film[1][0]);
+		$query_mid=preg_match_all('#mid=(.*)#', $_SERVER['REQUEST_URI'], $match_query_mid, PREG_UNMATCHED_AS_NULL );
+		$match_query_film_mid=explode("&",$match_query_mid[1][0]);
+		$query_info=preg_match_all('#info=(.*)#', $_SERVER['REQUEST_URI'], $match_query_info, PREG_UNMATCHED_AS_NULL );
+		$query_norecursive=preg_match_all('#norecursive=(.*)#', $_SERVER['REQUEST_URI'], $match_query_norecursive, PREG_UNMATCHED_AS_NULL );
+
+		$url = (!empty($match_query_film_film[0])) ? "/imdblt/film/" . $match_query_film_film[0] . "/" : "/imdblt/film/" . $match_query_film_mid[0] . "/" ;
+		wp_redirect( esc_url( add_query_arg( array( 'film' => $match_query_film_film[0], 'mid' => $match_query_film_mid[0],'info' => $match_query_info[1][0], 'norecursive' => $match_query_norecursive[1][0]), get_site_url(null, $url ) ) ) );
+		exit();
+	}
+	if ( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/wp-content/plugins/imdb-link-transformer/inc/popup-imdb_movie.php' ) ) {
+
+		$query_film=preg_match_all('#film=(.*)#', $_SERVER['REQUEST_URI'], $match_query_film, PREG_UNMATCHED_AS_NULL );
+		$match_query_film_film=explode("&",$match_query_film[1][0]);
+		$query_mid=preg_match_all('#mid=(.*)#', $_SERVER['REQUEST_URI'], $match_query_mid, PREG_UNMATCHED_AS_NULL );
+		$match_query_film_mid=explode("&",$match_query_mid[1][0]);
+		$query_info=preg_match_all('#info=(.*)#', $_SERVER['REQUEST_URI'], $match_query_info, PREG_UNMATCHED_AS_NULL );
+		$query_norecursive=preg_match_all('#norecursive=(.*)#', $_SERVER['REQUEST_URI'], $match_query_norecursive, PREG_UNMATCHED_AS_NULL );
+		$url = (!empty($match_query_film_film[0])) ? "/imdblt/film/" . $match_query_film_film[0] . "/" : "/imdblt/film/" . $match_query_film_mid[0] . "/" ;
+		wp_redirect( esc_url( add_query_arg( array( 'film' => $match_query_film_film[0], 'mid' => $match_query_film_mid[0],'info' => $match_query_info[1][0], 'norecursive' => $match_query_norecursive[1][0]), get_site_url(null, $url ) ) ) );
+		exit();
+
+	}
+	// The popup is for persons
+	if ( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/wp-content/plugins/imdb-link-transformer/inc/popup-imdb_person.php' ) ) {
+		$query_person_mid=preg_match('#mid=(.*)#', $_SERVER['REQUEST_URI'], $match_query_mid, PREG_UNMATCHED_AS_NULL );
+		$match_query_person_mid=explode ( "&", $match_query_mid[1] );
+		$query_person_info=preg_match_all('#info=(.*)#', $_SERVER['REQUEST_URI'], $match_query_info, PREG_UNMATCHED_AS_NULL );
+		$match_query_person_info=explode ( "&", $match_query_info[1] );
+		$query_person_film=preg_match_all('#film=(.*)&?#', $_SERVER['REQUEST_URI'], $match_query_person_film, PREG_UNMATCHED_AS_NULL );
+		$url = "/imdblt/person/" . $match_query_person_mid[0] . "/" ;
+
+      		//wp_redirect(  add_query_arg( 'mid' => $match_query_mid[1][0], $url ) , 301 ); # one arg only
+		wp_redirect( esc_url( add_query_arg( array( 'mid' => $match_query_person_mid[0], 'film' => $match_query_person_film[1][0], 'info' => $match_query_person_info[0]), get_site_url(null, $url ) ) ) );
+		exit();
+	}
+
+}
+add_action( 'init', 'imdblt_popup_redirect', 0);
+
+function imdblt_popup_redirect_include() {
+
+	// Include films popup
+	if ( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/imdblt/film/' ) ) {
+		require_once ( plugin_dir_path( __FILE__ ) . 'inc/popup-imdb_movie.php' );
+	}
+
+	// Include persons popup
+	if ( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/imdblt/person/' ) ) {
+		require_once ( plugin_dir_path( __FILE__ ) . 'inc/popup-imdb_person.php' );
+	}
+}
+add_action( 'init', 'imdblt_popup_redirect_include', 0);
 
 ?>

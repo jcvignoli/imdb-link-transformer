@@ -15,9 +15,9 @@
 
 //---------------------------------------=[Vars]=----------------
 
-require_once (dirname(__FILE__).'/../../../../wp-blog-header.php');
-require_once (dirname(__FILE__).'/../bootstrap.php');
-require_once ("functions.php"); 
+//require_once (dirname(__FILE__).'/../../../../wp-load.php');
+require_once (plugin_dir_path( __FILE__ ).'/../bootstrap.php');
+require_once (plugin_dir_path( __FILE__ )."/functions.php");  
 
 use \Imdb\Config;
 
@@ -38,25 +38,26 @@ $person = new Imdb\Person($pid, $config);
 
 //--------------------------------------=[Layout]=---------------
 
-require_once ('popup-header.php'); ?>
+	//require_once ('popup-header.php'); 
+	get_header();  ?>
 
 
                                                 <!-- top page menu -->
 <table class='tabletitrecolonne'>
     <tr>
         <td class='titrecolonne a:hover'>
-            <a href="javascript:history.back(-10)"><font size='-2'><?php _e('Back', 'imdb'); ?></font></a>
+            <a href="javascript:history.back(-10)"><font size='-2'><?php esc_html_e('Back', 'imdb'); ?></font></a>
         </td>
  		<td class='titrecolonne'>
-			<a href='?mid=<?php echo $pid; ?>&film=<?php echo $_GET['film']; ?>&info=' title='<?php echo $person->name().": ".__('Filmography', 'imdb'); ?>'><?php _e('Filmography', 'imdb'); ?></a>
+			<a href='<?php echo IMDBLTURLPATH."inc/"; ?>popup-imdb_person.php?mid=<?php echo $pid; ?>&film=<?php echo $_GET['film']; ?>&info=' title='<?php echo $person->name().": ".esc_html__('Filmography', 'imdb'); ?>'><?php esc_html_e('Filmography', 'imdb'); ?></a>
 		</td>
 		
 		<td class='titrecolonne'>
-			<a href='?mid=<?php echo $pid ; ?>&film=<?php echo $_GET['film']; ?>&info=bio' title='<?php echo $person->name().": ".__('Biography', 'imdb'); ?>'><?php _e('Biography', 'imdb'); ?></a>
+			<a href='<?php echo IMDBLTURLPATH."inc/"; ?>popup-imdb_person.php?mid=<?php echo $pid ; ?>&film=<?php echo $_GET['film']; ?>&info=bio' title='<?php echo $person->name().": ".esc_html__('Biography', 'imdb'); ?>'><?php esc_html_e('Biography', 'imdb'); ?></a>
 		</td>
 		
 		<td class="titrecolonne">
-			<a href='?mid=<?php echo $pid ; ?>&info=divers&film=<?php echo $_GET['film']; ?>' title='<?php echo $person->name().": ".__('Misc', 'imdb'); ?>'><?php _e('Misc', 'imdb'); ?>
+			<a href='<?php echo IMDBLTURLPATH."inc/"; ?>popup-imdb_person.php?mid=<?php echo $pid ; ?>&film=<?php echo $_GET['film']; ?>&info=divers' title='<?php echo $person->name().": ".esc_html__('Misc', 'imdb'); ?>'><?php esc_html_e('Misc', 'imdb'); ?>
 		</td>
 		
 		<td class='titrecolonne'></td>
@@ -73,15 +74,15 @@ require_once ('popup-header.php'); ?>
 			<?php  // Born
 			  $birthday = $person->born(); 
 			  if (!empty($birthday)) {
-			  echo "<strong>".__('Born on', 'imdb')."</strong> ".$birthday["day"]." ".$birthday["month"]." ".$birthday["year"];
+			  echo "<strong>".esc_html__('Born on', 'imdb')."</strong> ".$birthday["day"]." ".$birthday["month"]." ".$birthday["year"];
 			  }
-			  if (!empty($birthday["place"])) { echo ", ".__('in', 'imdb')." ".$birthday["place"];} ?>
+			  if (!empty($birthday["place"])) { echo ", ".esc_html__('in', 'imdb')." ".$birthday["place"];} ?>
 			  <?php // Dead
 		      $death = $person->died();
 			  if (!empty($death)) {
-			  echo "<br /><strong>".__('Died on', 'imdb')."</strong> ".$death["day"]." ".$death["month"]." ".$death["year"];			
-			  if (!empty($death["place"])) echo ", ".__('in', 'imdb')." ".$death["place"];
-			  if (!empty($death["cause"])) echo ", ".__('cause', 'imdb')." ".$death["cause"];
+			  echo "<br /><strong>".esc_html__('Died on', 'imdb')."</strong> ".$death["day"]." ".$death["month"]." ".$death["year"];			
+			  if (!empty($death["place"])) echo ", ".esc_html__('in', 'imdb')." ".$death["place"];
+			  if (!empty($death["cause"])) echo ", ".esc_html__('cause', 'imdb')." ".$death["cause"];
 			  }	?>
 			</div>
 			
@@ -92,7 +93,7 @@ require_once ('popup-header.php'); ?>
              <?php if (($photo_url = $person->photo_localurl() ) != FALSE){ 
 	            echo '<img class="imdbincluded-picture" src="'.$photo_url.'" alt="'.$person->name().'" '; 
               } else{ 
-                echo '<img class="imdbincluded-picture" src="'.$imdb_admin_values[imdbplugindirectory].'pics/no_pics.gif" alt="'.__('no picture', 'imdb').'" '; 
+                echo '<img class="imdbincluded-picture" src="'.$imdb_admin_values[imdbplugindirectory].'pics/no_pics.gif" alt="'.esc_html__('no picture', 'imdb').'" '; 
              } 
 	// add width only if "Display only thumbnail" is on "no"
 	if ($imdb_admin_values[imdbcoversize] == FALSE){
@@ -124,14 +125,14 @@ echo '/ >'; ?>
 				</td>
 			
 				<td colspan="2" class="TitreSousRubriqueColDroite">
-					<div class="activatehidesection">[+] <?php _e('click to expand', 'imdb'); ?> [+]</div>
+					<div class="activatehidesection">[+] <?php esc_html_e('click to expand', 'imdb'); ?> [+]</div>
 					<div class="hidesection">
 			<?php
 				$ii = "0";
 				$tc = count($filmo);
 			  foreach ($filmo as $film) {
 			  	$nbfilms = $tc-$ii;
-				echo "<li><strong>($nbfilms)</strong> <a href='popup-imdb_movie.php?mid=".$film["mid"]."'>".$film["name"]."</a>";
+				echo "<li><strong>($nbfilms)</strong> <a href='". IMDBLTURLPATH."inc/"."popup-imdb_movie.php?mid=".$film["mid"]."'>".$film["name"]."</a>";
 
 				if (!empty($film["year"])) {
 					echo " (".$film["year"].")";
@@ -167,10 +168,10 @@ echo '/ >'; ?>
  			if (!empty($soundtrack)) { ?>
 				  <tr>
 					<td class="TitreSousRubriqueColGauche">
-						<div class="TitreSousRubrique"><?php _e('Soundtrack', 'imdb'); ?> filmo</div>
+						<div class="TitreSousRubrique"><?php esc_html_e('Soundtrack', 'imdb'); ?> filmo</div>
 					</td>		
 				<td colspan="2" class="TitreSousRubriqueColDroite">
-					<div class="activatehidesection">[+] <?php _e('click to expand', 'imdb'); ?> [+]</div>
+					<div class="activatehidesection">[+] <?php esc_html_e('click to expand', 'imdb'); ?> [+]</div>
 					<div class="hidesection">
 						<?php
 						for ($i=0;$i<count($soundtrack);++$i) {
@@ -201,12 +202,12 @@ echo '/ >'; ?>
         <tr>
             <td class="TitreSousRubriqueColGauche">
                 <div class="TitreSousRubrique">
-					<?php _e('Biographical movies', 'imdb') ?>
+					<?php esc_html_e('Biographical movies', 'imdb') ?>
 				</div>
  			</td>
 			
 				<td colspan="2" class="TitreSousRubriqueColDroite">
-					<div class="activatehidesection">[+] <?php _e('click to expand', 'imdb'); ?> [+]</div>
+					<div class="activatehidesection">[+] <?php esc_html_e('click to expand', 'imdb'); ?> [+]</div>
 					<div class="hidesection">
 			<?php
 				for ($i=0;$i<count($pm);++$i) {
@@ -226,7 +227,7 @@ echo '/ >'; ?>
         <?php $bio = $person->bio(); ?>
         <tr>
             <td class="TitreSousRubriqueColGauche">
-                <div class="TitreSousRubrique"><?php _e('Biography', 'imdb'); ?>&nbsp;</div>
+                <div class="TitreSousRubrique"><?php esc_html_e('Biography', 'imdb'); ?>&nbsp;</div>
             </td>
             
             <td colspan="2" class="TitreSousRubriqueColDroite">
@@ -255,12 +256,12 @@ echo '/ >'; ?>
         <tr>
             <td class="TitreSousRubriqueColGauche">
                 <div class="TitreSousRubrique">
-					<?php _e('Trivia', 'imdb'); ?>
+					<?php esc_html_e('Trivia', 'imdb'); ?>
 				</div>
             </td>
 			
 				<td colspan="2" class="TitreSousRubriqueColDroite">
-					<div class="activatehidesection">[+] <?php _e('click to expand', 'imdb'); ?> [+]</div>
+					<div class="activatehidesection">[+] <?php esc_html_e('click to expand', 'imdb'); ?> [+]</div>
 					<div class="hidesection">
 			            
  			<?php 	for ($i=0;$i<$tc;++$i) {
@@ -279,11 +280,11 @@ echo '/ >'; ?>
 			  if (!empty($nicks)) {?>
         <tr>
             <td class="TitreSousRubriqueColGauche">
-                <div class="TitreSousRubrique"><?php echo _e('Nicknames', 'imdb') ?></div>
+                <div class="TitreSousRubrique"><?php echo esc_html_e('Nicknames', 'imdb') ?></div>
             </td>
 			
 		<td colspan="2" class="TitreSousRubriqueColDroite">
-			<div class="activatehidesection">[+] <?php _e('click to expand', 'imdb'); ?> [+]</div>
+			<div class="activatehidesection">[+] <?php esc_html_e('click to expand', 'imdb'); ?> [+]</div>
 			<div class="hidesection">
 			<?php 
 			$txt = "";
@@ -305,12 +306,12 @@ echo '/ >'; ?>
         <tr>
             	<td class="TitreSousRubriqueColGauche">
                		<div class="TitreSousRubrique">
-				<?php _e('Personal quotes', 'imdb') ?>
+				<?php esc_html_e('Personal quotes', 'imdb') ?>
 			</div>
  		</td>
 			
 		<td colspan="2" class="TitreSousRubriqueColDroite">
-			<div class="activatehidesection">[+] <?php _e('click to expand', 'imdb'); ?> [+]</div>
+			<div class="activatehidesection">[+] <?php esc_html_e('click to expand', 'imdb'); ?> [+]</div>
 			<div class="hidesection">
 				<?php 
 				for ($i=0;$i<$tc;++$i) {
@@ -330,12 +331,12 @@ echo '/ >'; ?>
         <tr>
             <td class="TitreSousRubriqueColGauche">
                 <div class="TitreSousRubrique">
-					<?php _e('Trademarks', 'imdb') ?>
+					<?php esc_html_e('Trademarks', 'imdb') ?>
 				</div>
  			</td>
 			
 		<td colspan="2" class="TitreSousRubriqueColDroite">
-			<div class="activatehidesection">[+] <?php _e('click to expand', 'imdb'); ?> [+]</div>
+			<div class="activatehidesection">[+] <?php esc_html_e('click to expand', 'imdb'); ?> [+]</div>
 			<div class="hidesection">
 			<?php 
 				for ($i=0;$i<count($tm);++$i) {
@@ -363,7 +364,7 @@ echo '/ >'; ?>
 				</td>
 			
 		<td colspan="2" class="TitreSousRubriqueColDroite">
-			<div class="activatehidesection">[+] <?php _e('click to expand', 'imdb'); ?> [+]</div>
+			<div class="activatehidesection">[+] <?php esc_html_e('click to expand', 'imdb'); ?> [+]</div>
 			<div class="hidesection">
 			<?php
 				$ii = "0";
@@ -397,11 +398,18 @@ echo '/ >'; ?>
 
 <script src="<?php echo IMDBLTURLPATH; ?>js/hide-show_csp.js"></script>
 
+<?php // call wordpress footer functions;
+wp_meta();
+//get_footer(); // this one gets too much uneeded information
+wp_footer(); ?>
+
 </body>
 </html>
 
+<?php exit(); // quit the call of the page, to avoid double loading process ?>
+
 <?php
-} else { // escape if no result found, otherwise imdblt fails
-	imdblt_noresults_text();
+	} else { // escape if no result found, otherwise imdblt fails
+		imdblt_noresults_text();
 }
 ?>
