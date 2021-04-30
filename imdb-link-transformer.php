@@ -181,10 +181,8 @@ function imdb_add_head_blog () {
 
 // Highslide popup
 if ($imdb_admin_values['imdbpopup_highslide'] == 1) { 
-// wp_enqueue_script('imdblt-highslide-js', $imdb_admin_values[imdbplugindirectory] . "js/highslide/highslide-with-html.js");
-// wp_enqueue_style('imdblt-highslide-css', $imdb_admin_values[imdbplugindirectory] . "css/highslide.css", '', '', 'screen'); ?>
-<script type="text/javascript" src="<?php echo $imdb_admin_values[imdbplugindirectory] ?>js/highslide/highslide-with-html.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo $imdb_admin_values[imdbplugindirectory] ?>css/highslide.css" media="screen" />
+	wp_enqueue_script("imdblt_highslide", IMDBLTURLPATH ."js/highslide/highslide-with-html.min.js", array(), "5.0");
+	wp_enqueue_style('imdblt_highslide', $imdb_admin_values[imdbplugindirectory] . "css/highslide.css"); ?>
 <script type="text/javascript">
 hs.allowWidthReduction = true
 hs.graphicsDir = '<?php echo $imdb_admin_values[imdbplugindirectory] ?>js/highslide/graphics/';
