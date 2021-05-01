@@ -74,9 +74,24 @@ get_header();
 	} // end foreach  ?> 
 
 </table>
+
+<script type="text/javascript">
+	hs.allowWidthReduction = true
+	hs.graphicsDir = '<?php echo $imdb_admin_values[imdbplugindirectory] ?>js/highslide/graphics/';
+	hs.showCredits = false;
+	hs.outlineType = 'custom';
+	hs.easing = 'linearTween';
+	hs.align = 'center';
+	hs.useBox = true;
+	hs.registerOverlay(
+		{ html: '<div class=\"closebutton\" onclick=\"return hs.close(this)\" title=\"Close\"></div>',
+		position: 'top right',
+		useOnHtml: true, fade: 2 }
+	);
+</script>
+
 </body>
 </html> 
-
 
 
 <?php

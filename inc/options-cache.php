@@ -365,7 +365,7 @@ exit();
 					echo '</span>'; 
 					}
 				} ?>
-				<div class="explain"><?php esc_html_e('Absolute path to store data retrieved from the IMDb website. Has to be <a href="http://codex.wordpress.org/Changing_File_Permissions" title="permissions how-to on wordpress website">writable</a> by the webserver.','imdb');?> <br /><?php esc_html_e('Default:','imdb');?> "<?php echo ABSPATH; ?>wp-content/cache/imdb/'<br />
+				<div class="explain"><?php esc_html_e('Absolute path to store data retrieved from the IMDb website. Has to be <a href="http://codex.wordpress.org/Changing_File_Permissions" title="permissions how-to on wordpress website">writable</a> by the webserver.','imdb');?> <br /><?php esc_html_e('Default:','imdb');?> "<?php echo ABSPATH; ?>wp-content/plugins/imdb-link-transformer/cache/'<br />
 			</div>
 			</td>
 		</tr>
@@ -406,7 +406,7 @@ exit();
 						echo '</span>'; 
 					}
 				} ?>
-		<div class="explain"><?php esc_html_e('Absolute path to store images retrieved from the IMDb website. Has to be <a href="http://codex.wordpress.org/Changing_File_Permissions" title="permissions how-to on wordpress website">writable</a> by the webserver.', 'imdb');?> <br /><?php esc_html_e('Default:','imdb');?> "<?php echo ABSPATH; ?>wp-content/cache/imdb/images/"</div>
+		<div class="explain"><?php esc_html_e('Absolute path to store images retrieved from the IMDb website. Has to be <a href="http://codex.wordpress.org/Changing_File_Permissions" title="permissions how-to on wordpress website">writable</a> by the webserver.', 'imdb');?> <br /><?php esc_html_e('Default:','imdb');?> "<?php echo ABSPATH; ?>wp-content/plugins/imdb-link-transformer/cache/images/"</div>
 			</td>
 		</tr>
 
@@ -414,7 +414,7 @@ exit();
 			<td class="td-aligntop"><label for="imdb_imdbphotoroot"><?php esc_html_e('Photo directory (url)', 'imdb'); ?></label>
 			</td>
 			<td colspan="2"><input type="text" name="imdb_imdbphotoroot" size="70" value="<?php esc_html_e(apply_filters('format_to_edit',$imdbOptionsc['imdbphotoroot']), 'imdb') ?>">
-				<div class="explain"><?php esc_html_e('URL corresponding to photo directory.','imdb');?> <br /><?php esc_html_e('Default:','imdb');?> "<?php echo $imdbOptions['blog_adress']; ?>/wp-content/cache/imdb/images/"</div>
+				<div class="explain"><?php esc_html_e('URL corresponding to photo directory.','imdb');?> <br /><?php esc_html_e('Default:','imdb');?> "<?php echo $imdbOptions['blog_adress']; ?>/wp-content/plugins/imdb-link-transformer/cache/images/"</div>
 			</td>
 		</tr>
 

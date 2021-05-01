@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteBase /
+RewriteBase /blogpourext/
 
 ## popup.php
 RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup.php\?film=([^\s]+) [NC]
