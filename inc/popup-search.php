@@ -9,7 +9,7 @@
  # under the terms of the GNU General Public License (see LICENSE)           #
  # ------------------------------------------------------------------------- #
  #									     #
- #  Function : Show a popup including movie information related to movies    #
+ #  Function : Displays a popup with search results related to a movie       #
  #									     #
  #############################################################################
 

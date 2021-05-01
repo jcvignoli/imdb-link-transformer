@@ -4,10 +4,7 @@
 */
 .highslide-container div {
 	font-family: Verdana, Helvetica;
-	/*font-size: 10pt;*/
-font-size: x-large; /* modified by jcv */
-text-align:center;
-padding-top:15px;
+	font-size: 10pt;
 }
 .highslide-container table {
 	background: none;
@@ -61,6 +58,7 @@ padding-top:15px;
 	display: none;
 	font-weight: bold;
 	margin: 0.4em;
+visibility:hidden; /* modified by jcv */
 }
 .highslide-dimming {
 	/*position: absolute;*/

@@ -52,7 +52,7 @@ if (($imdb_admin_values[imdbdirectsearch] == false ) OR ($_GET["norecursive"] ==
 	//require_once ('popup-header.php'); 
 get_header(); 
 ?>
-<h1><?php esc_html_e('Results related to this film', 'imdb'); ?></h1>
+<h1><?php esc_html_e('Results related to', 'imdb'); echo " " . sanitize_text_field($movie->title()); ?></h1>
 
 <table class='TableListeResultats'>
 	<tr>
@@ -92,7 +92,8 @@ get_header();
 	} // end foreach  ?> 
 
 </table>
-
+<?php
+/*
 <script type="text/javascript">
 	hs.allowWidthReduction = true
 	hs.graphicsDir = '<?php echo $imdb_admin_values[imdbplugindirectory] ?>js/highslide/graphics/';
@@ -107,8 +108,8 @@ get_header();
 		useOnHtml: true, fade: 2 }
 	);
 </script>
-
-<?php // call wordpress footer functions;
+*/
+// call wordpress footer functions;
 wp_meta();
 //get_footer(); // this one gets too much uneeded information
 wp_footer(); ?>
@@ -131,16 +132,16 @@ get_header();
 <table class='tabletitrecolonne'>
     <tr>
         <td class='titrecolonne a:hover'>
-            <a href='<?php echo IMDBLTURLPATH."inc/"; ?>popup.php?film=<?php echo imdb_htmlize($movie->title()); ?>&norecursive=yes' title="<?php esc_html_e('Search for movies with the same name', 'imdb'); ?>"><font size='-2'><?php esc_html_e('Search AKAs', 'imdb'); ?></font></a>
+            <a href='<?php echo $imdb_admin_values[imdbplugindirectory] . "inc/"; ?>popup-search.php?film=<?php echo imdb_htmlize($movie->title()); ?>&norecursive=yes' title="<?php esc_html_e('Search for movies with the same name', 'imdb'); ?>"><font size='-2'><?php esc_html_e('Search AKAs', 'imdb'); ?></font></a>
         </td>
         <td class='titrecolonne'>
-			<a href='<?php echo IMDBLTURLPATH."inc/"; ?>popup-imdb_movie.php?mid=<?php echo $movieid_sanitized; ?>&film=<?php echo $_GET['film']; ?>&info=' title='<?php echo $movie->title().": ".esc_html__('Movie', 'imdb'); ?>'><?php esc_html_e('Movie', 'imdb'); ?></a>
+			<a href='<?php echo $imdb_admin_values[imdbplugindirectory] ."inc/"; ?>popup-imdb_movie.php?mid=<?php echo $movieid_sanitized; ?>&film=<?php echo $_GET['film']; ?>&info=' title='<?php echo $movie->title().": ".esc_html__('Movie', 'imdb'); ?>'><?php esc_html_e('Movie', 'imdb'); ?></a>
 		</td>
         <td class='titrecolonne'>
-			<a href='<?php echo IMDBLTURLPATH."inc/"; ?>popup-imdb_movie.php?mid=<?php echo $movieid_sanitized; ?>&film=<?php echo $_GET['film']; ?>&info=actors' title='<?php echo $movie->title().": ".esc_html__('Actors', 'imdb'); ?>'><?php esc_html_e('Actors', 'imdb'); ?></a>
+			<a href='<?php echo $imdb_admin_values[imdbplugindirectory] ."inc/"; ?>popup-imdb_movie.php?mid=<?php echo $movieid_sanitized; ?>&film=<?php echo $_GET['film']; ?>&info=actors' title='<?php echo $movie->title().": ".esc_html__('Actors', 'imdb'); ?>'><?php esc_html_e('Actors', 'imdb'); ?></a>
 		</td>
         <td class='titrecolonne'>
-			<a href='<?php echo IMDBLTURLPATH."inc/"; ?>popup-imdb_movie.php?mid=<?php echo $movieid_sanitized; ?>&film=<?php echo $_GET['film']; ?>&info=crew' title='<?php echo $movie->title().": ".esc_html__('Crew', 'imdb'); ?>'><?php esc_html_e('Crew', 'imdb'); ?></a>
+			<a href='<?php echo $imdb_admin_values[imdbplugindirectory] . "inc/"; ?>popup-imdb_movie.php?mid=<?php echo $movieid_sanitized; ?>&film=<?php echo $_GET['film']; ?>&info=crew' title='<?php echo $movie->title().": ".esc_html__('Crew', 'imdb'); ?>'><?php esc_html_e('Crew', 'imdb'); ?></a>
 		</td>
         <td class='titrecolonne'>
 			<a href='<?php echo IMDBLTURLPATH."inc/"; ?>popup-imdb_movie.php?mid=<?php echo $movieid_sanitized; ?>&film=<?php echo $_GET['film']; ?>&info=resume' title='<?php echo $movie->title().": ".esc_html__('Plot', 'imdb'); ?>'><?php esc_html_e('Plot', 'imdb'); ?></a>
@@ -589,36 +590,15 @@ echo '/ >'; ?>
     	<?php } ?>
 
 <?php	 } // ------------------------------------------------------------------------------ misc part end ?>
-     
-
 
 </table>
 <br />
-<?php 
-/*
-<script type="text/javascript">
-	hs.allowWidthReduction = true
-	hs.graphicsDir = '<?php echo $imdb_admin_values[imdbplugindirectory] ?>js/highslide/graphics/';
-	hs.showCredits = false;
-	hs.outlineType = 'custom';
-	hs.easing = 'linearTween';
-	hs.align = 'center';
-	hs.useBox = true;
-	hs.registerOverlay(
-		{ html: '<div class=\"closebutton\" onclick=\"return hs.close(this)\" title=\"Close\"></div>',
-		position: 'top right',
-		useOnHtml: true, fade: 2 }
-	);
-</script>
-*/
-
-// call wordpress footer functions;
-wp_meta();
-//get_footer(); // this one gets too much uneeded information
-wp_footer(); 
-?>
+<?php 	// call wordpress footer functions;
+	wp_meta();
+	//get_footer(); // this one gets too much uneeded information
+	wp_footer(); ?>
 </body>
 </html>
-<?php exit(); // quit the call of the page, to avoid double loading process 
+<?php 	exit(); // quit the call of the page, to avoid double loading process 
 }
 ?>

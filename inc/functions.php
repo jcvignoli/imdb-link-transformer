@@ -55,7 +55,7 @@ function imdblt_remove_link ($toremove) {
 function imdblt_convert_into_popup ($convert) {
 	global $imdb_admin_values;
 
-	$result = "<a class=\"link-imdb2 highslide\" onclick=\"return hs.htmlExpand(this, { objectType: 'iframe', width: " . $imdb_admin_values[popupLarg]. ", objectWidth: ". $imdb_admin_values[popupLarg].", objectHeight: ". $imdb_admin_values[popupLong]. ", headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '" . $imdb_admin_values[imdbplugindirectory] . "inc/popup-imdb_person.php?mid=" . "\${6}\${8}" . "' } )\" title=\"". __('open a new window with IMDb informations', 'imdb'). '" href="#" >';
+	$result = "<a class=\"link-imdb2 highslide\" onclick=\"return hs.htmlExpand(this, { objectType: 'iframe', width: " . $imdb_admin_values[popupLarg]. ", objectWidth: ". $imdb_admin_values[popupLarg].", objectHeight: ". $imdb_admin_values[popupLong]. ", headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '" . $imdb_admin_values[imdbplugindirectory] . "inc/popup-imdb_person.php?mid=" . "\${6}\${8}" . "' } )\" title=\"". esc_html__('open a new window with IMDb informations', 'imdb'). '" href="#" >';
 
 	$convert = preg_replace("~(<a )((href=)(.*?))(nm)([[:alnum:]])((.*?)/\">)~", "$result", $convert);
 
@@ -158,40 +158,40 @@ function create_imdblt_taxonomies() {
 	global $imdb_admin_values,$imdb_widget_values;
 
 	if ($imdb_widget_values['imdbtaxonomytitle'] ==  true) {
-		register_taxonomy('title', array('page','post'), array( 'hierarchical' => false, 'label' => __("Movie's titles", 'imdb'), 'query_var' => 'title', 'rewrite' => array( 'slug' => 'title' ) )  ) ; }
+		register_taxonomy('title', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's titles", 'imdb'), 'query_var' => 'title', 'rewrite' => array( 'slug' => 'title' ) )  ) ; }
 
 	if ($imdb_widget_values['imdbtaxonomygenre'] ==  true) {
-		register_taxonomy('genre', array('page','post'), array( 'hierarchical' => false, 'label' => __("Movie's genres", 'imdb'), 'query_var' => 'genre', 'rewrite' => array( 'slug' => 'genre' ) )  ) ; }
+		register_taxonomy('genre', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's genres", 'imdb'), 'query_var' => 'genre', 'rewrite' => array( 'slug' => 'genre' ) )  ) ; }
 
 	if ($imdb_widget_values['imdbtaxonomykeywords'] ==  true) {
-		register_taxonomy('keywords', array('page','post'), array( 'hierarchical' => false, 'label' => __("Movie's keywords", 'imdb'), 'query_var' => 'keywords', 'rewrite' => array( 'slug' => 'keywords' ) )  ) ; }
+		register_taxonomy('keywords', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's keywords", 'imdb'), 'query_var' => 'keywords', 'rewrite' => array( 'slug' => 'keywords' ) )  ) ; }
 
 	if ($imdb_widget_values['imdbtaxonomycountry'] == true) {
-		register_taxonomy('country', array('page','post'), array( 'hierarchical' => false, 'label' => __("Movie's countries", 'imdb'), 'query_var' => 'country', 'rewrite' => array( 'slug' => 'country' ) )  ) ; }
+		register_taxonomy('country', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's countries", 'imdb'), 'query_var' => 'country', 'rewrite' => array( 'slug' => 'country' ) )  ) ; }
 
 	if ($imdb_widget_values['imdbtaxonomylanguage'] == true) {
-		register_taxonomy('language', array('page','post'), array( 'hierarchical' => false, 'label' => __("Movie's languages", 'imdb'), 'query_var' => 'language', 'rewrite' => array( 'slug' => 'language' ) )  ) ; }
+		register_taxonomy('language', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's languages", 'imdb'), 'query_var' => 'language', 'rewrite' => array( 'slug' => 'language' ) )  ) ; }
 
 	if ($imdb_widget_values['imdbtaxonomycomposer'] == true) {
-		register_taxonomy('composer', array('page','post'), array( 'hierarchical' => false, 'label' => __("Movie's composers", 'imdb'), 'query_var' => 'composer', 'rewrite' => array( 'slug' => 'composer' ) )  ) ; }
+		register_taxonomy('composer', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's composers", 'imdb'), 'query_var' => 'composer', 'rewrite' => array( 'slug' => 'composer' ) )  ) ; }
 
 	if ($imdb_widget_values['imdbtaxonomycolor'] == true) {
-		register_taxonomy('color', array('page','post'), array( 'hierarchical' => false, 'label' => __("Movie's colors", 'imdb'), 'query_var' => 'color', 'rewrite' => array( 'slug' => 'color' ) )  ) ; }
+		register_taxonomy('color', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's colors", 'imdb'), 'query_var' => 'color', 'rewrite' => array( 'slug' => 'color' ) )  ) ; }
 
 	if ($imdb_widget_values['imdbtaxonomydirector'] == true) {
-		register_taxonomy('director', array('page','post'), array( 'hierarchical' => false, 'label' => __("Movie's directors", 'imdb'), 'query_var' => 'director', 'rewrite' => array( 'slug' => 'director' ) )  ) ; }
+		register_taxonomy('director', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's directors", 'imdb'), 'query_var' => 'director', 'rewrite' => array( 'slug' => 'director' ) )  ) ; }
 
 	if ($imdb_widget_values['imdbtaxonomycreator'] == true) {
-		register_taxonomy('creator', array('page','post'), array( 'hierarchical' => false, 'label' => __("Movie's creators", 'imdb'), 'query_var' => 'creator', 'rewrite' => array( 'slug' => 'creator' ) )  ) ; }
+		register_taxonomy('creator', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's creators", 'imdb'), 'query_var' => 'creator', 'rewrite' => array( 'slug' => 'creator' ) )  ) ; }
 
 	if ($imdb_widget_values['imdbtaxonomyproducer'] == true) {
-		register_taxonomy('producer', array('page','post'), array( 'hierarchical' => false, 'label' => __("Movie's producers", 'imdb'), 'query_var' => 'producer', 'rewrite' => array( 'slug' => 'producer' ) )  ) ; }
+		register_taxonomy('producer', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's producers", 'imdb'), 'query_var' => 'producer', 'rewrite' => array( 'slug' => 'producer' ) )  ) ; }
 
 	if ($imdb_widget_values['imdbtaxonomyactor'] == true) {
-		register_taxonomy('actor', array('page','post'), array( 'hierarchical' => false, 'label' => __("Movie's actors", 'imdb'), 'query_var' => 'actor', 'rewrite' => array( 'slug' => 'actor' ) )  ) ; }
+		register_taxonomy('actor', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's actors", 'imdb'), 'query_var' => 'actor', 'rewrite' => array( 'slug' => 'actor' ) )  ) ; }
 		
 	if ($imdb_widget_values['imdbtaxonomywriter'] == true) {
-		register_taxonomy('writer', array('page','post'), array( 'hierarchical' => false, 'label' => __("Movie's writers", 'imdb'), 'query_var' => 'writer', 'rewrite' => array( 'slug' => 'writer' ) )  ) ; }
+		register_taxonomy('writer', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's writers", 'imdb'), 'query_var' => 'writer', 'rewrite' => array( 'slug' => 'writer' ) )  ) ; }
 }
 
 /**
@@ -237,9 +237,9 @@ function imdb_popup_highslide_link ($link_parsed, $popuplarg="", $popuplong="" )
 					ucwords(imdb_htmlize($link_parsed[1])) .
 					"', wrapperClassName: 'titlebar', src: '" .
 					$imdb_admin_values[imdbplugindirectory] .
-					"inc/popup.php?film=" .
+					"inc/popup-search.php?film=" .
 					imdb_htmlize($link_parsed[1]) .
-					"' } );\" href=\"#\" title=\"" .__('open a new window with IMDb informations', 'imdb')."\">" .
+					"' } );\" href=\"#\" title=\"" .esc_html__('open a new window with IMDb informations', 'imdb')."\">" .
 					$link_parsed[1] .
 					"</a></span>";
 	
@@ -264,13 +264,13 @@ function imdb_popup_link ($link_parsed, $popuplarg="", $popuplong="" ) {
 
 	$parsed_result =	"<a class=\"link-imdb\" onclick=\"window.open('" .
 					$imdb_admin_values[imdbplugindirectory] .
-					"inc/popup.php?film=" .
+					"inc/popup-search.php?film=" .
 					imdb_htmlize($link_parsed[1]) .
 					"', 'popup', 'resizable=yes, toolbar=0, scrollbars=yes, status=no, location=no, width=" .
 					$popuplarg . 
 					", height=" .
 					$popuplong .
-					", top=5, left=5')\" title=\"".__('open a new window with IMDb informations', 'imdb')."\">" .
+					", top=5, left=5')\" title=\"".esc_html__('open a new window with IMDb informations', 'imdb')."\">" .
 					$link_parsed[1] .
 					"</a>"; 
 	

@@ -391,35 +391,17 @@ echo '/ >'; ?>
 
 
 		  
-     <?php } //------------------------------------------------------------------------------ end misc part ?>		  
-		  
+     <?php } //------------------------------------------------------------------------------ end misc part ?>		   
 </table>
 <br />
-
-<script type="text/javascript">
-	hs.allowWidthReduction = true
-	hs.graphicsDir = '<?php echo $imdb_admin_values[imdbplugindirectory] ?>js/highslide/graphics/';
-	hs.showCredits = false;
-	hs.outlineType = 'custom';
-	hs.easing = 'linearTween';
-	hs.align = 'center';
-	hs.useBox = true;
-	hs.registerOverlay(
-		{ html: '<div class=\"closebutton\" onclick=\"return hs.close(this)\" title=\"Close\"></div>',
-		position: 'top right',
-		useOnHtml: true, fade: 2 }
-	);
-</script>
-
-<?php // call wordpress footer functions;
-wp_meta();
-//get_footer(); // this one gets too much uneeded information
-wp_footer(); ?>
-
+<?php 	// call wordpress footer functions;
+	wp_meta();
+	//get_footer(); // this one gets too much uneeded information
+	wp_footer(); 
+?>
 </body>
 </html>
-
-<?php exit(); // quit the call of the page, to avoid double loading process ?>
+<?php 	exit(); // quit the call of the page, to avoid double loading process ?>
 
 <?php
 	} else { // escape if no result found, otherwise imdblt fails

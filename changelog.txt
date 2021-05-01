@@ -1,12 +1,12 @@
 Changelog
 
-v3
+v3.0
 * [major] updated to imdbphp-6.5 library
-* [major] rewritten the code to be compliant with wordpress security
+* [major] rewritten the code to be compliant with content security policy
 * [major] plugin is compatible with tablets/mobile phones
-* [medium] updated to highslide 5.0
+* [major] code is now following wordpress security recommandations
+* [medium] updated to highslide 5.0, rewritten accesses to the popup
 * [minor] removed Pilot search options
-* [minor] made click to expand "content security policy" compliant
 
 v2.3.2
 * [major] updated to imdbphp-2.3.2 library
