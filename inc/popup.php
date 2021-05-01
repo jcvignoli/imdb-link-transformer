@@ -48,11 +48,11 @@ get_header();
 		
 		// ---- movie part
 		echo "		<td class='TableListeResultatsColGauche'><a href=\"".IMDBLTURLPATH."inc/popup-imdb_movie.php?mid=".$res->imdbid()."\" title=\"".__('more on', 'imdb')." ".$res->title()."\" >".$res->title()."(".$res->year().")"."</a> \n";
-		echo "&nbsp;&nbsp;<a class=\"imdblink\" href=\"http://us.imdb.com/title/tt".$res->imdbid()."\" target=\"_blank\" title='".__('link to imdb for', 'imdb')." ".$res->title()."'>";
+		echo "&nbsp;&nbsp;<a class=\"imdblink\" href=\"https://us.imdb.com/title/tt".$res->imdbid()."\" target=\"_blank\" title='".__('link to imdb for', 'imdb')." ".$res->title()."'>";
 
-			if ($imdb_admin_values[imdbdisplaylinktoimdb] == true) { # if the user has selected so
-		echo "<img  class='img-imdb' src='".$imdb_admin_values[imdbplugindirectory].$imdb_admin_values[imdbpicurl]."' width='".$imdb_admin_values[imdbpicsize]."' alt='".__('link to imdb for', 'imdb')." ".$res->title()."'/></a>";	
-			}
+		if ($imdb_admin_values[imdbdisplaylinktoimdb] == true) { # if the user has selected so
+			echo "<img  class='img-imdb' src='".$imdb_admin_values[imdbplugindirectory].$imdb_admin_values[imdbpicurl]."' width='".$imdb_admin_values[imdbpicsize]."' alt='".__('link to imdb for', 'imdb')." ".$res->title()."'/></a>";	
+		}
 		echo "</td>\n";
 		flush ();
 	
@@ -62,7 +62,7 @@ get_header();
 		echo "		<td class='TableListeResultatsColDroite'><a href=\"".IMDBLTURLPATH."inc/popup-imdb_person.php?mid=".$realisateur['0']['imdb']."&film=".$_GET['film']."\" title=\"".__('more on', 'imdb')." ".$realisateur['0']['name']."\" >".$realisateur['0']['name']."</a>";
 
 			if ($imdb_admin_values[imdbdisplaylinktoimdb] == true) { # if the user has selected so
-		echo "&nbsp;&nbsp;<a class=\"imdblink\" href=\"http://imdb.com/name/nm".$realisateur['0']['imdb']."\" target=\"_blank\" title='".__('link to imdb for', 'imdb')." ".$realisateur['0']['name']."'>";
+		echo "&nbsp;&nbsp;<a class=\"imdblink\" href=\"https://imdb.com/name/nm".$realisateur['0']['imdb']."\" target=\"_blank\" title='".__('link to imdb for', 'imdb')." ".$realisateur['0']['name']."'>";
 		echo "<img class='img-imdb' src='".$imdb_admin_values[imdbplugindirectory].$imdb_admin_values[imdbpicurl]."' width='".$imdb_admin_values[imdbpicsize]."' alt='".__('link to imdb for', 'imdb')." ".$realisateur['0']['name']."'/>";
 		echo "</a>";
 			}
@@ -74,25 +74,15 @@ get_header();
 	} // end foreach  ?> 
 
 </table>
-
-<script type="text/javascript">
-	hs.allowWidthReduction = true
-	hs.graphicsDir = '<?php echo $imdb_admin_values[imdbplugindirectory] ?>js/highslide/graphics/';
-	hs.showCredits = false;
-	hs.outlineType = 'custom';
-	hs.easing = 'linearTween';
-	hs.align = 'center';
-	hs.useBox = true;
-	hs.registerOverlay(
-		{ html: '<div class=\"closebutton\" onclick=\"return hs.close(this)\" title=\"Close\"></div>',
-		position: 'top right',
-		useOnHtml: true, fade: 2 }
-	);
-</script>
-
+<?php // call wordpress footer functions;
+wp_meta();
+//get_footer(); // this one gets too much uneeded information
+wp_footer(); 
+?>
 </body>
 </html> 
 
+<?php exit(); // quit the call of the page, to avoid double loading process ?>
 
 <?php
 } else {  //-------------------------------------------------------------------------- 2. accès direct, option spéciale

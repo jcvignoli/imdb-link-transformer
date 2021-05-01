@@ -170,6 +170,9 @@ function add_imdb_tinymce_plugin($plugin_array) {
 ##### a) outside admin part
 function imdb_add_head_blog () {
 	global $imdb_admin_values; 
+
+	wp_enqueue_script( "imdblt_hide-show_csp", IMDBLTURLPATH ."js/hide-show_csp.js");
+
 	if (file_exists (TEMPLATEPATH . "/imdb.css") ) { // an imdb.css exists inside theme folder, take it! 
 		wp_enqueue_style('imdblt_highslide', bloginfo('stylesheet_directory') . "imdb.css");
  	} else { // no imdb.css exists in theme, add default one
@@ -180,11 +183,12 @@ function imdb_add_head_blog () {
 if ($imdb_admin_values['imdbpopup_highslide'] == 1) {
 
 /*
-*	Todo: to enqueue everything
+*	Todo: to enqueue everything, currently wp_enqueuing breaks highslide
 */
 	//wp_enqueue_script( "imdblt_highslide", IMDBLTURLPATH ."js/highslide/highslide-with-html.min.js", array(), "5.0");
-	wp_enqueue_script( "imdblt_hide-show_csp", IMDBLTURLPATH ."js/hide-show_csp.js");
-	//wp_enqueue_style( "imdblt_highslide", IMDBLTURLPATH ."css/highslide.css"); ?>
+	//wp_enqueue_style( "imdblt_highslide", IMDBLTURLPATH ."css/highslide.css"); 
+	//wp_enqueue_script( "imdblt_highslide", IMDBLTURLPATH ."js/highslide-options.js");
+?>
 <link rel="stylesheet" type="text/css" href="<?php echo IMDBLTURLPATH; ?>css/highslide.css">
 <script src="<?php echo IMDBLTURLPATH; ?>js/highslide/highslide-with-html.min.js"></script>
 <script type="text/javascript">

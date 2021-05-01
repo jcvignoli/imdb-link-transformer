@@ -4,7 +4,10 @@
 */
 .highslide-container div {
 	font-family: Verdana, Helvetica;
-	font-size: 10pt;
+	/*font-size: 10pt;*/
+font-size: x-large; /* modified by jcv */
+text-align:center;
+padding-top:15px;
 }
 .highslide-container table {
 	background: none;
@@ -12,7 +15,7 @@
 .highslide {
 	outline: none;
 	text-decoration: none;
-	cursor: url(../js/highslide/graphics/zoomin.cur), pointer; /* ---------------------------modified by psyko */
+	cursor: url(../js/highslide/graphics/zoomin.cur), pointer; /* ---------------------------modified by jcv */
 }
 .highslide img {
 	border: 2px solid silver;
@@ -64,7 +67,7 @@
 	background: black;
 }
 a.highslide-full-expand {
-   background: url(../js/highslide/graphics/fullexpand.gif) no-repeat; /* ---------------------------modified by psyko */
+   background: url(../js/highslide/graphics/fullexpand.gif) no-repeat; /* ---------------------------modified by jcv */
    display: block;
    margin: 0 10px 10px 0;
    width: 34px;
@@ -79,8 +82,8 @@ a.highslide-full-expand {
 	background-color: black;
 	background-repeat: no-repeat;
 	background-position: 3px 3px;
-	background-image: url(../js/highslide/graphics/loader.big.black.gif); 
-	/* background-image: url(../pics/loader.white.gif);---------------------------modified by psyko */
+	background-image: url(../js/highslide/graphics/loader.gif); 
+	/* background-image: url(../pics/loader.white.gif);---------------------------modified by jcv */
 }
 a.highslide-credits,
 a.highslide-credits i {
@@ -122,7 +125,7 @@ a.highslide-credits:hover i {
 	width: 30px;
 	height: 30px;
 	cursor: pointer;
-	background: url(../js/highslide/graphics/close.png); /* ---------------------------modified by psyko */
+	background: url(../js/highslide/graphics/close.png); /* ---------------------------modified by jcv */
 	/* NOTE! For IE6, you also need to update the highslide-ie6.css file. */
 }
 
@@ -181,7 +184,7 @@ html>/**/body .highslide-gallery ul img {
 .highslide-controls {
 	width: 195px;
 	height: 40px;
-	background: url(../js/highslide/graphics/controlbar-white.gif) 0 -90px no-repeat; /* ---------------------------modified by psyko */
+	background: url(../js/highslide/graphics/controlbar-white.gif) 0 -90px no-repeat; /* ---------------------------modified by jcv */
 	margin: 20px 15px 10px 0;
 }
 .highslide-controls ul {
@@ -191,7 +194,7 @@ html>/**/body .highslide-gallery ul img {
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	background: url(../js/highslide/graphics/controlbar-white.gif) right -90px no-repeat; /* ---------------------------modified by psyko */
+	background: url(../js/highslide/graphics/controlbar-white.gif) right -90px no-repeat; /* ---------------------------modified by jcv */
 
 }
 .highslide-controls li {
@@ -201,7 +204,7 @@ html>/**/body .highslide-gallery ul img {
 	list-style: none;
 }
 .highslide-controls a {
-	background-image: url(../js/highslide/graphics/controlbar-white.gif); /* ---------------------------modified by psyko */
+	background-image: url(../js/highslide/graphics/controlbar-white.gif); /* ---------------------------modified by jcv */
 	display: block;
 	float: left;
 	height: 30px;
@@ -328,7 +331,7 @@ html>/**/body .highslide-gallery ul img {
 	margin-top: 5px;
 	height: 11px;
 	width: 11px;
-	background: url(../js/highslide/graphics/resize.gif) no-repeat; /* ---------------------------modified by psyko */
+	background: url(../js/highslide/graphics/resize.gif) no-repeat; /* ---------------------------modified by jcv */
 }
 .highslide-footer .highslide-resize span {
 	display: none;
@@ -379,7 +382,7 @@ html>/**/body .highslide-gallery ul img {
 	display: block;
 	height: 16px;
 	width: 16px;
-	/* background-image: url(graphics/closeX.png);  ----------------------------------------modified by psyko */
+	/* background-image: url(graphics/closeX.png);  ----------------------------------------modified by jcv */
 }
 .draggable-header .highslide-header .highslide-close a:hover {
 	background-position: 0 16px;
@@ -493,7 +496,7 @@ html>/**/body .highslide-gallery ul img {
 .dark .highslide-controls,
 .dark .highslide-controls ul,
 .dark .highslide-controls a {
-	background-image: url(../js/highslide/graphics/controlbar-black-border.gif); /* ---------------------------modified by psyko */
+	background-image: url(../js/highslide/graphics/controlbar-black-border.gif); /* ---------------------------modified by jcv */
 }
 
 /* hs.wrapperClassName = 'floating-caption' */
@@ -515,7 +518,7 @@ html>/**/body .highslide-gallery ul img {
 	cursor: default;
 	padding: 0 0 0 22px;
 	margin: 0;
-	background: url(../js/highslide/graphics/icon.gif) no-repeat 0 1px; /* ---------------------------modified by psyko */
+	background: url(../js/highslide/graphics/icon.gif) no-repeat 0 1px; /* ---------------------------modified by jcv */
 }
 .controls-in-heading .highslide-controls {
 	width: 105px;
@@ -535,7 +538,7 @@ html>/**/body .highslide-gallery ul img {
 	padding: 0;
 }
 .controls-in-heading .highslide-controls a {
-	background-image: url(../js/highslide/graphics/controlbar-white-small.gif); /* ---------------------------modified by psyko */
+	background-image: url(../js/highslide/graphics/controlbar-white-small.gif); /* ---------------------------modified by jcv */
 	height: 20px;
 	width: 20px;
 }
@@ -615,18 +618,18 @@ html>/**/body .highslide-gallery ul img {
 	height: 32px;
 	overflow: hidden;
 	background-color: black; 
-	/*background-color: white;-----------------------------------------------------------------------modified by psyko */
+	/*background-color: white;-----------------------------------------------------------------------modified by jcv */
 	background-repeat: no-repeat;
 	background-position: 3px 3px;
-	background-image: url(../js/highslide/graphics/loader.big.black.gif);
-	/* background-image: url(../pics/loader.white.gif);---------------------------modified by psyko */
+	background-image: url(../js/highslide/graphics/loader.gif);
+	/* background-image: url(../pics/loader.white.gif);---------------------------modified by jcv */
 }
 
 .highslide-html {
 	background: none;
 }
 .highslide-header ul a {
-	/* background-image: url(../js/highslide/graphics/controlbar-text-buttons.png);   ---------------------------modified by psyko */
+	/* background-image: url(../js/highslide/graphics/controlbar-text-buttons.png);   ---------------------------modified by jcv */
 	padding-left: 16px;
 	display: inline-block;
 	height: 16px;

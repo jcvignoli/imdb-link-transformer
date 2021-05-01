@@ -594,7 +594,8 @@ echo '/ >'; ?>
 
 </table>
 <br />
-
+<?php 
+/*
 <script type="text/javascript">
 	hs.allowWidthReduction = true
 	hs.graphicsDir = '<?php echo $imdb_admin_values[imdbplugindirectory] ?>js/highslide/graphics/';
@@ -609,15 +610,15 @@ echo '/ >'; ?>
 		useOnHtml: true, fade: 2 }
 	);
 </script>
+*/
 
-<?php // call wordpress footer functions;
+// call wordpress footer functions;
 wp_meta();
 //get_footer(); // this one gets too much uneeded information
-wp_footer(); ?>
-
+wp_footer(); 
+?>
 </body>
 </html>
-
 <?php exit(); // quit the call of the page, to avoid double loading process 
 }
 ?>
