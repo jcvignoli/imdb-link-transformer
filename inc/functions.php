@@ -1,5 +1,14 @@
 <?php
 
+/* General vars */
+
+$allowed_html_for_esc_html_functions = [
+    'a'      => [
+        'href'  => [],
+        'title' => [],
+    ],
+];
+
 /**
  * Recursively delete a directory
  *
@@ -73,7 +82,7 @@ function imdblt_admin_signature(){ ?>
 	<table class="options">
 		
 		<tr>
-			<td><div class="explain"><?php _e('<strong>Licensing Info:</strong> Under the GPL licence, "IMDb link transformer" is based on <a href="http://www.izzysoft.de">imdbphp project</a> classes. However, a huge customization work has been required to implement it to wordpress; check support page for', 'imdb'); ?> <a href="?page=imdblt_options&subsection=help&helpsub=support"><?php _e('more', 'imdb') ?></a>.</div>
+			<td><div class="explain"><?php wp_kses( _e( '<strong>Licensing Info:</strong> Under the GPL licence, "IMDb link transformer" is based on <a href="https://github.com/tboothman/imdbphp/">tboothman</a> classes. Nevertheless, a considerable amount of work was required to implement it in wordpress; check the support page for', 'imdb'), $allowed_html_for_esc_html_functions ); ?> <a href="<?php admin_url(); ?>?page=imdblt_options&subsection=help&helpsub=support"><?php esc_html_e('more', 'imdb') ?></a>.</div>
 			</td>
 		</tr>
 		<tr>
@@ -85,8 +94,6 @@ function imdblt_admin_signature(){ ?>
 <?php
 } 
 
-
-
 /**
  * Text displayed when no result is found
  *
@@ -94,7 +101,7 @@ function imdblt_admin_signature(){ ?>
 
 function imdblt_noresults_text(){ 
 	echo "<br />";
-	echo "<div class='noresult'>Sorry, no result found for this reference</div>";
+	echo "<div class='noresult'>".esc_html_e('Sorry, no result found for this reference', 'imdb')."</div>";
 	echo "<br />";
 } 
 
@@ -125,27 +132,18 @@ function is_multiArrayEmpty($mixed) {
  *
  */
 
-function imdblt_source_imdb($midPremierResultat){ 
+function imdblt_source_imdb($midPremierResultat){
 	global $imdb_admin_values;
+
+	// Sanitize
+	if (! is_int($midPremierResultat))
+		exit();
+
 	echo '&nbsp;&nbsp;';
 	echo '<a href="http://'.$imdb_admin_values[imdbwebsite].'/title/tt'.$midPremierResultat.'" >';
 	echo "<img class='imdbelementSOURCE-picture' src=\"".$imdb_admin_values[imdbplugindirectory].'pics/imdb-link.png" />';
 	echo '&nbsp;&nbsp;IMDb\'s page for this movie</a>';
 } 
-
-
-/**
- * Moviepilot source link
- *
- */
-
-function imdblt_source_moviepilot($midPremierResultat){ 
-	global $imdb_admin_values;
-	echo '<a href="http://'.$imdb_admin_values[pilotsite].'/movies/imdb-id-'.(int)$midPremierResultat.'" >';
-	echo "<img class='imdbelementSOURCE-picture' src=\"".$imdb_admin_values[imdbplugindirectory].'pics/moviepilot.png" />';
-	echo '&nbsp;&nbsp;moviepilot\'s page for this movie</a>';
-} 
-
 
 /**
  * Activate taxomony from wordpress
@@ -255,6 +253,12 @@ function imdb_popup_highslide_link ($link_parsed, $popuplarg="", $popuplong="" )
 
 function imdb_popup_link ($link_parsed, $popuplarg="", $popuplong="" ) {
 	global $imdb_admin_values;
+
+	if (! is_int($popuplarg) )
+		exit();
+
+	if (! is_int($popuplong) )
+		exit();
 		
 	if (! $popuplarg )
 		$popuplarg=$imdb_admin_values["popupLarg"];

@@ -18,8 +18,8 @@
 define('IMDBLTURLPATH', plugins_url() . '/' . plugin_basename( dirname(__FILE__) ) . '/' );
 define('IMDBLTFILE', plugin_basename( dirname(__FILE__)) );
 define('IMDBLTABSPATH', str_replace("\\","/", WP_PLUGIN_DIR . '/' . plugin_basename( dirname(__FILE__) ) . '/' ));
-define('IMDBBLOG', site_url() );
-define('IMDBHOMEPAGE', site_url() . '/imdb-link-transformer-wordpress-plugin');
+define('IMDBBLOG', "https://www.jcvignoli.com/blog");
+define('IMDBHOMEPAGE', IMDBBLOG . '/imdb-link-transformer-wordpress-plugin');
 define('IMDBPHP_CONFIG',dirname(__FILE__) . '/config.php');
 
 #--------------------------------------------------=[ configuration class ]=--
