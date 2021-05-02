@@ -5,11 +5,12 @@
 
 /* ------------------ Basic */
 
-body.imdbpopup {
+body.imdbpopup, body.page-header-disabled{
 	font-family: Verdana, Tahoma, Georgia, Geneva, Arial;
 	font-size: 0.7em;
 	color: #575757;
 	background: #FFFFFF;
+	margin:10px;
 }
 
 body.imdbpopup a {
@@ -41,7 +42,7 @@ body.imdbpopup h1 {
 
 .tabletitrecolonne{
     background-color: #FFFFFF;
-    display:block;
+    /*display:block;*/
     margin-bottom: 0px;
     height: 25px;
     left: 10px;
@@ -49,24 +50,24 @@ body.imdbpopup h1 {
 }
 
 .titrecolonne{
-    text-align: center;
-    vertical-align: middle;
-    float: left;
-    margin: 0px;
-    margin-left: 5px;
-    font-family: Arial;
+	text-align: center;
+	vertical-align: middle;
+	float: left;
+	margin: 0px;
+	margin-left: 5px;
+	font-family: Arial;
 	font-weight: bold;
-    font-size: 14px;
-    height: 42px;
-    padding-right: 13px;
-    float: left;
-    color: #909090;
-    text-decoration: none;
+	font-size: medium;
+	height: 42px;
+	/* padding-right: 13px; 
+	float: left;
+	color: #909090;*/
+	text-decoration: none;
 }
 
 .titrecolonne a:hover {
-    color: #A8A8A8;
-	text-decoration: underline;
+	color: #A8A8A8;
+	/* text-decoration: underline; */
 }
 
 /* ---- Results list */
@@ -139,37 +140,35 @@ padding-left:13px;
 /* ---- Div */
 
 .titrefilm, .identity{
-text-align : center;
-font-size : 35px;
-font-family: Impact, Arial Black, Arial;
-color: #oooooo;
-text-decoration: none;
-clear: both;
+	text-align : center;
+	font-size : xx-large;
+	/*text-decoration: none;*/
+	clear: both;
 }
 
 .titrefilm a:hover, .identity a:hover {
-color: #FFEAFD;
+	color: #FFEAFD;
 }
 
 .soustitreidentity, .soustitrefilm {
-font-size:1.0em;
-text-align:center;
+	font-size: large;
+	text-align:center;
 }
 
 .TitreSousRubrique{
-font-size : 1.0em;
-border-bottom: 1px solid #333333;
-border-right: 1px solid #333333;
-text-align : right;
-padding: 3px 3px 3px 3px; 
+	font-size : 1.0em;
+	border-bottom: 1px solid #333333;
+	border-right: 1px solid #333333;
+	text-align : right;
+	padding: 3px 3px 3px 3px; 
 }
 
 
 /* ---- Others */
 
 .TitreSousRubriqueColDroite li {
-list-style-type:none;
-text-align:justify;
+	list-style-type:none;
+	text-align:justify;
 }
 
 .imdbdiv-liees { /* to integrate two div in one */
@@ -422,4 +421,8 @@ text-decoration: inherit;
 color: red;
 }
 
+/* ---- Oceanwp fix */
 
+#site-header.has-header-media .overlay-header-media {
+	background-color:unset !important;
+}

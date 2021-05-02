@@ -178,14 +178,13 @@ function imdb_add_head_blog_first (){
 		wp_enqueue_script( "imdblt_highslide", $imdb_admin_values[imdbplugindirectory] ."js/highslide/highslide-with-html.min.js", array(), "5.0");
 		wp_enqueue_style( "imdblt_highslide", $imdb_admin_values[imdbplugindirectory] ."css/highslide.css"); 
 		wp_enqueue_script( "imdblt_highslide_options", $imdb_admin_values[imdbplugindirectory] ."js/highslide-options.js");
-		wp_enqueue_script( "csp_inner_scripts", $imdb_admin_values[imdbplugindirectory] ."js/csp_inner_scripts.js");
-
+		wp_enqueue_script( "csp_inline_scripts", $imdb_admin_values[imdbplugindirectory] ."js/csp_inline_scripts.js");
 
 		// Pass variable to javascript highslide-options.js
-		$dataToBePassed = array(
+		$dataToBePassedHighslide = array(
 		    'imdb_path' => $imdb_admin_values['imdbplugindirectory']
 		);
-		wp_localize_script( "imdblt_highslide_options", 'php_vars', $dataToBePassed );
+		wp_localize_script( "imdblt_highslide_options", 'php_vars', $dataToBePassedHighslide );
 	}
 }
 
