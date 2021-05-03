@@ -123,9 +123,9 @@ while ($imovie < count($imdballmeta)) {
 
 			// check if big pictures are selected (extract "_big.jpg" from picture's names, if exists), AND if highslide popup is activated
 			if ( (substr( $photo_url, -7, -4) == "big" ) && ($imdb_admin_values['imdbpopup_highslide'] == 1) ) {
-				// value to store if previous checking is valid
+				// value to store if previous checking is valid, call in csp_inline_scripts.js
 				$highslidephotook = "ok";
-				echo '<a href="'.$photo_url.'" class="highslide" onclick="return hs.expand(this, { useBox: false } )" title="';
+				echo '<a href="'.$photo_url.'" class="highslide" id="highslide-pic" title="';
 				echo $movie->title().'"> <img class="imdbelementPICimg" src="';
 			} else {
 				// no big picture OR no highslide popup
@@ -138,7 +138,7 @@ while ($imovie < count($imdballmeta)) {
 				echo $photo_url.'" alt="'.$movie->title().'" '; 
 			} else { 
 				// no picture found, display the replacement pic
-				echo $imdb_admin_values[imdbplugindirectory].'pics/no_pics.gif" alt="'.__('no picture', 'imdb').'" '; 
+				echo $imdb_admin_values[imdbplugindirectory].'pics/no_pics.gif" alt="'.esc_html__('no picture', 'imdb').'" '; 
 			}
 
 
@@ -187,8 +187,8 @@ while ($imovie < count($imdballmeta)) {
 										<!-- runtime -->
 			<ul class="imdbelementRUNTIMEul">
 			<li class="imdbincluded-lined imdbelementRUNTIMEli">
-				<span class="imdbincluded-subtitle"><?php _e('Runtime', 'imdb'); ?>:</span><?php
-			echo $runtime." ".__('minutes', 'imdb'); ?></li>
+				<span class="imdbincluded-subtitle"><?php esc_html_e('Runtime', 'imdb'); ?>:</span><?php
+			echo $runtime." ".esc_html__('minutes', 'imdb'); ?></li>
 			</ul>
 	<?php 	} 
 	}; flush ();
@@ -229,17 +229,17 @@ while ($imovie < count($imdballmeta)) {
 										<!-- Rating et votes -->
 			<ul class="imdbelementRATINGul">
 			<li class="imdbincluded-lined imdbelementRATINGli">
-				<span class="imdbincluded-subtitle"><?php _e('Rating', 'imdb'); ?>:</span><?php
+				<span class="imdbincluded-subtitle"><?php esc_html_e('Rating', 'imdb'); ?>:</span><?php
 			
 			if ( $imdb_widget_values[imdbwidgetratingnopics] == true ) { // value which doesn't exist yet into plugin; has to be made
 				echo $votes." "; 
-				echo _e('votes, average ', 'imdb'); 
+				echo esc_html_e('votes, average ', 'imdb'); 
 				echo " ".$movie->rating()." ";
-				echo _e('(max 10)', 'imdb'); 
+				echo esc_html_e('(max 10)', 'imdb'); 
 			} else {							// by default, display pictures and votes amount	
 				echo " <img src=\"".$imdb_admin_values[imdbplugindirectory].'pics/showtimes/'.(round($movie->rating()*2, 0)/0.2).
-				".gif\" title=\"".__('vote average ', 'imdb').$movie->rating().__(' out of 10', 'imdb')."\"  / >";
-				echo " (".$votes." ".__('votes', 'imdb').")";			
+				".gif\" title=\"".esc_html__('vote average ', 'imdb').$movie->rating().esc_html__(' out of 10', 'imdb')."\"  / >";
+				echo " (".$votes." ".esc_html__('votes', 'imdb').")";			
 			}
 			
 			?></li>
@@ -433,7 +433,7 @@ while ($imovie < count($imdballmeta)) {
 										<!-- alsoknow -->
 			<ul class="imdbelementALSOKNOWul">
 			<li class="imdbincluded-lined imdbelementALSOKNOWli">
-				<span class="imdbincluded-subtitle"><?php _e('Also known as', 'imdb'); ?>:</span><?php 
+				<span class="imdbincluded-subtitle"><?php esc_html_e('Also known as', 'imdb'); ?>:</span><?php 
 			
 			for ($i = 0; $i < count ($alsoknow); $i++) { 
 				echo " <strong>".$alsoknow[$i][title]."</strong> "."(".$alsoknow[$i][country];
@@ -466,9 +466,9 @@ while ($imovie < count($imdballmeta)) {
 				for ($i = 0; $i < count ($composer); $i++) {
 					if  ($imdb_widget_values[imdblinkingkill] == false ) { // if "Remove all links" option is not selected 
 						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup
-						?><a  class="link-imdb2 highslide" onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: <?php echo $imdb_admin_values[popupLarg]?>, objectWidth: <?php echo $imdb_admin_values[popupLarg]?>, objectHeight: <?php echo $imdb_admin_values[popupLong]?>, headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $composer[$i]["imdb"];?>' } )" title="<?php _e('open a new window with IMDb informations', 'imdb'); ?>" href="#" ><?php echo $composer[$i]["name"]; ?></a>&nbsp;<?php
+						?><a  class="link-imdb2 highslide" onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: <?php echo $imdb_admin_values[popupLarg]?>, objectWidth: <?php echo $imdb_admin_values[popupLarg]?>, objectHeight: <?php echo $imdb_admin_values[popupLong]?>, headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $composer[$i]["imdb"];?>' } )" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>" href="#" ><?php echo $composer[$i]["name"]; ?></a>&nbsp;<?php
 						} else { 						// classic popup
-						?><a onclick="window.open('<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $composer[$i]["imdb"];?>', 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=<?php echo $imdb_admin_values[popupLarg]; ?>, height=<?php echo $imdb_admin_values[popupLong]; ?>, top=5, left=5')" title="<?php _e('Link to local imdb', 'imdb'); ?>" class="link-imdb2" ><?php				echo $composer[$i]["name"]."</a>&nbsp;";
+						?><a onclick="window.open('<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $composer[$i]["imdb"];?>', 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=<?php echo $imdb_admin_values[popupLarg]; ?>, height=<?php echo $imdb_admin_values[popupLong]; ?>, top=5, left=5')" title="<?php esc_html_e('Link to local imdb', 'imdb'); ?>" class="link-imdb2" ><?php				echo $composer[$i]["name"]."</a>&nbsp;";
 						} 
 					} else { // if "Remove all links" option is selected 
 						echo $composer[$i]["name"];
@@ -582,9 +582,9 @@ while ($imovie < count($imdballmeta)) {
 					if  ($imdb_widget_values[imdblinkingkill] == false ) { // if "Remove all links" option is not selected 
 						if ( $i > 0 ) echo ', ';
 						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup
-						?><a  class="link-imdb2 highslide" onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: <?php echo $imdb_admin_values[popupLarg]?>, objectWidth: <?php echo $imdb_admin_values[popupLarg]?>, objectHeight: <?php echo $imdb_admin_values[popupLong]?>, headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $director[$i]["imdb"];?>' } )" title="<?php _e('open a new window with IMDb informations', 'imdb'); ?>" href="#" ><?php echo $director[$i]["name"]; ?></a><?php
+						?><a  class="link-imdb2 highslide" id="highslide-director" data-search="<?php echo $director[$i]["imdb"]; ?>" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>" href="#" ><?php echo $director[$i]["name"]; ?></a><?php
 						} else { 						// classic popup
-						?><a onclick="window.open('<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $director[$i]["imdb"];?>', 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=<?php echo $imdb_admin_values[popupLarg]; ?>, height=<?php echo $imdb_admin_values[popupLong]; ?>, top=5, left=5')" title="<?php _e('Link to local imdb', 'imdb'); ?>" class="link-imdb2" ><?php				
+						?><a onclick="window.open('<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $director[$i]["imdb"];?>', 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=<?php echo $imdb_admin_values[popupLarg]; ?>, height=<?php echo $imdb_admin_values[popupLong]; ?>, top=5, left=5')" title="<?php esc_html_e('Link to local imdb', 'imdb'); ?>" class="link-imdb2" ><?php				
 						echo $director[$i]["name"]."</a>";
 						} 
 					} else { // if "Remove all links" option is selected 
@@ -625,9 +625,9 @@ while ($imovie < count($imdballmeta)) {
 					if  ($imdb_widget_values[imdblinkingkill] == false ) { // if "Remove all links" option is not selected 
 						if ( $i > 0 ) echo ', ';
 						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup
-						?><a  class="link-imdb2 highslide" onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: <?php echo $imdb_admin_values[popupLarg]?>, objectWidth: <?php echo $imdb_admin_values[popupLarg]?>, objectHeight: <?php echo $imdb_admin_values[popupLong]?>, headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $creator[$i]["imdb"];?>' } )" title="<?php _e('open a new window with IMDb informations', 'imdb'); ?>" href="#"><?php echo $creator[$i]["name"]; ?></a><?php
+						?><a  class="link-imdb2 highslide" onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: <?php echo $imdb_admin_values[popupLarg]?>, objectWidth: <?php echo $imdb_admin_values[popupLarg]?>, objectHeight: <?php echo $imdb_admin_values[popupLong]?>, headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $creator[$i]["imdb"];?>' } )" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>" href="#"><?php echo $creator[$i]["name"]; ?></a><?php
 						} else { 						// classic popup
-						?><a onclick="window.open('<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $creator[$i]["imdb"];?>', 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=<?php echo $imdb_admin_values[popupLarg]; ?>, height=<?php echo $imdb_admin_values[popupLong]; ?>, top=5, left=5')" title="<?php _e('Link to local imdb', 'imdb'); ?>" class="link-imdb2" ><?php echo $creator[$i]["name"]; ?></a><?php 			
+						?><a onclick="window.open('<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $creator[$i]["imdb"];?>', 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=<?php echo $imdb_admin_values[popupLarg]; ?>, height=<?php echo $imdb_admin_values[popupLong]; ?>, top=5, left=5')" title="<?php esc_html_e('Link to local imdb', 'imdb'); ?>" class="link-imdb2" ><?php echo $creator[$i]["name"]; ?></a><?php 			
 						echo $creator[$i]["name"]."</a>";
 						} 
 					} else { // if "Remove all links" option is selected 
@@ -669,9 +669,9 @@ while ($imovie < count($imdballmeta)) {
 							<div style="float:left">
 <?php					if  ($imdb_widget_values[imdblinkingkill] == false ) { // if "Remove all links" option is not selected 
 						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup
-						?><a  class="link-imdb2 highslide" onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: <?php echo $imdb_admin_values[popupLarg]?>, objectWidth: <?php echo $imdb_admin_values[popupLarg]?>, objectHeight: <?php echo $imdb_admin_values[popupLong]?>, headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $producer[$i]["imdb"];?>' } )" title="<?php _e('open a new window with IMDb informations', 'imdb'); ?>" href="#"><?php echo $producer[$i]["name"]; ?></a><?php
+						?><a  class="link-imdb2 highslide" onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: <?php echo $imdb_admin_values[popupLarg]?>, objectWidth: <?php echo $imdb_admin_values[popupLarg]?>, objectHeight: <?php echo $imdb_admin_values[popupLong]?>, headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $producer[$i]["imdb"];?>' } )" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>" href="#"><?php echo $producer[$i]["name"]; ?></a><?php
 						} else { 						// classic popup
-						?><a onclick="window.open('<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $producer[$i]["imdb"];?>', 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=<?php echo $imdb_admin_values[popupLarg]; ?>, height=<?php echo $imdb_admin_values[popupLong]; ?>, top=5, left=5')" title="<?php _e('Link to local imdb', 'imdb'); ?>" class="link-imdb2" ><?php echo $producer[$i]["name"]; ?></a><?php 			
+						?><a onclick="window.open('<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $producer[$i]["imdb"];?>', 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=<?php echo $imdb_admin_values[popupLarg]; ?>, height=<?php echo $imdb_admin_values[popupLong]; ?>, top=5, left=5')" title="<?php esc_html_e('Link to local imdb', 'imdb'); ?>" class="link-imdb2" ><?php echo $producer[$i]["name"]; ?></a><?php 			
 						} 
 					} else { // if "Remove all links" option is selected 
 						echo $producer[$i]["name"];
@@ -715,9 +715,9 @@ while ($imovie < count($imdballmeta)) {
 							<div style="float:left">
 <?php					if  ($imdb_widget_values[imdblinkingkill] == false ) { // if "Remove all links" option is not selected 
 						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup
-						?><a  class="link-imdb2 highslide" onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: <?php echo $imdb_admin_values[popupLarg]?>, objectWidth: <?php echo $imdb_admin_values[popupLarg]?>, objectHeight: <?php echo $imdb_admin_values[popupLong]?>, headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $writer[$i]["imdb"];?>' } )" title="<?php _e('open a new window with IMDb informations', 'imdb'); ?>" href="#"><?php echo $writer[$i]["name"]; ?></a><?php
+						?><a  class="link-imdb2 highslide" onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: <?php echo $imdb_admin_values[popupLarg]?>, objectWidth: <?php echo $imdb_admin_values[popupLarg]?>, objectHeight: <?php echo $imdb_admin_values[popupLong]?>, headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $writer[$i]["imdb"];?>' } )" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>" href="#"><?php echo $writer[$i]["name"]; ?></a><?php
 						} else { 						// classic popup
-						?><a onclick="window.open('<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $writer[$i]["imdb"];?>', 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=<?php echo $imdb_admin_values[popupLarg]; ?>, height=<?php echo $imdb_admin_values[popupLong]; ?>, top=5, left=5')" title="<?php _e('Link to local imdb', 'imdb'); ?>" class="link-imdb2" ><?php echo $writer[$i]["name"]; ?></a><?php 			
+						?><a onclick="window.open('<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $writer[$i]["imdb"];?>', 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=<?php echo $imdb_admin_values[popupLarg]; ?>, height=<?php echo $imdb_admin_values[popupLong]; ?>, top=5, left=5')" title="<?php esc_html_e('Link to local imdb', 'imdb'); ?>" class="link-imdb2" ><?php echo $writer[$i]["name"]; ?></a><?php 			
 						} 
 					} else { // if "Remove all links" option is selected 
 						echo $writer[$i]["name"];
@@ -764,9 +764,9 @@ while ($imovie < count($imdballmeta)) {
 							<div align="right">
 <?php					if  ($imdb_widget_values[imdblinkingkill] == false ) { // if "Remove all links" option is not selected 
 						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup
-						?><a  class="link-imdb2 highslide" onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: <?php echo $imdb_admin_values[popupLarg]?>, objectWidth: <?php echo $imdb_admin_values[popupLarg]?>, objectHeight: <?php echo $imdb_admin_values[popupLong]?>, headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $cast[$i]["imdb"];?>' } )" title="<?php _e('open a new window with IMDb informations', 'imdb'); ?>" href="#"><?php echo $cast[$i]["name"]; ?></a><?php
+						?><a  class="link-imdb2 highslide" onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: <?php echo $imdb_admin_values[popupLarg]?>, objectWidth: <?php echo $imdb_admin_values[popupLarg]?>, objectHeight: <?php echo $imdb_admin_values[popupLong]?>, headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $cast[$i]["imdb"];?>' } )" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>" href="#"><?php echo $cast[$i]["name"]; ?></a><?php
 						} else { 						// classic popup
-						?><a onclick="window.open('<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $cast[$i]["imdb"];?>', 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=<?php echo $imdb_admin_values[popupLarg]; ?>, height=<?php echo $imdb_admin_values[popupLong]; ?>, top=5, left=5')" title="<?php _e('Link to local imdb', 'imdb'); ?>" class="link-imdb2" ><?php echo $cast[$i]["name"]; ?></a><?php 			
+						?><a onclick="window.open('<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $cast[$i]["imdb"];?>', 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=<?php echo $imdb_admin_values[popupLarg]; ?>, height=<?php echo $imdb_admin_values[popupLong]; ?>, top=5, left=5')" title="<?php esc_html_e('Link to local imdb', 'imdb'); ?>" class="link-imdb2" ><?php echo $cast[$i]["name"]; ?></a><?php 			
 						} 
 					} else { // if "Remove all links" option is selected 
 						echo $cast[$i]["name"];
@@ -816,7 +816,7 @@ while ($imovie < count($imdballmeta)) {
 	<ul class="imdbelementSOURCEul">
 	<li class="imdbincluded-lined imdbelementSOURCEli">
 
-		<span class="imdbincluded-subtitle "><?php _e('Source'); ?>:</span><?php
+		<span class="imdbincluded-subtitle "><?php esc_html_e('Source'); ?>:</span><?php
 		if ($engine == 'pilot') {
 			imdblt_source_moviepilot($midPremierResultat);
 			if ($imdb_admin_values[pilot_imdbfill] > 1) // if imdb's website is not accessed, exit;

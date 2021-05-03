@@ -2,11 +2,12 @@ Changelog
 
 v3.0
 * [major] updated to imdbphp-6.5 library
-* [major] rewritten the code to be compliant with content security policy
+* [major] rewritten the code to be compliant with wordpress security
 * [major] plugin is compatible with tablets/mobile phones
-* [major] code is now following wordpress security recommandations
-* [medium] updated to highslide 5.0, rewritten accesses to the popup
+* [medium] updated to highslide 5.0
 * [minor] removed Pilot search options
+* [minor] removed js support for IE
+* [minor] made click to expand "content security policy" compliant
 
 v2.3.2
 * [major] updated to imdbphp-2.3.2 library
@@ -57,8 +58,8 @@ v2.1.4
 
 v2.1.3
 * [major] updated to imdbphp-2.1.3 library
-* major changed the way to use highslide js (on Wordpress request, piece of code not GPL compliant); it is mandatory now to download the library from [IMDBLt website](http://www.ikiru.ch/blog/wp-content/files/wordpress-imdb-link-transformer-highslide.zip "IMDBLt website") in order to get this damn cool window. Once the file downloaded, move the folder "highslide" into the "js" one and check general options in order to activate it
-* [major] translated into Romanian, thanks to [Web Geek Sciense] (http://webhostinggeeks.com "Web Hosting Geeks")
+* major changed the way to use highslide js (on Wordpress request, piece of code not GPL compliant); it is mandatory now to download the library from [IMDBLt website](https://www.jcvignoli.com/blog/wp-content/files/wordpress-imdb-link-transformer-highslide.zip "IMDBLt website") in order to get this damn cool window. Once the file downloaded, move the folder "highslide" into the "js" one and check general options in order to activate it
+* [major] translated into Romanian, thanks to [Web Geek Sciense] (https://webhostinggeeks.com "Web Hosting Geeks")
 
 v2.1.2
 * [major] updated to imdbphp-2.1.2 library
@@ -284,7 +285,7 @@ v0.9
 v0.8
 * updated to imdbphp-1.0.7 class 
 * get rid of the PEAR option, it isn't useful
-* bug with some [searchs not giving all results for a person](http://projects.izzysoft.de/trac/imdbphp/ticket/46 "IMDbphp website")
+* bug with some [searchs not giving all results for a person](https://projects.izzysoft.de/trac/imdbphp/ticket/46 "IMDbphp website")
 * added an option to remove imdb links (when doing a search)
 * added an option to bypass the search stage for the popup. Activated by default.
 * changed a little bit the way of browsing in popup window ("AKA search" instead of "back", keeping movie's name in $_GET, layout)

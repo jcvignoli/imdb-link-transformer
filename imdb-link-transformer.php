@@ -178,8 +178,6 @@ function imdb_add_head_blog_first (){
 		wp_enqueue_script( "imdblt_highslide", $imdb_admin_values[imdbplugindirectory] ."js/highslide/highslide-with-html.min.js", array(), "5.0");
 		wp_enqueue_style( "imdblt_highslide", $imdb_admin_values[imdbplugindirectory] ."css/highslide.css"); 
 		wp_enqueue_script( "imdblt_highslide_options", $imdb_admin_values[imdbplugindirectory] ."js/highslide-options.js");
-		wp_enqueue_script( "csp_inline_scripts", $imdb_admin_values[imdbplugindirectory] ."js/csp_inline_scripts.js");
-
 		// Pass variable to javascript highslide-options.js
 		$dataToBePassedHighslide = array(
 		    'imdb_path' => $imdb_admin_values['imdbplugindirectory']
@@ -202,6 +200,17 @@ function imdb_add_head_blog_last (){
 	global $imdb_admin_values; 
 
 	wp_enqueue_script( "imdblt_hide-show_csp", $imdb_admin_values[imdbplugindirectory] ."js/hide-show_csp.js");
+
+	wp_enqueue_script( "csp_inline_scripts", $imdb_admin_values[imdbplugindirectory] ."js/csp_inline_scripts.js");
+
+	// Pass variable to javascript csp_inline_scripts.js
+	$dataToBePassedcsp_inline_scripts = array(
+		'popupLarg' => $imdb_admin_values[popupLarg],
+		'popupLong' => $imdb_admin_values[popupLong],
+		'imdb_path' => $imdb_admin_values['imdbplugindirectory']
+	);
+	wp_localize_script( "csp_inline_scripts", 'csp_inline_scripts_vars', $dataToBePassedcsp_inline_scripts );
+
 }
 
 ##### b) admin part
