@@ -15,7 +15,7 @@
  #									     #
  #############################################################################
 
-require_once (dirname(__FILE__).'/../../../../wp-blog-header.php');
+//require_once (dirname(__FILE__).'/../../../../wp-blog-header.php');
 require_once (dirname(__FILE__).'/../bootstrap.php');
 require_once ("functions.php"); 
 

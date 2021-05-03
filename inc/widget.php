@@ -22,9 +22,10 @@
 		extract($args);
 		$options = get_option('widget_imdbwidget');
 		$name = get_post($filmid);
-		$title_box = empty($options['title']) ? __('IMDb data') : $options['title']; //this is the widget title, from *wordpress* widget options
+		$name = get_post(intval( $filmid ));
+		$title_box = empty($options['title']) ? esc_html__('IMDb data', 'imdb') : sanitize_text_field( $options['title'] ); //this is the widget title, from *wordpress* widget options
 
-		$filmid = $wp_query->post->ID;
+		$filmid = intval( $wp_query->post->ID );
 
 		if ( ((is_single()) OR (is_page())) && ($imdb_admin_values[imdbdirectsearch] == true) ) {
 		// shows widget only for a post or a page, when option "direct search" is switched on
@@ -32,13 +33,13 @@
 
 			if ( $imdb_widget_values[imdbautopostwidget] == true) {
 			// automatically takes the post name to display the movie related, according to imdblt preferences (-> widget -> misc)
-				$imdballmeta[0] = $name->post_title;
+				$imdballmeta[0] = sanitize_text_field( $name->post_title );
 				echo $before_widget;
 				echo $before_title . $title_box . $after_title;
 				echo "<div class='imdbincluded'>";
 				/*$content = "";
 				echo $content;*/
-				include( 'imdb-movie.inc.php');
+				require_once( IMDBLTABSPATH . 'inc/imdb-movie.inc.php');
 				echo "</div>";
 				echo $after_widget;
 			}
@@ -49,7 +50,7 @@
 				echo $before_widget;
 				echo $before_title . $title_box . $after_title;
 				echo "<div class='imdbincluded'>";
-				include( 'imdb-movie.inc.php');
+				require_once( IMDBLTABSPATH . 'inc/imdb-movie.inc.php');
 				echo "</div>";
 				echo $after_widget;
 			}
@@ -61,7 +62,7 @@
 				echo $before_widget;
 				echo $before_title . $title_box . $after_title;
 				echo "<div class='imdbincluded'>";
-				include( 'imdb-movie.inc.php');
+				require_once( IMDBLTABSPATH . 'inc/imdb-movie.inc.php');
 				echo "</div>";
 				echo $after_widget;
 			}
@@ -76,13 +77,13 @@
 	function widget_imdbwidget_control() {
 		$options = $newoptions = get_option('widget_imdbwidget');
 		if ($_POST["imdbW-submit"]) {
-			$newoptions['title'] = strip_tags(stripslashes($_POST["imdbW-title"]));
+			$newoptions['title'] = sanitize_text_field($_POST["imdbW-title"]);
 		}
 		if ($options != $newoptions) {
 			$options = $newoptions;
 			update_option('widget_imdbwidget', $options);
 		}
-		$title = htmlspecialchars($options['title'], ENT_QUOTES);
+		$title = sanitize_text_field( $options['title']);
 		echo "<p><label for=\"imdbW-title\">" . __('Title:');
 		echo "<input style=\"width: 250px;\" id=\"imdbW-title\" name=\"imdbW-title\" type=\"text\" value=\"" . $title . "\" /></label></p>";
 		echo "<input type=\"hidden\" id=\"imdbW-submit\" name=\"imdbW-submit\" value=\"1\" />";
