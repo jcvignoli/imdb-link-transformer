@@ -15,12 +15,13 @@
  #									     #
  #############################################################################
 
-//require_once (dirname(__FILE__).'/../../../../wp-blog-header.php');
 require_once (dirname(__FILE__).'/../bootstrap.php');
 require_once ("functions.php"); 
 
 use \Imdb\Title;
 use \Imdb\Config;
+
+do_action('wp_loaded'); // execute wordpress first codes
 
 //---------------------------------------=[Vars]=----------------
 
@@ -149,10 +150,8 @@ while ($imovie < count($imdballmeta)) {
 		if ($highslidephotook == "ok") { echo "</a>\n"; } else { echo "\n"; } // new verification, closure code related to previous if ?>
 		</div>
 	<?php 
-	}; flush ();
-
-
-
+	}; 
+	flush ();
 
 	if  ($magicnumber==$imdb_widget_values[imdbwidgetorder][country] ) {
 		$country = $movie->country();
@@ -176,10 +175,8 @@ while ($imovie < count($imdballmeta)) {
 				</li>
 			</ul>
 	<?php 	}
-	}; flush ();
-
-
-
+	}; 
+	flush ();
 
 	if  ($magicnumber==$imdb_widget_values[imdbwidgetorder][runtime] ) {
 	$runtime = $movie->runtime(); 
@@ -191,10 +188,8 @@ while ($imovie < count($imdballmeta)) {
 			echo $runtime." ".esc_html__('minutes', 'imdb'); ?></li>
 			</ul>
 	<?php 	} 
-	}; flush ();
-
-
-
+	}; 
+	flush ();
 
 	if  ($magicnumber==$imdb_widget_values[imdbwidgetorder][language]) {
 	$languages = $movie->languages();
@@ -218,10 +213,8 @@ while ($imovie < count($imdballmeta)) {
 				</li>
 			</ul>
 	<?php 	}
-	}; flush ();
-	
-	
-
+	}; 
+	flush ();
 
 	if ($magicnumber== $imdb_widget_values[imdbwidgetorder][rating] ) {
 	$votes = $movie->votes();
@@ -270,9 +263,8 @@ while ($imovie < count($imdballmeta)) {
 				</li>
 			</ul>
 	<?php 	} 
-	}; flush ();
-     
-
+	}; 
+	flush ();
 
 	if  ($magicnumber==$imdb_widget_values[imdbwidgetorder][keywords] ) {
 		$keywords = $movie->keywords();
@@ -297,8 +289,8 @@ while ($imovie < count($imdballmeta)) {
 				</li>
 			</ul>
 	<?php 	}
-	}; flush ();
-
+	}; 
+	flush ();
 
 	if  ($magicnumber==$imdb_widget_values[imdbwidgetorder][goofs] ) {
 	$goofs = $movie->goofs (); 
@@ -312,10 +304,8 @@ while ($imovie < count($imdballmeta)) {
 			} // endfor ?></li>
 			</ul>
 	<?php } 
-	}; flush ();	
-	
-
-
+	}; 
+	flush ();	
 
 	if  ($magicnumber==$imdb_widget_values[imdbwidgetorder][comments] ) {
 	$comments[] = $movie->comment_split (); // this value is sent into an array!
@@ -338,10 +328,8 @@ while ($imovie < count($imdballmeta)) {
 			} ?></li>
 			</ul>
 	<?php } 
-	}; flush ();	
-	
-	
-	
+	}; 
+	flush ();	
 
 	if  ($magicnumber==$imdb_widget_values[imdbwidgetorder][quotes] ) {
 	$quotes = $movie->quotes ();  
@@ -359,9 +347,8 @@ while ($imovie < count($imdballmeta)) {
 			}?></li>
 			</ul>
 	<?php } 
-	}; flush ();
-
-
+	}; 
+	flush ();
 
 	if  ($magicnumber==$imdb_widget_values[imdbwidgetorder][taglines] ) {
 	$taglines = $movie->taglines ();
@@ -394,9 +381,8 @@ while ($imovie < count($imdballmeta)) {
 				}
 			} ?></li>
 			</ul>
-	<?php } }; flush ();	
-
-
+	<?php } }; 
+	flush ();	
 
 	if  ($magicnumber==$imdb_widget_values[imdbwidgetorder][colors] ) {
 	$colors = $movie->colors ();  
@@ -421,11 +407,8 @@ while ($imovie < count($imdballmeta)) {
 				</li>
 			</ul>
 	<?php 	}
-	}; flush ();
-	
-	
-
-
+	}; 
+	flush ();
 
 	if  ($magicnumber==$imdb_widget_values[imdbwidgetorder][alsoknow] ) {
 	$alsoknow = $movie->alsoknow ();
@@ -443,11 +426,8 @@ while ($imovie < count($imdballmeta)) {
 			} // endfor ?></li>
 			</ul>
 	<?php } 
-	}; flush ();
-
-
-
-
+	}; 
+	flush ();
 
 	if  ($magicnumber==$imdb_widget_values[imdbwidgetorder][composer] ) {
 	$composer = $movie->composer ();  
@@ -477,13 +457,8 @@ while ($imovie < count($imdballmeta)) {
 			} // end if imdbtaxonomycomposer ?></li>
 		</ul>
 	<?php } // end imdbwidgetcomposer
-	}; flush ();
-
-
-
-
-
-
+	}; 
+	flush ();
 
 	if  ($magicnumber==$imdb_widget_values[imdbwidgetorder][soundtrack] ) {
 	$soundtrack = $movie->soundtrack (); 
@@ -513,10 +488,8 @@ while ($imovie < count($imdballmeta)) {
 			}  // endfor ?></li>
 			</ul>
 	<?php } 
-	}; flush ();
-
-
-
+	}; 
+	flush ();
 
 	if  ($magicnumber==$imdb_widget_values[imdbwidgetorder][prodCompany] ) {
 	$prodCompany = $movie->prodCompany ();
@@ -535,12 +508,8 @@ while ($imovie < count($imdballmeta)) {
 			}  // endfor ?></li>
 			</ul>
 	<?php } 
-	}; flush ();
-
-
-
-
-
+	}; 
+	flush ();
 
 	if  ($magicnumber==$imdb_widget_values[imdbwidgetorder][officialSites] ) {
 	$officialSites = $movie->officialSites ();
@@ -555,12 +524,8 @@ while ($imovie < count($imdballmeta)) {
 			}  // endfor ?></li>
 			</ul>
 	<?php } 
-	}; flush ();
-
-
-
-
-
+	}; 
+	flush ();
 
 	if  ($magicnumber==$imdb_widget_values[imdbwidgetorder][director]) {
 	$director = $movie->director(); 
@@ -598,12 +563,8 @@ while ($imovie < count($imdballmeta)) {
 			?></li>
 		</ul>
 	<?php } // end imdbwidgetdirector
-	}; flush ();
-
-
-
-
-
+	}; 
+	flush ();
 
 	if  ($magicnumber==$imdb_widget_values[imdbwidgetorder][creator]) {
 	$creator = $movie->creator(); 
@@ -641,13 +602,8 @@ while ($imovie < count($imdballmeta)) {
 			?></li>
 		</ul>
 	<?php } // end imdbwidgetcreator
-	}; flush ();
-	
-	
-
-
-
-
+	}; 
+	flush ();
 
 	if  ($magicnumber==$imdb_widget_values[imdbwidgetorder][producer] ) {
 	$producer = $movie->producer(); 
@@ -690,11 +646,6 @@ while ($imovie < count($imdballmeta)) {
 	}; flush ();
 
 
-
-
-
-
-
 	if  ($magicnumber==$imdb_widget_values[imdbwidgetorder][writer] ) {
 	$writer = $movie->writing(); 
 		if (!empty($writer) && ($imdb_widget_values[imdbwidgetwriter] == true )) {?>
@@ -733,12 +684,8 @@ while ($imovie < count($imdballmeta)) {
 			</li>
 			</ul>
 	<?php } // end imdbwidgetwriter
-	}; flush ();
-
-
-
-
-
+	}; 
+	flush ();
 
 
 	if  ($magicnumber==$imdb_widget_values[imdbwidgetorder][actor] ) {
@@ -827,12 +774,10 @@ while ($imovie < count($imdballmeta)) {
 	</li>
 	</ul>
 	<?php } ?>
-
-
 					<!-- end imdb widget -->
-
 <?php 
  //--------------------------------------=[end Layout]=---------------
+
 	} else { 			// if is not set a $midPremierResultat
 		imdblt_noresults_text();
 	} 				// end if is set a $midPremierResultat

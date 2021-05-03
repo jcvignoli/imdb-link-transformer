@@ -15,11 +15,12 @@
 
 //---------------------------------------=[Vars]=----------------
 
-//require_once (dirname(__FILE__).'/../../../../wp-load.php');
 require_once (plugin_dir_path( __FILE__ ).'/../bootstrap.php');
 require_once (plugin_dir_path( __FILE__ )."/functions.php");  
 
 use \Imdb\Config;
+
+do_action('wp_loaded'); // execute wordpress first codes
 
 //---------------------------------------=[Vars]=----------------
 global $imdb_admin_values, $imdb_widget_values, $imdb_cache_values;

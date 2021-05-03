@@ -13,12 +13,13 @@
  #									     #
  #############################################################################
 
-//require_once (dirname(__FILE__).'/../../../../wp-load.php');
 require_once (plugin_dir_path( __FILE__ ).'/../bootstrap.php');
 require_once (plugin_dir_path( __FILE__ )."/functions.php");  
 
 use \Imdb\Title;
 use \Imdb\Config;
+
+do_action('wp_loaded'); // execute wordpress first codes
 
 //---------------------------------------=[Vars]=----------------
 global $imdb_admin_values, $imdb_widget_values, $imdb_cache_values;
@@ -52,7 +53,7 @@ if (($imdb_admin_values[imdbdirectsearch] == false ) OR ($_GET["norecursive"] ==
 		$results = $search->search ( $filmid_sanitized, array(\Imdb\TitleSearch::MOVIE));
 
 	//require_once ('popup-header.php'); 
-get_header(); 
+	get_header(); 
 ?>
 <h1><?php esc_html_e('Results related to', 'imdb'); echo " " . sanitize_text_field( $movie->title() ); ?></h1>
 
@@ -584,7 +585,8 @@ echo '/ >'; ?>
 <?php 	// call wordpress footer functions;
 	wp_meta();
 	//get_footer(); // this one gets too much uneeded information
-	wp_footer(); ?>
+	wp_footer(); 
+?>
 </body>
 </html>
 <?php 	exit(); // quit the call of the page, to avoid double loading process 

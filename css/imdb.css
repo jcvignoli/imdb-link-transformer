@@ -141,7 +141,7 @@ padding-left:13px;
 
 .titrefilm, .identity{
 	text-align : center;
-	font-size : xx-large;
+	font-size : x-large;
 	/*text-decoration: none;*/
 	clear: both;
 }
@@ -383,7 +383,7 @@ text-align:justify;
 .imdbelementSOURCEli {
 }
 .imdbelementSOURCE-picture {
-height: 14px;
+	height: 14px;
 }
 
 
@@ -391,38 +391,38 @@ height: 14px;
 /* ---- Others */
 
 .link-imdb{ /*link to the internal popup*/
-border-bottom: 1px dotted #bbb;
-background: url(../pics/imdb.gif) no-repeat left;
-padding-left: 16px;
-text-decoration: none;
-cursor:pointer;
+	border-bottom: 1px dotted #bbb;
+	background: url(../pics/imdb.gif) no-repeat left;
+	padding-left: 16px;
+	text-decoration: none;
+	cursor:pointer;
 }
 
 .link-imdb2 { /*link to the internal popup, from imdb-movie.inc.php*/
-text-decoration: none;
-cursor:pointer;
+	text-decoration: none;
+	cursor:pointer;
 }
 
 .link-imdb:hover { /*link to the internal popup*/
-border-bottom: 1px dotted #bbb;
-background: url(../pics/imdb.gif) no-repeat left;
-padding-left: 16px;
-text-decoration: inherit;
+	border-bottom: 1px dotted #bbb;
+	background: url(../pics/imdb.gif) no-repeat left;
+	padding-left: 16px;
+	text-decoration: inherit;
 }
 
 .link-imdb:hover { /*link to the internal popup*/
-border-bottom: 1px dotted #bbb;
-background: url(../pics/imdb.gif) no-repeat left;
-padding-left: 16px;
-text-decoration: inherit;
+	border-bottom: 1px dotted #bbb;
+	background: url(../pics/imdb.gif) no-repeat left;
+	padding-left: 16px;
+	text-decoration: inherit;
 }
 
 .noresult { /*text displayed when no imdbLT results found*/
-color: red;
+	color: red;
 }
 
 /* ---- Oceanwp fix */
 
-#site-header.has-header-media .overlay-header-media {
-	background-color:unset !important;
-}
+table th, table td { border-bottom:unset !important; }
+#site-header {background-image:unset !important;}
+#site-header.has-header-media .overlay-header-media {background-color:unset !important;}

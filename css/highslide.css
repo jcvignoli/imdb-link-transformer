@@ -395,7 +395,7 @@ html>/**/body .highslide-gallery ul img {
 /* hs.wrapperClassName = 'titlebar' */
 .titlebar .highslide-header {
 	height: 18px;
-	border-bottom: 1px solid #dddddd;
+	/*border-bottom: 1px solid #dddddd; ----- edited by jcv */
 }
 .titlebar .highslide-heading {
 	position: absolute;

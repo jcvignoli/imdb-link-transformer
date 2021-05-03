@@ -14,9 +14,10 @@
  #############################################################################
 
 
-//require_once (dirname(__FILE__).'/../../../../wp-load.php');
 require_once (plugin_dir_path( __FILE__ ).'/../bootstrap.php');
 require_once (plugin_dir_path( __FILE__ )."/functions.php"); 
+
+do_action('wp_loaded'); // execute wordpress first codes
 
 //---------------------------------------=[Vars]=----------------
 
@@ -32,7 +33,7 @@ else $results = $search->search ($_GET["film"], array(\Imdb\TitleSearch::MOVIE))
 
 if (($imdb_admin_values[imdbdirectsearch] == false ) OR ($_GET["norecursive"] == 'yes')) { //------------------------- 1. recherche, comportement classique
 	//require_once ('popup-header.php'); 
-get_header(); 
+	get_header(); 
 ?>
 <h1><?php esc_html_e('Results related to', 'imdb'); echo sanitize_text_field($res->title()); ?></h1>
 
