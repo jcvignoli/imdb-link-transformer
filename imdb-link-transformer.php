@@ -130,8 +130,9 @@ function imdb_tags_transform_id ($text) {
 
 ##### a) HTML part
 function imdb_add_quicktag() {
-    if (wp_script_is('quicktags')){
-	wp_enqueue_script( "imdblt_add_quicktag", $imdb_admin_values[imdbplugindirectory] ."js/qtags-addbuttons.js");
+	global $imdb_admin_values;
+	if (wp_script_is('quicktags')){
+		wp_enqueue_script( "imdblt_add_quicktag", $imdb_admin_values[imdbplugindirectory] ."js/qtags-addbuttons.js");
 /* old way, removed	
 	?>
 	<script type="text/javascript">
@@ -162,6 +163,7 @@ function register_imdb_button($buttons) {
 }
 // Load the TinyMCE plugin 
 function add_imdb_tinymce_plugin($plugin_array) {
+	global $imdb_admin_values;
 	$plugin_array['imdb'] = $imdb_admin_values[imdbplugindirectory] . 'js/tinymce_editor_imdblt_plugin.js';
 	return $plugin_array;
 }
@@ -487,6 +489,7 @@ function imdblt_popup_redirect() {
 add_action( 'init', 'imdblt_popup_redirect', 0);
 
 function imdblt_popup_redirect_include() {
+	global $imdb_admin_values;
 
 	// Include films popup
 	if ( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/imdblt/film/' ) ) {
