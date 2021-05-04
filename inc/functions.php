@@ -94,6 +94,53 @@ function imdblt_admin_signature(){ ?>
 <?php
 } 
 
+
+/**
+ * Activate taxomony from wordpress
+ *
+ */
+
+function create_imdblt_taxonomies() {
+	global $imdb_admin_values,$imdb_widget_values;
+
+	if ($imdb_widget_values['imdbtaxonomytitle'] ==  true) {
+		register_taxonomy('imdblt_title', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's titles", 'imdb'), 'query_var' => 'imdblt_title', 'rewrite' => array( 'slug' => 'imdblt_title' ) )  ) ; }
+
+	if ($imdb_widget_values['imdbtaxonomygenre'] ==  true) {
+		register_taxonomy('imdblt_genre', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's genres", 'imdb'), 'query_var' => 'imdblt_genre', 'rewrite' => array( 'slug' => 'imdblt_genre' ) )  ) ; }
+
+	if ($imdb_widget_values['imdbtaxonomykeywords'] ==  true) {
+		register_taxonomy('imdblt_keywords', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's keywords", 'imdb'), 'query_var' => 'imdblt_keywords', 'rewrite' => array( 'slug' => 'imdblt_keywords' ) )  ) ; }
+
+	if ($imdb_widget_values['imdbtaxonomycountry'] == true) {
+		register_taxonomy('imdblt_country', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's countries", 'imdb'), 'query_var' => 'imdblt_country', 'rewrite' => array( 'slug' => 'imdblt_country' ) )  ) ; }
+
+	if ($imdb_widget_values['imdbtaxonomylanguage'] == true) {
+		register_taxonomy('imdblt_language', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's languages", 'imdb'), 'query_var' => 'imdblt_language', 'rewrite' => array( 'slug' => 'imdblt_language' ) )  ) ; }
+
+	if ($imdb_widget_values['imdbtaxonomycomposer'] == true) {
+		register_taxonomy('imdblt_composer', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's composers", 'imdb'), 'query_var' => 'imdblt_composer', 'rewrite' => array( 'slug' => 'imdblt_composer' ) )  ) ; }
+
+	if ($imdb_widget_values['imdbtaxonomycolor'] == true) {
+		register_taxonomy('imdblt_color', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's colors", 'imdb'), 'query_var' => 'imdblt_color', 'rewrite' => array( 'slug' => 'imdblt_color' ) )  ) ; }
+
+	if ($imdb_widget_values['imdbtaxonomydirector'] == true) {
+		register_taxonomy('imdblt_director', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's directors", 'imdb'), 'query_var' => 'imdblt_director', 'rewrite' => array( 'slug' => 'imdblt_director' ) )  ) ; }
+
+	if ($imdb_widget_values['imdbtaxonomycreator'] == true) {
+		register_taxonomy('imdblt_creator', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's creators", 'imdb'), 'query_var' => 'imdblt_creator', 'rewrite' => array( 'slug' => 'imdblt_creator' ) )  ) ; }
+
+	if ($imdb_widget_values['imdbtaxonomyproducer'] == true) {
+		register_taxonomy('imdblt_producer', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's producers", 'imdb'), 'query_var' => 'imdblt_producer', 'rewrite' => array( 'slug' => 'imdblt_producer' ) )  ) ; }
+
+	if ($imdb_widget_values['imdbtaxonomyactor'] == true) {
+		register_taxonomy('imdblt_actor', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's actors", 'imdb'), 'query_var' => 'imdblt_actor', 'rewrite' => array( 'slug' => 'imdblt_actor' ) )  ) ; }
+		
+	if ($imdb_widget_values['imdbtaxonomywriter'] == true) {
+		register_taxonomy('imdblt_writer', array('page','post'), array( 'hierarchical' => true, 'label' => esc_html__("Movie's writers", 'imdb'), 'query_var' => 'imdblt_writer', 'rewrite' => array( 'slug' => 'imdblt_writer' ) )  ) ; }
+}
+
+
 /**
  * Text displayed when no result is found
  *
@@ -145,52 +192,6 @@ function imdblt_source_imdb($midPremierResultat){
 	echo '&nbsp;&nbsp;IMDb\'s page for this movie</a>';
 } 
 
-/**
- * Activate taxomony from wordpress
- *
- */
-
-add_action( 'init', 'create_imdblt_taxonomies', 0 );
-
-function create_imdblt_taxonomies() {
-	global $imdb_admin_values,$imdb_widget_values;
-
-	if ($imdb_widget_values['imdbtaxonomytitle'] ==  true) {
-		register_taxonomy('title', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's titles", 'imdb'), 'query_var' => 'title', 'rewrite' => array( 'slug' => 'title' ) )  ) ; }
-
-	if ($imdb_widget_values['imdbtaxonomygenre'] ==  true) {
-		register_taxonomy('genre', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's genres", 'imdb'), 'query_var' => 'genre', 'rewrite' => array( 'slug' => 'genre' ) )  ) ; }
-
-	if ($imdb_widget_values['imdbtaxonomykeywords'] ==  true) {
-		register_taxonomy('keywords', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's keywords", 'imdb'), 'query_var' => 'keywords', 'rewrite' => array( 'slug' => 'keywords' ) )  ) ; }
-
-	if ($imdb_widget_values['imdbtaxonomycountry'] == true) {
-		register_taxonomy('country', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's countries", 'imdb'), 'query_var' => 'country', 'rewrite' => array( 'slug' => 'country' ) )  ) ; }
-
-	if ($imdb_widget_values['imdbtaxonomylanguage'] == true) {
-		register_taxonomy('language', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's languages", 'imdb'), 'query_var' => 'language', 'rewrite' => array( 'slug' => 'language' ) )  ) ; }
-
-	if ($imdb_widget_values['imdbtaxonomycomposer'] == true) {
-		register_taxonomy('composer', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's composers", 'imdb'), 'query_var' => 'composer', 'rewrite' => array( 'slug' => 'composer' ) )  ) ; }
-
-	if ($imdb_widget_values['imdbtaxonomycolor'] == true) {
-		register_taxonomy('color', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's colors", 'imdb'), 'query_var' => 'color', 'rewrite' => array( 'slug' => 'color' ) )  ) ; }
-
-	if ($imdb_widget_values['imdbtaxonomydirector'] == true) {
-		register_taxonomy('director', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's directors", 'imdb'), 'query_var' => 'director', 'rewrite' => array( 'slug' => 'director' ) )  ) ; }
-
-	if ($imdb_widget_values['imdbtaxonomycreator'] == true) {
-		register_taxonomy('creator', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's creators", 'imdb'), 'query_var' => 'creator', 'rewrite' => array( 'slug' => 'creator' ) )  ) ; }
-
-	if ($imdb_widget_values['imdbtaxonomyproducer'] == true) {
-		register_taxonomy('producer', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's producers", 'imdb'), 'query_var' => 'producer', 'rewrite' => array( 'slug' => 'producer' ) )  ) ; }
-
-	if ($imdb_widget_values['imdbtaxonomyactor'] == true) {
-		register_taxonomy('actor', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's actors", 'imdb'), 'query_var' => 'actor', 'rewrite' => array( 'slug' => 'actor' ) )  ) ; }
-		
-	if ($imdb_widget_values['imdbtaxonomywriter'] == true) {
-		register_taxonomy('writer', array('page','post'), array( 'hierarchical' => false, 'label' => esc_html__("Movie's writers", 'imdb'), 'query_var' => 'writer', 'rewrite' => array( 'slug' => 'writer' ) )  ) ; }
-}
 
 /**
  * Count me function

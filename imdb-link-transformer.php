@@ -33,6 +33,14 @@ require_once ( dirname(__FILE__) . '/config.php' );
 require_once ( IMDBLTABSPATH . 'inc/functions.php');
 require_once ( IMDBLTABSPATH . 'inc/widget.php');
 
+# Executed upon plugin activated/deactivated
+register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
+register_activation_hook( __FILE__, 'imdb_activation' );
+
+function imdb_activation() {
+	flush_rewrite_rules();
+}
+
 ### IMDbLT Table Name
 
 if (class_exists("imdb_settings_conf")) {
@@ -191,11 +199,14 @@ function imdb_add_head_blog_first (){
 function imdb_add_head_blog () {
 	global $imdb_admin_values; 
 
-	if (file_exists (TEMPLATEPATH . "/imdb.css") ) { // an imdb.css exists inside theme folder, take it! 
-		wp_enqueue_style('imdblt_imdbcss', bloginfo('stylesheet_directory') . "imdb.css");
- 	} else { // no imdb.css exists in theme, add default one
-		wp_enqueue_style('imdblt_imdbcss', $imdb_admin_values[imdbplugindirectory] ."css/imdb.css");
- 	} 
+	// enqueue imdb.css only if it is a popup (url starting with /imdblt/)
+	if ( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/imdblt/' ) ) {
+		if (file_exists (TEMPLATEPATH . "/imdb.css") ) { // an imdb.css exists inside theme folder, take it! 
+			wp_enqueue_style('imdblt_imdbcss', bloginfo('stylesheet_directory') . "imdb.css");
+	 	} else { // no imdb.css exists in theme, add default one
+			wp_enqueue_style('imdblt_imdbcss', $imdb_admin_values[imdbplugindirectory] ."css/imdb.css");
+	 	} 
+	}
 }
 
 function imdb_add_head_blog_last (){
@@ -367,7 +378,7 @@ function add_admin_toolbar_menu($admin_bar) {
 // *********************
 
 function imdblt_start () {
-	global $imdb_configs_values, $imdb_ft;
+	global $imdb_configs_values, $imdb_ft, $imdb_admin_values;
 
 	// Be sure WP is running
 	if (function_exists('add_action')) {
@@ -392,7 +403,11 @@ function imdblt_start () {
 			add_action('admin_menu', array(&$this, 'imdb_admin_panel') );
 			add_action('init', array(&$this, 'imdb_addbuttons') );
 		}
-	
+
+		// add taxonomies in wordpress (from functions.php)
+		if ($imdb_admin_values['imdbtaxonomy'] == 1) 
+			add_action( 'init', 'create_imdblt_taxonomies', 0 );
+
 		// register widget
 		add_action('plugins_loaded', 'register_imdbwidget');
 	}
@@ -489,7 +504,6 @@ function imdblt_popup_redirect() {
 add_action( 'init', 'imdblt_popup_redirect', 0);
 
 function imdblt_popup_redirect_include() {
-	global $imdb_admin_values;
 
 	// Include films popup
 	if ( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/imdblt/film/' ) ) {
@@ -502,5 +516,6 @@ function imdblt_popup_redirect_include() {
 	}
 }
 add_action( 'init', 'imdblt_popup_redirect_include', 0);
+
 
 ?>

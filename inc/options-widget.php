@@ -13,8 +13,10 @@
  #									     #
  #############################################################################
 
+global $imdb_admin_values;
+
 // included files
-include_once ( IMDBLTABSPATH . 'inc/functions.php');
+require_once ( $imdb_admin_values[imdbplugindirectory] . 'inc/functions.php');
 
 ?>
 

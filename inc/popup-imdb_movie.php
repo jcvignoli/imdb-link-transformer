@@ -31,13 +31,31 @@ $config->photodir = $imdb_cache_values['imdbphotodir'] ?? NULL;
 $config->imdb_img_url = $imdb_cache_values['imdbimgdir'] ?? NULL;
 $config->photoroot = $imdb_cache_values['imdbphotoroot'] ?? NULL;
 
-$movieid_sanitized = filter_var( $_GET["mid"], FILTER_SANITIZE_NUMBER_INT);
-$filmid_sanitized = sanitize_title_for_query( $_GET["film"]);
+$movieid_sanitized = filter_var( $_GET["mid"], FILTER_SANITIZE_NUMBER_INT) ?? NULL;
+$filmid_sanitized = sanitize_title_for_query( $_GET["film"]) ?? NULL;
+
+// if neither film nor mid are set, throw a 404 error
+if (empty($movieid_sanitized ) && empty($filmid_sanitized)){
+	global $wp_query;
+
+	$wp_query->set_404();
+
+	// In case you need to make sure that `have_posts()` return false.
+	// Maybe there's a reset function on WP_Query but I couldn't find one.
+	$wp_query->post_count = 0;
+	$wp_query->posts = [];
+	$wp_query->post = false;
+
+	status_header(404);
+
+	$template = get_404_template();
+	return $template;
+}
 
 if ((isset ($movieid_sanitized)) && !empty ($movieid_sanitized)) {
 	$movie = new Imdb\Title($movieid_sanitized, $config);
 } else {
-$search = new Imdb\TitleSearch($config);
+	$search = new Imdb\TitleSearch($config);
 	if ($_GET["searchtype"]=="episode") {
 		$movie = $search->search ($filmid_sanitized, array(\Imdb\TitleSearch::TV_SERIES))[0];
 	} else {

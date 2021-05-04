@@ -94,13 +94,13 @@ while ($imovie < count($imdballmeta)) {
 	$title=sanitize_text_field( $movie->title() );?>
 										<!-- title -->
 		<div class="imdbelementTITLE"><?php
-			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomytitle] == true ) && (count_me('title', $count_me_siffer) == "nomore") ) { 
+			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomytitle] == true ) && (count_me('imdblt_title', $count_me_siffer) == "nomore") ) { 
 			// count_me_siffer() to avoid adding evey taxonomy from several movies's titles...
 				for ($i = 0; $i + 1 < count ($title); $i++) { 
-					wp_set_object_terms($wp_query->post->ID, $title, 'title', true); #add taxonomy terms to posts' terms
-				} 	wp_set_object_terms($wp_query->post->ID, $title, 'title', true);  #add last taxonomy term to posts' terms
+					wp_set_object_terms($wp_query->post->ID, $title, 'imdblt_title', true); #add taxonomy terms to posts' terms
+				} 	wp_set_object_terms($wp_query->post->ID, $title, 'imdblt_title', true);  #add last taxonomy term to posts' terms
 
-					echo get_the_term_list($wp_query->post->ID, 'title', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
+					echo get_the_term_list($wp_query->post->ID, 'imdblt_title', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
 			} else {
 					echo $title;
 			}
@@ -160,12 +160,12 @@ while ($imovie < count($imdballmeta)) {
 			<ul class="imdbelementCOUNTRYul">
 				<li class="imdbincluded-lined imdbelementCOUNTRYli">
 					<span class="imdbincluded-subtitle"><?php echo(sprintf(_n('Country', 'Countries', count($country), 'imdb'))); ?>:</span><?php 
-			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomycountry] == true ) && (count_me('country', $count_me_siffer) == "nomore") ) { 
+			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomycountry] == true ) && (count_me('imdblt_country', $count_me_siffer) == "nomore") ) { 
 			// count_me_siffer() to avoid adding evey taxonomy from several movies's genre...
 				for ($i = 0; $i + 1 < count ($country); $i++) { 
-					wp_set_object_terms($wp_query->post->ID, $country[$i], 'country', true); #add taxonomy terms to posts' terms
-				} 	wp_set_object_terms($wp_query->post->ID, $country[$i], 'country', true);  #add last taxonomy term to posts' terms
-					echo get_the_term_list($wp_query->post->ID, 'country', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
+					wp_set_object_terms($wp_query->post->ID, $country[$i], 'imdblt_country', true); #add taxonomy terms to posts' terms
+				} 	wp_set_object_terms($wp_query->post->ID, $country[$i], 'imdblt_country', true);  #add last taxonomy term to posts' terms
+					echo get_the_term_list($wp_query->post->ID, 'imdblt_country', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
 			} else {
 				for ($i = 0; $i + 1 < count ($country); $i++) { 
 					echo $country[$i]; echo ", "; 										
@@ -198,12 +198,12 @@ while ($imovie < count($imdballmeta)) {
 			<ul class="imdbelementLANGUAGEul">
 			<li class="imdbincluded-lined imdbelementLANGUAGEli">
 				<span class="imdbincluded-subtitle"><?php echo(sprintf(_n('Language', 'Languages', count($languages), 'imdb'))); ?>:</span><?php
-			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomylanguage] == true ) && (count_me('languages', $count_me_siffer) == "nomore") ) { 
+			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomylanguage] == true ) && (count_me('imdblt_languages', $count_me_siffer) == "nomore") ) { 
 			// count_me_siffer() to avoid adding evey taxonomy from several movies's genre...
 				for ($i = 0; $i + 1 < count ($languages); $i++) { 
-					wp_set_object_terms($wp_query->post->ID, $languages[$i], 'language', true); #add taxonomy terms to posts' terms
-				} 	wp_set_object_terms($wp_query->post->ID, $languages[$i], 'language', true);  #add last taxonomy term to posts' terms
-					echo get_the_term_list($wp_query->post->ID, 'language', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
+					wp_set_object_terms($wp_query->post->ID, $languages[$i], 'imdblt_language', true); #add taxonomy terms to posts' terms
+				} 	wp_set_object_terms($wp_query->post->ID, $languages[$i], 'imdblt_language', true);  #add last taxonomy term to posts' terms
+					echo get_the_term_list($wp_query->post->ID, 'imdblt_language', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
 			} else {
 				for ($i = 0; $i + 1 < count ($languages); $i++) { 
 					echo $languages[$i]; echo ", "; 										
@@ -248,12 +248,12 @@ while ($imovie < count($imdballmeta)) {
 			<ul class="imdbelementGENREul">
 			<li class="imdbincluded-lined imdbelementGENREli"><span class="imdbincluded-subtitle"><?php echo(sprintf(_n('Genre', 'Genres', count($genre), 'imdb'))); ?>:</span><?php 
 
-			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomygenre] == true ) && (count_me('genre', $count_me_siffer) == "nomore") ) { 
+			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomygenre] == true ) && (count_me('imdblt_genre', $count_me_siffer) == "nomore") ) { 
 			// count_me_siffer() to avoid adding evey taxonomy from several movies's genre...
 				for ($i = 0; $i + 1 < count ($genre); $i++) { 
-					wp_set_object_terms($wp_query->post->ID, $genre[$i], 'genre', true); #add taxonomy terms to posts' terms
-				} 	wp_set_object_terms($wp_query->post->ID, $genre[$i], 'genre', true);  #add last taxonomy term to posts' terms
-					echo get_the_term_list($wp_query->post->ID, 'genre', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
+					wp_set_object_terms($wp_query->post->ID, $genre[$i], 'imdblt_genre', true); #add taxonomy terms to posts' terms
+				} 	wp_set_object_terms($wp_query->post->ID, $genre[$i], 'imdblt_genre', true);  #add last taxonomy term to posts' terms
+					echo get_the_term_list($wp_query->post->ID, 'imdblt_genre', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
 			} else {
 				for ($i = 0; $i + 1 < count ($genre); $i++) { 
 					echo $genre[$i]; echo ", "; 										
@@ -273,13 +273,13 @@ while ($imovie < count($imdballmeta)) {
 			<ul class="imdbelementKEYWORDSul">
 				<li class="imdbincluded-lined imdbelementKEYWORDSli">
 					<span class="imdbincluded-subtitle"><?php echo(sprintf(_n('Keyword', 'Keywords', count($keywords), 'imdb'))); ?>:</span><?php 
-			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomykeywords] == true ) && (count_me('keywords', $count_me_siffer) == "nomore") ) { 
+			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomykeywords] == true ) && (count_me('imdblt_keywords', $count_me_siffer) == "nomore") ) { 
 			// count_me_siffer() to avoid adding evey taxonomy from several movies's genre...
 				for ($i = 0; $i + 1 < count ($keywords); $i++) { 
-					wp_set_object_terms($wp_query->post->ID, $keywords[$i], 'keywords', true); #add taxonomy terms to posts' terms
+					wp_set_object_terms($wp_query->post->ID, $keywords[$i], 'imdblt_keywords', true); #add taxonomy terms to posts' terms
 
-				} 	wp_set_object_terms($wp_query->post->ID, $keywords[$i], 'keywords', true);  #add last taxonomy term to posts' terms
-					echo get_the_term_list($wp_query->post->ID, 'keywords', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
+				} 	wp_set_object_terms($wp_query->post->ID, $keywords[$i], 'imdblt_keywords', true);  #add last taxonomy term to posts' terms
+					echo get_the_term_list($wp_query->post->ID, 'imdblt_keywords', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
 			} else {
 				for ($i = 0; $i + 1 < count ($keywords); $i++) { 
 					echo $keywords[$i]; echo ", "; 										
@@ -391,13 +391,13 @@ while ($imovie < count($imdballmeta)) {
 			<ul class="imdbelementCOLORul">
 			<li class="imdbincluded-lined imdbelementCOLORli">
 				<span class="imdbincluded-subtitle"><?php echo(sprintf(_n('Color', 'Colors', count($colors), 'imdb'))); ?>:</span><?php
-			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomycolor] == true ) && (count_me('color', $count_me_siffer) == "nomore") ) { 
+			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomycolor] == true ) && (count_me('imdblt_color', $count_me_siffer) == "nomore") ) { 
 			// count_me_siffer() to avoid adding evey taxonomy from several movies's genre...
 				for ($i = 0; $i + 1 < count ($colors); $i++) { 
-					wp_set_object_terms($wp_query->post->ID, $colors[$i], 'color', true); #add taxonomy terms to posts' terms
+					wp_set_object_terms($wp_query->post->ID, $colors[$i], 'imdblt_color', true); #add taxonomy terms to posts' terms
 				} 	
-				wp_set_object_terms($wp_query->post->ID, $colors[$i], 'color', true);  #add last taxonomy term to posts' terms
-				echo get_the_term_list($wp_query->post->ID, 'color', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
+				wp_set_object_terms($wp_query->post->ID, $colors[$i], 'imdblt_color', true);  #add last taxonomy term to posts' terms
+				echo get_the_term_list($wp_query->post->ID, 'imdblt_color', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
 			} else {
 				for ($i = 0; $i + 1 < count ($colors); $i++) { 
 					echo $colors[$i]; echo ", "; 										
@@ -435,13 +435,13 @@ while ($imovie < count($imdballmeta)) {
 										<!-- composer -->
 			<ul class="imdbelementCOMPOSERul">
 			<li class="imdbincluded-lined imdbelementCOMPOSERli"><span class="imdbincluded-subtitle"><?php echo(sprintf(_n('Composer', 'Composers', count($composer), 'imdb'))); ?>:</span><?php 
-			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomycomposer] == true ) && (count_me('composer', $count_me_siffer) == "nomore") ) { 
+			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomycomposer] == true ) && (count_me('imdblt_composer', $count_me_siffer) == "nomore") ) { 
 			// count_me_siffer() to avoid adding evey taxonomy from several movies's genre...
 				for ($i = 0; $i < count ($composer); $i++) {
-					wp_set_object_terms($wp_query->post->ID, $composer[$i]["name"], 'composer', true); #add taxonomy terms to posts' terms
+					wp_set_object_terms($wp_query->post->ID, $composer[$i]["name"], 'imdblt_composer', true); #add taxonomy terms to posts' terms
 				} 
-				wp_set_object_terms($wp_query->post->ID, $composer[$i]["name"], 'composer', true);  #add last taxonomy term to posts' terms
-				echo get_the_term_list($wp_query->post->ID, 'composer', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
+				wp_set_object_terms($wp_query->post->ID, $composer[$i]["name"], 'imdblt_composer', true);  #add last taxonomy term to posts' terms
+				echo get_the_term_list($wp_query->post->ID, 'imdblt_composer', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
 			} else { 
 				for ($i = 0; $i < count ($composer); $i++) {
 					if  ($imdb_widget_values[imdblinkingkill] == false ) { // if "Remove all links" option is not selected 
@@ -535,13 +535,13 @@ while ($imovie < count($imdballmeta)) {
 			<li class="imdbincluded-lined imdbelementDIRECTORli">
 				<span class="imdbincluded-subtitle"><?php echo(sprintf(_n('Director', 'Directors', count($director), 'imdb'))); ?>:</span>&nbsp;<?php
 
-			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomydirector] == true ) && (count_me('director', $count_me_siffer) == "nomore") ) { 
+			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomydirector] == true ) && (count_me('imdblt_director', $count_me_siffer) == "nomore") ) { 
 			// count_me_siffer() to avoid adding every taxonomy from several movies's genre...
 				for ($i = 0; $i < count ($director); $i++) {
-					wp_set_object_terms($wp_query->post->ID, $director[$i]["name"], 'director', true); #add taxonomy terms to posts' terms
+					wp_set_object_terms($wp_query->post->ID, $director[$i]["name"], 'imdblt_director', true); #add taxonomy terms to posts' terms
 				} 
-				wp_set_object_terms($wp_query->post->ID, $director[$i]["name"], 'director', true);  #add last taxonomy term to posts' terms
-				echo get_the_term_list($wp_query->post->ID, 'director', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
+				wp_set_object_terms($wp_query->post->ID, $director[$i]["name"], 'imdblt_director', true);  #add last taxonomy term to posts' terms
+				echo get_the_term_list($wp_query->post->ID, 'imdblt_director', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
 			} else { 
 				for ($i = 0; $i < count ($director); $i++) {
 					if  ($imdb_widget_values[imdblinkingkill] == false ) { // if "Remove all links" option is not selected 
@@ -574,13 +574,13 @@ while ($imovie < count($imdballmeta)) {
 			<li class="imdbincluded-lined imdbelementCREATORli">
 				<span class="imdbincluded-subtitle"><?php echo(sprintf(_n('Creator', 'Creators', count($creator), 'imdb'))); ?>:</span>&nbsp;<?php
 
-			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomycreator] == true ) && (count_me('creator', $count_me_siffer) == "nomore") ) { 
+			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomycreator] == true ) && (count_me('imdblt_creator', $count_me_siffer) == "nomore") ) { 
 			// count_me_siffer() to avoid adding every taxonomy from several movies's genre...
 				for ($i = 0; $i < count ($creator); $i++) {
-					wp_set_object_terms($wp_query->post->ID, $creator[$i]["name"], 'creator', true); #add taxonomy terms to posts' terms
+					wp_set_object_terms($wp_query->post->ID, $creator[$i]["name"], 'imdblt_creator', true); #add taxonomy terms to posts' terms
 				} 
-				wp_set_object_terms($wp_query->post->ID, $creator[$i]["name"], 'creator', true);  #add last taxonomy term to posts' terms
-				echo get_the_term_list($wp_query->post->ID, 'creator', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
+				wp_set_object_terms($wp_query->post->ID, $creator[$i]["name"], 'imdblt_creator', true);  #add last taxonomy term to posts' terms
+				echo get_the_term_list($wp_query->post->ID, 'imdblt_creator', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
 			} else { 
 				for ($i = 0; $i < count ($creator); $i++) {
 					if  ($imdb_widget_values[imdblinkingkill] == false ) { // if "Remove all links" option is not selected 
@@ -612,13 +612,13 @@ while ($imovie < count($imdballmeta)) {
 			<ul class="imdbelementPRODUCERul">
 			<li class="imdbincluded-lined imdbelementPRODUCERli">
 				<span class="imdbincluded-subtitle"><?php echo(sprintf(_n('Producer', 'Producers', count($producer), 'imdb'))); ?>:</span><?php
-			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomyproducer] == true ) && (count_me('producer', $count_me_siffer) == "nomore") ) { 
+			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomyproducer] == true ) && (count_me('imdblt_producer', $count_me_siffer) == "nomore") ) { 
 			// count_me_siffer() to avoid adding every taxonomy from several movies's genre...
 				for ($i = 0; $i < count ($producer); $i++) {
-					wp_set_object_terms($wp_query->post->ID, $producer[$i]["name"], 'producer', true); #add taxonomy terms to posts' terms
+					wp_set_object_terms($wp_query->post->ID, $producer[$i]["name"], 'imdblt_producer', true); #add taxonomy terms to posts' terms
 				} 
-				wp_set_object_terms($wp_query->post->ID, $producer[$i]["name"], 'producer', true);  #add last taxonomy term to posts' terms
-				echo get_the_term_list($wp_query->post->ID, 'producer', "", ", ", "" ); # list all (hyperlinked) taxonomy terms
+				wp_set_object_terms($wp_query->post->ID, $producer[$i]["name"], 'imdblt_producer', true);  #add last taxonomy term to posts' terms
+				echo get_the_term_list($wp_query->post->ID, 'imdblt_producer', "", ", ", "" ); # list all (hyperlinked) taxonomy terms
 			} else { 
 				for ($i = 0; $i < count ($producer); $i++) { ?>
 						<div align="center" class="imdbdiv-liees">
@@ -653,13 +653,13 @@ while ($imovie < count($imdballmeta)) {
 		<ul class="imdbelementWRITERul">
 		<li class="imdbincluded-lined imdbelementWRITERli">
 			<span class="imdbincluded-subtitle"><?php echo(sprintf(_n('Writer', 'Writers', count($write), 'imdb'))); ?>:</span><?php
-			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomywriter] == true ) && (count_me('writer', $count_me_siffer) == "nomore") ) { 
+			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomywriter] == true ) && (count_me('imdblt_writer', $count_me_siffer) == "nomore") ) { 
 			// count_me_siffer() to avoid adding every taxonomy from several movies's genre...
 				for ($i = 0; $i < count ($writer); $i++) {
-					wp_set_object_terms($wp_query->post->ID, $writer[$i]["name"], 'writer', true); #add taxonomy terms to posts' terms
+					wp_set_object_terms($wp_query->post->ID, $writer[$i]["name"], 'imdblt_writer', true); #add taxonomy terms to posts' terms
 				} 
-				wp_set_object_terms($wp_query->post->ID, $writer[$i]["name"], 'writer', true);  #add last taxonomy term to posts' terms
-				echo get_the_term_list($wp_query->post->ID, 'writer', "", ", ", "" ); # list all (hyperlinked) taxonomy terms
+				wp_set_object_terms($wp_query->post->ID, $writer[$i]["name"], 'imdblt_writer', true);  #add last taxonomy term to posts' terms
+				echo get_the_term_list($wp_query->post->ID, 'imdblt_writer', "", ", ", "" ); # list all (hyperlinked) taxonomy terms
 			} else { 
 				for ($i = 0; $i < count ($writer); $i++) { ?>
 						<div align="center" class="imdbdiv-liees">
@@ -695,13 +695,13 @@ while ($imovie < count($imdballmeta)) {
 			<ul class="imdbelementACTORul">
 			<li class="imdbincluded-lined imdbelementACTORli">
 				<span class="imdbincluded-subtitle"><?php echo(sprintf(_n('Actor', 'Actors', count($cast), 'imdb'))); ?>:</span><?php 
-			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomyactor] == true ) && (count_me('actor', $count_me_siffer) == "nomore") ) { 
+			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomyactor] == true ) && (count_me('imdblt_actor', $count_me_siffer) == "nomore") ) { 
 			// count_me_siffer() to avoid adding every taxonomy from several movies's genre...
 				for ($i = 0; $i < $imdb_widget_values[imdbwidgetactornumber] && ($i < count($cast)); $i++) { 
-					wp_set_object_terms($wp_query->post->ID, $cast[$i]["name"], 'actor', true); #add taxonomy terms to posts' terms
+					wp_set_object_terms($wp_query->post->ID, $cast[$i]["name"], 'imdblt_actor', true); #add taxonomy terms to posts' terms
 				} 
-				wp_set_object_terms($wp_query->post->ID, $cast[$i]["name"], 'actor', true);  #add last taxonomy term to posts' terms
-				echo get_the_term_list($wp_query->post->ID, 'actor', "$role","$role[$i], ", '' ); # list all (hyperlinked) taxonomy terms
+				wp_set_object_terms($wp_query->post->ID, $cast[$i]["name"], 'imdblt_actor', true);  #add last taxonomy term to posts' terms
+				echo get_the_term_list($wp_query->post->ID, 'imdblt_actor', "$role","$role[$i], ", '' ); # list all (hyperlinked) taxonomy terms
 			} else { 
 				for ($i = 0; $i < $imdb_widget_values[imdbwidgetactornumber] && ($i < count($cast)); $i++) { ?>
 						<div align="center" class="imdbdiv-liees">
@@ -764,13 +764,15 @@ while ($imovie < count($imdballmeta)) {
 	<li class="imdbincluded-lined imdbelementSOURCEli">
 
 		<span class="imdbincluded-subtitle "><?php esc_html_e('Source'); ?>:</span><?php
-		if ($engine == 'pilot') {
+		/*if ($engine == 'pilot') {
 			imdblt_source_moviepilot($midPremierResultat);
 			if ($imdb_admin_values[pilot_imdbfill] > 1) // if imdb's website is not accessed, exit;
 				imdblt_source_imdb($midPremierResultat);
 		} else {
 			imdblt_source_imdb($midPremierResultat);
-		}?>
+		}--------- movie pilot is no more */
+		imdblt_source_imdb($midPremierResultat);
+		?>
 	</li>
 	</ul>
 	<?php } ?>

@@ -26,8 +26,13 @@ global $imdb_admin_values, $imdb_widget_values;
 # Initialization of IMDBphp
 $search = new Imdb\TitleSearch();
 
-if ($_GET["searchtype"]=="episode") $results = $search->search ($_GET["film"], array(\Imdb\TitleSearch::TV_SERIES));
-else $results = $search->search ($_GET["film"], array(\Imdb\TitleSearch::MOVIE));
+if (isset ($_GET["film"]))
+	$film_sanitized = sanitize_text_field( $_GET["film"] ) ?? NULL;
+
+if ($_GET["searchtype"]=="episode") 
+	$results = $search->search ($film_sanitized, array(\Imdb\TitleSearch::TV_SERIES));
+else 
+	$results = $search->search ($film_sanitized, array(\Imdb\TitleSearch::MOVIE));
 
 //--------------------------------------=[Layout]=---------------
 
@@ -35,7 +40,7 @@ if (($imdb_admin_values[imdbdirectsearch] == false ) OR ($_GET["norecursive"] ==
 	//require_once ('popup-header.php'); 
 	get_header(); 
 ?>
-<h1><?php esc_html_e('Results related to', 'imdb'); echo sanitize_text_field($res->title()); ?></h1>
+<h1><?php esc_html_e('Results related to', 'imdb'); echo $film_sanitized; ?></h1>
 
 <table class='TableListeResultats'>
 	<tr>

@@ -33,10 +33,30 @@ $config->imdb_img_url = $imdb_cache_values['imdbimgdir'] ?? NULL;
 $config->photoroot = $imdb_cache_values['imdbphotoroot'] ?? NULL;
 
 if (isset ($_GET["film"]))
-	$film_sanitized = sanitize_text_field( $_GET["film"] );
+	$film_sanitized = sanitize_text_field( $_GET["film"] ) ?? NULL;
 
-if (isset ($_GET["mid"])) {
-	$mid_sanitized = filter_var( $_GET["mid"], FILTER_SANITIZE_NUMBER_INT);
+if (isset ($_GET["mid"]))
+	$mid_sanitized = filter_var( $_GET["mid"], FILTER_SANITIZE_NUMBER_INT) ?? NULL;
+
+// if neither film nor mid are set, throw a 404 error
+if (empty($film_sanitized ) && empty($mid_sanitized)){
+	global $wp_query;
+
+	$wp_query->set_404();
+
+	// In case you need to make sure that `have_posts()` return false.
+	// Maybe there's a reset function on WP_Query but I couldn't find one.
+	$wp_query->post_count = 0;
+	$wp_query->posts = [];
+	$wp_query->post = false;
+
+	status_header(404);
+
+	$template = get_404_template();
+	return $template;
+}
+
+if (isset ($mid_sanitized)) {
 	$person = new Imdb\Person($mid_sanitized, $config);
 	$person_name_sanitized = sanitize_text_field( $person->name() );
 
