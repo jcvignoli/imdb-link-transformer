@@ -199,13 +199,18 @@ function imdb_add_head_blog_first (){
 function imdb_add_head_blog () {
 	global $imdb_admin_values; 
 
-	// enqueue imdb.css only if it is a popup (url starting with /imdblt/)
-	if ( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/imdblt/' ) ) {
-		if (file_exists (TEMPLATEPATH . "/imdb.css") ) { // an imdb.css exists inside theme folder, take it! 
-			wp_enqueue_style('imdblt_imdbcss', bloginfo('stylesheet_directory') . "imdb.css");
-	 	} else { // no imdb.css exists in theme, add default one
-			wp_enqueue_style('imdblt_imdbcss', $imdb_admin_values[imdbplugindirectory] ."css/imdb.css");
-	 	} 
+	// Use local template imdb.css if it exists in current theme folder
+	if (file_exists (TEMPLATEPATH . "/imdb.css") ) { // an imdb.css exists inside theme folder, take it! 
+		wp_enqueue_style('imdblt_imdbcss', bloginfo('stylesheet_directory') . "imdb.css");
+ 	} else { // no imdb.css exists in theme, add default one
+		wp_enqueue_style('imdblt_imdbcss', $imdb_admin_values[imdbplugindirectory] ."css/imdb.css");
+ 	} 
+
+	// OceanWp template css fix
+	// enqueue imdb.css only if 1/ it is a popup (url starting with /imdblt/) 2/ using template oceanwp
+	if ( ( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/imdblt/' ) ) 
+&& ( stripos( TEMPLATEPATH, '/wp-content/themes/oceanwp' ) ) ){
+		wp_enqueue_style('imdblt_imdbcss_oceanwpfixes', $imdb_admin_values[imdbplugindirectory] ."css/imdb-oceanwpfixes.css");
 	}
 }
 
