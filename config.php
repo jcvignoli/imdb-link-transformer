@@ -14,8 +14,8 @@
  #############################################################################
 
 #--------------------------------------------------=[ define constants ]=--
-
-define('IMDBLTURLPATH', plugins_url() . '/' . plugin_basename( dirname(__FILE__) ) . '/' );
+$imdb_admin_values['imdbplugindirectory'] = isset($imdb_admin_values['imdbplugindirectory']) ? $imdb_admin_values['imdbplugindirectory'] : plugins_url() . '/' . plugin_basename( dirname(__FILE__) ) . '/';
+define('IMDBLTURLPATH', $imdb_admin_values['imdbplugindirectory'] );
 define('IMDBLTFILE', plugin_basename( dirname(__FILE__)) );
 define('IMDBLTABSPATH', str_replace("\\","/", WP_PLUGIN_DIR . '/' . plugin_basename( dirname(__FILE__) ) . '/' ));
 define('IMDBBLOG', "https://www.jcvignoli.com/blog");
@@ -265,7 +265,10 @@ class imdb_settings_conf extends mdb_config {
 			update_option($this->imdbWidgetOptionsName, $imdbOptionsw);
 			
 			// display message on top
-			$this->notice(1, '<strong>'. __('Options saved.', 'imdb') .'</strong>'); 
+			$this->notice(1, '<strong>'. __('Options saved.', 'imdb') .'</strong>');
+
+			// flush rewrite rules for taxonomy pages
+			flush_rewrite_rules();
 				
 		 } 
 		if (isset($_POST['reset_imdbwidgetSettings'])) { // reset options selected  (widget options)
@@ -283,6 +286,9 @@ class imdb_settings_conf extends mdb_config {
 			} else {
 				$this->notice(1, '<strong>'. __('Plugin collision. Please follow ').'<a href="'.$_SERVER[ "REQUEST_URI"].'&reset=true">'.__('this link.', 'imdb').'</a>'.'</strong>'); 
 			}
+
+			// flush rewrite rules for taxonomy pages
+			flush_rewrite_rules();
 		} 
 
 		if (isset($_POST['update_cache_options'])) { // save data selected (cache options)
@@ -377,34 +383,34 @@ class imdb_settings_conf extends mdb_config {
 	<div class="subpage">
 	
 	<div align="left" style="float:left" >
-		<img src="<?php echo IMDBLTURLPATH ?>pics/admin-general.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('General Options', 'imdb'); ?>" href="?page=imdblt_options"> <?php _e('General Options', 'imdb'); ?></a> 
+		<img src="<?php echo IMDBLTURLPATH; ?>pics/admin-general.png" align="absmiddle" width="16px" />&nbsp;
+		<a title="<?php _e('General Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>?page=imdblt_options"> <?php _e('General Options', 'imdb'); ?></a> 
 			
 		<?php 	### sub-page is relative to what is activated
 			### check if widget is active, and/or direct search option
 		if ( ($imdbOptions['imdbdirectsearch'] == "1") && (is_active_widget(widget_imdbwidget)) ){ ?>
 
 		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH ?>pics/admin-widget-inside.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('Widget/Inside post Options', 'imdb'); ?>" href="?page=imdblt_options&subsection=widgetoption"><?php _e('Widget/Inside post Options', 'imdb'); ?></a>
+		<a title="<?php _e('Widget/Inside post Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>?page=imdblt_options&subsection=widgetoption"><?php _e('Widget/Inside post Options', 'imdb'); ?></a>
 		<?php } elseif ( ($imdbOptions['imdbdirectsearch'] == "1") && (! is_active_widget(widget_imdbwidget)) ) { ?>
-		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH ?>pics/admin-widget-inside.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('Widget/Inside post Options', 'imdb'); ?>" href="?page=imdblt_options&subsection=widgetoption"><?php _e('Widget/Inside post Options', 'imdb'); ?></a> (<em><a href="widgets.php"><?php _e('Widget unactivated', 'imdb'); ?>)</a></em>)
+		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH; ?>pics/admin-widget-inside.png" align="absmiddle" width="16px" />&nbsp;
+		<a title="<?php _e('Widget/Inside post Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>?page=imdblt_options&subsection=widgetoption"><?php _e('Widget/Inside post Options', 'imdb'); ?></a> (<em><a href="widgets.php"><?php _e('Widget unactivated', 'imdb'); ?>)</a></em>)
 
 		<?php } elseif ( (!$imdbOptions['imdbdirectsearch'] == "1") && (is_active_widget(widget_imdbwidget)) )  { ?>
-		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH ?>pics/admin-widget-inside.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('Widget/Inside post Options', 'imdb'); ?>" href="?page=imdblt_options&subsection=widgetoption"><?php _e('Widget/Inside post Options', 'imdb'); ?></a> (<em><a href="?page=imdblt_options&generaloption=advanced#imdb_imdbdirectsearch_yes"><?php _e('Direct search', 'imdb'); ?></a> <?php _e('unactivated', 'imdb'); ?></em>)		
+		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH; ?>pics/admin-widget-inside.png" align="absmiddle" width="16px" />&nbsp;
+		<a title="<?php _e('Widget/Inside post Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>?page=imdblt_options&subsection=widgetoption"><?php _e('Widget/Inside post Options', 'imdb'); ?></a> (<em><a href="<?php echo admin_url(); ?>?page=imdblt_options&generaloption=advanced#imdb_imdbdirectsearch_yes"><?php _e('Direct search', 'imdb'); ?></a> <?php _e('unactivated', 'imdb'); ?></em>)		
 
 <?php		} else { ?>
-		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH ?>pics/admin-widget-inside.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('Widget/Inside post Options', 'imdb'); ?>" href="?page=imdblt_options&subsection=widgetoption"><?php _e('Widget/Inside post Options', 'imdb'); ?></a> (<em><a href="?page=imdblt_options&generaloption=advanced#imdb_imdbdirectsearch_yes"><?php _e('Direct search', 'imdb'); ?></a></em> & <em><a href="widgets.php"><?php _e('Widget unactivated', 'imdb'); ?></a></em>)
+		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH; ?>pics/admin-widget-inside.png" align="absmiddle" width="16px" />&nbsp;
+		<a title="<?php _e('Widget/Inside post Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>?page=imdblt_options&subsection=widgetoption"><?php _e('Widget/Inside post Options', 'imdb'); ?></a> (<em><a href="<?php echo admin_url(); ?>?page=imdblt_options&generaloption=advanced#imdb_imdbdirectsearch_yes"><?php _e('Direct search', 'imdb'); ?></a></em> & <em><a href="widgets.php"><?php _e('Widget unactivated', 'imdb'); ?></a></em>)
 
 <?php 		} ?>
-		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH ?>pics/admin-cache.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('Cache management', 'imdb'); ?>" href="?page=imdblt_options&subsection=cache"><?php _e('Cache management', 'imdb'); ?></a>
+		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH; ?>pics/admin-cache.png" align="absmiddle" width="16px" />&nbsp;
+		<a title="<?php _e('Cache management', 'imdb'); ?>" href="<?php echo admin_url(); ?>?page=imdblt_options&subsection=cache"><?php _e('Cache management', 'imdb'); ?></a>
 	</div>
 	<div align="right" >
-		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH ?>pics/admin-help.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('How to use IMDb link transformer, check FAQs & changelog', 'imdb');?>" href="?page=imdblt_options&subsection=help">
+		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH; ?>pics/admin-help.png" align="absmiddle" width="16px" />&nbsp;
+		<a title="<?php _e('How to use IMDb link transformer, check FAQs & changelog', 'imdb');?>" href="<?php echo admin_url(); ?>?page=imdblt_options&subsection=help">
 			<?php _e('IMDb link transformer help', 'imdb'); ?>
 		</a> 
 	</div>
@@ -484,7 +490,7 @@ class mdb_config {
 	/** Set the default user agent (if none is detected)
 	* @attribute string user_agent
 	*/
-	$this->default_agent = 'Mozilla/5.0 (X11; U; Linux i686; en; rv:1.9.2.3) Gecko/20100101 Firefox/6.0';
+	$this->default_agent = 'Mozilla/5.0 (X11; U; Linux i686; en; rv:1.9.2.3) Gecko/20100101 Firefox/80.0';
 	/** Enforce the use of a special user agent
 	* @attribute string force_agent
 	*/
