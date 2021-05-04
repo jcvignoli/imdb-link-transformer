@@ -48,11 +48,11 @@ if (($imdb_admin_values[imdbdirectsearch] == false ) OR ($_GET["norecursive"] ==
 		echo "	<tr>\n";
 		
 		// ---- movie part
-		echo "		<td class='TableListeResultatsColGauche'><a href=\"".IMDBLTURLPATH."inc/popup-imdb_movie.php?mid=".$res->imdbid()."\" title=\"".esc_html__('more on', 'imdb')." ".$res->title()."\" >".$res->title()."(".$res->year().")"."</a> \n";
-		echo "&nbsp;&nbsp;<a class=\"imdblink\" href=\"https://us.imdb.com/title/tt".$res->imdbid()."\" target=\"_blank\" title='".esc_html__('link to imdb for', 'imdb')." ".$res->title()."'>";
+		echo "		<td class='TableListeResultatsColGauche'><a href=\"".esc_url($imdb_admin_values[imdbplugindirectory]."inc/popup-imdb_movie.php?mid=".intval($res->imdbid()) )."\" title=\"".esc_html__('more on', 'imdb')." ".sanitize_text_field( $res->title() )."\" >".sanitize_text_field( $res->title() )."(".intval( $res->year() ).")"."</a> \n";
+		echo "&nbsp;&nbsp;<a class=\"imdblink\" href=\"".esc_url( "https://us.imdb.com/title/tt".intval($res->imdbid()) )."\" target=\"_blank\" title='".esc_html__('link to imdb for', 'imdb')." ".sanitize_text_field( $res->title() )."'>";
 
 		if ($imdb_admin_values[imdbdisplaylinktoimdb] == true) { # if the user has selected so
-			echo "<img  class='img-imdb' src='".$imdb_admin_values[imdbplugindirectory].$imdb_admin_values[imdbpicurl]."' width='".$imdb_admin_values[imdbpicsize]."' alt='".esc_html__('link to imdb for', 'imdb')." ".$res->title()."'/></a>";	
+			echo "<img  class='img-imdb' src='".esc_url( $imdb_admin_values[imdbplugindirectory].$imdb_admin_values[imdbpicurl] )."' width='".intval($imdb_admin_values[imdbpicsize])."' alt='".esc_html__('link to imdb for', 'imdb')." ".sanitize_text_field( $res->title() )."'/></a>";	
 		}
 		echo "</td>\n";
 		flush ();
@@ -60,15 +60,14 @@ if (($imdb_admin_values[imdbdirectsearch] == false ) OR ($_GET["norecursive"] ==
 		// ---- director part
 		$realisateur = $res->director();
 		if (! is_null ($realisateur['0']['name'])){
-		echo "		<td class='TableListeResultatsColDroite'><a href=\"".IMDBLTURLPATH."inc/popup-imdb_person.php?mid=".$realisateur['0']['imdb']."&film=".$_GET['film']."\" title=\"".esc_html__('more on', 'imdb')." ".$realisateur['0']['name']."\" >".$realisateur['0']['name']."</a>";
+			echo "		<td class='TableListeResultatsColDroite'><a href=\"".esc_url($imdb_admin_values[imdbplugindirectory]."inc/popup-imdb_person.php?mid=".intval($realisateur['0']['imdb'])."&film=".sanitize_text_field($_GET['film']) )."\" title=\"".esc_html__('more on', 'imdb')." ".sanitize_text_field( $realisateur['0']['name'] )."\" >".sanitize_text_field( $realisateur['0']['name'] )."</a>";
 
 			if ($imdb_admin_values[imdbdisplaylinktoimdb] == true) { # if the user has selected so
-		echo "&nbsp;&nbsp;<a class=\"imdblink\" href=\"https://imdb.com/name/nm".$realisateur['0']['imdb']."\" target=\"_blank\" title='".esc_html__('link to imdb for', 'imdb')." ".$realisateur['0']['name']."'>";
-		echo "<img class='img-imdb' src='".$imdb_admin_values[imdbplugindirectory].$imdb_admin_values[imdbpicurl]."' width='".$imdb_admin_values[imdbpicsize]."' alt='".esc_html__('link to imdb for', 'imdb')." ".$realisateur['0']['name']."'/>";
-		echo "</a>";
+				echo "&nbsp;&nbsp;<a class=\"imdblink\" href=\"".esc_url( "https://imdb.com/name/nm".intval($realisateur['0']['imdb']) )."\" target=\"_blank\" title='".esc_html__('link to imdb for', 'imdb')." ".sanitize_text_field( $realisateur['0']['name'] )."'>";
+				echo "<img class='img-imdb' src='".esc_url( $imdb_admin_values[imdbplugindirectory].$imdb_admin_values[imdbpicurl] )."' width='".intval($imdb_admin_values[imdbpicsize])."' alt='".esc_html__('link to imdb for', 'imdb')." ".$realisateur['0']['name']."'/>";
+				echo "</a>";
 			}
-			
-		echo "</td>\n";
+			echo "</td>\n";
 		}
 		echo "	</tr>\n";
 		flush ();
@@ -88,14 +87,14 @@ wp_footer();
 <?php
 } else {  //-------------------------------------------------------------------------- 2. accès direct, option spéciale
 
-	if ($results[0]) {	// test pour afficher le film même lorsque celui-ci est un résultat unique (sinon, msg erreur php)
+	if ($results[0]) { // test pour afficher le film même lorsque celui-ci est un résultat unique (sinon, msg erreur php)
 		$nbarrayresult = "0"; // lorsque résultat unique, tout s'affiche dans l'array "0"
 	} else {
 		$nbarrayresult = "1"; // lorsque résultats multiples, le premier film s'affiche dans l'array "1"
 	}	
 	$midPremierResultat = $results[$nbarrayresult]->imdbid() ?? NULL;
 	$_GET['mid'] = $midPremierResultat; //"mid" will be transmitted to next include
-	require_once ("popup-imdb_movie.php");
+	require_once ( $imdb_admin_values[imdbplugindirectory] . "inc/popup-imdb_movie.php");
 }
 
 ?>
