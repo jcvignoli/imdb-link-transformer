@@ -4,3 +4,4 @@ composer.lock
 .distignore
 vendor
 tmp
+wp-cli.phar

@@ -90,8 +90,8 @@ while ($imovie < count($imdballmeta)) {
 
 
 	if  (($imdb_widget_values[imdbwidgettitle] == true ) && ($magicnumber == $imdb_widget_values[imdbwidgetorder][title] )) { 
-	$year=$movie->year ();
-	$title=$movie->title();?>
+	$year=intval($movie->year () );
+	$title=sanitize_text_field( $movie->title() );?>
 										<!-- title -->
 		<div class="imdbelementTITLE"><?php
 			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomytitle] == true ) && (count_me('title', $count_me_siffer) == "nomore") ) { 
@@ -119,15 +119,15 @@ while ($imovie < count($imdballmeta)) {
 	$photo_url = $movie->photo_localurl($imdb_admin_values[imdbcoversize]); ?>
 										<!-- pic -->
 		<div class="imdbelementPICdiv">
-			 <?php 	## The picture is either taken from the movie itself or if it doesn't exist, from a standard "no exist" picture.
-				## The width value is taken from plugin settings, and added if the "thumbnail" option is unactivated
+		<?php 	## The picture is either taken from the movie itself or if it doesn't exist, from a standard "no exist" picture.
+			## The width value is taken from plugin settings, and added if the "thumbnail" option is unactivated
 
 			// check if big pictures are selected (extract "_big.jpg" from picture's names, if exists), AND if highslide popup is activated
 			if ( (substr( $photo_url, -7, -4) == "big" ) && ($imdb_admin_values['imdbpopup_highslide'] == 1) ) {
 				// value to store if previous checking is valid, call in csp_inline_scripts.js
 				$highslidephotook = "ok";
 				echo '<a href="'.$photo_url.'" class="highslide" id="highslide-pic" title="';
-				echo $movie->title().'"> <img class="imdbelementPICimg" src="';
+				echo sanitize_text_field( $movie->title() ).'"> <img class="imdbelementPICimg" src="';
 			} else {
 				// no big picture OR no highslide popup
 				echo '<img class="imdbelementPICimg" src="';
@@ -136,14 +136,14 @@ while ($imovie < count($imdballmeta)) {
 			// check if a picture exists
 			if ($photo_url != FALSE){
 				// a picture exists, therefore show it!
-				echo $photo_url.'" alt="'.$movie->title().'" '; 
+				echo esc_url($photo_url ).'" alt="'.sanitize_text_field( $movie->title() ).'" '; 
 			} else { 
 				// no picture found, display the replacement pic
-				echo $imdb_admin_values[imdbplugindirectory].'pics/no_pics.gif" alt="'.esc_html__('no picture', 'imdb').'" '; 
+				echo esc_url( $imdb_admin_values[imdbplugindirectory].'pics/no_pics.gif"' ).' alt="'.esc_html__('no picture', 'imdb').'" '; 
 			}
 
 
-				echo 'width="'.$imdb_admin_values[imdbcoversizewidth].'" ';
+				echo 'width="'.intval( $imdb_admin_values[imdbcoversizewidth] ).'" ';
 
 
 		echo "/ >"; 
