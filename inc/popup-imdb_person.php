@@ -32,10 +32,13 @@ $config->photodir = $imdb_cache_values['imdbphotodir'] ?? NULL;
 $config->imdb_img_url = $imdb_cache_values['imdbimgdir'] ?? NULL;
 $config->photoroot = $imdb_cache_values['imdbphotoroot'] ?? NULL;
 
-if (isset ($_GET["mid"])) {
-$pid = filter_var( $_GET["mid"], FILTER_SANITIZE_NUMBER_INT);
-$person = new Imdb\Person($pid, $config);
+if (isset ($_GET["film"]))
+	$film_sanitized = sanitize_text_field( $_GET["film"] );
 
+if (isset ($_GET["mid"])) {
+	$mid_sanitized = filter_var( $_GET["mid"], FILTER_SANITIZE_NUMBER_INT);
+	$person = new Imdb\Person($mid_sanitized, $config);
+	$person_name_sanitized = sanitize_text_field( $person->name() );
 
 //--------------------------------------=[Layout]=---------------
 
@@ -47,18 +50,18 @@ $person = new Imdb\Person($pid, $config);
 <table class='tabletitrecolonne'>
     <tr>
         <td class='titrecolonne a:hover'>
-            <a href="javascript:history.back(-10)"><font size='-2'><?php esc_html_e('Back', 'imdb'); ?></font></a>
+            <a class="historyback"><font size='-2'><?php esc_html_e('Back', 'imdb'); ?></font></a>
         </td>
  		<td class='titrecolonne'>
-			<a href='<?php echo IMDBLTURLPATH."inc/"; ?>popup-imdb_person.php?mid=<?php echo $pid; ?>&film=<?php echo $_GET['film']; ?>&info=' title='<?php echo $person->name().": ".esc_html__('Filmography', 'imdb'); ?>'><?php esc_html_e('Filmography', 'imdb'); ?></a>
+			<a href="<?php echo esc_url( $imdb_admin_values[imdbplugindirectory] ."inc/popup-imdb_person.php?mid=". $mid_sanitized . "&film=" . $film_sanitized . "&info=" ); ?>" title='<?php echo $person_name_sanitized.": ".esc_html__('Filmography', 'imdb'); ?>'><?php esc_html_e('Filmography', 'imdb'); ?></a>
 		</td>
 		
 		<td class='titrecolonne'>
-			<a href='<?php echo IMDBLTURLPATH."inc/"; ?>popup-imdb_person.php?mid=<?php echo $pid ; ?>&film=<?php echo $_GET['film']; ?>&info=bio' title='<?php echo $person->name().": ".esc_html__('Biography', 'imdb'); ?>'><?php esc_html_e('Biography', 'imdb'); ?></a>
+			<a href="<?php echo esc_url( $imdb_admin_values[imdbplugindirectory] ."inc/popup-imdb_person.php?mid=". $mid_sanitized . "&film=" . $film_sanitized . "&info=bio" ); ?>" title='<?php echo $person_name_sanitized.": ".esc_html__('Biography', 'imdb'); ?>'><?php esc_html_e('Biography', 'imdb'); ?></a>
 		</td>
 		
 		<td class="titrecolonne">
-			<a href='<?php echo IMDBLTURLPATH."inc/"; ?>popup-imdb_person.php?mid=<?php echo $pid ; ?>&film=<?php echo $_GET['film']; ?>&info=divers' title='<?php echo $person->name().": ".esc_html__('Misc', 'imdb'); ?>'><?php esc_html_e('Misc', 'imdb'); ?>
+			<a href="<?php echo esc_url( $imdb_admin_values[imdbplugindirectory] ."inc/popup-imdb_person.php?mid=". $mid_sanitized . "&film=" . $film_sanitized . "&info=divers" ); ?>" title='<?php echo $person_name_sanitized.": ".esc_html__('Misc', 'imdb'); ?>'><?php esc_html_e('Misc', 'imdb'); ?>
 		</td>
 		
 		<td class='titrecolonne'></td>
@@ -70,20 +73,20 @@ $person = new Imdb\Person($pid, $config);
 <table class="TableauPresentation">
     <tr>
         <td colspan="2">
-            <div class="identity"><?php echo $person->name(); ?> &nbsp;&nbsp;</div>
+            <div class="identity"><?php echo $person_name_sanitized; ?> &nbsp;&nbsp;</div>
             <div class="soustitreidentity">
 			<?php  // Born
 			  $birthday = $person->born(); 
 			  if (!empty($birthday)) {
-			  echo "<strong>".esc_html__('Born on', 'imdb')."</strong> ".$birthday["day"]." ".$birthday["month"]." ".$birthday["year"];
+			  echo "<strong>".esc_html__('Born on', 'imdb')."</strong> ".intval($birthday["day"])." ".sanitize_text_field($birthday["month"])." ".intval($birthday["year"]);
 			  }
-			  if (!empty($birthday["place"])) { echo ", ".esc_html__('in', 'imdb')." ".$birthday["place"];} ?>
+			  if (!empty($birthday["place"])) { echo ", ".esc_html__('in', 'imdb')." ".sanitize_text_field($birthday["place"]);} ?>
 			  <?php // Dead
 		      $death = $person->died();
 			  if (!empty($death)) {
-			  echo "<br /><strong>".esc_html__('Died on', 'imdb')."</strong> ".$death["day"]." ".$death["month"]." ".$death["year"];			
-			  if (!empty($death["place"])) echo ", ".esc_html__('in', 'imdb')." ".$death["place"];
-			  if (!empty($death["cause"])) echo ", ".esc_html__('cause', 'imdb')." ".$death["cause"];
+			  echo "<br /><strong>".esc_html__('Died on', 'imdb')."</strong> ".intval($death["day"])." ".sanitize_text_field($death["month"])." ".intval($death["year"]);			
+			  if (!empty($death["place"])) echo ", ".esc_html__('in', 'imdb')." ".sanitize_text_field($death["place"]);
+			  if (!empty($death["cause"])) echo ", ".esc_html__('cause', 'imdb')." ".sanitize_text_field($death["cause"]);
 			  }	?>
 			</div>
 			
@@ -92,13 +95,13 @@ $person = new Imdb\Person($pid, $config);
                                                 <!-- displaying photo -->
         <td rowspan=110 class="colpicture">
              <?php if (($photo_url = $person->photo_localurl() ) != FALSE){ 
-	            echo '<img class="imdbincluded-picture" src="'.$photo_url.'" alt="'.$person->name().'" '; 
+	            echo '<img class="imdbincluded-picture" src="'.esc_url($photo_url).'" alt="'.$person_name_sanitized.'" '; 
               } else{ 
-                echo '<img class="imdbincluded-picture" src="'.$imdb_admin_values[imdbplugindirectory].'pics/no_pics.gif" alt="'.esc_html__('no picture', 'imdb').'" '; 
+                echo '<img class="imdbincluded-picture" src="'.esc_url($imdb_admin_values[imdbplugindirectory]."pics/no_pics.gif").'" alt="'.esc_html__('no picture', 'imdb').'" '; 
              } 
 	// add width only if "Display only thumbnail" is on "no"
 	if ($imdb_admin_values[imdbcoversize] == FALSE){
-		echo 'width="'.$imdb_admin_values[imdbcoversizewidth].'px" ';
+		echo 'width="'.intval($imdb_admin_values[imdbcoversizewidth]).'px" ';
 	}
 
 echo '/ >'; ?>
@@ -122,7 +125,7 @@ echo '/ >'; ?>
 			if (!empty($filmo)) { ?>
 			  <tr>
 				<td class="TitreSousRubriqueColGauche">
-					<div class="TitreSousRubrique"><?php echo $flname;?> filmo</div>
+					<div class="TitreSousRubrique"><?php echo sanitize_text_field($flname);?> filmo</div>
 				</td>
 			
 				<td colspan="2" class="TitreSousRubriqueColDroite">
@@ -131,12 +134,12 @@ echo '/ >'; ?>
 			<?php
 				$ii = "0";
 				$tc = count($filmo);
-			  foreach ($filmo as $film) {
+			  	foreach ($filmo as $film) {
 			  	$nbfilms = $tc-$ii;
-				echo "<li><strong>($nbfilms)</strong> <a href='". IMDBLTURLPATH."inc/"."popup-imdb_movie.php?mid=".$film["mid"]."'>".$film["name"]."</a>";
+				echo "<li><strong>($nbfilms)</strong> <a href='".esc_url( $imdb_admin_values[imdbplugindirectory] ."inc/popup-imdb_movie.php?mid=".$film["mid"])."'>".sanitize_text_field( $film["name"] )."</a>";
 
 				if (!empty($film["year"])) {
-					echo " (".$film["year"].")";
+					echo " (".intval($film["year"]).")";
 				} 
 
 				// if (empty($film["chname"])) { 		//-> the result sent is not empty, but a breakline instead
@@ -146,9 +149,9 @@ echo '/ >'; ?>
 				} else {
 					if (empty($film["chid"])) { 
 						if (!empty($film["chname"]))
-							echo " as ".$film["chname"];
+							echo " as ".sanitize_text_field($film["chname"]);
 					} else { 
-						echo " as <a href='https://".$person->imdbsite."/character/ch".$film["chid"]."/'>".$film["chname"]."</a>"; }
+						echo " as <a href='".esc_url("https://".$person->imdbsite."/character/ch".intval($film["chid"]) )."/'>".$film["chname"]."</a>"; }
 				}
 
 				echo "</li>\n\t\t";
@@ -178,7 +181,7 @@ echo '/ >'; ?>
 						for ($i=0;$i<count($soundtrack);++$i) {
 							$ii = $i+"1";
 							echo "<li><strong>($ii)</strong> ";
-							echo "<a href='popup-imdb_movie.php?mid=".$soundtrack[$i]["mid"]."'>".$soundtrack[$i]["name"]."</a>";
+							echo "<a href='popup-imdb_movie.php?mid=".intval($soundtrack[$i]["mid"])."'>".sanitize_text_field($soundtrack[$i]["name"])."</a>";
 							if (!empty($soundtrack[$i]["name"])) 
 								echo " (".$soundtrack[$i]["year"].")";
 							echo "</li>\n";
@@ -214,9 +217,9 @@ echo '/ >'; ?>
 				for ($i=0;$i<count($pm);++$i) {
 					$ii = $i+"1";
 					echo "<li><strong>($ii)</strong> ";
-					echo "<a href='popup-imdb_movie.php?mid=".$pm[$i]["imdb"]."'>".$pm[$i]["name"]."</a>";
+					echo "<a href='". esc_url( $imdb_admin_values[imdbplugindirectory] ."inc/popup-imdb_movie.php?mid=".intval($pm[$i]["imdb"]) )."'>".$pm[$i]["name"]."</a>";
 					if (!empty($pm[$i]["year"])) 
-						echo " (".$pm[$i]["year"].")";
+						echo " (".intval($pm[$i]["year"]).")";
 					echo "</li>\n";
 				} ?>
 				</div>
@@ -235,8 +238,8 @@ echo '/ >'; ?>
 		<li>
 
 		<?php // echo preg_replace('/http\:\/\/'.str_replace(".","\.",$person->imdbsite).'\/name\/nm(\d{7})\//','?mid=\\1&engine='.$_GET['engine'],$bio[$idx]["desc"]);		
-    if (count($bio)<2) $idx = 0; else $idx = 1;
-		echo $bio[$idx]["desc"]; // above's doesn't work, made this one 
+    		if (count($bio)<2) $idx = 0; else $idx = 1;
+			echo sanitize_text_field( $bio[$idx]["desc"] ); // above's doesn't work, made this one 
  ?>
 		</li>
             </td>
@@ -267,7 +270,7 @@ echo '/ >'; ?>
 			            
  			<?php 	for ($i=0;$i<$tc;++$i) {
 					$ii = $i+"1";
-					echo "<li><strong>($ii)</strong> ".$trivia[$i]."</li>\n";
+					echo "<li><strong>($ii)</strong> ".sanitize_text_field( $trivia[$i] )."</li>\n";
 				} ?>
 					</div>
 				</td>
@@ -291,7 +294,7 @@ echo '/ >'; ?>
 			$txt = "";
 			$i = "1";
    			foreach ($nicks as $nick) {
-				$txt = "<br><li><strong>($i)</strong> ".$nick;
+				$txt = "<br><li><strong>($i)</strong> ".sanitize_text_field( $nick );
 				echo substr($txt,4)."</li>\n";
 				$i++;
   			} ?>
@@ -317,7 +320,7 @@ echo '/ >'; ?>
 				<?php 
 				for ($i=0;$i<$tc;++$i) {
 					$ii = $i+"1";
-					echo "<li><strong>($ii)</strong> ".$quotes[$i]."</li>\n";
+					echo "<li><strong>($ii)</strong> ".sanitize_text_field( $quotes[$i] )."</li>\n";
 				} ?>
 			</div>
            	 </td>
@@ -342,7 +345,7 @@ echo '/ >'; ?>
 			<?php 
 				for ($i=0;$i<count($tm);++$i) {
 					$ii = $i+"1";
-					echo "<li><strong>($ii)</strong> ".$tm[$i]."</li>\n";
+					echo "<li><strong>($ii)</strong> ".sanitize_text_field( $tm[$i] )."</li>\n";
 				} ?>
 		</div>
             </td>
@@ -361,7 +364,7 @@ echo '/ >'; ?>
 			if (!empty($filmo)) { ?>
 			  <tr>
 				<td class="TitreSousRubriqueColGauche">
-					<div class="TitreSousRubrique"><?php echo $flname;?> filmo</div>
+					<div class="TitreSousRubrique"><?php echo sanitize_text_field( $flname );?> filmo</div>
 				</td>
 			
 		<td colspan="2" class="TitreSousRubriqueColDroite">
@@ -372,14 +375,14 @@ echo '/ >'; ?>
 				$tc = count($filmo);
 			  foreach ($filmo as $film) {
 			  	$nbfilms = $tc-$ii;
-				echo "<li><strong>($nbfilms)</strong> <a href='popup-imdb_movie.php?mid=".$film["mid"]."'>".$film["name"]."</a>";
+				echo "<li><strong>($nbfilms)</strong> <a href='".esc_url($imdb_admin_values[imdbplugindirectory] ."inc/popup-imdb_movie.php?mid=".intval($film["mid"]) )."'>".sanitize_text_field($film["name"])."</a>";
 				if (!empty($film["year"])) {
-				echo " (".$film["year"].")";
+				echo " (".intval($film["year"]).")";
 				} 
 				if (empty($film["chname"])) echo "";
 				else {
-				  if (empty($film["chid"])) echo " as ".$film["chname"];
-				  else echo " as <a href='http://".$person->imdbsite."/character/ch".$film["chid"]."/'>".$film["chname"]."</a>";
+				  if (empty($film["chid"])) echo " as ".sanitize_text_field( $film["chname"] );
+				  else echo " as <a href='". esc_url("https://".$person->imdbsite."/character/ch".intval($film["chid"]))."/'>".$film["chname"]."</a>";
 				}
 				echo "</li>\n\t\t";
 				$ii++;

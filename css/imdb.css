@@ -33,7 +33,7 @@ body.imdbpopup h1 {
 	padding-bottom:10px;
 }
 
-.activatehidesection {
+.activatehidesection, .historyback {
 	cursor:pointer;
 }
 /* ------------------ Tables */
@@ -73,7 +73,7 @@ body.imdbpopup h1 {
 /* ---- Results list */
 
 .TableListeResultats{
-
+font-size: medium;
 margin-left:2%;
 padding: 5px;
 width: 96%;
