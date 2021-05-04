@@ -117,7 +117,7 @@ echo '/ >'; ?>
 	//---------------------------------------------------------------------------start filmography part ?>
 
                                        <!-- Filmography -->
-		<?php $ff = array("director","actor","actress","producer");
+		<?php $ff = array("director","actor", "producer");
 		  foreach ($ff as $var) {
 			$fdt = "movies_$var";
 			$filmo = $person->$fdt();
@@ -135,12 +135,12 @@ echo '/ >'; ?>
 				$ii = "0";
 				$tc = count($filmo);
 			  	foreach ($filmo as $film) {
-			  	$nbfilms = $tc-$ii;
-				echo "<li><strong>($nbfilms)</strong> <a href='".esc_url( $imdb_admin_values[imdbplugindirectory] ."inc/popup-imdb_movie.php?mid=".$film["mid"])."'>".sanitize_text_field( $film["name"] )."</a>";
+			  		$nbfilms = $tc-$ii;
+					echo "<li><strong>($nbfilms)</strong> <a href='".esc_url( $imdb_admin_values[imdbplugindirectory] ."inc/popup-imdb_movie.php?mid=".$film["mid"])."'>".sanitize_text_field( $film["name"] )."</a>";
 
-				if (!empty($film["year"])) {
-					echo " (".intval($film["year"]).")";
-				} 
+					if (!empty($film["year"])) {
+						echo " (".intval($film["year"]).")";
+					} 
 
 				// if (empty($film["chname"])) { 		//-> the result sent is not empty, but a breakline instead
 				if ($film["chname"]=="
