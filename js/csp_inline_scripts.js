@@ -59,16 +59,12 @@ jQuery('.historyback').click(function(event){
 */
 
 /* Confirmation popup for individual refresh and delete of movies and persons */
-const divrefresh = document.querySelectorAll('.admin-cache-confirm-refresh');
-const divdelete = document.querySelectorAll('.admin-cache-confirm-delete');
-
-divrefresh.forEach(el => el.addEventListener('click', event => {
-	/* confirm dialog with tag attribute "data-confirm" */
-	alert(event.target.getAttribute("data-confirm"));
-}));
-divdelete.forEach(ek => ek.addEventListener('click', event => {
-	/* confirm dialog with tag attribute "data-confirm" */
-	alert(event.target.getAttribute("data-confirm"));
-}));
-
-
+/* confirm dialog if attribute "data-confirm" in "a" tag */
+(function ($) {
+  $(document).on('click', 'a[data-confirm]',function(e){
+	if(!confirm($(this).data('confirm'))){
+	  e.stopImmediatePropagation();
+	  e.preventDefault();
+	}
+  });
+})(jQuery);

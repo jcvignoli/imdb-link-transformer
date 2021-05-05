@@ -627,23 +627,23 @@ if (!empty($results)){
 if (!empty($results)){
 	foreach ($results as $res){
 		if (get_class($res) === 'Imdb\Person') {
-			$name = $res->name(); // search title related to movie id
+			$name_sanitized = sanitize_text_field( $res->name() ); // search title related to movie id
 			$objpiple = $res->imdbid();
-			$filepath = $imdbOptionsc['imdbcachedir']."name.nm".substr($objpiple, 0, 7);
+			$filepath = esc_url($imdbOptionsc['imdbcachedir']."name.nm".substr($objpiple, 0, 7));
 			if ($imdbOptionsc['imdbcachedetailsshort'] == 1)  { // display only cache peoples' names, quicker loading
-				$datapeople[] = '<input type="checkbox" id="imdb_cachedeletefor_people_'.$name.'" name="imdb_cachedeletefor_people[]" value="'.$objpiple.'" /><label for="imdb_cachedeletefor_people[]">'.$name.'</label>'; // send input and results into array
+				$datapeople[] = '<input type="checkbox" id="imdb_cachedeletefor_people_'.$name_sanitized.'" name="imdb_cachedeletefor_people[]" value="'.$objpiple.'" /><label for="imdb_cachedeletefor_people[]">'.$name_sanitized.'</label>'; // send input and results into array
 				flush();
 			} else { // display every cache people details, longer loading
-				$picturelink = (($photo_url = $res->photo_localurl() ) != FALSE) ? 'src="'.$imdb_cache_values['imdbphotoroot']."nm".$objpiple.'.jpg" alt="'.$name.'"' : 'src="'.IMDBLTURLPATH.'pics/no_pics.gif" alt="'.esc_html__('no picture', 'imdb').'"'; // get either local picture or if no local picture exists, display the default one
+				$picturelink = (($photo_url = $res->photo_localurl() ) != FALSE) ? 'src="'.esc_url($imdb_cache_values['imdbphotoroot']."nm".$objpiple.'.jpg').'" alt="'.$name_sanitized.'"' : 'src="'.esc_url( IMDBLTURLPATH.'pics/no_pics.gif').'" alt="'.esc_html__('no picture', 'imdb').'"'; // get either local picture or if no local picture exists, display the default one
 				$datapeople[] = '	
 						<td>
-							<img id="pic_'.$name.'" style="float:left;padding-right:5px;" '.$picturelink.' width="40px" alt="no pic">
-							<input type="checkbox" id="imdb_cachedeletefor_people_'.$name.'" name="imdb_cachedeletefor_people[]" value="'.$objpiple.'" /><label for="imdb_cachedeletefor_people_[]" style="font-weight:bold">'.$name.'</label><br />'. esc_html__('last updated on ', 'imdb').date ("j M Y H:i:s", filemtime($filepath)).'
+							<img id="pic_'.$name_sanitized.'" style="float:left;padding-right:5px;" '.$picturelink.' width="40px" alt="no pic">
+							<input type="checkbox" id="imdb_cachedeletefor_people_'.$name_sanitized.'" name="imdb_cachedeletefor_people[]" value="'.$objpiple.'" /><label for="imdb_cachedeletefor_people_[]" style="font-weight:bold">'.$name_sanitized.'</label><br />'. esc_html__('last updated on ', 'imdb').date ("j M Y H:i:s", filemtime($filepath)).'
 							
 							<div class="row-actions">
-								<span class="view"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&dothis=refresh&where='.$objpiple.'&type=people').'" class="admin-cache-confirm-refresh" data-confirm="Refresh cache for *'.$name.'*" title="Refresh cache for *'.$name.'*">'.esc_html__("refresh", "imdb").'</a></span> 
+								<span class="view"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&dothis=refresh&where='.$objpiple.'&type=people').'" class="admin-cache-confirm-refresh" data-confirm="Refresh cache for *'.$name_sanitized.'*" title="Refresh cache for *'.$name_sanitized.'*">'.esc_html__("refresh", "imdb").'</a></span> 
 
-								<span class="delete"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&dothis=delete&where='.$objpiple.'&type=people').'" class="admin-cache-confirm-delete" data-confirm="You are about to delete *'.$name.'* from cache. Click Cancel to stop or OK to continue." title="Delete cache for *'.$name.'*">'.esc_html__("delete", "imdb").'</a></span>
+								<span class="delete"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&dothis=delete&where='.$objpiple.'&type=people').'" class="admin-cache-confirm-delete" data-confirm="You are about to delete *'.$name_sanitized.'* from cache. Click Cancel to stop or OK to continue." title="Delete cache for *'.$name_sanitized.'*">'.esc_html__("delete", "imdb").'</a></span>
 							</div>
 						</td>'; // send input and results into array
 
