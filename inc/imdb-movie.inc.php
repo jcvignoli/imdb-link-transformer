@@ -115,6 +115,7 @@ while ($imovie < count($imdballmeta)) {
 
 
 	if  (($imdb_widget_values[imdbwidgetpic] == true ) && ($magicnumber == $imdb_widget_values[imdbwidgetorder][pic] )) { 
+	$photo_url = $movie->photo_localurl(); // create the normal picture for the cache
 	$photo_url = $movie->photo_localurl($imdb_admin_values[imdbcoversize]); ?>
 										<!-- pic -->
 		<div class="imdbelementPICdiv">
