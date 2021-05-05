@@ -384,33 +384,33 @@ class imdb_settings_conf extends mdb_config {
 	
 	<div align="left" style="float:left" >
 		<img src="<?php echo IMDBLTURLPATH; ?>pics/admin-general.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('General Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>?page=imdblt_options"> <?php _e('General Options', 'imdb'); ?></a> 
+		<a title="<?php _e('General Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options"> <?php _e('General Options', 'imdb'); ?></a> 
 			
 		<?php 	### sub-page is relative to what is activated
 			### check if widget is active, and/or direct search option
 		if ( ($imdbOptions['imdbdirectsearch'] == "1") && (is_active_widget(widget_imdbwidget)) ){ ?>
 
 		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH ?>pics/admin-widget-inside.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('Widget/Inside post Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>?page=imdblt_options&subsection=widgetoption"><?php _e('Widget/Inside post Options', 'imdb'); ?></a>
+		<a title="<?php _e('Widget/Inside post Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption"><?php _e('Widget/Inside post Options', 'imdb'); ?></a>
 		<?php } elseif ( ($imdbOptions['imdbdirectsearch'] == "1") && (! is_active_widget(widget_imdbwidget)) ) { ?>
 		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH; ?>pics/admin-widget-inside.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('Widget/Inside post Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>?page=imdblt_options&subsection=widgetoption"><?php _e('Widget/Inside post Options', 'imdb'); ?></a> (<em><a href="widgets.php"><?php _e('Widget unactivated', 'imdb'); ?>)</a></em>)
+		<a title="<?php _e('Widget/Inside post Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption"><?php _e('Widget/Inside post Options', 'imdb'); ?></a> (<em><a href="widgets.php"><?php _e('Widget unactivated', 'imdb'); ?>)</a></em>)
 
 		<?php } elseif ( (!$imdbOptions['imdbdirectsearch'] == "1") && (is_active_widget(widget_imdbwidget)) )  { ?>
 		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH; ?>pics/admin-widget-inside.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('Widget/Inside post Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>?page=imdblt_options&subsection=widgetoption"><?php _e('Widget/Inside post Options', 'imdb'); ?></a> (<em><a href="<?php echo admin_url(); ?>?page=imdblt_options&generaloption=advanced#imdb_imdbdirectsearch_yes"><?php _e('Direct search', 'imdb'); ?></a> <?php _e('unactivated', 'imdb'); ?></em>)		
+		<a title="<?php _e('Widget/Inside post Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption"><?php _e('Widget/Inside post Options', 'imdb'); ?></a> (<em><a href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&generaloption=advanced#imdb_imdbdirectsearch_yes"><?php _e('Direct search', 'imdb'); ?></a> <?php _e('unactivated', 'imdb'); ?></em>)		
 
 <?php		} else { ?>
 		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH; ?>pics/admin-widget-inside.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('Widget/Inside post Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>?page=imdblt_options&subsection=widgetoption"><?php _e('Widget/Inside post Options', 'imdb'); ?></a> (<em><a href="<?php echo admin_url(); ?>?page=imdblt_options&generaloption=advanced#imdb_imdbdirectsearch_yes"><?php _e('Direct search', 'imdb'); ?></a></em> & <em><a href="widgets.php"><?php _e('Widget unactivated', 'imdb'); ?></a></em>)
+		<a title="<?php _e('Widget/Inside post Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption"><?php _e('Widget/Inside post Options', 'imdb'); ?></a> (<em><a href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&generaloption=advanced#imdb_imdbdirectsearch_yes"><?php _e('Direct search', 'imdb'); ?></a></em> & <em><a href="widgets.php"><?php _e('Widget unactivated', 'imdb'); ?></a></em>)
 
 <?php 		} ?>
 		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH; ?>pics/admin-cache.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('Cache management', 'imdb'); ?>" href="<?php echo admin_url(); ?>?page=imdblt_options&subsection=cache"><?php _e('Cache management', 'imdb'); ?></a>
+		<a title="<?php _e('Cache management', 'imdb'); ?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=cache"><?php _e('Cache management', 'imdb'); ?></a>
 	</div>
 	<div align="right" >
 		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH; ?>pics/admin-help.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('How to use IMDb link transformer, check FAQs & changelog', 'imdb');?>" href="<?php echo admin_url(); ?>?page=imdblt_options&subsection=help">
+		<a title="<?php _e('How to use IMDb link transformer, check FAQs & changelog', 'imdb');?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=help">
 			<?php _e('IMDb link transformer help', 'imdb'); ?>
 		</a> 
 	</div>

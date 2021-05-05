@@ -22,14 +22,14 @@ require_once ( $imdb_admin_values[imdbplugindirectory] . 'inc/functions.php');
 
 <div id="tabswrap">
 	<ul id="tabs">
-		<li><img src="<?php echo $imdb_admin_values[imdbplugindirectory] ?>pics/admin-widget-inside-whattodisplay.png" align="absmiddle" width="16px" />&nbsp;<a title="<?php esc_html_e( "What to display", 'imdb');?>" href="?page=imdblt_options&subsection=widgetoption&widgetoption=what"><?php esc_html_e( 'What to display', 'imdb'); ?></a></li>
+		<li><img src="<?php echo $imdb_admin_values[imdbplugindirectory] ?>pics/admin-widget-inside-whattodisplay.png" align="absmiddle" width="16px" />&nbsp;<a title="<?php esc_html_e( "What to display", 'imdb');?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption&widgetoption=what"><?php esc_html_e( 'What to display', 'imdb'); ?></a></li>
 			<?php if ($imdbOptions['imdbtaxonomy'] == "1") { ?>
-		<li>&nbsp;&nbsp;<img src="<?php echo $imdb_admin_values[imdbplugindirectory] ?>pics/admin-widget-inside-whattotaxo.png" align="absmiddle" width="16px" />&nbsp;<a title="<?php esc_html_e( "What to taxonomize", 'imdb');?>" href="?page=imdblt_options&subsection=widgetoption&widgetoption=taxo"><?php esc_html_e( "What to taxonomize", 'imdb'); ?></a></li>
+		<li>&nbsp;&nbsp;<img src="<?php echo $imdb_admin_values[imdbplugindirectory] ?>pics/admin-widget-inside-whattotaxo.png" align="absmiddle" width="16px" />&nbsp;<a title="<?php esc_html_e( "What to taxonomize", 'imdb');?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption&widgetoption=taxo"><?php esc_html_e( "What to taxonomize", 'imdb'); ?></a></li>
 			<?php } else { ?>
 		<li>&nbsp;&nbsp;<img src="<?php echo $imdb_admin_values[imdbplugindirectory] ?>pics/admin-widget-inside-whattodisplay.png" align="absmiddle" width="16px" />&nbsp;<i><?php esc_html_e( "Taxonomy unactivated", 'imdb');?></i></li>
 			<?php }?>
-		<li>&nbsp;&nbsp;<img src="<?php echo $imdb_admin_values[imdbplugindirectory] ?>pics/admin-widget-inside-order.png" align="absmiddle" width="16px" />&nbsp;<a title="<?php esc_html_e( "Display order", 'imdb');?>" href="?page=imdblt_options&subsection=widgetoption&widgetoption=order"><?php esc_html_e( "Display order", 'imdb'); ?></a></li>
-		<li>&nbsp;&nbsp;<img src="<?php echo $imdb_admin_values[imdbplugindirectory] ?>pics/admin-widget-inside-misc.png" align="absmiddle" width="16px" />&nbsp;<a title="<?php esc_html_e( "Misc", 'imdb');?>" href="?page=imdblt_options&subsection=widgetoption&widgetoption=misc"><?php esc_html_e( 'Misc', 'imdb'); ?></a></li>
+		<li>&nbsp;&nbsp;<img src="<?php echo $imdb_admin_values[imdbplugindirectory] ?>pics/admin-widget-inside-order.png" align="absmiddle" width="16px" />&nbsp;<a title="<?php esc_html_e( "Display order", 'imdb');?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption&widgetoption=order"><?php esc_html_e( "Display order", 'imdb'); ?></a></li>
+		<li>&nbsp;&nbsp;<img src="<?php echo $imdb_admin_values[imdbplugindirectory] ?>pics/admin-widget-inside-misc.png" align="absmiddle" width="16px" />&nbsp;<a title="<?php esc_html_e( "Misc", 'imdb');?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption&widgetoption=misc"><?php esc_html_e( 'Misc', 'imdb'); ?></a></li>
 	</ul>
 </div>
 
@@ -361,7 +361,7 @@ require_once ( $imdb_admin_values[imdbplugindirectory] . 'inc/functions.php');
 		<?php //-------------------------------------------------------------------=[Taxonomy]=-
 
 if ($imdbOptions['imdbtaxonomy'] != "1") {	//check if taxonomy is activated
-echo "<div align='center' style='border:1px solid black;padding:20px;margin-left:40%;margin-right:40%;'>".__('Please <a href="?page=imdblt_options&generaloption=advanced">activate taxonomy</a> priorly<br /> to access taxonomies options.', 'imdb')."</div>";
+echo "<div align='center' style='border:1px solid black;padding:20px;margin-left:40%;margin-right:40%;'>".__('Please ', 'imdb')."<a href='".admin_url().'admin.php?page=imdblt_options&generaloption=advanced">'.__('activate taxonomy', 'imdb').'</a>'.__(' priorly', 'imdb').'<br />'.__('to access taxonomies options.', 'imdb')."</div>";
 } else { ?>
 
 		<tr>

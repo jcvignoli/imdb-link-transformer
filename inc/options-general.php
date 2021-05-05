@@ -1,10 +1,9 @@
-
 <?php
 
  #############################################################################
  # IMDb Link transformer                                                     #
  # written by Prometheus group                                               #
- # http://www.ikiru.ch/blog                                                  #
+ # https://www.jcvignoli.com/blog                                            #
  # ------------------------------------------------------------------------- #
  # This program is free software; you can redistribute and/or modify it      #
  # under the terms of the GNU General Public License (see LICENSE)           #
@@ -14,16 +13,18 @@
  #									     #
  #############################################################################
 
+global $imdb_admin_values;
+
 // included files
-include_once ('functions.php');
+require_once ( $imdb_admin_values[imdbplugindirectory] . 'inc/functions.php');
 
 ?>
 
 <div id="tabswrap">
 	<ul id="tabs">
-		<li><img src="<?php echo IMDBLTURLPATH ?>pics/admin-general-path.png" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php _e("Paths & Layout", 'imdb');?>" href="?page=imdblt_options&generaloption=base"><?php _e ('Paths & Layout', 'imdb'); ?></a></li>
+		<li><img src="<?php echo IMDBLTURLPATH ?>pics/admin-general-path.png" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php _e("Paths & Layout", 'imdb');?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&generaloption=base"><?php _e ('Paths & Layout', 'imdb'); ?></a></li>
 
-		<li>&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH ?>pics/admin-general-advanced.png" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php _e("Advanced", 'imdb');?>" href="?page=imdblt_options&generaloption=advanced"><?php _e ("Advanced", 'imdb'); ?></a></li>
+		<li>&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH ?>pics/admin-general-advanced.png" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php _e("Advanced", 'imdb');?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&generaloption=advanced"><?php _e ("Advanced", 'imdb'); ?></a></li>
 	</ul>
 </div>
 
@@ -75,7 +76,7 @@ include_once ('functions.php');
 		<?php //------------------------------------------------------------------ =[Popup]=- ?>
 		<tr>
 			<td colspan="3" class="titresection">
-				<img src="<?php echo $imdbOptions['imdbplugindirectory']; ?>/pics/popup.png" width="60" align="absmiddle" />&nbsp;&nbsp;&nbsp;
+				<img src="<?php echo $imdbOptions['imdbplugindirectory']; ?>pics/popup.png" width="60" align="absmiddle" />&nbsp;&nbsp;&nbsp;
 				<?php _e('Popup', 'imdb'); ?></td>
 		</tr>
 		
@@ -174,7 +175,7 @@ include_once ('functions.php');
 		<?php //------------------------------------------------------------------ =[Imdb cover picture]=- ?>
 		<tr>
 			<td colspan="3" class="titresection">
-				<img src="<?php echo $imdbOptions['imdbplugindirectory']; ?>/pics/cover.jpg" width="60" align="absmiddle" />&nbsp;&nbsp;&nbsp;
+				<img src="<?php echo $imdbOptions['imdbplugindirectory']; ?>pics/cover.jpg" width="60" align="absmiddle" />&nbsp;&nbsp;&nbsp;
 				<?php _e('Imdb cover picture', 'imdb'); ?>
 			</td>
 		</tr>
@@ -308,7 +309,7 @@ include_once ('functions.php');
 				<div class="explain"><?php _e('This the limit for the result set of researches. Use 0 for no limit, or the number of maximum entries you wish. When "direct search" option is turned to yes, this option is hidden.', 'imdb'); ?> <br /><?php _e('Default:','imdb'); ?> "10"</div>
 			</td>
 			<td class="td-aligntop">
-				<div class="explain"><?php _e('This will automatically add "genre" terms found for the movie into wordpress database, as <a href="http://codex.wordpress.org/WordPress_Taxonomy">taxonomy</a>. Activating this option open <a href="?page=imdblt_options&subsection=widgetoption&widgetoption=taxo">others taxonomy options</a>. Taxonomy terms are uninstalled when removing the plugin.', 'imdb'); ?> <br /><?php _e('Default:','imdb'); ?> <?php _e('No', 'imdb'); ?></div>
+				<div class="explain"><?php _e('This will automatically add "genre" terms found for the movie into wordpress database, as ', 'imdb') ?><a href="http://codex.wordpress.org/WordPress_Taxonomy">taxonomy</a>. <?php _e('Activating this option opens ', 'imdb'); ?><a href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption&widgetoption=taxo"><?php _e('others taxonomy options', 'imdb');  ?></a>. <?php _e('Taxonomy terms are uninstalled when removing the plugin.', 'imdb'); ?> <br /><?php _e('Default:','imdb'); ?> <?php _e('No', 'imdb'); ?></div>
 			</td>
 			<td class="td-aligntop">
 				<div class="explain">
