@@ -179,7 +179,7 @@ if (($_GET['dothis'] == 'delete') && ($_GET['type'])) {
 		}
 	}
 ?>
-		<div style="padding:5px;background:lightYellow;border:1px solid #E6DB55;-webkit-border-radius: 3px;-moz-border-radius: 3px;border-radius: 3px;"><?php esc_html_e("Cache successfully deleted, back to the", "imdb"); ?> <a href="?page=imdblt_options&subsection=cache&cacheoption=manage"><?php esc_html_e("previous page", "imdb"); ?></a></div>
+		<div class="imdblt_success"><?php esc_html_e("Cache successfully deleted, back to the", "imdb"); ?> <a href="<?php echo esc_url (admin_url() . "admin.php?page=imdblt_options&subsection=cache&cacheoption=manage"); ?>"><?php esc_html_e("previous page", "imdb"); ?></a></div>
 		<?php
 	exit();
 }
@@ -239,7 +239,7 @@ if (($_GET['dothis'] == 'refresh') && ($_GET['type'])) {
 		ob_start();
 		$moviespecificid = $wheresanitized;
 		$imdballmeta = "imdb-movie-widget-noname";
-		include( 'imdb-movie.inc.php');
+		include( IMDBLTABSPATH . 'inc/imdb-movie.inc.php');
 		$out = ob_get_contents();
 		ob_end_clean();
 	}
@@ -270,7 +270,7 @@ if (($_GET['dothis'] == 'refresh') && ($_GET['type'])) {
 		$photo_url = $person->photo();
 	}
 ?>
-	<div id="theend" name="theend" style="border:1px solid #E6DB55;-webkit-border-radius: 3px;-moz-border-radius: 3px;border-radius: 3px;background:lightYellow;padding:5px;"><?php esc_html_e("Cache succesfully refreshed, close the window.", "imdb"); ?></div>
+	<div id="theend" name="theend" class="imdblt_success"><?php esc_html_e("Cache succesfully refreshed, close the window.", "imdb"); ?></div>
 
 <?php
 exit();
@@ -279,34 +279,10 @@ exit();
 ##################################### let's display real cache option page
 ?>
 
-<script type="text/javascript">
-	hs.graphicsDir = '<?php echo IMDBLTURLPATH; ?>js/highslide/graphics/';
-	hs.showCredits = false;
-	hs.outlineType = 'custom';
-	hs.easing = 'linearTween';
-	hs.align = 'center';
-	hs.useBox = true;
-	hs.registerOverlay(
-		{ html: '<div class=\"closebutton\" onclick=\"return hs.close(this)\" title=\"Close\"></div>',
-		position: 'top right',
-		useOnHtml: true, fade: 2 }
-	);
-</script>
-<style>
-.highslide-wrapper .highslide-footer .highslide-resize {
-	display: none; /* ------------disable resize------------ */
-	float: right;
-	height: 11px;
-	width: 11px;
-	background: url(highslide/graphics/resize.gif);
-} 
-</style>
-
-
 <div id="tabswrap">
 	<ul id="tabs">
-		<li><img src="<?php echo IMDBLTURLPATH ?>pics/admin-cache-options.png" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e("General options", 'imdb');?>" href="?page=imdblt_options&subsection=cache&cacheoption=option"><?php _e ('General options', 'imdb'); ?></a></li>
-		<li>&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH ?>pics/admin-cache-management.png" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e("Manage Cache", 'imdb');?>" href="?page=imdblt_options&subsection=cache&cacheoption=manage"><?php _e ("Manage Cache", 'imdb'); ?></a></li>
+		<li><img src="<?php echo IMDBLTURLPATH ?>pics/admin-cache-options.png" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e("General options", 'imdb');?>" href="<?php echo esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&cacheoption=option'); ?>"><?php esc_html_e( 'General options', 'imdb'); ?></a></li>
+		<li>&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH ?>pics/admin-cache-management.png" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e("Manage Cache", 'imdb');?>" href="<?php echo esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&cacheoption=manage'); ?>"><?php esc_html_e( "Manage Cache", 'imdb'); ?></a></li>
 	</ul>
 </div>
 
@@ -347,20 +323,20 @@ exit();
 			</td>
 			<td colspan="2"><input type="text" name="imdb_imdbcachedir" size="70" value="<?php esc_html_e(apply_filters('format_to_edit',$imdbOptionsc['imdbcachedir']), 'imdb') ?>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<?php if (file_exists($imdbOptionsc['imdbcachedir'])) { // check if folder exists
-				echo '<span style="color:green;">';
+				echo '<span class="imdblt_green">';
 				esc_html_e("Folder exists.", 'imdb');
 				echo '</span>';
 				} else {
-				echo '<span style="color:red">';
+				echo '<span class="imdblt_red">';
 				esc_html_e("Folder doesn't exist!", 'imdb');
 				echo '</span>'; }
 				if (file_exists($imdbOptionsc['imdbcachedir'])) { // check if permissions are ok
 					if ( substr(sprintf('%o', fileperms($imdbOptionsc['imdbcachedir'])), -3) == "777") { 
-					echo ' <span style="color:green;">';
+					echo ' <span class="imdblt_green">';
 					esc_html_e("Permissions OK.", 'imdb');
 					echo '</span>';
 					} else { 
-					echo ' <span style="color:red">';
+					echo ' <span class="imdblt_red">';
 					esc_html_e("Check folder permissions!", 'imdb');
 					echo '</span>'; 
 					}
@@ -392,16 +368,16 @@ exit();
 				esc_html_e("Folder exists.", 'imdb');
 				echo '</span>';
 				} else {
-				echo '<span style="color:red">';
+				echo '<span class="imdblt_red">';
 				esc_html_e("Folder doesn't exist!", 'imdb');
 				echo '</span>'; } 
 				if (file_exists($imdbOptionsc['imdbcachedir'])) { // check if permissions are ok
 					if ( substr(sprintf('%o', fileperms($imdbOptionsc['imdbphotodir'])), -3) == "777") { 
-						echo ' <span style="color:green;">';
+						echo ' <span class="imdblt_green">';
 						esc_html_e("Permissions OK.", 'imdb');
 						echo '</span>';
 					} else { 
-						echo ' <span style="color:red">';
+						echo ' <span class="imdblt_red">';
 						esc_html_e("Check folder permissions!", 'imdb');
 						echo '</span>'; 
 					}
@@ -556,7 +532,7 @@ exit();
 				<br />
 				<br />
 				</div>
-				<table style="margin-left:auto;margin-right:auto;" width="90%"><tr>
+				<table class="table_ninety"><tr>
 <?php
 if (is_dir($imdb_cache_values['imdbcachedir'])) {
   $files = glob($imdb_cache_values['imdbcachedir'] . '{title.tt*,name.nm*}', GLOB_BRACE);
@@ -588,10 +564,10 @@ if (!empty($results)){
 
 						<input type="checkbox" id="imdb_cachedeletefor_'.$title.'" name="imdb_cachedeletefor[]" value="'.$obj.'" /><label for="imdb_cachedeletefor[]" style="font-weight:bold">'.$title.'</label> <br />'. esc_html__("last updated on ", "imdb").date ("j M Y H:i:s", filemtime($filepath)).' 
 
-						<div id="refresh_edit_'.$title.'" class="row-actions" style="float:right;">
-							<span class="edit"><a href="?page=imdblt_options&subsection=cache&dothis=refresh&where='.$obj.'&type=movie" onclick="return hs.htmlExpand(this, { wrapperClassName: \'no-footer no-move\', objectType: \'iframe\', width: 30, objectWidth: 20, objectHeight: 1, headingEval: \'this.a.innerHTML\', headingText: \'Cache for this movie successfully refreshed! Please close.\', wrapperClassName: \'titlebar\' } )" title="Refresh cache for *'.$title.'*">'.esc_html__("refresh", "imdb").'</a></span>
+						<div id="refresh_edit_'.$title.'" class="row-actions">
+							<span class="edit"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&dothis=refresh&where='.$obj.'&type=movie').'" class="admin-cache-confirm-refresh" data-confirm="Refresh cache for *'.$title.'*">'.esc_html__("refresh", "imdb").'</a></span>
 
-							<span class="delete"><a href="?page=imdblt_options&subsection=cache&dothis=delete&where='.$obj.'&type=movie" data-confirm="You are about to delete *'.$title.'* from cache. Click Cancel to stop or OK to continue." class="confirmation-basic" title="Delete cache for *'.$title.'*">'.esc_html__("delete", "imdb").'</a></span>
+							<span class="delete"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&dothis=delete&where='.$obj.'&type=movie').'" class="admin-cache-confirm-delete" data-confirm="You are about to delete *'.$title.'* from cache. Click Cancel to stop or OK to continue." title="Delete cache for *'.$title.'*">'.esc_html__("delete", "imdb").'</a></span>
 						</div>
 					</td>'; // send input and results into array
 
@@ -604,7 +580,7 @@ if (!empty($results)){
 }
 
 				if (empty($data)){
-					echo '<div style="font-weight:bold;color:red;text-align:center;">'.esc_html__('No file found in cache folder.','imdb').'</div>';
+					echo '<div class="imdblt_error">'.esc_html__('No file found in cache folder.','imdb').'</div>';
 				} else {
 				asort ($data);
 				$nbfilm="1";
@@ -646,7 +622,7 @@ if (!empty($results)){
 				<?php esc_html_e('You may also either delete individually the cache or by group.', 'imdb'); ?>
 				</div>
 				<br /><br />
-				<table style="margin-left:auto;margin-right:auto;" width="90%"><tr>
+				<table class="table_ninety"><tr>
 				<?php
 if (!empty($results)){
 	foreach ($results as $res){
@@ -664,10 +640,10 @@ if (!empty($results)){
 							<img id="pic_'.$name.'" style="float:left;padding-right:5px;" '.$picturelink.' width="40px" alt="no pic">
 							<input type="checkbox" id="imdb_cachedeletefor_people_'.$name.'" name="imdb_cachedeletefor_people[]" value="'.$objpiple.'" /><label for="imdb_cachedeletefor_people_[]" style="font-weight:bold">'.$name.'</label><br />'. esc_html__('last updated on ', 'imdb').date ("j M Y H:i:s", filemtime($filepath)).'
 							
-							<div class="row-actions" style="float:right;">
-								<span class="view"><a href="?page=imdblt_options&subsection=cache&dothis=refresh&where='.$objpiple.'&type=people" onclick="return hs.htmlExpand(this, { wrapperClassName: \'no-footer no-move\', objectType: \'iframe\', width: 30, objectWidth: 20, objectHeight: 1, headingEval: \'this.a.innerHTML\', headingText: \'Cache for this person successfully refreshed! Please close.\', wrapperClassName: \'titlebar\' } )" title="Refresh cache for *'.$name.'*">'.esc_html__("refresh", "imdb").'</a></span> 
+							<div class="row-actions">
+								<span class="view"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&dothis=refresh&where='.$objpiple.'&type=people').'" class="admin-cache-confirm-refresh" data-confirm="Refresh cache for *'.$name.'*" title="Refresh cache for *'.$name.'*">'.esc_html__("refresh", "imdb").'</a></span> 
 
-								<span class="delete"><a href="?page=imdblt_options&subsection=cache&dothis=delete&where='.$objpiple.'&type=people" data-confirm="You are about to delete *'.$name.'* from cache. Click Cancel to stop or OK to continue." class="confirmation-basic" title="Delete cache for *'.$name.'*">'.esc_html__("delete", "imdb").'</a></span>
+								<span class="delete"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&dothis=delete&where='.$objpiple.'&type=people').'" class="admin-cache-confirm-delete" data-confirm="You are about to delete *'.$name.'* from cache. Click Cancel to stop or OK to continue." title="Delete cache for *'.$name.'*">'.esc_html__("delete", "imdb").'</a></span>
 							</div>
 						</td>'; // send input and results into array
 
@@ -679,7 +655,7 @@ if (!empty($results)){
 }
 
 				if (empty($datapeople)){
-					echo '<div style="font-weight:bold;color:red;text-align:center;">'.esc_html__('No file found in cache folder.','imdb').'</div>';
+					echo '<div class="imdblt_error">'.esc_html__('No file found in cache folder.','imdb').'</div>';
 				} else {
 				asort ($datapeople);
 				$nbperso="1";
@@ -742,9 +718,6 @@ if (!empty($results)){
 		</tr>
 		<?php } // end "check if folder exists & store cache option is selected" ?>
 
-
-
-
 				</table>
 			</div>
 		</form>
@@ -756,14 +729,3 @@ if (!empty($results)){
 </div>
 <br clear="all">
 
-<script>
-  /* confirm dialog if attribute "data-confirm" in "a" tag */
-(function ($) {
-  $(document).on('click', 'a[data-confirm]',function(e){
-	if(!confirm($(this).data('confirm'))){
-	  e.stopImmediatePropagation();
-	  e.preventDefault();
-	}
-  });
-})(jQuery);
-</script>

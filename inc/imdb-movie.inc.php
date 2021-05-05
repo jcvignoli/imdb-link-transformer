@@ -21,7 +21,6 @@ require_once ("functions.php");
 use \Imdb\Title;
 use \Imdb\Config;
 
-do_action('wp_loaded'); // execute wordpress first codes
 
 //---------------------------------------=[Vars]=----------------
 
@@ -780,9 +779,9 @@ while ($imovie < count($imdballmeta)) {
 <?php 
  //--------------------------------------=[end Layout]=---------------
 
-	} else { 			// if is not set a $midPremierResultat
+	} else { // if is not set a $midPremierResultat
 		imdblt_noresults_text();
-	} 				// end if is set a $midPremierResultat
+	} // end if is set a $midPremierResultat
 
-}  					//end while
+} //end while
 ?>

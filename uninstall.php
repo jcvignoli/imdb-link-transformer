@@ -21,7 +21,7 @@ delete_option( 'imdbAdminOptions' );
 delete_option( 'imdbWidgetOptions' );
 delete_option( 'imdbCacheOptions' );
 
-add_action( 'init', 'imdblt_unregister_taxonomy' );
+add_action( 'admin_init', 'imdblt_unregister_taxonomy' );
 
 echo "IMDbLT options deleted.";
 

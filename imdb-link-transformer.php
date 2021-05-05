@@ -239,7 +239,7 @@ function imdb_add_head_admin () {
 function imdb_add_css_admin() {
 	global $imdb_admin_values;
 	wp_enqueue_style('imdblt_css_admin', $imdb_admin_values[imdbplugindirectory] . "css/imdb-admin.css");
-	wp_enqueue_style("imdblt_highslide", $imdb_admin_values[imdbplugindirectory] ."css/highslide.css");
+	//wp_enqueue_style("imdblt_highslide", $imdb_admin_values[imdbplugindirectory] ."css/highslide.css"); # removing highslide in admin area
 }
 function imdb_add_js_admin () {
 	global $imdb_admin_values;
@@ -247,9 +247,16 @@ function imdb_add_js_admin () {
 	wp_enqueue_script('wp-lists'); // script needed for meta_boxes (ie, help.php)
 	wp_enqueue_script('postbox'); // script needed for meta_boxes (ie, help.php)
 	wp_enqueue_script('jquery'); // script needed by highslide and maybe others
-	wp_enqueue_script("imdblt_highslide", $imdb_admin_values[imdbplugindirectory] ."js/highslide/highslide-with-html.min.js", array(), "5.0");
+	//wp_enqueue_script("imdblt_highslide", $imdb_admin_values[imdbplugindirectory] ."js/highslide/highslide-with-html.min.js", array(), "5.0"); # removing highslide in admin area
 	wp_enqueue_script('imdblt_un-active-boxes', $imdb_admin_values[imdbplugindirectory] . "js/un-active-boxes.js");
 	wp_enqueue_script('imdblt_movevalues-formeselectboxes', $imdb_admin_values[imdbplugindirectory] . "js/movevalues-formselectboxes.js");
+
+	wp_enqueue_script( "csp_inline_scripts", $imdb_admin_values[imdbplugindirectory] ."js/csp_inline_scripts.js");
+	// Pass variable to javascript highslide-options.js
+	$dataToBePassedHighslideAdmin = array(
+	    'imdb_path' => $imdb_admin_values['imdbplugindirectory']
+	);
+	wp_localize_script( "csp_inline_scripts", 'php_vars', $dataToBePassedHighslideAdmin );
 } 
 
 /**
