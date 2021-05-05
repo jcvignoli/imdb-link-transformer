@@ -263,11 +263,12 @@ if (($_GET['dothis'] == 'refresh') && ($_GET['type'])) {
 		}
 
 		// get again the person
-		$person = new Imdb\Person($wheresanitized);
+		$person = new Imdb\Person($wheresanitized, $config);
 
 		$name = $person->name(); // search title related to movie id
 		$bio = $person->bio(); 
-		$photo_url = $person->photo();
+		$pubmovies = $person->pubmovies();
+		$photo_url = $person->photo_localurl();
 	}
 ?>
 	<div id="theend" name="theend" class="imdblt_success"><?php esc_html_e("Cache succesfully refreshed.", "imdb"); ?></div>
