@@ -201,10 +201,10 @@ if ($_GET['helpsub'] == "faqs")  { 	// Readme section ?>
 	</div>
 
 	<div class="imdblt_double_container">
-		<div class="postbox-container">
+		<div class="postbox-container imdblt_double_container_content">
 			<?php do_meta_boxes('imdblt_help', 'left', null); ?>
 		</div>
-		<div class="postbox-container">
+		<div class="postbox-container imdblt_double_container_content">
 			<?php do_meta_boxes('imdblt_help', 'right', null); ?>
 		</div>	
 	</div>	

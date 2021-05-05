@@ -184,6 +184,7 @@ table.table_ninety {margin-left:auto;	margin-right:auto;width:90%;}
 .detailedcacheexplaination {padding-left:20%;padding-right:20%;}
 .picfloat{float:left;padding-right:5px;}
 .imdblt_double_container {display:flex;flex-wrap:wrap;}
+.imdblt_double_container_content {flex:50%}
 .imdblt_padding_left {padding-left:50px;}
 .imdblt_padding_twenty {padding-bottom:20px;}
 .imdblt_align_left{text-align:left;}
