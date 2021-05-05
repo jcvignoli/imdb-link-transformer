@@ -270,7 +270,7 @@ if (($_GET['dothis'] == 'refresh') && ($_GET['type'])) {
 		$photo_url = $person->photo();
 	}
 ?>
-	<div id="theend" name="theend" class="imdblt_success"><?php esc_html_e("Cache succesfully refreshed, close the window.", "imdb"); ?></div>
+	<div id="theend" name="theend" class="imdblt_success"><?php esc_html_e("Cache succesfully refreshed.", "imdb"); ?></div>
 
 <?php
 exit();
@@ -288,7 +288,7 @@ exit();
 
 <div id="poststuff" class="metabox-holder">
 
-	<div style="padding:0 30px 30px 30px;"><?php _e("Cache is crucial to IMDb link transformer operation. As first imdb searchs are quite time consuming, if you do not want to kill your server but instead want quickest browsing experience, you will use cache. Pay a special attention to directories that need to be created.", 'imdb'); ?></div>
+	<div class="intro_cache"><?php esc_html_e( "Cache is crucial to IMDb link transformer operation. As first imdb searchs are quite time consuming, if you do not want to kill your server but instead want quickest browsing experience, you will use cache. Pay a special attention to directories that need to be created.", 'imdb'); ?></div>
 
 <?php if ( ($_GET['cacheoption'] == "option") || (!isset($_GET['cacheoption'] )) ) { 	/////////////////////////////////// Cache options  ?>
 
@@ -309,7 +309,7 @@ exit();
 				<label for="imdb_imdbcachedir">
 					<?php esc_html_e('Cache directory (absolute path)', 'imdb'); ?>
 					<br />
-					<span style="font-size:smaller">
+					<span class="imdblt_smaller">
 					<?php 	// display cache folder size
 					if (!imdblt_isEmptyDir($imdbOptionsc['imdbcachedir'])) { // from functions.php
 						foreach (glob($imdbOptionsc['imdbcachedir']."*") as $filename) {
@@ -341,7 +341,7 @@ exit();
 					echo '</span>'; 
 					}
 				} ?>
-				<div class="explain"><?php esc_html_e('Absolute path to store data retrieved from the IMDb website. Has to be <a href="http://codex.wordpress.org/Changing_File_Permissions" title="permissions how-to on wordpress website">writable</a> by the webserver.','imdb');?> <br /><?php esc_html_e('Default:','imdb');?> "<?php echo ABSPATH; ?>wp-content/plugins/imdb-link-transformer/cache/'<br />
+				<div class="explain"><?php esc_html_e('Absolute path to store data retrieved from the IMDb website. Has to be ', 'imdb'); ?><a href="http://codex.wordpress.org/Changing_File_Permissions" title="permissions how-to on wordpress website">writable</a> <?php esc_html_e('by the webserver.','imdb');?> <br /><?php esc_html_e('Default:','imdb');?> "<?php echo IMDBLTABSPATH; ?>cache/'<br />
 			</div>
 			</td>
 		</tr>
@@ -350,7 +350,7 @@ exit();
 				<label for="imdb_imdbphotodir">
 				<?php esc_html_e('Photo directory (absolute path)', 'imdb'); ?>
 					<br />
-					<span style="font-size:smaller">
+					<span class="imdblt_smaller">
 					<?php						// display cache folder size
 					if (!imdblt_isEmptyDir($imdbOptionsc['imdbphotodir'], "2")) { // from functions.php
 						foreach (glob($imdbOptionsc['imdbphotodir']."*") as $filename) {
@@ -364,7 +364,7 @@ exit();
 			</td>
 			<td colspan="2"><input type="text" name="imdb_imdbphotodir" size="70" value="<?php esc_html_e(apply_filters('format_to_edit',$imdbOptionsc['imdbphotodir']), 'imdb') ?>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<?php if (file_exists($imdbOptionsc['imdbphotodir'])) { // check if folder exists
-				echo '<span style="color:green">';
+				echo '<span class="imdblt_green">';
 				esc_html_e("Folder exists.", 'imdb');
 				echo '</span>';
 				} else {
@@ -382,7 +382,7 @@ exit();
 						echo '</span>'; 
 					}
 				} ?>
-		<div class="explain"><?php esc_html_e('Absolute path to store images retrieved from the IMDb website. Has to be <a href="http://codex.wordpress.org/Changing_File_Permissions" title="permissions how-to on wordpress website">writable</a> by the webserver.', 'imdb');?> <br /><?php esc_html_e('Default:','imdb');?> "<?php echo ABSPATH; ?>wp-content/plugins/imdb-link-transformer/cache/images/"</div>
+		<div class="explain"><?php esc_html_e('Absolute path to store images retrieved from the IMDb website. Has to be ', 'imdb'); ?><a href="http://codex.wordpress.org/Changing_File_Permissions" title="permissions how-to on wordpress website">writable</a> <?php esc_html_e('by the webserver.', 'imdb');?> <br /><?php esc_html_e('Default:','imdb');?> "<?php echo IMDBLTABSPATH; ?>cache/images/"</div>
 			</td>
 		</tr>
 
@@ -488,9 +488,6 @@ exit();
 			</td>
 			<td></td>
 		</tr>
-
-
-
 		</table>
 		</div>
 		
@@ -525,7 +522,7 @@ exit();
 		<tr>
 			<td>	
 				<div>::<?php esc_html_e('Movie\'s detailed cache', 'imdb'); ?>::</div>
-				<div style="padding-left:20%;padding-right:20%;"><?php esc_html_e('If you want to refresh movie\'s cache regardless the cache expiration time, you may either tick movie\'s checkbox(es) related to the movie you want to delete and click on "delete cache", or you may click on individual movies "refresh". The first way will require an additional movie refresh - from you post, for instance.', 'imdb'); ?>
+				<div class="detailedcacheexplaination"><?php esc_html_e('If you want to refresh movie\'s cache regardless the cache expiration time, you may either tick movie\'s checkbox(es) related to the movie you want to delete and click on "delete cache", or you may click on individual movies "refresh". The first way will require an additional movie refresh - from you post, for instance.', 'imdb'); ?>
 				<br />
 				<br />
 				<?php esc_html_e('You may also either delete individually the cache or by group.', 'imdb'); ?>
@@ -549,25 +546,25 @@ if (is_dir($imdb_cache_values['imdbcachedir'])) {
 if (!empty($results)){
 	foreach ($results as $res){
 		if (get_class($res) === 'Imdb\Title') {
-			$title = $res->title(); // search title related to movie id
-			$obj = $res->imdbid();
-			$filepath = $imdbOptionsc['imdbcachedir']."title.tt".substr($obj, 0, 7);
+			$title_sanitized = sanitize_text_field( $res->title() ); // search title related to movie id
+			$obj_sanitized = sanitize_text_field( $res->imdbid() );
+			$filepath_sanitized = esc_url( $imdbOptionsc['imdbcachedir']."title.tt".substr($obj_sanitized, 0, 7) );
 			if ($imdbOptionsc['imdbcachedetailsshort'] == 1)  { // display only cache movies' names, quicker loading
-				$data[] = '<input type="checkbox" id="imdb_cachedeletefor_'.$title.'" name="imdb_cachedeletefor[]" value="'.$obj.'" /><label for="imdb_cachedeletefor[]">'.$title.'</label>'; // send input and results into array
+				$data[] = '<input type="checkbox" id="imdb_cachedeletefor_'.$title_sanitized.'" name="imdb_cachedeletefor[]" value="'.$obj_sanitized.'" /><label for="imdb_cachedeletefor[]">'.$title_sanitized.'</label>'; // send input and results into array
 				flush();
 			} else { // display every cache movie details, longer loading
 
-			$moviepicturelink = (($photo_url = $res->photo_localurl() ) != FALSE) ? 'src="'.$imdb_cache_values['imdbphotoroot'].$obj.'.jpg" alt="'.$title.'"' : 'src="'.IMDBLTURLPATH.'pics/no_pics.gif" alt="'.esc_html__('no picture', 'imdb').'"'; // get either local picture or if no local picture exists, display the default one
+			$moviepicturelink = (($photo_url = esc_url ( $res->photo_localurl() ) ) != FALSE) ? 'src="'.$imdb_cache_values['imdbphotoroot'].$obj_sanitized.'.jpg" alt="'.$title_sanitized.'"' : 'src="'.IMDBLTURLPATH.'pics/no_pics.gif" alt="'.esc_html__('no picture', 'imdb').'"'; // get either local picture or if no local picture exists, display the default one
 
 			$data[] = '	<td>
-						<img id="pic_'.$title.'" style="float:left;padding-right:5px;" '.$moviepicturelink.' width="40px">
+						<img id="pic_'.$title_sanitized.'" class="picfloat" '.$moviepicturelink.' width="40px">
 
-						<input type="checkbox" id="imdb_cachedeletefor_'.$title.'" name="imdb_cachedeletefor[]" value="'.$obj.'" /><label for="imdb_cachedeletefor[]" style="font-weight:bold">'.$title.'</label> <br />'. esc_html__("last updated on ", "imdb").date ("j M Y H:i:s", filemtime($filepath)).' 
+						<input type="checkbox" id="imdb_cachedeletefor_'.$title_sanitized.'" name="imdb_cachedeletefor[]" value="'.$obj_sanitized.'" /><label for="imdb_cachedeletefor[]" class="imdblt_bold">'.$title_sanitized.'</label> <br />'. esc_html__("last updated on ", "imdb").date ("j M Y H:i:s", filemtime($filepath_sanitized)).' 
 
-						<div id="refresh_edit_'.$title.'" class="row-actions">
-							<span class="edit"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&dothis=refresh&where='.$obj.'&type=movie').'" class="admin-cache-confirm-refresh" data-confirm="Refresh cache for *'.$title.'*">'.esc_html__("refresh", "imdb").'</a></span>
+						<div id="refresh_edit_'.$title_sanitized.'" class="row-actions">
+							<span class="edit"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&dothis=refresh&where='.$obj_sanitized.'&type=movie').'" class="admin-cache-confirm-refresh" data-confirm="Refresh cache for *'.$title_sanitized.'*">'.esc_html__("refresh", "imdb").'</a></span>
 
-							<span class="delete"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&dothis=delete&where='.$obj.'&type=movie').'" class="admin-cache-confirm-delete" data-confirm="You are about to delete *'.$title.'* from cache. Click Cancel to stop or OK to continue." title="Delete cache for *'.$title.'*">'.esc_html__("delete", "imdb").'</a></span>
+							<span class="delete"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&dothis=delete&where='.$obj_sanitized.'&type=movie').'" class="admin-cache-confirm-delete" data-confirm="You are about to delete *'.$title_sanitized.'* from cache. Click Cancel to stop or OK to continue." title="Delete cache for *'.$title_sanitized.'*">'.esc_html__("delete", "imdb").'</a></span>
 						</div>
 					</td>'; // send input and results into array
 
@@ -582,8 +579,8 @@ if (!empty($results)){
 				if (empty($data)){
 					echo '<div class="imdblt_error">'.esc_html__('No file found in cache folder.','imdb').'</div>';
 				} else {
-				asort ($data);
-				$nbfilm="1";
+					asort ($data);
+					$nbfilm="1";
 					foreach ($data as $inputline) {
 						echo $inputline;
 						if ( ($nbfilm % 5) == "0" ) { // split into 5 movies by line
@@ -596,8 +593,8 @@ if (!empty($results)){
 				</tr></table>
 				<br />
 					<div align="center">
-						<input type="button" name="CheckAll" value="Check All" onClick="checkAll(document.getElementsByName('imdb_cachedeletefor[]'));">
-						<input type="button" name="UnCheckAll" value="Uncheck All" onClick="uncheckAll(document.getElementsByName('imdb_cachedeletefor[]'));">
+						<input type="button" name="CheckAll" value="Check All" data-check="">
+						<input type="button" name="UnCheckAll" value="Uncheck All" data-uncheck="">
 					</div>
 						<br />
 						<br />
@@ -617,7 +614,7 @@ if (!empty($results)){
 		<tr>
 			<td>	
 				<div>::<?php esc_html_e('People\'s detailed cache', 'imdb'); ?>::</div>
-				<div style="padding-left:20%;padding-right:20%;"><?php esc_html_e('If you want to refresh people\'s cache regardless the cache expiration time, you may either tick people checkbox(es) related to the person you want to delete and click on "delete cache", or you may click on individual people\'s "refresh". The first way will require an additional people refresh - from you post, for instance.', 'imdb'); ?>
+				<div class="detailedcacheexplaination"><?php esc_html_e('If you want to refresh people\'s cache regardless the cache expiration time, you may either tick people checkbox(es) related to the person you want to delete and click on "delete cache", or you may click on individual people\'s "refresh". The first way will require an additional people refresh - from you post, for instance.', 'imdb'); ?>
 				<br /><br />
 				<?php esc_html_e('You may also either delete individually the cache or by group.', 'imdb'); ?>
 				</div>
@@ -628,22 +625,22 @@ if (!empty($results)){
 	foreach ($results as $res){
 		if (get_class($res) === 'Imdb\Person') {
 			$name_sanitized = sanitize_text_field( $res->name() ); // search title related to movie id
-			$objpiple = $res->imdbid();
-			$filepath = esc_url($imdbOptionsc['imdbcachedir']."name.nm".substr($objpiple, 0, 7));
+			$objpiple_sanitized = sanitize_text_field( $res->imdbid() );
+			$filepath_sanitized = esc_url($imdbOptionsc['imdbcachedir']."name.nm".substr($objpiple_sanitized, 0, 7));
 			if ($imdbOptionsc['imdbcachedetailsshort'] == 1)  { // display only cache peoples' names, quicker loading
-				$datapeople[] = '<input type="checkbox" id="imdb_cachedeletefor_people_'.$name_sanitized.'" name="imdb_cachedeletefor_people[]" value="'.$objpiple.'" /><label for="imdb_cachedeletefor_people[]">'.$name_sanitized.'</label>'; // send input and results into array
+				$datapeople[] = '<input type="checkbox" id="imdb_cachedeletefor_people_'.$name_sanitized.'" name="imdb_cachedeletefor_people[]" value="'.$objpiple_sanitized.'" /><label for="imdb_cachedeletefor_people[]">'.$name_sanitized.'</label>'; // send input and results into array
 				flush();
 			} else { // display every cache people details, longer loading
-				$picturelink = (($photo_url = $res->photo_localurl() ) != FALSE) ? 'src="'.esc_url($imdb_cache_values['imdbphotoroot']."nm".$objpiple.'.jpg').'" alt="'.$name_sanitized.'"' : 'src="'.esc_url( IMDBLTURLPATH.'pics/no_pics.gif').'" alt="'.esc_html__('no picture', 'imdb').'"'; // get either local picture or if no local picture exists, display the default one
+				$picturelink = (($photo_url = esc_url( $res->photo_localurl() ) ) != FALSE) ? 'src="'.esc_url($imdb_cache_values['imdbphotoroot']."nm".$objpiple_sanitized.'.jpg').'" alt="'.$name_sanitized.'"' : 'src="'.esc_url( IMDBLTURLPATH.'pics/no_pics.gif').'" alt="'.esc_html__('no picture', 'imdb').'"'; // get either local picture or if no local picture exists, display the default one
 				$datapeople[] = '	
 						<td>
-							<img id="pic_'.$name_sanitized.'" style="float:left;padding-right:5px;" '.$picturelink.' width="40px" alt="no pic">
-							<input type="checkbox" id="imdb_cachedeletefor_people_'.$name_sanitized.'" name="imdb_cachedeletefor_people[]" value="'.$objpiple.'" /><label for="imdb_cachedeletefor_people_[]" style="font-weight:bold">'.$name_sanitized.'</label><br />'. esc_html__('last updated on ', 'imdb').date ("j M Y H:i:s", filemtime($filepath)).'
+							<img id="pic_'.$name_sanitized.'" class="picfloat" '.$picturelink.' width="40px" alt="no pic">
+							<input type="checkbox" id="imdb_cachedeletefor_people_'.$name_sanitized.'" name="imdb_cachedeletefor_people[]" value="'.$objpiple_sanitized.'" /><label for="imdb_cachedeletefor_people_[]" class="imdblt_bold">'.$name_sanitized.'</label><br />'. esc_html__('last updated on ', 'imdb').date ("j M Y H:i:s", filemtime($filepath_sanitized)).'
 							
 							<div class="row-actions">
-								<span class="view"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&dothis=refresh&where='.$objpiple.'&type=people').'" class="admin-cache-confirm-refresh" data-confirm="Refresh cache for *'.$name_sanitized.'*" title="Refresh cache for *'.$name_sanitized.'*">'.esc_html__("refresh", "imdb").'</a></span> 
+								<span class="view"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&dothis=refresh&where='.$objpiple_sanitized.'&type=people').'" class="admin-cache-confirm-refresh" data-confirm="Refresh cache for *'.$name_sanitized.'*" title="Refresh cache for *'.$name_sanitized.'*">'.esc_html__("refresh", "imdb").'</a></span> 
 
-								<span class="delete"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&dothis=delete&where='.$objpiple.'&type=people').'" class="admin-cache-confirm-delete" data-confirm="You are about to delete *'.$name_sanitized.'* from cache. Click Cancel to stop or OK to continue." title="Delete cache for *'.$name_sanitized.'*">'.esc_html__("delete", "imdb").'</a></span>
+								<span class="delete"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&dothis=delete&where='.$objpiple_sanitized.'&type=people').'" class="admin-cache-confirm-delete" data-confirm="You are about to delete *'.$name_sanitized.'* from cache. Click Cancel to stop or OK to continue." title="Delete cache for *'.$name_sanitized.'*">'.esc_html__("delete", "imdb").'</a></span>
 							</div>
 						</td>'; // send input and results into array
 
@@ -670,8 +667,8 @@ if (!empty($results)){
 				</tr></table>
 				<br />
 					<div align="center">
-						<input type="button" name="CheckAll" value="Check All" onClick="checkAll(document.getElementsByName('imdb_cachedeletefor_people[]'));">
-						<input type="button" name="UnCheckAll" value="Uncheck All" onClick="uncheckAll(document.getElementsByName('imdb_cachedeletefor_people[]'));">
+						<input type="button" name="CheckAll" value="Check All" data-check-people="">
+						<input type="button" name="UnCheckAll" value="Uncheck All" data-uncheck-people="">
 					</div>
 						<br />
 						<br />

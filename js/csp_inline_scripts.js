@@ -68,3 +68,32 @@ jQuery('.historyback').click(function(event){
 	}
   });
 })(jQuery);
+
+/* check all inputs */
+/* movies */
+(function ($) {
+  $(document).on('click', 'input[data-check]',function(e){
+	checkAll(document.getElementsByName('imdb_cachedeletefor[]'));
+  });
+})(jQuery);
+/* people */
+(function ($) {
+  $(document).on('click', 'input[data-check-people]',function(e){
+	checkAll(document.getElementsByName('imdb_cachedeletefor_people[]'));
+  });
+})(jQuery);
+
+/* uncheck all inputs */
+/* movies */
+(function ($) {
+  $(document).on('click', 'input[data-uncheck]',function(e){
+	uncheckAll(document.getElementsByName('imdb_cachedeletefor[]'));
+  });
+})(jQuery);
+/* people */
+(function ($) {
+  $(document).on('click', 'input[data-uncheck-people]',function(e){
+	uncheckAll(document.getElementsByName('imdb_cachedeletefor_people[]'));
+  });
+})(jQuery);
+

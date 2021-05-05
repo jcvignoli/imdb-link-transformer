@@ -174,11 +174,12 @@ text-align:justify;
 }
 
 .row-actions {float:right;}
-
 .imdblt_nofilefound {font-weight:bold;color:red;text-align:center;}
-
 .imdblt_green { color:green;}
-
 .imdblt_red { color:green;}
-
 table.table_ninety {margin-left:auto;	margin-right:auto;width:90%;}
+.intro_cache {padding:0 30px 30px 30px;}
+.imdblt_smaller{font-size:smaller;}
+.imdblt_bold{font-weight:bold;}
+.detailedcacheexplaination {padding-left:20%;padding-right:20%;}
+.picfloat{float:left;padding-right:5px;}
