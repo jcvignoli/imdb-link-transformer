@@ -9,6 +9,7 @@ v3.0
 * [minor] removed js support for IE
 * [minor] made click to expand "content security policy" compliant
 * [minor] fixed the bug in popup-imdb_person.php which showed both actress & actor
+* [minor] removed support for wordpress < 5.7
 
 v2.3.2
 * [major] updated to imdbphp-2.3.2 library

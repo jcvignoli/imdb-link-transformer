@@ -47,13 +47,11 @@ jQuery('a#highslide-director-local').click(function(){
 /**** popup-imdb_person.php
 *
 */
-
 /* doesn't work */
 jQuery('.historyback').click(function(event){
 	 event.preventDefault();
 	window.history.back();
 });
-
 /**** options-cache.php
 *
 */
@@ -97,3 +95,13 @@ jQuery('.historyback').click(function(event){
   });
 })(jQuery);
 
+/**** help.php
+*
+*/
+jQuery(document).ready( function($) {
+	// close postboxes that should be closed
+	jQuery('.if-js-closed').removeClass('if-js-closed').addClass('closed');
+
+	// postboxes
+	postboxes.add_postbox_toggles('imdblt_help');
+});
