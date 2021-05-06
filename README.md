@@ -10,7 +10,7 @@ Version: 3.0
 **Tested up to:** 5.7.1 \
 **Stable tag:** 3.0
 
-IMDb link transformer adds information from www.imdb.com into your blog. Cache management, widget available, this is the most versatile and comprehensive plugin to retrieve data from IMDb.
+IMDb link transformer adds details information from www.imdb.com into your blog. Cache management, widget available, this is the most versatile and comprehensive plugin to retrieve data from IMDb.
 
 ## Description
 

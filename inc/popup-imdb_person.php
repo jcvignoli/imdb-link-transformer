@@ -2,7 +2,7 @@
 
  #############################################################################
  # IMDb Link transformer                                                     #
- # written by Prometheus group                                               #
+ # Written by Prometheus group                                               #
  # https://www.jcvignoli.com/blog                                            #
  # ------------------------------------------------------------------------- #
  # This program is free software; you can redistribute and/or modify it      #

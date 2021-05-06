@@ -64,7 +64,7 @@ function imdblt_remove_link ($toremove) {
 function imdblt_convert_into_popup_people ($convert) {
 	global $imdb_admin_values;
 
-	//$result = "<a class=\"link-imdb2 highslide\" onclick=\"return hs.htmlExpand(this, { objectType: 'iframe', width: " . $imdb_admin_values['popupLarg']. ", objectWidth: ". $imdb_admin_values['popupLarg'].", objectHeight: ". $imdb_admin_values['popupLong']. ", headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '" . $imdb_admin_values['imdbplugindirectory'] . "inc/popup-imdb_person.php?mid=" . "\${6}" . "' } )\" title=\"". esc_html__('open a new window with IMDb informations', 'imdb'). '" href="#" >';
+	// $result = "<a class=\"link-imdb2 highslide\" onclick=\"return hs.htmlExpand(this, { objectType: 'iframe', width: " . $imdb_admin_values['popupLarg']. ", objectWidth: ". $imdb_admin_values['popupLarg'].", objectHeight: ". $imdb_admin_values['popupLong']. ", headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '" . $imdb_admin_values['imdbplugindirectory'] . "inc/popup-imdb_person.php?mid=" . "\${6}" . "' } )\" title=\"". esc_html__('open a new window with IMDb informations', 'imdb'). '" href="#" >';
 
 	// 20210505 new way to create highslide link, if "link-imdb2" class clicked, throw "\${6}" (the mid) to javascript csp_inline_script.js
 	$result = '<a  class="link-imdb2 highslide" data-imdbltmid="' . "\${6}" . '" title="' . esc_html__("open a new window with IMDb informations", "imdb") . '">';
