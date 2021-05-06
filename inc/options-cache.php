@@ -9,15 +9,14 @@
  # This program is free software; you can redistribute and/or modify it      #
  # under the terms of the GNU General Public License (see LICENSE)           #
  # ------------------------------------------------------------------------- #
- #									     #
+ #									              #
  #  Function : Cache management for IMDbLT		                     #
- #									     #
+ #									              #
  #############################################################################
 
 
 // included files
 require_once (dirname(__FILE__).'/../bootstrap.php');
-require_once (dirname(__FILE__).'/functions.php');
 
 use \Imdb\Title;
 use \Imdb\Person;

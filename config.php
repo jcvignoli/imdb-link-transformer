@@ -65,6 +65,7 @@ class imdb_settings_conf extends mdb_config {
 	#--------------------------------------------------=[ Basic ]=--
 	'blog_adress' => get_bloginfo('url'),
 	'imdbplugindirectory' => get_bloginfo('url').'/wp-content/plugins/imdb-link-transformer/',
+	'imdbpluginpath' => IMDBLTABSPATH,
 	'imdbwebsite' => "akas.imdb.com",
 	'imdbcoversize' => false,
 	'imdbcoversizewidth' => '100',

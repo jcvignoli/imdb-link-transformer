@@ -8,9 +8,9 @@
  # This program is free software; you can redistribute and/or modify it      #
  # under the terms of the GNU General Public License (see LICENSE)           #
  # ------------------------------------------------------------------------- #
- #									     #
+ #									              #
  #  Function : Add widget function                                           #
- #									     #
+ #									              #
  #############################################################################
 
 	/**
@@ -30,7 +30,6 @@
 		if ( ((is_single()) OR (is_page())) && ($imdb_admin_values[imdbdirectsearch] == true) ) {
 		// shows widget only for a post or a page, when option "direct search" is switched on
 
-
 			if ( $imdb_widget_values[imdbautopostwidget] == true) {
 			// automatically takes the post name to display the movie related, according to imdblt preferences (-> widget -> misc)
 				$imdballmeta[0] = sanitize_text_field( $name->post_title );
@@ -39,7 +38,7 @@
 				echo "<div class='imdbincluded'>";
 				/*$content = "";
 				echo $content;*/
-				require_once( IMDBLTABSPATH . 'inc/imdb-movie.inc.php');
+				require_once( $imdb_admin_values['imdbplugindirectory'] . 'inc/imd1b-movie.inc.php');
 				echo "</div>";
 				echo $after_widget;
 			}
@@ -50,7 +49,7 @@
 				echo $before_widget;
 				echo $before_title . $title_box . $after_title;
 				echo "<div class='imdbincluded'>";
-				require_once( IMDBLTABSPATH . 'inc/imdb-movie.inc.php');
+				require_once( $imdb_admin_values['imdbplugindirectory'] . 'inc/im2db-movie.inc.php');
 				echo "</div>";
 				echo $after_widget;
 			}
@@ -62,12 +61,10 @@
 				echo $before_widget;
 				echo $before_title . $title_box . $after_title;
 				echo "<div class='imdbincluded'>";
-				require_once( IMDBLTABSPATH . 'inc/imdb-movie.inc.php');
+				require_once( $imdb_admin_values['imdbplugindirectory'] . 'inc/imd3b-movie.inc.php');
 				echo "</div>";
 				echo $after_widget;
 			}
-
-
 		}
 	}
 
@@ -100,9 +97,5 @@
 			wp_register_sidebar_widget('imdblt_widget_id', 'IMDb Widget', 'widget_imdbwidget');
 			wp_register_widget_control('imdblt_widget_id', 'IMDb Widget', 'widget_imdbwidget_control');
 		}
-	}
-
-
-
-	
+	}	
 ?>

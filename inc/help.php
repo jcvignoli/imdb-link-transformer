@@ -8,15 +8,15 @@
  # This program is free software; you can redistribute and/or modify it      #
  # under the terms of the GNU General Public License (see LICENSE)           #
  # ------------------------------------------------------------------------- #
- #									     #
- #  Function : Help to configure IMDbLT		                             #
- #									     #
+ #									              #
+ #  Function : Help to configure IMDbLT		                            #
+ #									              #
  #############################################################################
 
 // constants
 global $imdb_admin_values;
-$readmefile = ($imdb_admin_values['imdbplugindirectory'] . 'README.txt');
-$changelogfile = ($imdbOptions['imdbplugindirectory']."changelog.txt");
+$readmefile = $imdb_admin_values['imdbplugindirectory'] . "README.txt";
+$changelogfile = $imdb_admin_values['imdbplugindirectory']."changelog.txt";
 
 // Boxes
 add_meta_box('imdbLT_help_plb', esc_html__( 'Popup link builder', 'imdb'), 'imdbLT_help_plb_function', 'imdblt_help', 'left', 'core');
@@ -30,7 +30,6 @@ add_meta_box('imdblt_help_getridofimdb', esc_html__( 'Use a website other than I
 moviepilot cannot be used anymore  */
 add_meta_box('imdblt_help_usetaxonomy', esc_html__( 'Taxonomy with Wordpress', 'imdb'), 'imdblt_help_usetaxonomy_function', 'imdblt_help', 'left', 'core');
 add_meta_box('imdblt_help_autowidget_function', esc_html__( 'Widget auto according post\'s title', 'imdb'), 'imdblt_help_autowidget_function', 'imdblt_help', 'right', 'core');
-
 ?>
 
 <div id="tabswrap">
@@ -65,7 +64,7 @@ if ($_GET['helpsub'] == "faqs")  { 	// Readme section ?>
 					$faqsectionarray = preg_split ('/=(.*?)=/', $faqsection, -1, PREG_SPLIT_DELIM_CAPTURE);
 
 					// replace links from (specially formated for wordpress website) readme with casual html
-					$patternlink = '~(\\[{1}(.*?)\\]\()(http://)(([[:punct:]]|[[:alnum:]])*)( \"{1}(.*?)\"\))~';
+					$patternlink = '~(\\[{1}(.*?)\\]\()(https://)(([[:punct:]]|[[:alnum:]])*)( \"{1}(.*?)\"\))~';
 					$faqsectionarray = preg_replace($patternlink,"<a href=\"\${3}\${4}\" title=\"\${7}\">\${2}</a>",$faqsectionarray);
 				
 					$i=0;
@@ -529,9 +528,7 @@ function imdblt_help_autowidget_function () {
 	<div class="helpdiv">
 		<?php esc_html_e( "Next time you will look at your post, you will find the widget according to your post’s title.", 'imdb'); ?>
 	</div>
-
-
-<?php } // end function imdblt_help_keepcss_function
-
+<?php 
+} // end function imdblt_help_keepcss_function
 ?>
 

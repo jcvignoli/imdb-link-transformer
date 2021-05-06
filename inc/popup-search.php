@@ -8,14 +8,12 @@
  # This program is free software; you can redistribute and/or modify it      #
  # under the terms of the GNU General Public License (see LICENSE)           #
  # ------------------------------------------------------------------------- #
- #									     #
+ #									              #
  #  Function : Displays a popup with search results related to a movie       #
- #									     #
+ #									              #
  #############################################################################
 
-
 require_once (plugin_dir_path( __FILE__ ).'/../bootstrap.php');
-require_once (plugin_dir_path( __FILE__ )."/functions.php"); 
 
 do_action('wp_loaded'); // execute wordpress first codes
 

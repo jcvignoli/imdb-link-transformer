@@ -33,6 +33,7 @@ body.imdbpopup h1 {
 	padding-bottom:10px;
 }
 
+.hidesection{display:none;}
 .activatehidesection, .historyback {
 	cursor:pointer;
 }

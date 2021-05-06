@@ -21,7 +21,9 @@ jQuery('a#highslide-pic').click(function(){
 	});
 });
 
-jQuery('a#highslide-director').click(function(){
+
+(function ($) {
+  $(document).on('click', 'a[data-search]',function(e){
 var tmppopupLarg = csp_inline_scripts_vars.popupLarg;
 var tmppopupLong = csp_inline_scripts_vars.popupLong;
 var director_tag = document.getElementById('highslide-director');
@@ -37,7 +39,9 @@ var url_imdbperso = csp_inline_scripts_vars.imdb_path + 'inc/popup-imdb_person.p
 	wrapperClassName: 'titlebar', 
 	src: url_imdbperso
 	});
-});
+  });
+})(jQuery);
+
 
 jQuery('a#highslide-director-local').click(function(){
 	window.open('url_imdbperso', 
@@ -52,56 +56,4 @@ jQuery('.historyback').click(function(event){
 	 event.preventDefault();
 	window.history.back();
 });
-/**** options-cache.php
-*
-*/
 
-/* Confirmation popup for individual refresh and delete of movies and persons */
-/* confirm dialog if attribute "data-confirm" in "a" tag */
-(function ($) {
-  $(document).on('click', 'a[data-confirm]',function(e){
-	if(!confirm($(this).data('confirm'))){
-	  e.stopImmediatePropagation();
-	  e.preventDefault();
-	}
-  });
-})(jQuery);
-
-/* check all inputs */
-/* movies */
-(function ($) {
-  $(document).on('click', 'input[data-check]',function(e){
-	checkAll(document.getElementsByName('imdb_cachedeletefor[]'));
-  });
-})(jQuery);
-/* people */
-(function ($) {
-  $(document).on('click', 'input[data-check-people]',function(e){
-	checkAll(document.getElementsByName('imdb_cachedeletefor_people[]'));
-  });
-})(jQuery);
-
-/* uncheck all inputs */
-/* movies */
-(function ($) {
-  $(document).on('click', 'input[data-uncheck]',function(e){
-	uncheckAll(document.getElementsByName('imdb_cachedeletefor[]'));
-  });
-})(jQuery);
-/* people */
-(function ($) {
-  $(document).on('click', 'input[data-uncheck-people]',function(e){
-	uncheckAll(document.getElementsByName('imdb_cachedeletefor_people[]'));
-  });
-})(jQuery);
-
-/**** help.php
-*
-*/
-jQuery(document).ready( function($) {
-	// close postboxes that should be closed
-	jQuery('.if-js-closed').removeClass('if-js-closed').addClass('closed');
-
-	// postboxes
-	postboxes.add_postbox_toggles('imdblt_help');
-});

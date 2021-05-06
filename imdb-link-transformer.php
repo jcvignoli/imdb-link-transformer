@@ -29,9 +29,9 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF']))
 	die('You are not allowed to call this page directly.');
 
 # Requires
-require_once ( dirname(__FILE__) . '/config.php' );
-require_once ( IMDBLTABSPATH . 'inc/functions.php');
-require_once ( IMDBLTABSPATH . 'inc/widget.php');
+require_once ( plugin_dir_path( __FILE__ ) . '/config.php' );
+require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
+require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/widget.php');
 
 # Executed upon plugin activated/deactivated
 register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
@@ -140,7 +140,7 @@ function imdb_tags_transform_id ($text) {
 function imdb_add_quicktag() {
 	global $imdb_admin_values;
 	if (wp_script_is('quicktags')){
-		wp_enqueue_script( "imdblt_add_quicktag", $imdb_admin_values[imdbplugindirectory] ."js/qtags-addbuttons.js");
+		wp_enqueue_script( "imdblt_add_quicktag", $imdb_admin_values['imdbplugindirectory'] ."js/qtags-addbuttons.js");
 /* old way, removed	
 	?>
 	<script type="text/javascript">
@@ -172,7 +172,7 @@ function register_imdb_button($buttons) {
 // Load the TinyMCE plugin 
 function add_imdb_tinymce_plugin($plugin_array) {
 	global $imdb_admin_values;
-	$plugin_array['imdb'] = $imdb_admin_values[imdbplugindirectory] . 'js/tinymce_editor_imdblt_plugin.js';
+	$plugin_array['imdb'] = $imdb_admin_values['imdbplugindirectory'] . 'js/tinymce_editor_imdblt_plugin.js';
 	return $plugin_array;
 }
 
@@ -185,9 +185,9 @@ function imdb_add_head_blog_first (){
 	global $imdb_admin_values; 
 	// Highslide popup
 	if ($imdb_admin_values['imdbpopup_highslide'] == 1) {
-		wp_enqueue_script( "imdblt_highslide", $imdb_admin_values[imdbplugindirectory] ."js/highslide/highslide-with-html.min.js", array(), "5.0");
-		wp_enqueue_style( "imdblt_highslide", $imdb_admin_values[imdbplugindirectory] ."css/highslide.css"); 
-		wp_enqueue_script( "imdblt_highslide_options", $imdb_admin_values[imdbplugindirectory] ."js/highslide-options.js");
+		wp_enqueue_script( "imdblt_highslide", $imdb_admin_values['imdbplugindirectory'] ."js/highslide/highslide-with-html.min.js", array(), "5.0");
+		wp_enqueue_style( "imdblt_highslide", $imdb_admin_values['imdbplugindirectory'] ."css/highslide.css"); 
+		wp_enqueue_script( "imdblt_highslide_options", $imdb_admin_values['imdbplugindirectory'] ."js/highslide-options.js");
 		// Pass variable to javascript highslide-options.js
 		$dataToBePassedHighslide = array(
 		    'imdb_path' => $imdb_admin_values['imdbplugindirectory']
@@ -203,23 +203,23 @@ function imdb_add_head_blog () {
 	if (file_exists (TEMPLATEPATH . "/imdb.css") ) { // an imdb.css exists inside theme folder, take it! 
 		wp_enqueue_style('imdblt_imdbcss', bloginfo('stylesheet_directory') . "imdb.css");
  	} else { // no imdb.css exists in theme, add default one
-		wp_enqueue_style('imdblt_imdbcss', $imdb_admin_values[imdbplugindirectory] ."css/imdb.css");
+		wp_enqueue_style('imdblt_imdbcss', $imdb_admin_values['imdbplugindirectory'] ."css/imdb.css");
  	} 
 
 	// OceanWp template css fix
 	// enqueue imdb.css only if 1/ it is a popup (url starting with /imdblt/) 2/ using template oceanwp
 	if ( ( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/imdblt/' ) ) 
 && ( stripos( TEMPLATEPATH, '/wp-content/themes/oceanwp' ) ) ){
-		wp_enqueue_style('imdblt_imdbcss_oceanwpfixes', $imdb_admin_values[imdbplugindirectory] ."css/imdb-oceanwpfixes.css");
+		wp_enqueue_style('imdblt_imdbcss_oceanwpfixes', $imdb_admin_values['imdbplugindirectory'] ."css/imdb-oceanwpfixes.css");
 	}
 }
 
 function imdb_add_head_blog_last (){
 	global $imdb_admin_values; 
 
-	wp_enqueue_script( "imdblt_hide-show_csp", $imdb_admin_values[imdbplugindirectory] ."js/hide-show_csp.js");
+	wp_enqueue_script( "imdblt_hide-show_csp", $imdb_admin_values['imdbplugindirectory'] ."js/hide-show_csp.js");
 
-	wp_enqueue_script( "csp_inline_scripts", $imdb_admin_values[imdbplugindirectory] ."js/csp_inline_scripts.js");
+	wp_enqueue_script( "csp_inline_scripts", $imdb_admin_values['imdbplugindirectory'] ."js/csp_inline_scripts.js");
 
 	// Pass variable to javascript csp_inline_scripts.js
 	$dataToBePassedcsp_inline_scripts = array(
@@ -238,8 +238,8 @@ function imdb_add_head_admin () {
 }
 function imdb_add_css_admin() {
 	global $imdb_admin_values;
-	wp_enqueue_style('imdblt_css_admin', $imdb_admin_values[imdbplugindirectory] . "css/imdb-admin.css");
-	//wp_enqueue_style("imdblt_highslide", $imdb_admin_values[imdbplugindirectory] ."css/highslide.css"); # removing highslide in admin area
+	wp_enqueue_style('imdblt_css_admin', $imdb_admin_values['imdbplugindirectory'] . "css/imdb-admin.css");
+	//wp_enqueue_style("imdblt_highslide", $imdb_admin_values['imdbplugindirectory'] ."css/highslide.css"); # removing highslide in admin area
 }
 function imdb_add_js_admin () {
 	global $imdb_admin_values;
@@ -247,16 +247,16 @@ function imdb_add_js_admin () {
 	wp_enqueue_script('wp-lists'); // script needed for meta_boxes (ie, help.php)
 	wp_enqueue_script('postbox'); // script needed for meta_boxes (ie, help.php)
 	wp_enqueue_script('jquery'); // script needed by highslide and maybe others
-	//wp_enqueue_script("imdblt_highslide", $imdb_admin_values[imdbplugindirectory] ."js/highslide/highslide-with-html.min.js", array(), "5.0"); # removing highslide in admin area
-	wp_enqueue_script('imdblt_un-active-boxes', $imdb_admin_values[imdbplugindirectory] . "js/un-active-boxes.js");
-	wp_enqueue_script('imdblt_movevalues-formeselectboxes', $imdb_admin_values[imdbplugindirectory] . "js/movevalues-formselectboxes.js");
+	//wp_enqueue_script("imdblt_highslide", $imdb_admin_values['imdbplugindirectory'] ."js/highslide/highslide-with-html.min.js", array(), "5.0"); # removing highslide in admin area
+	wp_enqueue_script('imdblt_un-active-boxes', $imdb_admin_values['imdbplugindirectory'] . "js/un-active-boxes.js");
+	wp_enqueue_script('imdblt_movevalues-formeselectboxes', $imdb_admin_values['imdbplugindirectory'] . "js/movevalues-formselectboxes.js");
 
-	wp_enqueue_script( "csp_inline_scripts", $imdb_admin_values[imdbplugindirectory] ."js/csp_inline_scripts.js");
+	wp_enqueue_script( "csp_inline_scripts_admin", $imdb_admin_values['imdbplugindirectory'] ."js/csp_inline_scripts_admin.js");
 	// Pass variable to javascript highslide-options.js
-	$dataToBePassedHighslideAdmin = array(
-	    'imdb_path' => $imdb_admin_values['imdbplugindirectory']
+	$dataToCSPAdmin = array(
+	    'imdb_path' => $imdb_admin_values['imdbplugindirectory'],
 	);
-	wp_localize_script( "csp_inline_scripts", 'php_vars', $dataToBePassedHighslideAdmin );
+	wp_localize_script( "csp_inline_scripts_admin", 'php_vars', $dataToCSPAdmin );
 } 
 
 /**
@@ -277,7 +277,7 @@ function imdb_admin_panel() {
 	}
 	if (function_exists('add_submenu_page') && ($imdb_admin_values['imdbwordpress_bigmenu'] == 1 ) ) {
 		// big menu for many pages for admin sidebar
-		add_menu_page( 'IMDb LT Options', 'IMDb LT' , 8, 'imdblt_options', array(&$imdb_ft, 'printAdminPage'), $imdb_admin_values[imdbplugindirectory].'pics/imdb.gif');
+		add_menu_page( 'IMDb LT Options', 'IMDb LT' , 8, 'imdblt_options', array(&$imdb_ft, 'printAdminPage'), $imdb_admin_values['imdbplugindirectory'].'pics/imdb.gif');
 		add_submenu_page( 'imdblt_options' , esc_html__('IMDb link transformer options page', 'imdb'), esc_html__('General options', 'imdb'), 8, 'imdblt_options');
 		add_submenu_page( 'imdblt_options' , esc_html__('Widget & In post options page', 'imdb'), esc_html__('Widget/In post', 'imdb'), 8, 'imdblt_options&subsection=widgetoption', array(&$imdb_ft, 'printAdminPage'));
 		add_submenu_page( 'imdblt_options',  esc_html__('Cache management options page', 'imdb'), esc_html__('Cache management', 'imdb'), 8, 'imdblt_options&subsection=cache', array(&$imdb_ft, 'printAdminPage'));
@@ -319,7 +319,7 @@ function imdb_external_call ($moviename="", $external="", $filmid="") {
 						// can't accept caching through ob_start
 							
 		echo "<div class='imdbincluded'>";
-		include ( $imdb_admin_values[imdbplugindirectory] . "inc/imdb-movie.inc.php" );
+		require_once ( $imdb_admin_values['imdbplugindirectory'] . "inc/imdb-movie.inc.php" );
 		echo "</div>";
 	} 
 	
@@ -329,7 +329,7 @@ function imdb_external_call ($moviename="", $external="", $filmid="") {
 		$imdballmeta = 'imdb-movie-widget-noname';
 		$moviespecificid = $filmid;
 		echo "<div class='imdbincluded'>";
-		include ( $imdb_admin_values[imdbplugindirectory] . "inc/imdb-movie.inc.php" );
+		require_once ( $imdb_admin_values['imdbplugindirectory'] . "inc/imdb-movie.inc.php" );
 		echo "</div>";
 	}
 
@@ -338,7 +338,7 @@ function imdb_external_call ($moviename="", $external="", $filmid="") {
 	if (!empty($moviename) && (empty($external))) {	// new way (using a parameter - imdb movie name)
 		$imdballmeta = $moviename;
 		echo "<div class='imdbincluded'>";
-		include ( $imdb_admin_values[imdbplugindirectory] . "inc/imdb-movie.inc.php" );
+		require_once ( $imdb_admin_values['imdbplugindirectory'] . "inc/imdb-movie.inc.php" );
 		echo "</div>";
 		$out1 = ob_get_contents(); //put the record into value
 	} 
@@ -347,7 +347,7 @@ function imdb_external_call ($moviename="", $external="", $filmid="") {
 		$imdballmeta = 'imdb-movie-widget-noname';
 		$moviespecificid = $filmid;
 		echo "<div class='imdbincluded'>";
-		include ( $imdb_admin_values[imdbplugindirectory] . "inc/imdb-movie.inc.php" );
+		require_once ( $imdb_admin_values['imdbplugindirectory'] . "inc/imdb-movie.inc.php" );
 		echo "</div>";
 		$out2 = ob_get_contents(); //put the record into value
 	}
@@ -363,7 +363,7 @@ function imdb_external_call ($moviename="", $external="", $filmid="") {
 
 function ozh_imdblt_icon() {
 	global $imdb_admin_values;
-	return $imdb_admin_values[imdbplugindirectory]. 'pics/imdb.gif';
+	return $imdb_admin_values['imdbplugindirectory']. 'pics/imdb.gif';
 }
 
 /**
@@ -373,15 +373,15 @@ function ozh_imdblt_icon() {
 function add_admin_toolbar_menu($admin_bar) {
 	global $imdb_admin_values;
 
-	$admin_bar->add_menu( array('id'=>'imdblt-menu','title' => "<img src='$imdb_admin_values[imdbplugindirectory]pics/imdb.gif' width='16px' />&nbsp;&nbsp;".esc_html__('IMDB LT'),'href'  => 'admin.php?page=imdblt_options', 'meta'  => array('title' => esc_html__('IMDBLT Menu'), ),) );
+	$admin_bar->add_menu( array('id'=>'imdblt-menu','title' => "<img src='".$imdb_admin_values['imdbplugindirectory']."pics/imdb.gif' width='16px' />&nbsp;&nbsp;".esc_html__('IMDB LT'),'href'  => 'admin.php?page=imdblt_options', 'meta'  => array('title' => esc_html__('IMDBLT Menu'), ),) );
 
-	$admin_bar->add_menu( array('parent' => 'imdblt-menu','id' => 'imdblt-menu-options','title' => "<img src='$imdb_admin_values[imdbplugindirectory]pics/admin-general.png' width='16px' />&nbsp;&nbsp;".esc_html__('General options'),'href'  =>'admin.php?page=imdblt_options','meta'  => array('title' => esc_html__('General options'),),) );
+	$admin_bar->add_menu( array('parent' => 'imdblt-menu','id' => 'imdblt-menu-options','title' => "<img src='".$imdb_admin_values['imdbplugindirectory']."pics/admin-general.png' width='16px' />&nbsp;&nbsp;".esc_html__('General options'),'href'  =>'admin.php?page=imdblt_options','meta'  => array('title' => esc_html__('General options'),),) );
 
-	$admin_bar->add_menu( array('parent' => 'imdblt-menu','id' => 'imdblt-menu-widget-options','title' => "<img src='$imdb_admin_values[imdbplugindirectory]pics/admin-widget-inside.png' width='16px' />&nbsp;&nbsp;".esc_html__('Widget options'),'href'  =>'admin.php?page=imdblt_options&subsection=widgetoption','meta'  => array('title' => esc_html__('Widget options'),),) );
+	$admin_bar->add_menu( array('parent' => 'imdblt-menu','id' => 'imdblt-menu-widget-options','title' => "<img src='".$imdb_admin_values['imdbplugindirectory']."pics/admin-widget-inside.png' width='16px' />&nbsp;&nbsp;".esc_html__('Widget options'),'href'  =>'admin.php?page=imdblt_options&subsection=widgetoption','meta'  => array('title' => esc_html__('Widget options'),),) );
 	
-	$admin_bar->add_menu( array('parent' => 'imdblt-menu','id' => 'imdblt-menu-cache-options','title' => "<img src='$imdb_admin_values[imdbplugindirectory]pics/admin-cache.png' width='16px' />&nbsp;&nbsp;".esc_html__('Cache options'),'href'  =>'admin.php?page=imdblt_options&subsection=cache','meta' => array('title' => esc_html__('Cache options'),),) );
+	$admin_bar->add_menu( array('parent' => 'imdblt-menu','id' => 'imdblt-menu-cache-options','title' => "<img src='".$imdb_admin_values['imdbplugindirectory']."pics/admin-cache.png' width='16px' />&nbsp;&nbsp;".esc_html__('Cache options'),'href'  =>'admin.php?page=imdblt_options&subsection=cache','meta' => array('title' => esc_html__('Cache options'),),) );
 
-	$admin_bar->add_menu( array('parent' => 'imdblt-menu','id' => 'imdblt-menu-help','title' => "<img src='$imdb_admin_values[imdbplugindirectory]pics/admin-help.png' width='16px' />&nbsp;&nbsp;".esc_html__('Help'),'href' =>'admin.php?page=imdblt_options&subsection=help','meta'  => array('title' => esc_html_e('Help'),),) );
+	$admin_bar->add_menu( array('parent' => 'imdblt-menu','id' => 'imdblt-menu-help','title' => "<img src='".$imdb_admin_values['imdbplugindirectory']."pics/admin-help.png' width='16px' />&nbsp;&nbsp;".esc_html__('Help'),'href' =>'admin.php?page=imdblt_options&subsection=help','meta'  => array('title' => esc_html_e('Help'),),) );
 
 }
 
@@ -397,7 +397,7 @@ function imdblt_start () {
 	    	// css for main blog
 		add_action('wp_head', array(&$this, 'imdb_add_head_blog_first'),1 );
 		add_action('wp_head', array(&$this, 'imdb_add_head_blog'),3 );
-		add_action('wp_footer', array(&$this, 'imdb_add_head_blog_last') );
+		add_action('wp_footer', array(&$this, 'imdb_add_head_blog_last'), 99);
 
 		// add links to popup
 		add_filter('the_content', array(&$this, 'imdb_linking'), 11);
@@ -519,12 +519,12 @@ function imdblt_popup_redirect_include() {
 
 	// Include films popup
 	if ( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/imdblt/film/' ) ) {
-		require_once ( $imdb_admin_values[imdbplugindirectory] . 'inc/popup-imdb_movie.php' );
+		require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/popup-imdb_movie.php' );
 	}
 
 	// Include persons popup
 	if ( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/imdblt/person/' ) ) {
-		require_once ( $imdb_admin_values[imdbplugindirectory] . 'inc/popup-imdb_person.php' );
+		require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/popup-imdb_person.php' );
 	}
 }
 add_action( 'init', 'imdblt_popup_redirect_include', 0);
