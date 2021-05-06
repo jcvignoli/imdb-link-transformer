@@ -339,7 +339,7 @@ while ($imovie < count($imdballmeta)) {
 			for ($i = 0; $i < $imdb_widget_values['imdbwidgetquotesnumber'] && ($i < count($quotes)); $i++) { 
 				if  ($imdb_widget_values['imdblinkingkill'] == false ) { 
 				// if "Remove all links" option is not selected 
-					echo imdblt_convert_into_popup ($quotes[$i]) . "<br /><br />";
+					echo imdblt_convert_into_popup_people ($quotes[$i]) . "<br /><br />";
 				} else {
 					echo " ". imdblt_remove_link ($quotes[$i]) . "<br /><br />";
 				} 
@@ -470,11 +470,11 @@ while ($imovie < count($imdballmeta)) {
 				if  ($imdb_widget_values['imdblinkingkill'] == false ) { 
 				// if "Remove all links" option is not selected 
 					if (!empty($soundtrack[$i]['credits'][0]) )
-						echo " - <i>". imdblt_convert_into_popup ($soundtrack[$i]['credits'][0]['credit_to'])."</i> ";
-						echo " (". imdblt_convert_into_popup ($soundtrack[$i]['credits'][0]['desc']).") ";
+						echo " - <i>". imdblt_convert_into_popup_people ($soundtrack[$i]['credits'][0]['credit_to'])."</i> ";
+						echo " (". imdblt_convert_into_popup_people ($soundtrack[$i]['credits'][0]['desc']).") ";
 					if (!empty($soundtrack[$i]['credits'][1]) )
-						echo " - <i>". imdblt_convert_into_popup ($soundtrack[$i]['credits'][1]['credit_to'])."</i> ";
-						echo " (". imdblt_convert_into_popup ($soundtrack[$i]['credits'][1]['desc']).") ";
+						echo " - <i>". imdblt_convert_into_popup_people ($soundtrack[$i]['credits'][1]['credit_to'])."</i> ";
+						echo " (". imdblt_convert_into_popup_people ($soundtrack[$i]['credits'][1]['desc']).") ";
 				} else {
 					if (!empty($soundtrack[$i][credits][0]) )
 						echo " - <i>". imdblt_remove_link ($soundtrack[$i]['credits'][0]['credit_to'])."</i> ";
@@ -546,7 +546,8 @@ while ($imovie < count($imdballmeta)) {
 					if  ($imdb_widget_values['imdblinkingkill'] == false ) { // if "Remove all links" option is not selected 
 						if ( $i > 0 ) echo ', ';
 						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup
-						?><a  class="link-imdb2 highslide" id="highslide-director" data-search="<?php echo $director[$i]["imdb"]; ?>" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>"><?php echo $director[$i]["name"]; ?></a><?php
+						?><a  
+class="link-imdb2 highslide" data-imdbltmid="<?php echo $director[$i]["imdb"]; ?>" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>"><?php echo $director[$i]["name"]; ?></a><?php
 						} else { 						// classic popup
 						?><a onclick="window.open('<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $director[$i]["imdb"];?>', 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=<?php echo $imdb_admin_values[popupLarg]; ?>, height=<?php echo $imdb_admin_values[popupLong]; ?>, top=5, left=5')" title="<?php esc_html_e('Link to local imdb', 'imdb'); ?>" class="link-imdb2" ><?php				
 						echo $director[$i]["name"]."</a>";
