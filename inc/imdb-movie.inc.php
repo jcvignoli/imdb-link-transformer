@@ -358,7 +358,7 @@ while ($imovie < count($imdballmeta)) {
 				<span class="imdbincluded-subtitle"><?php echo(sprintf(esc_attr(_n('Tagline', 'Taglines', count($taglines), 'imdb')))); ?>:</span><?php 
 			
 			for ($i = 0; $i < $imdb_widget_values['imdbwidgettaglinesnumber'] && ($i < count($taglines)); $i++) { 
-				echo $taglines[$i]." &raquo; ";
+				echo sanitize_text_field( $taglines[$i] )." &raquo; ";
 			} ?></li>
 			</ul>
 	<?php } }; flush ();	
