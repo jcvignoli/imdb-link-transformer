@@ -30,8 +30,8 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF']))
 
 # Requires
 require_once ( plugin_dir_path( __FILE__ ) . '/config.php' );
-require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
-require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/widget.php');
+require_once ( plugin_dir_path( __FILE__ )  . '/inc/functions.php');
+require_once ( plugin_dir_path( __FILE__ )  . '/inc/widget.php');
 
 # Executed upon plugin activated/deactivated
 register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
@@ -181,8 +181,9 @@ function add_imdb_tinymce_plugin($plugin_array) {
 **/ 
 
 ##### a) outside admin part
-function imdb_add_head_blog_first (){
+function imdblt_add_head_blog (){
 	global $imdb_admin_values; 
+
 	// Highslide popup
 	if ($imdb_admin_values['imdbpopup_highslide'] == 1) {
 		wp_enqueue_script( "imdblt_highslide", $imdb_admin_values['imdbplugindirectory'] ."js/highslide/highslide-with-html.min.js", array(), "5.0");
@@ -194,10 +195,6 @@ function imdb_add_head_blog_first (){
 		);
 		wp_localize_script( "imdblt_highslide_options", 'php_vars', $dataToBePassedHighslide );
 	}
-}
-
-function imdb_add_head_blog () {
-	global $imdb_admin_values; 
 
 	// Use local template imdb.css if it exists in current theme folder
 	if (file_exists (TEMPLATEPATH . "/imdb.css") ) { // an imdb.css exists inside theme folder, take it! 
@@ -214,7 +211,7 @@ function imdb_add_head_blog () {
 	}
 }
 
-function imdb_add_head_blog_last (){
+function imdblt_add_footer_blog (){
 	global $imdb_admin_values; 
 
 	wp_enqueue_script( "imdblt_hide-show_csp", $imdb_admin_values['imdbplugindirectory'] ."js/hide-show_csp.js");
@@ -223,8 +220,8 @@ function imdb_add_head_blog_last (){
 
 	// Pass variable to javascript csp_inline_scripts.js
 	$dataToBePassedcsp_inline_scripts = array(
-		'popupLarg' => $imdb_admin_values[popupLarg],
-		'popupLong' => $imdb_admin_values[popupLong],
+		'popupLarg' => $imdb_admin_values['popupLarg'],
+		'popupLong' => $imdb_admin_values['popupLong'],
 		'imdb_path' => $imdb_admin_values['imdbplugindirectory']
 	);
 	wp_localize_script( "csp_inline_scripts", 'csp_inline_scripts_vars', $dataToBePassedcsp_inline_scripts );
@@ -395,9 +392,8 @@ function imdblt_start () {
 	// Be sure WP is running
 	if (function_exists('add_action')) {
 	    	// css for main blog
-		add_action('wp_head', array(&$this, 'imdb_add_head_blog_first'),1 );
-		add_action('wp_head', array(&$this, 'imdb_add_head_blog'),3 );
-		add_action('wp_footer', array(&$this, 'imdb_add_head_blog_last'), 99);
+		add_action('wp_head', array(&$this, 'imdblt_add_head_blog'),1 );
+		add_action('wp_footer', array(&$this, 'imdblt_add_footer_blog') );
 
 		// add links to popup
 		add_filter('the_content', array(&$this, 'imdb_linking'), 11);

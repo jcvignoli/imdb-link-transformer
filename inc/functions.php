@@ -64,9 +64,9 @@ function imdblt_remove_link ($toremove) {
 function imdblt_convert_into_popup ($convert) {
 	global $imdb_admin_values;
 
-	$result = "<a class=\"link-imdb2 highslide\" onclick=\"return hs.htmlExpand(this, { objectType: 'iframe', width: " . $imdb_admin_values[popupLarg]. ", objectWidth: ". $imdb_admin_values[popupLarg].", objectHeight: ". $imdb_admin_values[popupLong]. ", headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '" . $imdb_admin_values[imdbplugindirectory] . "inc/popup-imdb_person.php?mid=" . "\${6}\${8}" . "' } )\" title=\"". esc_html__('open a new window with IMDb informations', 'imdb'). '" href="#" >';
+	$result = "<a class=\"link-imdb2 highslide\" onclick=\"return hs.htmlExpand(this, { objectType: 'iframe', width: " . $imdb_admin_values['popupLarg']. ", objectWidth: ". $imdb_admin_values['popupLarg'].", objectHeight: ". $imdb_admin_values['popupLong']. ", headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '" . $imdb_admin_values['imdbplugindirectory'] . "inc/popup-imdb_person.php?mid=" . "\${6}" . "' } )\" title=\"". esc_html__('open a new window with IMDb informations', 'imdb'). '" href="#" >';
 
-	$convert = preg_replace("~(<a )((href=)(.*?))(nm)([[:alnum:]])((.*?)/\">)~", "$result", $convert);
+	$convert = preg_replace("~(<a )((href=)(.+?))(nm)([[:alnum:]]*)\/((.+?)\">)~", $result, $convert);
 
 	return $convert;
 }
@@ -183,12 +183,11 @@ function imdblt_source_imdb($midPremierResultat){
 	global $imdb_admin_values;
 
 	// Sanitize
-	if (! is_int($midPremierResultat))
-		exit();
+	$midPremierResultat_sanitized = sanitize_text_field( $midPremierResultat );
 
 	echo '&nbsp;&nbsp;';
-	echo '<a href="http://'.$imdb_admin_values[imdbwebsite].'/title/tt'.$midPremierResultat.'" >';
-	echo "<img class='imdbelementSOURCE-picture' src=\"".$imdb_admin_values[imdbplugindirectory].'pics/imdb-link.png" />';
+	echo '<a href="https://'.$imdb_admin_values['imdbwebsite'].'/title/tt'.$midPremierResultat_sanitized.'" >';
+	echo "<img class='imdbelementSOURCE-picture' src=\"".$imdb_admin_values['imdbplugindirectory'].'pics/imdb-link.png" />';
 	echo '&nbsp;&nbsp;IMDb\'s page for this movie</a>';
 } 
 
