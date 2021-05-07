@@ -67,14 +67,34 @@ There are three ways to use IMDb link transformer: popup link creator, widget an
 
 [missing image]
 
-[How movie's data is displayed "inside a post"](https://ps.w.org/imdb-link-transformer/assets/screenshot-2.jpg)
-[How movie's data is displayed in a "widget"](https://ps.w.org/imdb-link-transformer/assets/screenshot-3.jpg)
-[Admin preferences](https://ps.w.org/imdb-link-transformer/assets/screenshot-4.jpg)
-[The field and the value to fill up to use the widget](https://ps.w.org/imdb-link-transformer/assets/screenshot-5.jpg)
-[New button added for bloggers who prefer Visual writing way](https://ps.w.org/imdb-link-transformer/assets/screenshot-6.jpg)
-[New button added for bloggers who prefer HTML writing way](https://ps.w.org/imdb-link-transformer/assets/screenshot-7.jpg)
-[Writing code to display movie's data "inside a post"](https://ps.w.org/imdb-link-transformer/assets/screenshot-8.jpg)
-[Help section contains many tips and how-to](https://ps.w.org/imdb-link-transformer/assets/screenshot-9.jpg)
+### 2. How movie's data is displayed "inside a post" [Inside a post](https://ps.w.org/imdb-link-transformer/assets/screenshot-2.jpg)
+
+[missing image]
+
+### 3. How movie's data is displayed in a "widget" [widget](https://ps.w.org/imdb-link-transformer/assets/screenshot-3.jpg)
+
+[missing image]
+
+### 4. Admin preferences[Admin preferences](https://ps.w.org/imdb-link-transformer/assets/screenshot-4.jpg)
+
+[missing image]
+
+### 5. The field and the value to fill up to use the widget [Values for the IMDbLT widget](https://ps.w.org/imdb-link-transformer/assets/screenshot-5.jpg)
+
+[missing image]
+
+### 6. Option for adding an IMDbLT URL in their post [IMDbLT URL option](https://ps.w.org/imdb-link-transformer/assets/screenshot-6.jpg)
+
+[missing image]
+
+### 7. Piece of code needed in order to display movie's data "inside a post" [IMDbLT inside a post tag](https://ps.w.org/imdb-link-transformer/assets/screenshot-8.jpg)
+
+[missing image]
+
+### 8. Help section contains many tips and how-to [Help section](https://ps.w.org/imdb-link-transformer/assets/screenshot-9.jpg)
+
+[missing image]
+
 
 ## Frequently Asked Questions
 

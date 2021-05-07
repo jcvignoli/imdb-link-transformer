@@ -63,14 +63,13 @@ There are three ways to use IMDb link transformer: popup link creator, widget an
 == Screenshots ==
 
 1. Popup displayed when an imdb link is selected. In background, a widget [Popup and widget](https://ps.w.org/imdb-link-transformer/assets/screenshot-1.jpg)
-[How movie's data is displayed "inside a post"](https://ps.w.org/imdb-link-transformer/assets/screenshot-2.jpg)
-[How movie's data is displayed in a "widget"](https://ps.w.org/imdb-link-transformer/assets/screenshot-3.jpg)
-[Admin preferences](https://ps.w.org/imdb-link-transformer/assets/screenshot-4.jpg)
-[The field and the value to fill up to use the widget](https://ps.w.org/imdb-link-transformer/assets/screenshot-5.jpg)
-[New button added for bloggers who prefer Visual writing way](https://ps.w.org/imdb-link-transformer/assets/screenshot-6.jpg)
-[New button added for bloggers who prefer HTML writing way](https://ps.w.org/imdb-link-transformer/assets/screenshot-7.jpg)
-[Writing code to display movie's data "inside a post"](https://ps.w.org/imdb-link-transformer/assets/screenshot-8.jpg)
-[Help section contains many tips and how-to](https://ps.w.org/imdb-link-transformer/assets/screenshot-9.jpg)
+2. How movie's data is displayed "inside a post" [Inside a post](https://ps.w.org/imdb-link-transformer/assets/screenshot-2.jpg)
+3. How movie's data is displayed in a "widget" [widget](https://ps.w.org/imdb-link-transformer/assets/screenshot-3.jpg)
+4. Admin preferences[Admin preferences](https://ps.w.org/imdb-link-transformer/assets/screenshot-4.jpg)
+5. The field and the value to fill up to use the widget [Values for the IMDbLT widget](https://ps.w.org/imdb-link-transformer/assets/screenshot-5.jpg)
+6. Option for adding an IMDbLT URL in their post [IMDbLT URL option](https://ps.w.org/imdb-link-transformer/assets/screenshot-6.jpg)
+8. Piece of code needed in order to display movie's data "inside a post" [IMDbLT inside a post tag](https://ps.w.org/imdb-link-transformer/assets/screenshot-8.jpg)
+9. Help section contains many tips and how-to [Help section](https://ps.w.org/imdb-link-transformer/assets/screenshot-9.jpg)
 
 == Frequently Asked Questions ==
 
