@@ -13,7 +13,7 @@ RewriteRule ^.+$ imdblt/film/%1/ [L,R,QSA]
 RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_movie.php\?mid=([^\s]+)&film=&info=([^\s]+)? [NC]
 RewriteRule ^.+$ imdblt/film/%1/ [L,R,QSA]
 
-RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_movie.php\?mid=([^\s]+)?&film=([^\s]+)&info=([^\s]+)? [NC]
+RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_movie.php\?mid=([^\s]+)?&film=([^\s]+)&info=([^\s]+)? [NC]̣
 RewriteRule ^.+$ imdblt/film/%2/ [L,R,QSA]
 
 RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_movie.php\?mid=([^\s]+) [NC]
@@ -27,4 +27,3 @@ RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-i
 RewriteRule ^.+$ imdblt/person/%1/ [L,R,QSA]
 
 </IfModule>
-

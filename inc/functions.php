@@ -304,5 +304,4 @@ function imdb_htmlize ($link) {
     return $lienhtmlize; 
 }
 
-
 ?>
