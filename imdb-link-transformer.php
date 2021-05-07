@@ -38,8 +38,10 @@ register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
 register_activation_hook( __FILE__, 'imdb_activation' );
 
 function imdb_activation() {
+	if (is_admin()) { // Prevents activation bug with Fatal Error: Table ‘actionscheduler_actions’ doesn’t exist
+		imdblt_make_htaccess();
+	}
 	flush_rewrite_rules();
-	imdblt_make_htaccess();
 }
 
 ### IMDbLT Table Name
@@ -532,26 +534,25 @@ add_action( 'init', 'imdblt_popup_redirect_include', 0);
 
 function imdblt_make_htaccess(){
 	// Get the subpath if it exists
-	$blog_subdomain = site_url( '', 'relative' ) ?? "";
+	$imdblt_blog_subdomain = site_url( '', 'relative' ) ?? "";
 	
 	// .htaccess file
-	$imdblt_htaccess_file = fopen( plugin_dir_path( __FILE__ )  . "/inc/.htaccess", "w");
+	$imdblt_htaccess_file = plugin_dir_path( __FILE__ )  . "/inc/.htaccess";
 
 	// .htaccess text, including Rewritebase with $blog_subdomain
-	$imdblt_htaccess_file_txt = "<IfModule mod_rewrite.c>\nRewriteEngine On\nRewriteBase ".$blog_subdomain."/"."\n\n";
+	$imdblt_htaccess_file_txt = "<IfModule mod_rewrite.c>\nRewriteEngine On\nRewriteBase ".$imdblt_blog_subdomain."/"."\n\n";
 	$imdblt_htaccess_file_txt .= "## popup.php\nRewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-search.php\?film=([^\s]+)(&norecursive=)?(̣.*)? [NC]"."\n"."RewriteRule ^.+$ imdblt/film/%1/ [L,R,QSA]"."\n\n";
 	$imdblt_htaccess_file_txt .= "## popup-imdb_movie.php"."\n"."RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_movie.php\?film=([^\s]+) [NC]\nRewriteRule ^.+$ imdblt/film/%1/ [L,R,QSA]"."\n\n";
 	$imdblt_htaccess_file_txt .= "RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_movie.php\?mid=([^\s]+)&film=&info=([^\s]+)? [NC]"."\n"."RewriteRule ^.+$ imdblt/film/%1/ [L,R,QSA]"."\n\n";
-	$imdblt_htaccess_file_txt .= "RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_movie.php\?mid=([^\s]+)?&film=([^\s]+)&info=([^\s]+)? [NC]"."̣\n"."RewriteRule ^.+$ imdblt/film/%2/ [L,R,QSA]"."\n\n";
+	$imdblt_htaccess_file_txt .= "RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_movie.php\?mid=([^\s]+)?&film=([^\s]+)&info=([^\s]+)? [NC]"."\n"."RewriteRule ^.+$ imdblt/film/%2/ [L,R,QSA]"."\n\n";
 	$imdblt_htaccess_file_txt .= "RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_movie.php\?mid=([^\s]+) [NC]"."\n"."RewriteRule ^.+$ imdblt/film/%1/ [L,R,QSA]"."\n\n";
 	$imdblt_htaccess_file_txt .= "## popup-imdb_person.php"."\n"."RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_person.php\?mid=([^\s]+)&film=([^\s]+)?&info=([^\s]+)? [NC]"."\n"."RewriteRule ^.+$ imdblt/person/%1/ [L,R,QSA]"."\n\n";
 	$imdblt_htaccess_file_txt .= "RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_person.php\?mid=([^\s]+) [NC]"."\n"."RewriteRule ^.+$ imdblt/person/%1/ [L,R,QSA]"."\n\n";
-	$imdblt_htaccess_file_txt .= "</IfModule>";
+	$imdblt_htaccess_file_txt .= "</IfModule>"."\n";
 
 	// write the .htaccess file and close
 	if (isset($imdblt_htaccess_file))
-		fwrite($imdblt_htaccess_file, $imdblt_htaccess_file_txt);
-	fclose($imdblt_htaccess_file);
+		file_put_contents($imdblt_htaccess_file, $imdblt_htaccess_file_txt.PHP_EOL);
 }
 
 ?>
