@@ -401,7 +401,7 @@ while ($imovie < count($imdballmeta)) {
 										<!-- trailers -->
 			<ul class="imdbelementTRAILERul">
 			<li class="imdbincluded-lined imdbelementTRAILERli">
-				<span class="imdbincluded-subtitle"><?php echo(sprintf(esc_attr(_n('Trailer', 'Trailers', $imdb_widget_values[imdbwidgettrailernumber], 'imdb')))); ?>:</span><?php 
+				<span class="imdbincluded-subtitle"><?php echo(sprintf(esc_attr(_n('Trailer', 'Trailers', $imdb_widget_values['imdbwidgettrailernumber'], 'imdb')))); ?>:</span><?php 
 
 			// value $imdb_widget_values['imdbwidgettrailer'] is selected, but value $imdb_widget_values['imdbwidgettrailernumber'] is empty
 			if (empty($imdb_widget_values['imdbwidgettrailernumber'])){
@@ -412,9 +412,9 @@ while ($imovie < count($imdballmeta)) {
 
 			for ($i = 0; ($i < $nbtrailers  && ($i < count($trailers)) ); $i++) { 
 				if  ($imdb_widget_values['imdblinkingkill'] == false ) { // if "Remove all links" option is not selected 
-					echo "<a href='".$trailers[$i]['url']."'>".$trailers[$i]['title']."</a><br>\n";
+					echo "<a href='".esc_url( $trailers[$i]['url'] )."' title='".esc_html__('Watch on IMBb website the trailer for ', 'imdb') . esc_attr( $trailers[$i]['title'] ) ."'>". sanitize_text_field( $trailers[$i]['title'] ) . "</a><br>\n";
 				} else { // if "Remove all links" option is selected 
-					echo $trailers[$i]['title']."<br>\n";
+					echo sanitize_text_field( $trailers[$i]['title'] )."<br>\n";
 				}
 			} ?></li>
 			</ul>
@@ -428,18 +428,18 @@ while ($imovie < count($imdballmeta)) {
 			<ul class="imdbelementCOLORul">
 			<li class="imdbincluded-lined imdbelementCOLORli">
 				<span class="imdbincluded-subtitle"><?php echo(sprintf(esc_attr(_n('Color', 'Colors', count($colors), 'imdb')))); ?>:</span><?php
-			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomycolor] == true ) && (count_me('imdblt_color', $count_me_siffer) == "nomore") ) { 
+			if ( ($imdb_admin_values['imdbtaxonomy'] == true ) && ($imdb_widget_values['imdbtaxonomycolor'] == true ) && (count_me('imdblt_color', $count_me_siffer) == "nomore") ) { 
 			// count_me_siffer() to avoid adding evey taxonomy from several movies's genre...
 				for ($i = 0; $i + 1 < count ($colors); $i++) { 
-					wp_set_object_terms($wp_query->post->ID, $colors[$i], 'imdblt_color', true); #add taxonomy terms to posts' terms
+					wp_set_object_terms($wp_query->post->ID, sanitize_text_field( $colors[$i] ), 'imdblt_color', true); #add taxonomy terms to posts' terms
 				} 	
-				wp_set_object_terms($wp_query->post->ID, $colors[$i], 'imdblt_color', true);  #add last taxonomy term to posts' terms
+				wp_set_object_terms($wp_query->post->ID, sanitize_text_field( $colors[$i] ), 'imdblt_color', true);  #add last taxonomy term to posts' terms
 				echo get_the_term_list($wp_query->post->ID, 'imdblt_color', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
 			} else {
 				for ($i = 0; $i + 1 < count ($colors); $i++) { 
-					echo $colors[$i]; echo ", "; 										
+					echo sanitize_text_field( $colors[$i] ); echo ", "; 										
 				} 
-					echo $colors[$i]; // endfor
+					echo sanitize_text_field( $colors[$i] ); // endfor
 			} // end if ?>
 				</li>
 			</ul>
@@ -456,9 +456,9 @@ while ($imovie < count($imdballmeta)) {
 				<span class="imdbincluded-subtitle"><?php esc_html_e('Also known as', 'imdb'); ?>:</span><?php 
 			
 			for ($i = 0; $i < count ($alsoknow); $i++) { 
-				echo " <strong>".$alsoknow[$i]['title']."</strong> "."(".$alsoknow[$i]['country'];
+				echo " <strong>".sanitize_text_field( $alsoknow[$i]['title'] )."</strong> "."(".sanitize_text_field( $alsoknow[$i]['country'] );
 				if (!empty($alsoknow[$i]['comment'])) 
-					echo " - <i>".$alsoknow[$i]['comment']."</i>";
+					echo " - <i>".sanitize_text_field( $alsoknow[$i]['comment'] )."</i>";
 				echo "),"; 
 			} // endfor ?></li>
 			</ul>
@@ -475,16 +475,17 @@ while ($imovie < count($imdballmeta)) {
 			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomycomposer] == true ) && (count_me('imdblt_composer', $count_me_siffer) == "nomore") ) { 
 			// count_me_siffer() to avoid adding evey taxonomy from several movies's genre...
 				for ($i = 0; $i < count ($composer); $i++) {
-					wp_set_object_terms($wp_query->post->ID, $composer[$i]["name"], 'imdblt_composer', true); #add taxonomy terms to posts' terms
+					wp_set_object_terms($wp_query->post->ID, sanitize_text_field( $composer[$i]["name"] ), 'imdblt_composer', true); #add taxonomy terms to posts' terms
 				} 
-				wp_set_object_terms($wp_query->post->ID, $composer[$i]["name"], 'imdblt_composer', true);  #add last taxonomy term to posts' terms
+				wp_set_object_terms($wp_query->post->ID, sanitize_text_field( $composer[$i]["name"] ), 'imdblt_composer', true);  #add last taxonomy term to posts' terms
 				echo get_the_term_list($wp_query->post->ID, 'imdblt_composer', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
 			} else { 
 				for ($i = 0; $i < count ($composer); $i++) {
 					if  ($imdb_widget_values[imdblinkingkill] == false ) { // if "Remove all links" option is not selected 
 						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup
-						?><a  class="link-imdb2 highslide" onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: <?php echo $imdb_admin_values['popupLarg']; ?>, objectWidth: <?php echo $imdb_admin_values[popupLarg]?>, objectHeight: <?php echo $imdb_admin_values['popupLong']?>, headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '<?php echo $imdb_admin_values['imdbplugindirectory']; ?>inc/popup-imdb_person.php?mid=<?php echo $composer[$i]["imdb"];?>' } )" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>" href="#" ><?php echo $composer[$i]["name"]; ?></a>&nbsp;<?php
-						} else { 						// classic popup
+						
+?><a  class="link-imdb2 highslide" onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: <?php echo $imdb_admin_values['popupLarg']; ?>, objectWidth: <?php echo $imdb_admin_values[popupLarg]?>, objectHeight: <?php echo $imdb_admin_values['popupLong']?>, headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '<?php echo $imdb_admin_values['imdbplugindirectory']; ?>inc/popup-imdb_person.php?mid=<?php echo $composer[$i]["imdb"];?>' } )" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>" href="#" ><?php echo $composer[$i]["name"]; ?></a>&nbsp;<?php
+						} else { // classic popup
 						?><a onclick="window.open('<?php echo $imdb_admin_values['imdbplugindirectory']; ?>inc/popup-imdb_person.php?mid=<?php echo $composer[$i]["imdb"];?>', 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=<?php echo $imdb_admin_values['popupLarg']; ?>, height=<?php echo $imdb_admin_values['popupLong']; ?>, top=5, left=5')" title="<?php esc_html_e('Link to local imdb', 'imdb'); ?>" class="link-imdb2" ><?php				echo $composer[$i]["name"]."</a>&nbsp;";
 						} 
 					} else { // if "Remove all links" option is selected 
