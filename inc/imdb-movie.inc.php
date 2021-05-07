@@ -297,7 +297,15 @@ while ($imovie < count($imdballmeta)) {
 										<!-- goofs -->
 			<ul class="imdbelementGOOFul">
 			<li class="imdbincluded-lined imdbelementGOOFli"><span class="imdbincluded-subtitle"><?php echo(sprintf(esc_attr(_n('Goof', 'Goofs', count($goofs), 'imdb')))); ?>:</span><?php
-			for ($i = 0; $i <  $imdb_widget_values['imdbwidgetgoofsnumber'] && ($i < count($goofs)); $i++) { 
+
+			// value $imdb_widget_values['imdbwidgetgoofsnumber'] is selected, but value $imdb_widget_values['imdbwidgetgoofsnumber'] is empty
+			if (empty($imdb_widget_values['imdbwidgetgoofsnumber'])){
+				$nbgoofs =  "1";
+			} else {
+				$nbgoofs =  $imdb_widget_values['imdbwidgetgoofsnumber'];
+			}
+
+			for ($i = 0; $i <  $nbgoofs && ($i < count($goofs)); $i++) { 
 				echo "<strong>".sanitize_text_field( $goofs[$i]['type'] )."</strong>&nbsp;"; 
 				echo sanitize_text_field( $goofs[$i]['content'] )."<br />\n"; 
 			} // endfor ?></li>
@@ -313,9 +321,16 @@ while ($imovie < count($imdballmeta)) {
 										<!-- comments -->
 			<ul class="imdbelementCOMMENTul">
 			<li class="imdbincluded-lined imdbelementCOMMENTli"><span class="imdbincluded-subtitle"><?php echo(sprintf(esc_attr(_n("User's comment", "User's comments", count($comments), 'imdb')))); ?>:</span><?php 
-			for ($i = 0; $i < $imdb_widget_values['imdbwidgetcommentsnumber'] && ($i < count($comments)); $i++) { 
 
-					echo  "<i>". sanitize_text_field( $comments[$i]['title'] ). "</i> by ";
+			// value $imdb_widget_values['imdbwidgetcommentsnumber'] is selected, but value $imdb_widget_values['imdbwidgetcommentsnumber'] is empty
+			if (empty($imdb_widget_values['imdbwidgetcommentsnumber'])){
+				$nbusercomments =  "1";
+			} else {
+				$nbusercomments =  $imdb_widget_values['imdbwidgetcommentsnumber'];
+			}
+
+			for ($i = 0; $i < $nbusercomments && ($i < count($comments)); $i++) { 
+				echo  "<i>". sanitize_text_field( $comments[$i]['title'] ). "</i> by ";
 
 				if  ($imdb_widget_values[imdblinkingkill] == false ) { 
 				// if "Remove all links" option is not selected 
@@ -336,7 +351,15 @@ while ($imovie < count($imdballmeta)) {
 										<!-- quotes -->
 			<ul class="imdbelementQUOTEul">
 			<li class="imdbincluded-lined imdbelementQUOTEli"><span class="imdbincluded-subtitle"><?php echo(sprintf(esc_attr(_n('Quote', 'Quotes', count($quotes), 'imdb')))); ?>:</span><?php
-			for ($i = 0; $i < $imdb_widget_values['imdbwidgetquotesnumber'] && ($i < count($quotes)); $i++) { 
+
+			// value $imdb_widget_values['imdbwidgetquotesnumber'] is selected, but value $imdb_widget_values['imdbwidgetquotesnumber'] is empty
+			if (empty($imdb_widget_values['imdbwidgetquotesnumber'])){
+				$nbquotes =  "1";
+			} else {
+				$nbquotes =  $imdb_widget_values['imdbwidgetquotesnumber'];
+			}
+
+			for ($i = 0; $i < $nbquotes && ($i < count($quotes)); $i++) { 
 				if  ($imdb_widget_values['imdblinkingkill'] == false ) { 
 				// if "Remove all links" option is not selected 
 					echo imdblt_convert_into_popup_people ($quotes[$i]) . "<br /><br />";
@@ -351,13 +374,21 @@ while ($imovie < count($imdballmeta)) {
 
 	if  ($magicnumber==$imdb_widget_values['imdbwidgetorder']['taglines'] ) {
 	$taglines = $movie->taglines ();
+
 		if (! (empty($taglines)) && ($imdb_widget_values['imdbwidgettaglines'] == true )) {?>
 										<!-- taglines -->
 			<ul class="imdbelementTAGLINEul">
 			<li class="imdbincluded-lined imdbelementTAGLINEli">
 				<span class="imdbincluded-subtitle"><?php echo(sprintf(esc_attr(_n('Tagline', 'Taglines', count($taglines), 'imdb')))); ?>:</span><?php 
+
+			// value $imdb_widget_values['imdbwidgettaglinesnumber'] is selected, but value $imdb_widget_values['imdbwidgettaglinesnumber'] is empty
+			if (empty($imdb_widget_values['imdbwidgettaglinesnumber'])){
+				$nbtaglines =  "1";
+			} else {
+				$nbtaglines =  $imdb_widget_values['imdbwidgettaglinesnumber'];
+			}
 			
-			for ($i = 0; $i < $imdb_widget_values['imdbwidgettaglinesnumber'] && ($i < count($taglines)); $i++) { 
+			for ($i = 0; $i < $nbtaglines && ($i < count($taglines)); $i++) { 
 				echo sanitize_text_field( $taglines[$i] )." &raquo; ";
 			} ?></li>
 			</ul>
@@ -371,8 +402,15 @@ while ($imovie < count($imdballmeta)) {
 			<ul class="imdbelementTRAILERul">
 			<li class="imdbincluded-lined imdbelementTRAILERli">
 				<span class="imdbincluded-subtitle"><?php echo(sprintf(esc_attr(_n('Trailer', 'Trailers', $imdb_widget_values[imdbwidgettrailernumber], 'imdb')))); ?>:</span><?php 
-							
-			for ($i = 0; $i < $imdb_widget_values['imdbwidgettrailernumber'] && ($i < count($trailers)); $i++) { 
+
+			// value $imdb_widget_values['imdbwidgettrailer'] is selected, but value $imdb_widget_values['imdbwidgettrailernumber'] is empty
+			if (empty($imdb_widget_values['imdbwidgettrailernumber'])){
+				$nbtrailers =  "1";
+			} else {
+				$nbtrailers =  $imdb_widget_values['imdbwidgettrailernumber'];
+			}
+
+			for ($i = 0; ($i < $nbtrailers  && ($i < count($trailers)) ); $i++) { 
 				if  ($imdb_widget_values['imdblinkingkill'] == false ) { // if "Remove all links" option is not selected 
 					echo "<a href='".$trailers[$i]['url']."'>".$trailers[$i]['title']."</a><br>\n";
 				} else { // if "Remove all links" option is selected 
@@ -461,11 +499,19 @@ while ($imovie < count($imdballmeta)) {
 
 	if  ($magicnumber==$imdb_widget_values['imdbwidgetorder']['soundtrack'] ) {
 	$soundtrack = $movie->soundtrack (); 
-		if (! (empty($soundtrack)) && ($imdb_widget_values['imdbwidgetsoundtrack'] == true )) {?>
+		if (!empty($soundtrack) && ($imdb_widget_values['imdbwidgetsoundtrack'] == true )) {?>
 										<!-- soundtrack -->
 			<ul class="imdbelementSOUNDTRACKul">
 			<li class="imdbincluded-lined imdbelementSOUNDTRACKli"><span class="imdbincluded-subtitle"><?php echo(sprintf(esc_attr(_n('Soundtrack', 'Soundtracks', count($soundtrack), 'imdb')))); ?>:</span><?php
-			for ($i = 0; $i < $imdb_widget_values['imdbwidgetsoundtracknumber'] && ($i < count($soundtrack)); $i++) { 
+
+			// value $imdb_widget_values['imdbwidgetsoundtracknumber'] is selected, but value $imdb_widget_values['imdbwidgetsoundtracknumber'] is empty
+			if (empty($imdb_widget_values['imdbwidgetsoundtracknumber'])){
+				$nbsoundtracks =  "1";
+			} else {
+				$nbsoundtracks =  $imdb_widget_values['imdbwidgetsoundtracknumber'];
+			}
+
+			for ($i = 0; $i < $nbsoundtracks && ($i < count($soundtrack)); $i++) { 
 				echo "<strong>".$soundtrack[$i]['soundtrack']."</strong>"; 
 				if  ($imdb_widget_values['imdblinkingkill'] == false ) { 
 				// if "Remove all links" option is not selected 
@@ -703,7 +749,15 @@ class="link-imdb2 highslide" data-imdbltmid="<?php echo $director[$i]["imdb"]; ?
 				wp_set_object_terms($wp_query->post->ID, $cast[$i]["name"], 'imdblt_actor', true);  #add last taxonomy term to posts' terms
 				echo get_the_term_list($wp_query->post->ID, 'imdblt_actor', "$role","$role[$i], ", '' ); # list all (hyperlinked) taxonomy terms
 			} else { 
-				for ($i = 0; $i < $imdb_widget_values['imdbwidgetactornumber'] && ($i < count($cast)); $i++) { ?>
+
+				// value $imdb_widget_values['imdbwidgetactornumber'] is selected, but value $imdb_widget_values['imdbwidgetactornumber'] is empty
+				if (empty($imdb_widget_values['imdbwidgetactornumber'])){
+					$nbactors =  "1";
+				} else {
+					$nbactors =  $imdb_widget_values['imdbwidgetactornumber'];
+				}
+
+				for ($i = 0; $i < $nbactors && ($i < count($cast)); $i++) { ?>
 						<div align="center" class="imdbdiv-liees">
 							<div style="float:left"><?php 
 								echo preg_replace('/\n/', "", $cast[$i]["role"]); // remove the <br> which break the layout
@@ -735,7 +789,15 @@ class="link-imdb2 highslide" data-imdbltmid="<?php echo $director[$i]["imdb"]; ?
 			<ul class="imdbelementPLOTul">
 			<li class="imdbincluded-lined imdbelementPLOTli">
 				<span class="imdbincluded-subtitle"><?php echo(sprintf(esc_attr(_n('Plot', 'Plots', count($plot), 'imdb')))); ?>:</span><?php
-				for ($i = 0; $i < $imdb_widget_values['imdbwidgetplotnumber']  && ($i < count ($plot)); $i++) { 
+
+				// value $imdb_widget_values['imdbwidgetplotnumber'] is selected, but value $imdb_widget_values['imdbwidgetplotnumber'] is empty
+				if (empty($imdb_widget_values['imdbwidgetplotnumber'])){
+					$nbplots =  "1";
+				} else {
+					$nbplots =  $imdb_widget_values['imdbwidgetplotnumber'];
+				}
+
+				for ($i = 0; $i < $nbplots  && ($i < count ($plot)); $i++) { 
 					if ($i > 0) { echo '<hr>';} // add hr to every quote but the first
 
 					if  ($imdb_widget_values['imdblinkingkill'] == false ) { 
