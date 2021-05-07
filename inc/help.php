@@ -16,7 +16,7 @@
 // constants
 global $imdb_admin_values;
 $readmefile = $imdb_admin_values['imdbplugindirectory'] . "README.txt";
-$changelogfile = $imdb_admin_values['imdbplugindirectory']."changelog.txt";
+$changelogfile = $imdb_admin_values['imdbplugindirectory']."CHANGELOG.txt";
 
 // Boxes
 add_meta_box('imdbLT_help_plb', esc_html__( 'Popup link builder', 'imdb'), 'imdbLT_help_plb_function', 'imdblt_help', 'left', 'core');

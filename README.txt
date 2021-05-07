@@ -62,15 +62,15 @@ There are three ways to use IMDb link transformer: popup link creator, widget an
 
 == Screenshots ==
 
-1. Popup displayed when an imdb link is selected. In background (on the right), one can see the widget
-2. How movie's data is displayed "inside a post"
-3. How movie's data is displayed in a "widget"
-4. Admin preferences
-5. The field and the value to fill up if you want to use the widget ("imdb-movie-widget" & "imdb-movie-widget-bymid" options)
-6. New button added for bloggers who prefer Visual writing way
-7. New button added for bloggers who prefer HTML writing way
-8. Writing code to display movie's data "inside a post"
-9. Help section contains many tips and how-to
+[Popup displayed when an imdb link is selected. In background, a widget](https://ps.w.org/imdb-link-transformer/assets/screenshot-1.jpg)
+[How movie's data is displayed "inside a post"](https://ps.w.org/imdb-link-transformer/assets/screenshot-2.jpg)
+[How movie's data is displayed in a "widget"](https://ps.w.org/imdb-link-transformer/assets/screenshot-3.jpg)
+[Admin preferences](https://ps.w.org/imdb-link-transformer/assets/screenshot-4.jpg)
+[The field and the value to fill up to use the widget](https://ps.w.org/imdb-link-transformer/assets/screenshot-5.jpg)
+[New button added for bloggers who prefer Visual writing way](https://ps.w.org/imdb-link-transformer/assets/screenshot-6.jpg)
+[New button added for bloggers who prefer HTML writing way](https://ps.w.org/imdb-link-transformer/assets/screenshot-7.jpg)
+[Writing code to display movie's data "inside a post"](https://ps.w.org/imdb-link-transformer/assets/screenshot-8.jpg)
+[Help section contains many tips and how-to](https://ps.w.org/imdb-link-transformer/assets/screenshot-9.jpg)
 
 == Frequently Asked Questions ==
 
