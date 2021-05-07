@@ -170,14 +170,14 @@ get_header();
 echo '<img class="imdbincluded-picture" src="';
 
 	if ($photo_url = $movie->photo_localurl() ) { 
-		echo esc_url( $photo_url ).'" alt="'.sanitize_title( $movie->title() ).'" '; 
+		echo esc_url( $photo_url ).'" alt="'.esc_attr( $movie->title() ).'" '; 
 	} else { 
-		echo $imdb_admin_values[imdbplugindirectory].'pics/no_pics.gif" alt="'.esc_html__('no picture', 'imdb').'" '; 
+		echo $imdb_admin_values['imdbplugindirectory'].'pics/no_pics.gif" alt="'.esc_html__('no picture', 'imdb').'" '; 
 	}
 
 	// add width only if "Display only thumbnail" is on "no"
-	if ($imdb_admin_values[imdbcoversize] == FALSE){
-		echo 'width="'.intval( $imdb_admin_values[imdbcoversizewidth] ).'px" ';
+	if ($imdb_admin_values['imdbcoversize'] == FALSE){
+		echo 'width="'.intval( $imdb_admin_values['imdbcoversizewidth'] ).'px" ';
 	}
 
 echo '/ >'; ?>

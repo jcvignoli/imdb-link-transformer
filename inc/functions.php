@@ -228,21 +228,8 @@ function imdb_popup_highslide_link ($link_parsed, $popuplarg="", $popuplong="" )
 	if (! $popuplong )
 		$popuplong=$imdb_admin_values["popupLong"];
 
-	$parsed_result =	"<span class=\"link-imdb\"><a class=\"highslide\" onclick=\"return hs.htmlExpand(this, { objectType: 'iframe', width: ".
-					$popuplarg . 
-					", objectWidth: " . 
-					$popuplarg . 
-					", objectHeight: " . 
-					$popuplong .
-					", headingEval: 'this.a.innerHTML', headingText: '" .
-					ucwords(imdb_htmlize($link_parsed[1])) .
-					"', wrapperClassName: 'titlebar', src: '" .
-					$imdb_admin_values[imdbplugindirectory] .
-					"inc/popup-search.php?film=" .
-					imdb_htmlize($link_parsed[1]) .
-					"' } );\" href=\"#\" title=\"" .esc_html__('open a new window with IMDb informations', 'imdb')."\">" .
-					$link_parsed[1] .
-					"</a></span>";
+	$parsed_result = '<a class="link-imdb2" data-imdbltfilm="' . imdb_htmlize($link_parsed[1]) . '" title="' . esc_html__("Open a new window with IMDb informations", "imdb") . '">' . $link_parsed[1] . "</a>&nbsp;";
+	// $parsed_result =	"<span class=\"link-imdb\"><a class=\"highslide\" onclick=\"return hs.htmlExpand(this, { objectType: 'iframe', width: ".	$popuplarg . ", objectWidth: " . $popuplarg . ", objectHeight: " . 			$popuplong .	", headingEval: 'this.a.innerHTML', headingText: '" .ucwords(imdb_htmlize($link_parsed[1])) ."', wrapperClassName: 'titlebar', src: '" .	$imdb_admin_values[imdbplugindirectory] .	"inc/popup-search.php?film=" .	imdb_htmlize($link_parsed[1]) ."' } );\" href=\"#\" title=\"" .esc_html__('open a new window with IMDb informations', 'imdb')."\">" .$link_parsed[1] .	"</a></span>";
 	
 	return $parsed_result;
 }

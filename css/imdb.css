@@ -106,7 +106,8 @@ width:100%;
 }
 
 .colpicture {
-height:100%;
+height:auto;
+width:20%;
 padding-right:10px;
 }
 
@@ -391,7 +392,7 @@ text-align:justify;
 
 /* ---- Others */
 
-.link-imdb, .link-imdb-movieclassic { /*link to the internal popup*/
+.link-imdb, .link-imdb2, .link-imdb-movieclassic { /*link to the internal popup*/
 	border-bottom: 1px dotted #bbb;
 	background: url(../pics/imdb.gif) no-repeat left;
 	padding-left: 16px;
@@ -404,7 +405,7 @@ text-align:justify;
 	cursor:pointer;
 }
 
-.link-imdb:hover, .link-imdb-movieclassic:hover { /*link to the internal popup*/
+.link-imdb:hover, .link-imdb2:hover, .link-imdb-movieclassic:hover { /*link to the internal popup*/
 	border-bottom: 1px dotted #bbb;
 	background: url(../pics/imdb.gif) no-repeat left;
 	padding-left: 16px;

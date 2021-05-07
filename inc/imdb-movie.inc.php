@@ -483,14 +483,12 @@ while ($imovie < count($imdballmeta)) {
 				for ($i = 0; $i < count ($composer); $i++) {
 					if  ($imdb_widget_values[imdblinkingkill] == false ) { // if "Remove all links" option is not selected 
 						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup
-							echo '<a  class="link-imdb2 highslide" data-imdbltmid="' . $composer[$i]["imdb"] . '" title="' . esc_html__("Link to local IMDb", "imdb") . '">' . $composer[$i]["name"] . "</a>&nbsp;";
+							echo '<a  class="link-imdb2 highslide" data-imdbltmid="' . sanitize_text_field( $composer[$i]["imdb"] ). '" title="' . esc_html__("Link to local IMDb", "imdb") . '">' . sanitize_text_field( $composer[$i]["name"] ) . "</a>&nbsp;";
 						} else {// classic popup
-
-							echo '<a  class="link-imdb2-peopleclassic" data-imdbltclassicmid="' . $composer[$i]["imdb"] . '" title="' . esc_html__("Link to local IMDb", "imdb") . '">' . $composer[$i]["name"] . "</a>&nbsp;";
-
+							echo '<a  class="link-imdb2-peopleclassic" data-imdbltclassicmid="' . sanitize_text_field( $composer[$i]["imdb"] ). '" title="' . esc_html__("Link to local IMDb", "imdb") . '">' . sanitize_text_field( $composer[$i]["name"] ). "</a>&nbsp;";
 						} 
 					} else { // if "Remove all links" option is selected 
-						echo $composer[$i]["name"];
+						echo sanitize_text_field( $composer[$i]["name"] );
 					}  // end if remove popup
 				} // endfor 
 			} // end if imdbtaxonomycomposer ?></li>
@@ -546,11 +544,11 @@ while ($imovie < count($imdballmeta)) {
 			<li class="imdbincluded-lined imdbelementPRODCOMPANYli"><span class="imdbincluded-subtitle"><?php echo(sprintf(esc_attr(_n('Production company', 'Production companies', count($prodCompany), 'imdb')))); ?>:</span><?php
 			for ($i = 0; $i < count ($prodCompany); $i++) { 
 					if  ($imdb_widget_values['imdblinkingkill'] == false ) { // if "Remove all links" option is not selected 
-						echo "<a href='".$prodCompany[$i]['url']."' name='".$prodCompany[$i][name]."'>";
-						echo $prodCompany[$i]['name'];
+						echo "<a href='".esc_url( $prodCompany[$i]['url'])."' title='".esc_attr($prodCompany[$i]['name'])."'>";
+						echo sanitize_text_field( $prodCompany[$i]['name'] );
 						echo "</a><br />";
 					} else { // if "Remove all links" option is selected 
-						echo $prodCompany[$i]['name']."<br />";
+						echo sanitize_text_field( $prodCompany[$i]['name'] )."<br />";
 					}  // end if remove popup
 			}  // endfor ?></li>
 			</ul>
@@ -565,8 +563,8 @@ while ($imovie < count($imdballmeta)) {
 			<ul class="imdbelementOFFICIALWEBSITEul">
 			<li class="imdbincluded-lined imdbelementOFFICIALWEBSITEli"><span class="imdbincluded-subtitle"><?php echo(sprintf(esc_attr(_n('Official website', 'Official websites', count($officialSites), 'imdb')))); ?>:</span><?php
 			for ($i = 0; $i < count ($officialSites); $i++) { 
-				echo "<a href='".$officialSites[$i]['url']."' name='".$officialSites[$i]['name']."'>";
-				echo $officialSites[$i]['name'];
+				echo "<a href='".esc_url($officialSites[$i]['url'])."' title='".esc_attr( $officialSites[$i]['name'] )."'>";
+				echo sanitize_text_field( $officialSites[$i]['name'] );
 				echo "</a> ";
 			}  // endfor ?></li>
 			</ul>
@@ -585,9 +583,9 @@ while ($imovie < count($imdballmeta)) {
 			if ( ($imdb_admin_values['imdbtaxonomy'] == true ) && ($imdb_widget_values['imdbtaxonomydirector'] == true ) && (count_me('imdblt_director', $count_me_siffer) == "nomore") ) { 
 			// count_me_siffer() to avoid adding every taxonomy from several movies's genre...
 				for ($i = 0; $i < count ($director); $i++) {
-					wp_set_object_terms($wp_query->post->ID, $director[$i]["name"], 'imdblt_director', true); #add taxonomy terms to posts' terms
+					wp_set_object_terms($wp_query->post->ID, sanitize_text_field( $director[$i]["name"] ), 'imdblt_director', true); #add taxonomy terms to posts' terms
 				} 
-				wp_set_object_terms($wp_query->post->ID, $director[$i]["name"], 'imdblt_director', true);  #add last taxonomy term to posts' terms
+				wp_set_object_terms($wp_query->post->ID, sanitize_text_field( $director[$i]["name"] ), 'imdblt_director', true);  #add last taxonomy term to posts' terms
 				echo get_the_term_list($wp_query->post->ID, 'imdblt_director', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
 			} else { 
 				for ($i = 0; $i < count ($director); $i++) {
@@ -602,7 +600,7 @@ class="link-imdb2 highslide" data-imdbltmid="<?php echo $director[$i]["imdb"]; ?
 						} 
 					} else { // if "Remove all links" option is selected 
 						if ( $i > 0 ) echo ', ';
-						echo $director[$i]["name"];
+						echo sanitize_text_field( $director[$i]["name"] );
 					}  // end if remove popup
 				} // endfor 
 				
