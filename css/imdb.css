@@ -391,7 +391,7 @@ text-align:justify;
 
 /* ---- Others */
 
-.link-imdb{ /*link to the internal popup*/
+.link-imdb, .link-imdb-movieclassic { /*link to the internal popup*/
 	border-bottom: 1px dotted #bbb;
 	background: url(../pics/imdb.gif) no-repeat left;
 	padding-left: 16px;
@@ -399,24 +399,18 @@ text-align:justify;
 	cursor:pointer;
 }
 
-.link-imdb2 { /*link to the internal popup, from imdb-movie.inc.php*/
+.link-imdb2, .link-imdb2-peopleclassic, .link-imdb-movieclassic  { /*link to the internal popup, from imdb-movie.inc.php*/
 	text-decoration: none;
 	cursor:pointer;
 }
 
-.link-imdb:hover { /*link to the internal popup*/
+.link-imdb:hover, .link-imdb-movieclassic:hover { /*link to the internal popup*/
 	border-bottom: 1px dotted #bbb;
 	background: url(../pics/imdb.gif) no-repeat left;
 	padding-left: 16px;
 	text-decoration: inherit;
 }
 
-.link-imdb:hover { /*link to the internal popup*/
-	border-bottom: 1px dotted #bbb;
-	background: url(../pics/imdb.gif) no-repeat left;
-	padding-left: 16px;
-	text-decoration: inherit;
-}
 
 .noresult { /*text displayed when no imdbLT results found*/
 	color: red;

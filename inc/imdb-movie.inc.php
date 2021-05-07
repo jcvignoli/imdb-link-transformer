@@ -362,7 +362,7 @@ while ($imovie < count($imdballmeta)) {
 			for ($i = 0; $i < $nbquotes && ($i < count($quotes)); $i++) { 
 				if  ($imdb_widget_values['imdblinkingkill'] == false ) { 
 				// if "Remove all links" option is not selected 
-					echo imdblt_convert_into_popup_people ($quotes[$i]) . "<br /><br />";
+					echo imdblt_convert_txtwithhtml_into_popup_people ($quotes[$i]) . "<br /><br />";
 				} else {
 					echo " ". imdblt_remove_link ($quotes[$i]) . "<br /><br />";
 				} 
@@ -483,10 +483,11 @@ while ($imovie < count($imdballmeta)) {
 				for ($i = 0; $i < count ($composer); $i++) {
 					if  ($imdb_widget_values[imdblinkingkill] == false ) { // if "Remove all links" option is not selected 
 						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup
-						
-?><a  class="link-imdb2 highslide" onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: <?php echo $imdb_admin_values['popupLarg']; ?>, objectWidth: <?php echo $imdb_admin_values[popupLarg]?>, objectHeight: <?php echo $imdb_admin_values['popupLong']?>, headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '<?php echo $imdb_admin_values['imdbplugindirectory']; ?>inc/popup-imdb_person.php?mid=<?php echo $composer[$i]["imdb"];?>' } )" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>" href="#" ><?php echo $composer[$i]["name"]; ?></a>&nbsp;<?php
-						} else { // classic popup
-						?><a onclick="window.open('<?php echo $imdb_admin_values['imdbplugindirectory']; ?>inc/popup-imdb_person.php?mid=<?php echo $composer[$i]["imdb"];?>', 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=<?php echo $imdb_admin_values['popupLarg']; ?>, height=<?php echo $imdb_admin_values['popupLong']; ?>, top=5, left=5')" title="<?php esc_html_e('Link to local imdb', 'imdb'); ?>" class="link-imdb2" ><?php				echo $composer[$i]["name"]."</a>&nbsp;";
+							echo '<a  class="link-imdb2 highslide" data-imdbltmid="' . $composer[$i]["imdb"] . '" title="' . esc_html__("Link to local IMDb", "imdb") . '">' . $composer[$i]["name"] . "</a>&nbsp;";
+						} else {// classic popup
+
+							echo '<a  class="link-imdb2-peopleclassic" data-imdbltclassicmid="' . $composer[$i]["imdb"] . '" title="' . esc_html__("Link to local IMDb", "imdb") . '">' . $composer[$i]["name"] . "</a>&nbsp;";
+
 						} 
 					} else { // if "Remove all links" option is selected 
 						echo $composer[$i]["name"];
@@ -517,11 +518,11 @@ while ($imovie < count($imdballmeta)) {
 				if  ($imdb_widget_values['imdblinkingkill'] == false ) { 
 				// if "Remove all links" option is not selected 
 					if (!empty($soundtrack[$i]['credits'][0]) )
-						echo " - <i>". imdblt_convert_into_popup_people ($soundtrack[$i]['credits'][0]['credit_to'])."</i> ";
-						echo " (". imdblt_convert_into_popup_people ($soundtrack[$i]['credits'][0]['desc']).") ";
+						echo " - <i>". imdblt_convert_txtwithhtml_into_popup_people ($soundtrack[$i]['credits'][0]['credit_to'])."</i> ";
+						echo " (". imdblt_convert_txtwithhtml_into_popup_people ($soundtrack[$i]['credits'][0]['desc']).") ";
 					if (!empty($soundtrack[$i]['credits'][1]) )
-						echo " - <i>". imdblt_convert_into_popup_people ($soundtrack[$i]['credits'][1]['credit_to'])."</i> ";
-						echo " (". imdblt_convert_into_popup_people ($soundtrack[$i]['credits'][1]['desc']).") ";
+						echo " - <i>". imdblt_convert_txtwithhtml_into_popup_people ($soundtrack[$i]['credits'][1]['credit_to'])."</i> ";
+						echo " (". imdblt_convert_txtwithhtml_into_popup_people ($soundtrack[$i]['credits'][1]['desc']).") ";
 				} else {
 					if (!empty($soundtrack[$i][credits][0]) )
 						echo " - <i>". imdblt_remove_link ($soundtrack[$i]['credits'][0]['credit_to'])."</i> ";

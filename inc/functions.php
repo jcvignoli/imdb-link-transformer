@@ -61,7 +61,7 @@ function imdblt_remove_link ($toremove) {
  * @param string $convert Link to convert into popup highslide link
  */
 
-function imdblt_convert_into_popup_people ($convert) {
+function imdblt_convert_txtwithhtml_into_popup_people ($convert) {
 	global $imdb_admin_values;
 
 	// $result = "<a class=\"link-imdb2 highslide\" onclick=\"return hs.htmlExpand(this, { objectType: 'iframe', width: " . $imdb_admin_values['popupLarg']. ", objectWidth: ". $imdb_admin_values['popupLarg'].", objectHeight: ". $imdb_admin_values['popupLong']. ", headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '" . $imdb_admin_values['imdbplugindirectory'] . "inc/popup-imdb_person.php?mid=" . "\${6}" . "' } )\" title=\"". esc_html__('open a new window with IMDb informations', 'imdb'). '" href="#" >';
@@ -256,30 +256,15 @@ function imdb_popup_highslide_link ($link_parsed, $popuplarg="", $popuplong="" )
 
 function imdb_popup_link ($link_parsed, $popuplarg="", $popuplong="" ) {
 	global $imdb_admin_values;
-
-	if (! is_int($popuplarg) )
-		exit();
-
-	if (! is_int($popuplong) )
-		exit();
-		
+	
 	if (! $popuplarg )
 		$popuplarg=$imdb_admin_values["popupLarg"];
 
 	if (! $popuplong )
 		$popuplong=$imdb_admin_values["popupLong"];
 
-	$parsed_result =	"<a class=\"link-imdb\" onclick=\"window.open('" .
-					$imdb_admin_values[imdbplugindirectory] .
-					"inc/popup-search.php?film=" .
-					imdb_htmlize($link_parsed[1]) .
-					"', 'popup', 'resizable=yes, toolbar=0, scrollbars=yes, status=no, location=no, width=" .
-					$popuplarg . 
-					", height=" .
-					$popuplong .
-					", top=5, left=5')\" title=\"".esc_html__('open a new window with IMDb informations', 'imdb')."\">" .
-					$link_parsed[1] .
-					"</a>"; 
+	$parsed_result = '<a  class="link-imdb-movieclassic" data-imdbltclassicfilm="' . imdb_htmlize($link_parsed[1]) . '" title="' . esc_html__("Open a new window with IMDb informations", "imdb") . '">' . $link_parsed[1] . "</a>&nbsp;";
+	//$parsed_result = "<a class=\"link-imdb\" onclick=\"window.open('" .					$imdb_admin_values[imdbplugindirectory] .	"inc/popup-search.php?film=" .imdb_htmlize($link_parsed[1]) ."', 'popup', 'resizable=yes, toolbar=0, scrollbars=yes, status=no, location=no, width=" .	$popuplarg . ", height=" .	$popuplong .	", top=5, left=5')\" title=\"".esc_html__('open a new window with IMDb informations', 'imdb')."\">" .		$link_parsed[1] ."</a>"; 
 	
 	return $parsed_result;
 }

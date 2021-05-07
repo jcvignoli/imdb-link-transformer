@@ -38,6 +38,7 @@ jQuery('a#highslide-pic').click(function(){
 				var url_imdbperso = csp_inline_scripts_vars.imdb_path + 'inc/popup-imdb_person.php?mid=' + misc_term;
 				// highslide popup
 				return hs.htmlExpand(this, { 
+					allowWidthReduction: true,
 					objectType: 'iframe', 
 					width: tmppopupLarg, 
 					objectWidth: tmppopupLarg, 
@@ -51,7 +52,47 @@ jQuery('a#highslide-pic').click(function(){
 	});
 })(jQuery);
 
-/* workin in progress */
+/* classic popup, movie */
+(function ($) {
+	$(document).on('click', 'a[data-imdbltclassicfilm]',function(e){
+		Array.from(document.getElementsByClassName('link-imdb-movieclassic')).forEach((link) => {
+			link.addEventListener('click', (e)=>{
+				// vars from imdb-link-transformer.php
+				var tmppopupLarg = csp_inline_scripts_vars.popupLarg;
+				var tmppopupLong = csp_inline_scripts_vars.popupLong;
+
+				// var mid from the class data-classicimdbltmid to build the link
+				var misc_term = e.target.getAttribute('data-imdbltclassicfilm');
+				var url_imdbperso = csp_inline_scripts_vars.imdb_path + 'inc/popup-search.php?film=' + misc_term;
+				// classic popup
+				window.open( url_imdbperso, 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width='+tmppopupLong+', height='+tmppopupLarg+', top=5, left=5')
+
+	  		});
+		});
+	});
+})(jQuery);
+
+/* classic popup, people */
+(function ($) {
+	$(document).on('click', 'a[data-imdbltclassicmid]',function(e){
+		Array.from(document.getElementsByClassName('link-imdb2-peopleclassic')).forEach((link) => {
+			link.addEventListener('click', (e)=>{
+				// vars from imdb-link-transformer.php
+				var tmppopupLarg = csp_inline_scripts_vars.popupLarg;
+				var tmppopupLong = csp_inline_scripts_vars.popupLong;
+
+				// var mid from the class data-classicimdbltmid to build the link
+				var misc_term = e.target.getAttribute('data-imdbltclassicmid');
+				var url_imdbperso = csp_inline_scripts_vars.imdb_path + 'inc/popup-imdb_person.php?mid=' + misc_term;
+				// classic popup
+				window.open( url_imdbperso, 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width='+tmppopupLong+', height='+tmppopupLarg+', top=5, left=5')
+
+	  		});
+		});
+	});
+})(jQuery);
+
+
 jQuery('a#link-imdb2').click(function(){
 	window.open('url_imdbperso', 
 			'popup', 
