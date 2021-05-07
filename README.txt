@@ -62,7 +62,7 @@ There are three ways to use IMDb link transformer: popup link creator, widget an
 
 == Screenshots ==
 
-[Popup displayed when an imdb link is selected. In background, a widget](https://ps.w.org/imdb-link-transformer/assets/screenshot-1.jpg)
+1. Popup displayed when an imdb link is selected. In background, a widget [Popup and widget](https://ps.w.org/imdb-link-transformer/assets/screenshot-1.jpg)
 [How movie's data is displayed "inside a post"](https://ps.w.org/imdb-link-transformer/assets/screenshot-2.jpg)
 [How movie's data is displayed in a "widget"](https://ps.w.org/imdb-link-transformer/assets/screenshot-3.jpg)
 [Admin preferences](https://ps.w.org/imdb-link-transformer/assets/screenshot-4.jpg)
