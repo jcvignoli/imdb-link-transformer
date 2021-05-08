@@ -18,6 +18,11 @@ global $imdb_admin_values;
 // included files
 require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
 
+// refresh wordpress rewrite rules upon options save/reset -> needed for taxonomy pages created in imdb-movie.inc.php
+if ((isset($_GET['update_imdbSettings'])) || (isset($_GET['reset_imdbSettings'])) )
+  flush_rewrite_rules();
+
+
 ?>
 
 <div id="tabswrap">
@@ -125,7 +130,7 @@ require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
 				<div class="explain"><?php esc_html_e( 'Popup height, in pixels', 'imdb'); ?> <br /><?php esc_html_e( 'Default:','imdb');?> "350"</div>
 			</td>
 			<td class="td-aligntop">
-				<?php if(is_dir(IMDBLTABSPATH.'js/highslide')) { // If the folder "highslide" exists (manually added) ?>
+				<?php if(is_dir( IMDBLTABSPATH . 'js/highslide')) { // If the folder "highslide" exists (manually added) ?>
 				<div class="explain"><?php esc_html_e( 'Highslide popup is a more stylished popup, and allows to open movie details straightly in page instead of a new popup window.', 'imdb'); ?> <br /><?php esc_html_e( 'Default:','imdb');?> <?php esc_html_e( 'Yes', 'imdb'); ?></div>
 				<?php } else { // If no folder "highslide" exists, explanations
 				echo '<div class="explain">';
