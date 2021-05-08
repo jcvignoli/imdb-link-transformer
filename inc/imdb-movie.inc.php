@@ -88,18 +88,18 @@ while ($imovie < count($imdballmeta)) {
 
 	if  (($imdb_widget_values['imdbwidgettitle'] == true ) && ($magicnumber == $imdb_widget_values['imdbwidgetorder'][title] )) { 
 	$year=intval($movie->year () );
-	$title=sanitize_text_field( $movie->title() );?>
+	$title_sanitized=sanitize_text_field( $movie->title() );?>
 										<!-- title -->
 		<div class="imdbelementTITLE"><?php
 			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomytitle] == true ) && (count_me('imdblt_title', $count_me_siffer) == "nomore") ) { 
 			// count_me_siffer() to avoid adding evey taxonomy from several movies's titles...
-				for ($i = 0; $i + 1 < count ($title); $i++) { 
-					wp_set_object_terms($wp_query->post->ID, $title, 'imdblt_title', true); #add taxonomy terms to posts' terms
-				} 	wp_set_object_terms($wp_query->post->ID, $title, 'imdblt_title', true);  #add last taxonomy term to posts' terms
+				for ($i = 0; $i + 1 < count ($title_sanitized); $i++) { 
+					wp_set_object_terms($wp_query->post->ID, $title_sanitized, 'imdblt_title', true); #add taxonomy terms to posts' terms
+				} 	wp_set_object_terms($wp_query->post->ID, $title_sanitized, 'imdblt_title', true);  #add last taxonomy term to posts' terms
 
 					echo get_the_term_list($wp_query->post->ID, 'imdblt_title', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
 			} else {
-					echo $title;
+					echo $title_sanitized;
 			}
 
 			if (!empty($year) && ($imdb_widget_values['imdbwidgetyear'] == true ) ) { 
@@ -134,7 +134,7 @@ while ($imovie < count($imdballmeta)) {
 			// check if a picture exists
 			if ($photo_url_sanitized != FALSE){
 				// a picture exists, therefore show it!
-				echo $photo_url_sanitized .'" alt="'.sanitize_text_field( $movie->title() ).'" '; 
+				echo $photo_url_sanitized .'" alt="'.esc_attr( $movie->title() ).'" '; 
 			} else { 
 				// no picture found, display the replacement pic
 				echo esc_url( $imdb_admin_values['imdbplugindirectory'].'pics/no_pics.gif"' ).' alt="'.esc_html__('no picture', 'imdb').'" '; 
@@ -412,9 +412,9 @@ while ($imovie < count($imdballmeta)) {
 
 			for ($i = 0; ($i < $nbtrailers  && ($i < count($trailers)) ); $i++) { 
 				if  ($imdb_widget_values['imdblinkingkill'] == false ) { // if "Remove all links" option is not selected 
-					echo "<a href='".esc_url( $trailers[$i]['url'] )."' title='".esc_html__('Watch on IMBb website the trailer for ', 'imdb') . esc_attr( $trailers[$i]['title'] ) ."'>". sanitize_text_field( $trailers[$i]['title'] ) . "</a><br>\n";
+					echo "<a href='".esc_url( $trailers[$i]['url'] )."' title='".esc_html__('Watch on IMBb website the trailer for ', 'imdb') . esc_attr( $trailers[$i]['title'] ) ."'>". sanitize_text_field( $trailers[$i]['title'] ) . "</a><br />\n";
 				} else { // if "Remove all links" option is selected 
-					echo sanitize_text_field( $trailers[$i]['title'] )."<br>\n";
+					echo sanitize_text_field( $trailers[$i]['title'] ).", ",esc_url( $trailers[$i]['url'] )."<br />\n";
 				}
 			} ?></li>
 			</ul>
@@ -443,8 +443,8 @@ while ($imovie < count($imdballmeta)) {
 			} // end if ?>
 				</li>
 			</ul>
-	<?php 	}
-	}; 
+	<?php 	} // end if 
+	}; // end if 
 	flush ();
 
 	if  ($magicnumber==$imdb_widget_values['imdbwidgetorder']['alsoknow'] ) {
@@ -483,9 +483,9 @@ while ($imovie < count($imdballmeta)) {
 				for ($i = 0; $i < count ($composer); $i++) {
 					if  ($imdb_widget_values[imdblinkingkill] == false ) { // if "Remove all links" option is not selected 
 						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup
-							echo '<a  class="link-imdb2 highslide" data-imdbltmid="' . sanitize_text_field( $composer[$i]["imdb"] ). '" title="' . esc_html__("Link to local IMDb", "imdb") . '">' . sanitize_text_field( $composer[$i]["name"] ) . "</a>&nbsp;";
+							echo '<a  class="link-imdblt-highslidepeople highslide" data-highslidepeople="' . sanitize_text_field( $composer[$i]["imdb"] ). '" title="' . esc_html__("Link to local IMDb", "imdb") . '">' . sanitize_text_field( $composer[$i]["name"] ) . "</a>&nbsp;";
 						} else {// classic popup
-							echo '<a  class="link-imdb2-peopleclassic" data-imdbltclassicmid="' . sanitize_text_field( $composer[$i]["imdb"] ). '" title="' . esc_html__("Link to local IMDb", "imdb") . '">' . sanitize_text_field( $composer[$i]["name"] ). "</a>&nbsp;";
+							echo '<a  class="link-imdblt-highslidepeople" data-classicpeople="' . sanitize_text_field( $composer[$i]["imdb"] ). '" title="' . esc_html__("Link to local IMDb", "imdb") . '">' . sanitize_text_field( $composer[$i]["name"] ). "</a>&nbsp;";
 						} 
 					} else { // if "Remove all links" option is selected 
 						echo sanitize_text_field( $composer[$i]["name"] );
@@ -591,12 +591,12 @@ while ($imovie < count($imdballmeta)) {
 				for ($i = 0; $i < count ($director); $i++) {
 					if  ($imdb_widget_values['imdblinkingkill'] == false ) { // if "Remove all links" option is not selected 
 						if ( $i > 0 ) echo ', ';
-						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup
-						?><a  
-class="link-imdb2 highslide" data-imdbltmid="<?php echo $director[$i]["imdb"]; ?>" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>"><?php echo $director[$i]["name"]; ?></a><?php
-						} else { 						// classic popup
-						?><a onclick="window.open('<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $director[$i]["imdb"];?>', 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=<?php echo $imdb_admin_values[popupLarg]; ?>, height=<?php echo $imdb_admin_values[popupLong]; ?>, top=5, left=5')" title="<?php esc_html_e('Link to local imdb', 'imdb'); ?>" class="link-imdb2" ><?php				
-						echo $director[$i]["name"]."</a>";
+						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup ?>
+							<a class="link-imdblt-highslidepeople highslide" data-highslidepeople="<?php echo $director[$i]["imdb"]; ?>" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>"><?php echo $director[$i]["name"]; ?></a>
+<?php						} else { 
+							// classic popup ?>
+							<a class="link-imdblt-classicpeople highslide" data-classicpeople="<?php echo $director[$i]["imdb"]; ?>" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>"><?php echo $director[$i]["name"]; ?></a><?php
+							echo sanitize_text_field( $director[$i]["name"] )."</a>";
 						} 
 					} else { // if "Remove all links" option is selected 
 						if ( $i > 0 ) echo ', ';
@@ -620,26 +620,26 @@ class="link-imdb2 highslide" data-imdbltmid="<?php echo $director[$i]["imdb"]; ?
 			<li class="imdbincluded-lined imdbelementCREATORli">
 				<span class="imdbincluded-subtitle"><?php echo(sprintf(esc_attr(_n('Creator', 'Creators', count($creator), 'imdb')))); ?>:</span>&nbsp;<?php
 
-			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomycreator] == true ) && (count_me('imdblt_creator', $count_me_siffer) == "nomore") ) { 
+			if ( ($imdb_admin_values['imdbtaxonomy'] == true ) && ($imdb_widget_values[imdbtaxonomycreator] == true ) && (count_me('imdblt_creator', $count_me_siffer) == "nomore") ) { 
 			// count_me_siffer() to avoid adding every taxonomy from several movies's genre...
 				for ($i = 0; $i < count ($creator); $i++) {
-					wp_set_object_terms($wp_query->post->ID, $creator[$i]["name"], 'imdblt_creator', true); #add taxonomy terms to posts' terms
+					wp_set_object_terms($wp_query->post->ID, sanitize_text_field( $creator[$i]["name"] ), 'imdblt_creator', true); #add taxonomy terms to posts' terms
 				} 
-				wp_set_object_terms($wp_query->post->ID, $creator[$i]["name"], 'imdblt_creator', true);  #add last taxonomy term to posts' terms
+				wp_set_object_terms($wp_query->post->ID, sanitize_text_field( $creator[$i]["name"] ), 'imdblt_creator', true);  #add last taxonomy term to posts' terms
 				echo get_the_term_list($wp_query->post->ID, 'imdblt_creator', '', ', ', '' ); # list all (hyperlinked) taxonomy terms
 			} else { 
 				for ($i = 0; $i < count ($creator); $i++) {
 					if  ($imdb_widget_values['imdblinkingkill'] == false ) { // if "Remove all links" option is not selected 
 						if ( $i > 0 ) echo ', ';
-						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup
-						?><a  class="link-imdb2 highslide" onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: <?php echo $imdb_admin_values['popupLarg']?>, objectWidth: <?php echo $imdb_admin_values[popupLarg]?>, objectHeight: <?php echo $imdb_admin_values['popupLong']?>, headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $creator[$i]["imdb"];?>' } )" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>" href="#"><?php echo $creator[$i]["name"]; ?></a><?php
-						} else { 						// classic popup
-						?><a onclick="window.open('<?php echo $imdb_admin_values['imdbplugindirectory']; ?>inc/popup-imdb_person.php?mid=<?php echo $creator[$i]["imdb"];?>', 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=<?php echo $imdb_admin_values[popupLarg]; ?>, height=<?php echo $imdb_admin_values['popupLong']; ?>, top=5, left=5')" title="<?php esc_html_e('Link to local imdb', 'imdb'); ?>" class="link-imdb2" ><?php echo $creator[$i]["name"]; ?></a><?php 			
-						echo $creator[$i]["name"]."</a>";
+						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup ?>
+							<a class="link-imdblt-highslidepeople highslide" data-highslidepeople="<?php echo $creator[$i]["imdb"]; ?>" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>"><?php echo $creator[$i]["name"]; ?></a>
+<?php						} else { // classic popup ?>
+							<a class="link-imdblt-classicpeople highslide" data-classicpeople="<?php echo $creator[$i]["imdb"]; ?>" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>"><?php echo $creator[$i]["name"]; ?></a><?php		
+						echo sanitize_text_field( $creator[$i]["name"] )."</a>";
 						} 
 					} else { // if "Remove all links" option is selected 
 						if ( $i > 0 ) echo ', ';
-						echo $creator[$i]["name"];
+						echo sanitize_text_field( $creator[$i]["name"] );
 					}  // end if remove popup
 				} // endfor 
 				
@@ -658,29 +658,29 @@ class="link-imdb2 highslide" data-imdbltmid="<?php echo $director[$i]["imdb"]; ?
 			<ul class="imdbelementPRODUCERul">
 			<li class="imdbincluded-lined imdbelementPRODUCERli">
 				<span class="imdbincluded-subtitle"><?php echo(sprintf(esc_attr(_n('Producer', 'Producers', count($producer), 'imdb')))); ?>:</span><?php
-			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomyproducer] == true ) && (count_me('imdblt_producer', $count_me_siffer) == "nomore") ) { 
+			if ( ($imdb_admin_values['imdbtaxonomy'] == true ) && ($imdb_widget_values[imdbtaxonomyproducer] == true ) && (count_me('imdblt_producer', $count_me_siffer) == "nomore") ) { 
 			// count_me_siffer() to avoid adding every taxonomy from several movies's genre...
 				for ($i = 0; $i < count ($producer); $i++) {
-					wp_set_object_terms($wp_query->post->ID, $producer[$i]["name"], 'imdblt_producer', true); #add taxonomy terms to posts' terms
+					wp_set_object_terms($wp_query->post->ID, sanitize_text_field( $producer[$i]["name"] ), 'imdblt_producer', true); #add taxonomy terms to posts' terms
 				} 
-				wp_set_object_terms($wp_query->post->ID, $producer[$i]["name"], 'imdblt_producer', true);  #add last taxonomy term to posts' terms
+				wp_set_object_terms($wp_query->post->ID, sanitize_text_field( $producer[$i]["name"] ), 'imdblt_producer', true);  #add last taxonomy term to posts' terms
 				echo get_the_term_list($wp_query->post->ID, 'imdblt_producer', "", ", ", "" ); # list all (hyperlinked) taxonomy terms
 			} else { 
 				for ($i = 0; $i < count ($producer); $i++) { ?>
 						<div align="center" class="imdbdiv-liees">
 							<div style="float:left">
-<?php					if  ($imdb_widget_values[imdblinkingkill] == false ) { // if "Remove all links" option is not selected 
-						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup
-						?><a  class="link-imdb2 highslide" onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: <?php echo $imdb_admin_values[popupLarg]?>, objectWidth: <?php echo $imdb_admin_values[popupLarg]?>, objectHeight: <?php echo $imdb_admin_values[popupLong]?>, headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $producer[$i]["imdb"];?>' } )" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>" href="#"><?php echo $producer[$i]["name"]; ?></a><?php
-						} else { 						// classic popup
-						?><a onclick="window.open('<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $producer[$i]["imdb"];?>', 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=<?php echo $imdb_admin_values[popupLarg]; ?>, height=<?php echo $imdb_admin_values[popupLong]; ?>, top=5, left=5')" title="<?php esc_html_e('Link to local imdb', 'imdb'); ?>" class="link-imdb2" ><?php echo $producer[$i]["name"]; ?></a><?php 			
+<?php					if  ($imdb_widget_values['imdblinkingkill'] == false ) { // if "Remove all links" option is not selected 
+						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup ?>
+							<a class="link-imdblt-highslidepeople highslide" data-highslidepeople="<?php echo esc_attr( $producer[$i]["imdb"] ); ?>" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>"><?php echo sanitize_text_field( $producer[$i]["name"] ); ?></a>
+<?php						} else {  // classic popup ?>
+							<a class="link-imdblt-classicpeople highslide" data-classicpeople="<?php echo esc_attr( $producer[$i]["imdb"] ); ?>" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>"><?php echo sanitize_text_field( $producer[$i]["name"] ); ?></a><?php		
 						} 
 					} else { // if "Remove all links" option is selected 
-						echo $producer[$i]["name"];
+						echo sanitize_text_field( $producer[$i]["name"] );
 					}  // end if remove popup ?>
 							</div>
 							<div align="right">
-								<?php if ($producer[$i]["role"] ) echo  $producer[$i]["role"]; echo "&nbsp;"; ?>
+								<?php if ($producer[$i]["role"] ) echo sanitize_text_field( $producer[$i]["role"] ); echo "&nbsp;"; ?>
 							</div>
 						</div><?php
 				} // endfor 
@@ -692,36 +692,36 @@ class="link-imdb2 highslide" data-imdbltmid="<?php echo $director[$i]["imdb"]; ?
 	}; flush ();
 
 
-	if  ($magicnumber==$imdb_widget_values[imdbwidgetorder][writer] ) {
+	if  ($magicnumber==$imdb_widget_values['imdbwidgetorder']['writer'] ) {
 	$writer = $movie->writing(); 
-		if (!empty($writer) && ($imdb_widget_values[imdbwidgetwriter] == true )) {?>
+		if (!empty($writer) && ($imdb_widget_values['imdbwidgetwriter'] == true )) {?>
 										<!-- writers -->
 		<ul class="imdbelementWRITERul">
 		<li class="imdbincluded-lined imdbelementWRITERli">
 			<span class="imdbincluded-subtitle"><?php echo(sprintf(esc_attr(_n('Writer', 'Writers', count($write), 'imdb')))); ?>:</span><?php
-			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomywriter] == true ) && (count_me('imdblt_writer', $count_me_siffer) == "nomore") ) { 
+			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values['imdbtaxonomywriter'] == true ) && (count_me('imdblt_writer', $count_me_siffer) == "nomore") ) { 
 			// count_me_siffer() to avoid adding every taxonomy from several movies's genre...
 				for ($i = 0; $i < count ($writer); $i++) {
-					wp_set_object_terms($wp_query->post->ID, $writer[$i]["name"], 'imdblt_writer', true); #add taxonomy terms to posts' terms
+					wp_set_object_terms($wp_query->post->ID, sanitize_text_field( $writer[$i]["name"] ), 'imdblt_writer', true); #add taxonomy terms to posts' terms
 				} 
-				wp_set_object_terms($wp_query->post->ID, $writer[$i]["name"], 'imdblt_writer', true);  #add last taxonomy term to posts' terms
+				wp_set_object_terms($wp_query->post->ID, sanitize_text_field( $writer[$i]["name"] ), 'imdblt_writer', true);  #add last taxonomy term to posts' terms
 				echo get_the_term_list($wp_query->post->ID, 'imdblt_writer', "", ", ", "" ); # list all (hyperlinked) taxonomy terms
 			} else { 
 				for ($i = 0; $i < count ($writer); $i++) { ?>
 						<div align="center" class="imdbdiv-liees">
 							<div style="float:left">
 <?php					if  ($imdb_widget_values['imdblinkingkill'] == false ) { // if "Remove all links" option is not selected 
-						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup
-						?><a  class="link-imdb2 highslide" onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: <?php echo $imdb_admin_values['popupLarg']?>, objectWidth: <?php echo $imdb_admin_values['popupLarg']?>, objectHeight: <?php echo $imdb_admin_values['popupLong']?>, headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '<?php echo $imdb_admin_values['imdbplugindirectory']; ?>inc/popup-imdb_person.php?mid=<?php echo $writer[$i]["imdb"];?>' } )" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>" href="#"><?php echo $writer[$i]["name"]; ?></a><?php
-						} else { 						// classic popup
-						?><a onclick="window.open('<?php echo $imdb_admin_values['imdbplugindirectory']; ?>inc/popup-imdb_person.php?mid=<?php echo $writer[$i]["imdb"];?>', 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=<?php echo $imdb_admin_values['popupLarg']; ?>, height=<?php echo $imdb_admin_values['popupLong']; ?>, top=5, left=5')" title="<?php esc_html_e('Link to local imdb', 'imdb'); ?>" class="link-imdb2" ><?php echo $writer[$i]["name"]; ?></a><?php 			
+						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup ?>
+							<a class="link-imdblt-highslidepeople highslide" data-highslidepeople="<?php echo esc_attr( $writer[$i]["imdb"] ); ?>" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>"><?php echo sanitize_text_field( $writer[$i]["name"] ); ?></a>
+<?php						} else {  // classic popup ?>
+							<a class="link-imdblt-classicpeople highslide" data-classicpeople="<?php echo esc_attr( $writer[$i]["imdb"] ); ?>" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>"><?php echo sanitize_text_field( $writer[$i]["name"] ); ?></a><?php		
 						} 
 					} else { // if "Remove all links" option is selected 
-						echo $writer[$i]["name"];
+						echo sanitize_text_field( $writer[$i]["name"] );
 					}  // end if remove popup ?>
 							</div>
 							<div align="right">
-								<?php if ($writer[$i]["role"] ) echo  $producer[$i]["role"]; echo "&nbsp;"; ?>
+								<?php if ($writer[$i]["role"] ) echo sanitize_text_field( $producer[$i]["role"] ); echo "&nbsp;"; ?>
 							</div>
 						</div><?php
 				} // endfor 
@@ -736,7 +736,7 @@ class="link-imdb2 highslide" data-imdbltmid="<?php echo $director[$i]["imdb"]; ?
 
 	if  ($magicnumber==$imdb_widget_values['imdbwidgetorder']['actor'] ) {
 	$cast = $movie->cast(); 
-		if (!empty($cast) && ($imdb_widget_values[imdbwidgetactor] == true )) { ?>
+		if (!empty($cast) && ($imdb_widget_values['imdbwidgetactor'] == true )) { ?>
 										<!-- actors -->
 			<ul class="imdbelementACTORul">
 			<li class="imdbincluded-lined imdbelementACTORli">
@@ -744,33 +744,33 @@ class="link-imdb2 highslide" data-imdbltmid="<?php echo $director[$i]["imdb"]; ?
 			if ( ($imdb_admin_values[imdbtaxonomy] == true ) && ($imdb_widget_values[imdbtaxonomyactor] == true ) && (count_me('imdblt_actor', $count_me_siffer) == "nomore") ) { 
 			// count_me_siffer() to avoid adding every taxonomy from several movies's genre...
 				for ($i = 0; $i < $imdb_widget_values[imdbwidgetactornumber] && ($i < count($cast)); $i++) { 
-					wp_set_object_terms($wp_query->post->ID, $cast[$i]["name"], 'imdblt_actor', true); #add taxonomy terms to posts' terms
+					wp_set_object_terms($wp_query->post->ID, sanitize_text_field( $cast[$i]["name"] ), 'imdblt_actor', true); #add taxonomy terms to posts' terms
 				} 
-				wp_set_object_terms($wp_query->post->ID, $cast[$i]["name"], 'imdblt_actor', true);  #add last taxonomy term to posts' terms
-				echo get_the_term_list($wp_query->post->ID, 'imdblt_actor', "$role","$role[$i], ", '' ); # list all (hyperlinked) taxonomy terms
+					wp_set_object_terms($wp_query->post->ID, sanitize_text_field( $cast[$i]["name"] ), 'imdblt_actor', true);  #add last taxonomy term to posts' terms
+					echo get_the_term_list($wp_query->post->ID, 'imdblt_actor', sanitize_text_field( "$role" ), ", ", '' ); # list all (hyperlinked) taxonomy terms
 			} else { 
 
 				// value $imdb_widget_values['imdbwidgetactornumber'] is selected, but value $imdb_widget_values['imdbwidgetactornumber'] is empty
 				if (empty($imdb_widget_values['imdbwidgetactornumber'])){
 					$nbactors =  "1";
 				} else {
-					$nbactors =  $imdb_widget_values['imdbwidgetactornumber'];
+					$nbactors =  intval($imdb_widget_values['imdbwidgetactornumber'] );
 				}
 
 				for ($i = 0; $i < $nbactors && ($i < count($cast)); $i++) { ?>
 						<div align="center" class="imdbdiv-liees">
 							<div style="float:left"><?php 
-								echo preg_replace('/\n/', "", $cast[$i]["role"]); // remove the <br> which break the layout
+								echo sanitize_text_field( preg_replace('/\n/', "", $cast[$i]["role"]) ); // remove the <br> which break the layout
 							?></div>
 							<div align="right">
 <?php					if  ($imdb_widget_values['imdblinkingkill'] == false ) { // if "Remove all links" option is not selected 
-						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup
-						?><a  class="link-imdb2 highslide" onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: <?php echo $imdb_admin_values[popupLarg]?>, objectWidth: <?php echo $imdb_admin_values[popupLarg]?>, objectHeight: <?php echo $imdb_admin_values[popupLong]?>, headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '<?php echo $imdb_admin_values[imdbplugindirectory]; ?>inc/popup-imdb_person.php?mid=<?php echo $cast[$i]["imdb"];?>' } )" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>" href="#"><?php echo $cast[$i]["name"]; ?></a><?php
-						} else { 						// classic popup
-						?><a onclick="window.open('<?php echo $imdb_admin_values['imdbplugindirectory']; ?>inc/popup-imdb_person.php?mid=<?php echo $cast[$i]["imdb"];?>', 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=<?php echo $imdb_admin_values[popupLarg]; ?>, height=<?php echo $imdb_admin_values[popupLong]; ?>, top=5, left=5')" title="<?php esc_html_e('Link to local imdb', 'imdb'); ?>" class="link-imdb2" ><?php echo $cast[$i]["name"]; ?></a><?php 			
+						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup ?>
+							<a class="link-imdblt-highslidepeople highslide" data-highslidepeople="<?php echo esc_attr( $cast[$i]["imdb"] ); ?>" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>"><?php echo sanitize_text_field( $cast[$i]["name"] ); ?></a>
+<?php						} else {  // classic popup ?>
+							<a class="link-imdblt-classicpeople highslide" data-classicpeople="<?php echo esc_attr( $cast[$i]["imdb"] ); ?>" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>"><?php echo sanitize_text_field( $cast[$i]["name"] ); ?></a><?php		
 						} 
 					} else { // if "Remove all links" option is selected 
-						echo $cast[$i]["name"];
+						echo sanitize_text_field( $cast[$i]["name"] );
 					} // end if remove popup ?></div>
 						</div><?php
 				} // endfor 
@@ -783,7 +783,7 @@ class="link-imdb2 highslide" data-imdbltmid="<?php echo $director[$i]["imdb"]; ?
 
 	if  ($magicnumber==$imdb_widget_values['imdbwidgetorder']['plot'] ) {
 	$plot = $movie->plot (); 
-		if (!is_multiArrayEmpty($plot) && ($imdb_widget_values[imdbwidgetplot] == true )) {
+		if (!is_multiArrayEmpty($plot) && ($imdb_widget_values['imdbwidgetplot'] == true )) {
 		// here is tested if the array contains data; if not, doesn't go further ?>
 										<!-- Plots -->
 			<ul class="imdbelementPLOTul">
@@ -794,7 +794,7 @@ class="link-imdb2 highslide" data-imdbltmid="<?php echo $director[$i]["imdb"]; ?
 				if (empty($imdb_widget_values['imdbwidgetplotnumber'])){
 					$nbplots =  "1";
 				} else {
-					$nbplots =  $imdb_widget_values['imdbwidgetplotnumber'];
+					$nbplots =  intval ($imdb_widget_values['imdbwidgetplotnumber'] );
 				}
 
 				for ($i = 0; $i < $nbplots  && ($i < count ($plot)); $i++) { 
@@ -802,7 +802,7 @@ class="link-imdb2 highslide" data-imdbltmid="<?php echo $director[$i]["imdb"]; ?
 
 					if  ($imdb_widget_values['imdblinkingkill'] == false ) { 
 					// if "Remove all links" option is not selected 
-						echo $plot[$i];
+						echo sanitize_text_field( $plot[$i] );
 					} else {
 						echo imdblt_remove_link ($plot[$i]);
 					} 
@@ -825,7 +825,7 @@ class="link-imdb2 highslide" data-imdbltmid="<?php echo $director[$i]["imdb"]; ?
 	<ul class="imdbelementSOURCEul">
 	<li class="imdbincluded-lined imdbelementSOURCEli">
 
-		<span class="imdbincluded-subtitle"><?php esc_html_e('Source'); ?>:</span><?php
+		<span class="imdbincluded-subtitle"><?php esc_html_e('Source', 'imdb'); ?>:</span><?php
 		/*if ($engine == 'pilot') {
 			imdblt_source_moviepilot($midPremierResultat);
 			if ($imdb_admin_values[pilot_imdbfill] > 1) // if imdb's website is not accessed, exit;
@@ -833,7 +833,7 @@ class="link-imdb2 highslide" data-imdbltmid="<?php echo $director[$i]["imdb"]; ?
 		} else {
 			imdblt_source_imdb($midPremierResultat);
 		}--------- movie pilot is no more */
-		imdblt_source_imdb($midPremierResultat);
+		sanitize_text_field( imdblt_source_imdb($midPremierResultat) );
 		?>
 	</li>
 	</ul>

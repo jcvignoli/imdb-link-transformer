@@ -84,9 +84,9 @@ function parse_imdb_tags($correspondances){
 	// link construction
 
 	if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup
-		$link_parsed = imdb_popup_highslide_link ($link_parsed) ;
+		$link_parsed = imdblt_popup_highslide_film_link ($link_parsed) ;
 	} else {						// classic popup
-	    	$link_parsed = imdb_popup_link ($link_parsed) ;
+	    	$link_parsed = imdblt_popup_classical_film_link ($link_parsed) ;
 	}
 
 	return $link_parsed;

@@ -57,7 +57,7 @@ function imdblt_remove_link ($toremove) {
 }
 
 /**
- * Convert an imdb link to an internal popup link
+ * Convert an imdb link to a highslide/classic popup link (called 
  * @param string $convert Link to convert into popup highslide link
  */
 
@@ -66,8 +66,13 @@ function imdblt_convert_txtwithhtml_into_popup_people ($convert) {
 
 	// $result = "<a class=\"link-imdb2 highslide\" onclick=\"return hs.htmlExpand(this, { objectType: 'iframe', width: " . $imdb_admin_values['popupLarg']. ", objectWidth: ". $imdb_admin_values['popupLarg'].", objectHeight: ". $imdb_admin_values['popupLong']. ", headingEval: 'this.a.innerHTML', wrapperClassName: 'titlebar', src: '" . $imdb_admin_values['imdbplugindirectory'] . "inc/popup-imdb_person.php?mid=" . "\${6}" . "' } )\" title=\"". esc_html__('open a new window with IMDb informations', 'imdb'). '" href="#" >';
 
-	// 20210505 new way to create highslide link, if "link-imdb2" class clicked, throw "\${6}" (the mid) to javascript csp_inline_script.js
-	$result = '<a  class="link-imdb2 highslide" data-imdbltmid="' . "\${6}" . '" title="' . esc_html__("open a new window with IMDb informations", "imdb") . '">';
+	// 20210505 new way to create highslide/classic link, if either "imdbpopup_highslide" or "link-imdblt-highslidepeople" class is clicked throw "\${6}" (the mid) to javascript csp_inline_script.js
+
+	if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup
+			$result = '<a  class="link-imdblt-highslidepeople highslide" data-highslidepeople="' . "\${6}" . '" title="' . esc_html__("open a new window with IMDb informations", "imdb") . '">';
+	} else {						// classic popup
+	    		$result = '<a  class="link-imdblt-classicpeople" data-classicpeople="' . "\${6}" . '" title="' . esc_html__("open a new window with IMDb informations", "imdb") . '">';
+	}
 
 	$convert = preg_replace("~(<a )((href=)(.+?))(nm)([[:alnum:]]*)\/((.+?)\">)~", $result, $convert);
 
@@ -215,11 +220,11 @@ function count_me($thema, &$count_me_siffer) {
 
 /**
  * Highslide popup function
- * constructs a HTML link to open a popup (using highslide library)
- * (called from imdb-link-transformer.php
+ * constructs a HTML link to open a popup with highslide for searching a movie (using js/csp_inline_scripts.js)
+ * (called from imdb-link-transformer.php)
  */
 
-function imdb_popup_highslide_link ($link_parsed, $popuplarg="", $popuplong="" ) {
+function imdblt_popup_highslide_film_link ($link_parsed, $popuplarg="", $popuplong="" ) {
 	global $imdb_admin_values;
 		
 	if (! $popuplarg )
@@ -228,7 +233,7 @@ function imdb_popup_highslide_link ($link_parsed, $popuplarg="", $popuplong="" )
 	if (! $popuplong )
 		$popuplong=$imdb_admin_values["popupLong"];
 
-	$parsed_result = '<a class="link-imdb2" data-imdbltfilm="' . imdb_htmlize($link_parsed[1]) . '" title="' . esc_html__("Open a new window with IMDb informations", "imdb") . '">' . $link_parsed[1] . "</a>&nbsp;";
+	$parsed_result = '<a class="link-imdblt-highslidefilm" data-highslidefilm="' . imdb_htmlize($link_parsed[1]) . '" title="' . esc_html__("Open a new window with IMDb informations", "imdb") . '">' . $link_parsed[1] . "</a>&nbsp;";
 	// $parsed_result =	"<span class=\"link-imdb\"><a class=\"highslide\" onclick=\"return hs.htmlExpand(this, { objectType: 'iframe', width: ".	$popuplarg . ", objectWidth: " . $popuplarg . ", objectHeight: " . 			$popuplong .	", headingEval: 'this.a.innerHTML', headingText: '" .ucwords(imdb_htmlize($link_parsed[1])) ."', wrapperClassName: 'titlebar', src: '" .	$imdb_admin_values[imdbplugindirectory] .	"inc/popup-search.php?film=" .	imdb_htmlize($link_parsed[1]) ."' } );\" href=\"#\" title=\"" .esc_html__('open a new window with IMDb informations', 'imdb')."\">" .$link_parsed[1] .	"</a></span>";
 	
 	return $parsed_result;
@@ -237,11 +242,11 @@ function imdb_popup_highslide_link ($link_parsed, $popuplarg="", $popuplong="" )
 
 /**
  * Classical popup function
- * constructs a HTML link to open a popup
- * (called from imdb-link-transformer.php
+ * constructs a HTML link to open a popup for searching a movie (using js/csp_inline_scripts.js)
+ * (called from imdb-link-transformer.php)
  */
 
-function imdb_popup_link ($link_parsed, $popuplarg="", $popuplong="" ) {
+function imdblt_popup_classical_film_link ($link_parsed, $popuplarg="", $popuplong="" ) {
 	global $imdb_admin_values;
 	
 	if (! $popuplarg )
@@ -250,7 +255,7 @@ function imdb_popup_link ($link_parsed, $popuplarg="", $popuplong="" ) {
 	if (! $popuplong )
 		$popuplong=$imdb_admin_values["popupLong"];
 
-	$parsed_result = '<a  class="link-imdb-movieclassic" data-imdbltclassicfilm="' . imdb_htmlize($link_parsed[1]) . '" title="' . esc_html__("Open a new window with IMDb informations", "imdb") . '">' . $link_parsed[1] . "</a>&nbsp;";
+	$parsed_result = '<a  class="link-imdblt-classicalfilm" data-classicalfilm="' . imdb_htmlize($link_parsed[1]) . '" title="' . esc_html__("Open a new window with IMDb informations", "imdb") . '">' . $link_parsed[1] . "</a>&nbsp;";
 	//$parsed_result = "<a class=\"link-imdb\" onclick=\"window.open('" .					$imdb_admin_values[imdbplugindirectory] .	"inc/popup-search.php?film=" .imdb_htmlize($link_parsed[1]) ."', 'popup', 'resizable=yes, toolbar=0, scrollbars=yes, status=no, location=no, width=" .	$popuplarg . ", height=" .	$popuplong .	", top=5, left=5')\" title=\"".esc_html__('open a new window with IMDb informations', 'imdb')."\">" .		$link_parsed[1] ."</a>"; 
 	
 	return $parsed_result;

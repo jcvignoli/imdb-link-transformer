@@ -21,20 +21,22 @@ jQuery('a#highslide-pic').click(function(){
 	});
 });
 
-/* FUNCTION: build highslide popup for link-imdb2 classes
-*	This function on click on classes "link-imdb2"
-	1- extracts info from data-imdbltmid="(.*)"> 
-	2- builds a highslide popup accordingly 
+/* FUNCTION: build highslide or classic popup according to the classes
+*	This function on click on classes "link-imdblt-(.*)"
+	1- extracts info from data-(.*) <a> attribute
+	2- builds either a -highslide- or -classic- popup accordingly
 */ 
+
+/* highslide popup, people */
 (function ($) {
-	$(document).on('click', 'a[data-imdbltmid]',function(e){
-		Array.from(document.getElementsByClassName('link-imdb2')).forEach((link) => {
+	$(document).on('click', 'a[data-highslidepeople]',function(e){
+		Array.from(document.getElementsByClassName('link-imdblt-highslidepeople')).forEach((link) => {
 			link.addEventListener('click', (e)=>{
 				// vars from imdb-link-transformer.php
 				var tmppopupLarg = csp_inline_scripts_vars.popupLarg;
 				var tmppopupLong = csp_inline_scripts_vars.popupLong;
 				// var mid from the class data-imdbltmid to build the link
-				var misc_term = e.target.getAttribute('data-imdbltmid');
+				var misc_term = e.target.getAttribute('data-highslidepeople');
 				var url_imdbperso = csp_inline_scripts_vars.imdb_path + 'inc/popup-imdb_person.php?mid=' + misc_term;
 				// highslide popup
 				return hs.htmlExpand(this, { 
@@ -52,16 +54,36 @@ jQuery('a#highslide-pic').click(function(){
 	});
 })(jQuery);
 
-
+/* classic popup, people */
 (function ($) {
-	$(document).on('click', 'a[data-imdbltfilm]',function(e){
-		Array.from(document.getElementsByClassName('link-imdb2')).forEach((link) => {
+	$(document).on('click', 'a[data-classicpeople]',function(e){
+		Array.from(document.getElementsByClassName('link-imdblt-classicpeople')).forEach((link) => {
+			link.addEventListener('click', (e)=>{
+				// vars from imdb-link-transformer.php
+				var tmppopupLarg = csp_inline_scripts_vars.popupLarg;
+				var tmppopupLong = csp_inline_scripts_vars.popupLong;
+
+				// var mid from the class data-classicimdbltmid to build the link
+				var misc_term = e.target.getAttribute('data-classicpeople');
+				var url_imdbperso = csp_inline_scripts_vars.imdb_path + 'inc/popup-imdb_person.php?mid=' + misc_term;
+				// classic popup
+				window.open( url_imdbperso, 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width='+tmppopupLong+', height='+tmppopupLarg+', top=5, left=5')
+
+	  		});
+		});
+	});
+})(jQuery);
+
+/* highslide popup, movie */
+(function ($) {
+	$(document).on('click', 'a[data-highslidefilm]',function(e){
+		Array.from(document.getElementsByClassName('link-imdblt-highslidefilm')).forEach((link) => {
 			link.addEventListener('click', (e)=>{
 				// vars from imdb-link-transformer.php
 				var tmppopupLarg = csp_inline_scripts_vars.popupLarg;
 				var tmppopupLong = csp_inline_scripts_vars.popupLong;
 				// var mid from the class data-imdbltmid to build the link
-				var misc_term = e.target.getAttribute('data-imdbltfilm');
+				var misc_term = e.target.getAttribute('data-highslidefilm');
 				var url_imdbperso = csp_inline_scripts_vars.imdb_path + 'inc/popup-search.php?film=' + misc_term;
 				// highslide popup
 				return hs.htmlExpand(this, { 
@@ -81,15 +103,15 @@ jQuery('a#highslide-pic').click(function(){
 
 /* classic popup, movie */
 (function ($) {
-	$(document).on('click', 'a[data-imdbltclassicfilm]',function(e){
-		Array.from(document.getElementsByClassName('link-imdb-movieclassic')).forEach((link) => {
+	$(document).on('click', 'a[data-classicalfilm]',function(e){
+		Array.from(document.getElementsByClassName('link-imdblt-classicalfilm')).forEach((link) => {
 			link.addEventListener('click', (e)=>{
 				// vars from imdb-link-transformer.php
 				var tmppopupLarg = csp_inline_scripts_vars.popupLarg;
 				var tmppopupLong = csp_inline_scripts_vars.popupLong;
 
 				// var mid from the class data-classicimdbltmid to build the link
-				var misc_term = e.target.getAttribute('data-imdbltclassicfilm');
+				var misc_term = e.target.getAttribute('data-classicalfilm');
 				var url_imdbperso = csp_inline_scripts_vars.imdb_path + 'inc/popup-search.php?film=' + misc_term;
 				// classic popup
 				window.open( url_imdbperso, 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width='+tmppopupLong+', height='+tmppopupLarg+', top=5, left=5')
@@ -99,32 +121,6 @@ jQuery('a#highslide-pic').click(function(){
 	});
 })(jQuery);
 
-/* classic popup, people */
-(function ($) {
-	$(document).on('click', 'a[data-imdbltclassicmid]',function(e){
-		Array.from(document.getElementsByClassName('link-imdb2-peopleclassic')).forEach((link) => {
-			link.addEventListener('click', (e)=>{
-				// vars from imdb-link-transformer.php
-				var tmppopupLarg = csp_inline_scripts_vars.popupLarg;
-				var tmppopupLong = csp_inline_scripts_vars.popupLong;
-
-				// var mid from the class data-classicimdbltmid to build the link
-				var misc_term = e.target.getAttribute('data-imdbltclassicmid');
-				var url_imdbperso = csp_inline_scripts_vars.imdb_path + 'inc/popup-imdb_person.php?mid=' + misc_term;
-				// classic popup
-				window.open( url_imdbperso, 'popup', 'resizable=yes, toolbar=no, scrollbars=yes, location=no, width='+tmppopupLong+', height='+tmppopupLarg+', top=5, left=5')
-
-	  		});
-		});
-	});
-})(jQuery);
-
-
-jQuery('a#link-imdb2').click(function(){
-	window.open('url_imdbperso', 
-			'popup', 
-			'resizable=yes, toolbar=no, scrollbars=yes, location=no, width=tmppopupLarg, height=tmppopupLong, 				top=5, left=5');
-});
 /**** popup-imdb_person.php
 *
 */
