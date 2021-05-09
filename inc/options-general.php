@@ -14,6 +14,9 @@
  #############################################################################
 
 global $imdb_admin_values;
+$allowed_html_for_esc_html_functions = [
+    'strong',
+];
 
 // included files
 require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
@@ -21,15 +24,13 @@ require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
 // refresh wordpress rewrite rules upon options save/reset -> needed for taxonomy pages created in imdb-movie.inc.php
 if ((isset($_GET['update_imdbSettings'])) || (isset($_GET['reset_imdbSettings'])) )
   flush_rewrite_rules();
-
-
 ?>
 
 <div id="tabswrap">
 	<ul id="tabs">
-		<li><img src="<?php echo IMDBLTURLPATH ?>pics/admin-general-path.png" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e( "Paths & Layout", 'imdb');?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&generaloption=base"><?php _e ('Paths & Layout', 'imdb'); ?></a></li>
+		<li><img src="<?php echo $imdb_admin_values['imdbplugindirectory'] ?>pics/admin-general-path.png" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e( "Paths & Layout", 'imdb');?>" href="<?php echo esc_url(admin_url() . "admin.php?page=imdblt_options&generaloption=base" ); ?>"><?php esc_html_e( 'Paths & Layout', 'imdb'); ?></a></li>
 
-		<li>&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH ?>pics/admin-general-advanced.png" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e( "Advanced", 'imdb');?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&generaloption=advanced"><?php _e ("Advanced", 'imdb'); ?></a></li>
+		<li>&nbsp;&nbsp;<img src="<?php echo $imdb_admin_values['imdbplugindirectory'] ?>pics/admin-general-advanced.png" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e( "Advanced", 'imdb');?>" href="<?php echo esc_url (admin_url() . "admin.php?page=imdblt_options&generaloption=advanced" ); ?>"><?php esc_html_e( "Advanced", 'imdb'); ?></a></li>
 	</ul>
 </div>
 
@@ -38,7 +39,7 @@ if ((isset($_GET['update_imdbSettings'])) || (isset($_GET['reset_imdbSettings'])
 
 <?php if ( ($_GET['generaloption'] == "base") || (!isset($_GET['generaloption'] )) ) { 	////////// Paths & Layout section  ?>
 
-	<div style="padding:0 30px 30px 30px;"><?php _e ("Options below don't need usually any complementary setup. However, you can widely customize IMDb link transformer according your needs.", 'imdb'); ?></div>
+	<div class="intro_cache"><?php esc_html_e( "Below options usually don't need  any further action. Nevertheless, IMDb link transformer can be widely customized to match your needs.", 'imdb'); ?></div>
 
 	<div class="postbox">
 		<h3 class="hndle" id="directories" name="directories"><?php esc_html_e( 'Paths: url & folders', 'imdb'); ?></h3>
@@ -53,7 +54,7 @@ if ((isset($_GET['update_imdbSettings'])) || (isset($_GET['reset_imdbSettings'])
 			<td class="td-aligntop"><label for="imdb_blog_adress"><?php esc_html_e( 'Blog adress', 'imdb'); ?></label>
 			</td>
 			<td width="80%"><input type="text" name="imdb_blog_adress" size="70" value="<?php esc_html_e( apply_filters('format_to_edit',$imdbOptions['blog_adress']), 'imdb') ?>" >
-				<div class="explain"><?php esc_html_e( 'Where the blog is installed.', 'imdb'); ?> <br /><?php esc_html_e( 'Default:','imdb');?> "<?php echo $imdbOptions['blog_adress']; ?>"</div>
+				<div class="explain"><?php esc_html_e( 'Where the blog is installed.', 'imdb'); ?> <br /><?php esc_html_e( 'Default:','imdb');?> "<?php echo esc_url( $imdbOptions['blog_adress'] ); ?>"</div>
 			</td>
 			
 		</tr>
@@ -61,7 +62,7 @@ if ((isset($_GET['update_imdbSettings'])) || (isset($_GET['reset_imdbSettings'])
 			<td class="td-aligntop"><label for="imdb_imdbplugindirectory"><?php esc_html_e( 'Plugin directory', 'imdb'); ?></label>
 			</td>
 			<td><input type="text" name="imdb_imdbplugindirectory" size="70" value="<?php esc_html_e( apply_filters('format_to_edit',$imdbOptions['imdbplugindirectory']), 'imdb') ?>">
-				<div class="explain"><?php esc_html_e( 'Where <strong>imdb link transformer</strong> is installed.', 'imdb'); ?> <br /><?php esc_html_e( 'Default:','imdb');?> "<?php echo $imdbOptions['imdbplugindirectory']; ?>"</div>
+				<div class="explain"><?php wp_kses( _e( 'Where <strong>imdb link transformer</strong> is installed.', 'imdb'), $allowed_html_for_esc_html_functions ); ?> <br /><?php esc_html_e( 'Default:','imdb');?> "<?php echo IMDBLTURLPATH; ?>"</div>
 			</td>
 		</tr>
 		
@@ -95,12 +96,12 @@ if ((isset($_GET['update_imdbSettings'])) || (isset($_GET['reset_imdbSettings'])
 				<input type="text" name="imdb_popupLong" size="5" value="<?php esc_html_e( apply_filters('format_to_edit',$imdbOptions['popupLong']), 'imdb') ?>" >
 			</td>
 			<td width="33%">
-				<?php // Warning message displayed when highslide option was set but no folder "highslide" exists
+				<?php // Warning message displayed if highslide option is set but no "highslide" folder exists
 				if (($imdbOptions['imdbpopup_highslide'] == "1") && (!is_dir(IMDBLTABSPATH.'js/highslide'))) {
 				#notice displayed on top page
-				$this->notice(1, '<span style="color:red;"><strong>'.__ ('Warning! Highslide is activated but no Highslide folder is found. Either download Highslide (see below) or click on "reset setting" at the bottom', 'imdb') .'</strong></span>');
+				$this->notice(1, '<span style="color:red;"><strong>'.__ ('Warning! Highslide is activated but no Highslide folder was found. Either download Highslide (see below) or click on "reset setting" at the bottom', 'imdb') .'</strong></span>');
 				#notice display in highslide option field
-				echo '<span style="color:red;">'.esc_html__( 'Warning! Highslide is activated but no Highslide folder is found. Either download Highslide (see below) or click on "reset setting" at the bottom.', 'imdb').'</span><br />'; 
+				echo '<span style="color:red;">'.esc_html__( 'Warning! Highslide is activated but no Highslide folder was found. Either download Highslide (see below) or click on "reset setting" at the bottom.', 'imdb').'</span><br />'; 
 				} ?>
 
 				<?php if(is_dir(IMDBLTABSPATH.'js/highslide')) { // If the folder "highslide" exists (manually added)
@@ -115,10 +116,7 @@ if ((isset($_GET['update_imdbSettings'])) || (isset($_GET['reset_imdbSettings'])
 					echo '/><label for="imdb_imdbpopup_highslide_no">';
 					 esc_html_e( 'No', 'imdb'); 
 					echo '</label>';
-				 } else {					// If no folder "highslide" exists, explanations
-					echo esc_html__( '<b>Option highslide unavailable.</b>', 'imdb').'<br /><a href="'.IMDBBLOG.'/wp-content/files/wordpress-imdb-link-transformer-highslide.zip">'. esc_html__( 'In order to activate it, click here and move the folder "highslide" into the "js" one!', 'imdb').'</a>&nbsp;';
-				esc_html_e( 'Once you are done, this message will disapear.', 'imdb');
-				}; ?>
+				 }; ?>
 				
 			</td>
 		</tr>
@@ -130,8 +128,8 @@ if ((isset($_GET['update_imdbSettings'])) || (isset($_GET['reset_imdbSettings'])
 				<div class="explain"><?php esc_html_e( 'Popup height, in pixels', 'imdb'); ?> <br /><?php esc_html_e( 'Default:','imdb');?> "350"</div>
 			</td>
 			<td class="td-aligntop">
-				<?php if(is_dir( IMDBLTABSPATH . 'js/highslide')) { // If the folder "highslide" exists (manually added) ?>
-				<div class="explain"><?php esc_html_e( 'Highslide popup is a more stylished popup, and allows to open movie details straightly in page instead of a new popup window.', 'imdb'); ?> <br /><?php esc_html_e( 'Default:','imdb');?> <?php esc_html_e( 'Yes', 'imdb'); ?></div>
+				<?php if(is_dir( $imdbOptions['imdbplugindirectory'] . 'js/highslide')) { // If the folder "highslide" exists (manually added) ?>
+				<div class="explain"><?php esc_html_e( 'Highslide popup is a more stylished popup, and allows to open movie details directly in the webpage instead of opening a new window.', 'imdb'); ?> <br /><?php esc_html_e( 'Default:','imdb');?> <?php esc_html_e( 'Yes', 'imdb'); ?></div>
 				<?php } else { // If no folder "highslide" exists, explanations
 				echo '<div class="explain">';
 				esc_html_e( 'Please note Highslide JS is licensed under a Creative Commons Attribution-NonCommercial 2.5 License, which means you need the author\'s permission to use Highslide JS on commercial websites.','imdb');
@@ -146,7 +144,7 @@ if ((isset($_GET['update_imdbSettings'])) || (isset($_GET['reset_imdbSettings'])
 			
 		<tr>
 			<td colspan="3" class="titresection">
-				<img src="<?php echo $imdbOptions['imdbplugindirectory'].$imdbOptions['imdbpicurl']; ?>" width="40" align="absmiddle" />&nbsp;&nbsp;&nbsp;
+				<img src="<?php echo esc_url( $imdbOptions['imdbplugindirectory'].$imdbOptions['imdbpicurl'] ); ?>" width="40" align="absmiddle" />&nbsp;&nbsp;&nbsp;
 				<?php esc_html_e( 'Imdb link picture', 'imdb'); ?>
 			</td>
 		</tr>
@@ -154,7 +152,7 @@ if ((isset($_GET['update_imdbSettings'])) || (isset($_GET['reset_imdbSettings'])
 		<tr>
 			<td class="td-aligntop">
 				<?php esc_html_e( 'Display imdb pic?', 'imdb'); ?>&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="radio" id="imdb_imdbdisplaylinktoimdb_yes" name="imdb_imdbdisplaylinktoimdb" value="1" <?php if ($imdbOptions['imdbdisplaylinktoimdb'] == "1") { echo 'checked="checked"'; }?> onClick="GereControle('imdb_imdbdisplaylinktoimdb_yes', 'imdb_imdbpicsize', '0');GereControle('imdb_imdbdisplaylinktoimdb_yes', 'imdb_imdbpicurl', '0');" /><label for="imdb_imdbdisplaylinktoimdb_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label><input type="radio" id="imdb_imdbdisplaylinktoimdb_no" name="imdb_imdbdisplaylinktoimdb" value="" <?php if ($imdbOptions['imdbdisplaylinktoimdb'] == 0) { echo 'checked="checked"'; } ?>  onClick="GereControle('imdb_imdbdisplaylinktoimdb_yes', 'imdb_imdbpicsize', '0');GereControle('imdb_imdbdisplaylinktoimdb_yes', 'imdb_imdbpicurl', '0');"/><label for="imdb_imdbdisplaylinktoimdb_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbdisplaylinktoimdb_yes" name="imdb_imdbdisplaylinktoimdb" value="1" <?php if ($imdbOptions['imdbdisplaylinktoimdb'] == "1") { echo 'checked="checked"'; }?> data-modificator="yes" data-field_to_change="imdb_imdbpicsize" data-field_to_change_value="1" /><label for="imdb_imdbdisplaylinktoimdb_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label><input type="radio" id="imdb_imdbdisplaylinktoimdb_no" name="imdb_imdbdisplaylinktoimdb" value="" <?php if ($imdbOptions['imdbdisplaylinktoimdb'] == 0) { echo 'checked="checked"'; } ?> data-modificator="yes" data-field_to_change="imdb_imdbpicsize" data-field_to_change_value="0" /><label for="imdb_imdbdisplaylinktoimdb_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
 			</td>
 			<td class="td-aligntop">
 				<label for="imdb_imdbpicsize"><?php esc_html_e( 'Size', 'imdb'); ?></label>
@@ -218,7 +216,7 @@ if ((isset($_GET['update_imdbSettings'])) || (isset($_GET['reset_imdbSettings'])
 <?php	} 
 	if ($_GET['generaloption'] == "advanced") { 				//////////////// Advanced section  ?>
 
-	<div style="padding:0 30px 30px 30px;"><?php _e ("Options below can break a lot of things. Change them only if you know what you're doing.", 'imdb'); ?></div>
+	<div style="padding:0 30px 30px 30px;"><?php esc_html_e( "Options below can break a lot of things. Change them only if you know what you're doing.", 'imdb'); ?></div>
 
 
 	<div class="inside">
@@ -273,7 +271,7 @@ if ((isset($_GET['update_imdbSettings'])) || (isset($_GET['reset_imdbSettings'])
 			</td>
 			<td>
 				<?php esc_html_e( 'Direct search', 'imdb'); ?>&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="radio" id="imdb_imdbdirectsearch_yes" name="imdb_imdbdirectsearch" value="1" <?php if ($imdbOptions['imdbdirectsearch'] == "1") { echo 'checked="checked"'; }?> onClick="GereControle('imdb_imdbdirectsearch_no', 'imdb_imdbmaxresults', '0');" /><label for="imdb_imdbdirectsearch_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label><input type="radio" id="imdb_imdbdirectsearch_no" name="imdb_imdbdirectsearch" value="" <?php if ($imdbOptions['imdbdirectsearch'] == 0) { echo 'checked="checked"'; } ?> onClick="GereControle('imdb_imdbdirectsearch_no', 'imdb_imdbmaxresults', '0');" /><label for="imdb_imdbdirectsearch_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbdirectsearch_yes" name="imdb_imdbdirectsearch" value="1" <?php if ($imdbOptions['imdbdirectsearch'] == "1") { echo 'checked="checked"'; }?> data-modificator="yes" data-field_to_change="imdb_imdbmaxresults" data-field_to_change_value="1" /><label for="imdb_imdbdirectsearch_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label><input type="radio" id="imdb_imdbdirectsearch_no" name="imdb_imdbdirectsearch" value="0" <?php if ($imdbOptions['imdbdirectsearch'] == 0) { echo 'checked="checked"'; } ?> data-modificator="yes"  data-field_to_change="imdb_imdbmaxresults" data-field_to_change_value="0" /><label for="imdb_imdbdirectsearch_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
 			</td>
 			<td>
 				<?php esc_html_e( 'Menu for IMDB LT options', 'imdb'); ?>&nbsp;&nbsp;&nbsp;&nbsp;
