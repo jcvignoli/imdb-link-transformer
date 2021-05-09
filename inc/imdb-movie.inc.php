@@ -596,7 +596,6 @@ while ($imovie < count($imdballmeta)) {
 <?php						} else { 
 							// classic popup ?>
 							<a class="link-imdblt-classicpeople highslide" data-classicpeople="<?php echo $director[$i]["imdb"]; ?>" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>"><?php echo $director[$i]["name"]; ?></a><?php
-							echo sanitize_text_field( $director[$i]["name"] )."</a>";
 						} 
 					} else { // if "Remove all links" option is selected 
 						if ( $i > 0 ) echo ', ';

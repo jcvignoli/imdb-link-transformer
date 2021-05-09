@@ -234,8 +234,7 @@ function imdblt_popup_highslide_film_link ($link_parsed, $popuplarg="", $popuplo
 		$popuplong=$imdb_admin_values["popupLong"];
 
 	$parsed_result = '<a class="link-imdblt-highslidefilm" data-highslidefilm="' . imdb_htmlize($link_parsed[1]) . '" title="' . esc_html__("Open a new window with IMDb informations", "imdb") . '">' . $link_parsed[1] . "</a>&nbsp;";
-	// $parsed_result =	"<span class=\"link-imdb\"><a class=\"highslide\" onclick=\"return hs.htmlExpand(this, { objectType: 'iframe', width: ".	$popuplarg . ", objectWidth: " . $popuplarg . ", objectHeight: " . 			$popuplong .	", headingEval: 'this.a.innerHTML', headingText: '" .ucwords(imdb_htmlize($link_parsed[1])) ."', wrapperClassName: 'titlebar', src: '" .	$imdb_admin_values[imdbplugindirectory] .	"inc/popup-search.php?film=" .	imdb_htmlize($link_parsed[1]) ."' } );\" href=\"#\" title=\"" .esc_html__('open a new window with IMDb informations', 'imdb')."\">" .$link_parsed[1] .	"</a></span>";
-	
+
 	return $parsed_result;
 }
 
@@ -255,8 +254,7 @@ function imdblt_popup_classical_film_link ($link_parsed, $popuplarg="", $popuplo
 	if (! $popuplong )
 		$popuplong=$imdb_admin_values["popupLong"];
 
-	$parsed_result = '<a  class="link-imdblt-classicalfilm" data-classicalfilm="' . imdb_htmlize($link_parsed[1]) . '" title="' . esc_html__("Open a new window with IMDb informations", "imdb") . '">' . $link_parsed[1] . "</a>&nbsp;";
-	//$parsed_result = "<a class=\"link-imdb\" onclick=\"window.open('" .					$imdb_admin_values[imdbplugindirectory] .	"inc/popup-search.php?film=" .imdb_htmlize($link_parsed[1]) ."', 'popup', 'resizable=yes, toolbar=0, scrollbars=yes, status=no, location=no, width=" .	$popuplarg . ", height=" .	$popuplong .	", top=5, left=5')\" title=\"".esc_html__('open a new window with IMDb informations', 'imdb')."\">" .		$link_parsed[1] ."</a>"; 
+	$parsed_result = '<a  class="link-imdblt-classicfilm" data-classicfilm="' . imdb_htmlize($link_parsed[1]) . '" title="' . esc_html__("Open a new window with IMDb informations", "imdb") . '">' . $link_parsed[1] . "</a>&nbsp;";
 	
 	return $parsed_result;
 }
