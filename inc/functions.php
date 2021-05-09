@@ -279,4 +279,35 @@ function imdb_htmlize ($link) {
     return $lienhtmlize; 
 }
 
+/**
+ * Function imdblt_formatBytes
+ * Returns in a proper format a size
+ * 
+ */
+if ( ! function_exists('imdblt_formatBytes')){
+	function imdblt_formatBytes($size, $precision = 2) { 
+		$base = log($size, 1024); 
+		$suffixes = array('bytes', 'Kb', 'Mb', 'Gb', 'Tb');
+		return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)]; 
+	}
+}
+/**
+ * Function imdblt_glob_recursive
+ * Does a glob recursively
+ * Does not support flag GLOB_BRACE
+ * Credits go to https://www.php.net/manual/fr/function.glob.php#106595
+ */
+
+if ( ! function_exists('imdblt_glob_recursive')){
+    function imdblt_glob_recursive($pattern, $flags = 0) {
+        $files = glob($pattern, $flags);
+       
+        foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR|GLOB_NOSORT) as $dir) {
+            $files = array_merge($files, imdblt_glob_recursive($dir.'/'.basename($pattern), $flags));
+        }
+       
+        return $files;
+    }
+}
+
 ?>

@@ -513,7 +513,18 @@ exit();
 			<div class="inside">
 				<table class="option widefat">
 					<tr>
-						<td colspan="3" class="titresection"><?php esc_html_e('Cache management', 'imdb'); ?></td>
+						<td colspan="3" class="titresection">
+							<?php esc_html_e('Cache management', 'imdb'); ?>					
+
+							<div align="center">
+							<?php echo "<i> ". esc_html__('Total cache size:', 'imdb'); 
+							$imdltcacheFileCount = count( imdblt_glob_recursive($imdb_cache_values['imdbcachedir'] . '*') );
+							$imdltcacheFileCountTotalSize=array_sum(array_map('filesize', imdblt_glob_recursive("{$wikileakscacheFileCount}*")));
+							echo number_format( $imdltcacheFileCount, 0, ',', '\'' ) . "&nbsp;" . esc_html__( 'files', 'imdb');
+							echo "&nbsp;" . esc_html__( 'for', 'imdb') . "&nbsp;" . imdblt_formatBytes( $imdltcacheFileCountTotalSize ). "</i>"; ?>
+							</div>
+
+						</td>
 					</tr>
 		<?php	if (file_exists($imdbOptionsc['imdbcachedir']) && ($imdbOptionsc['imdbstorecache'])) { // check if folder exists & store cache option is selected
 				if ($imdbOptionsc['imdbcachedetails'] == "1") { // imdbcachedetails options is selected 
@@ -522,7 +533,10 @@ exit();
 		<tr>
 			<td>	
 				<div>::<?php esc_html_e('Movie\'s detailed cache', 'imdb'); ?>::</div>
-				<div class="detailedcacheexplaination"><?php esc_html_e('If you want to refresh movie\'s cache regardless the cache expiration time, you may either tick movie\'s checkbox(es) related to the movie you want to delete and click on "delete cache", or you may click on individual movies "refresh". The first way will require an additional movie refresh - from you post, for instance.', 'imdb'); ?>
+
+				<div class="detailedcacheexplaination">
+
+				<?php esc_html_e('If you want to refresh movie\'s cache regardless the cache expiration time, you may either tick movie\'s checkbox(es) related to the movie you want to delete and click on "delete cache", or you may click on individual movies "refresh". The first way will require an additional movie refresh - from you post, for instance.', 'imdb'); ?>
 				<br />
 				<br />
 				<?php esc_html_e('You may also either delete individually the cache or by group.', 'imdb'); ?>

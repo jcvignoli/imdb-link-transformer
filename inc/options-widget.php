@@ -361,7 +361,7 @@ require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
 		<?php //-------------------------------------------------------------------=[Taxonomy]=-
 
 if ($imdbOptions['imdbtaxonomy'] != "1") {	//check if taxonomy is activated
-echo "<div align='center' style='border:1px solid black;padding:20px;margin-left:40%;margin-right:40%;'>".__('Please ', 'imdb')."<a href='".admin_url().'admin.php?page=imdblt_options&generaloption=advanced">'.__('activate taxonomy', 'imdb').'</a>'.__(' priorly', 'imdb').'<br />'.__('to access taxonomies options.', 'imdb')."</div>";
+echo "<div align='center' class='accesstaxo'>".__('Please ', 'imdb')."<a href='".admin_url().'admin.php?page=imdblt_options&generaloption=advanced">'.__('activate taxonomy', 'imdb').'</a>'.__(' priorly', 'imdb').'<br />'.__('to access taxonomies options.', 'imdb')."</div>";
 } else { ?>
 
 		<tr>
@@ -480,7 +480,7 @@ echo "<div align='center' style='border:1px solid black;padding:20px;margin-left
 			<td class="titresection"><?php esc_html_e( 'Position of data', 'imdb'); ?></td>
 		</tr>
 		<tr>
-			<td width="30%" align="right" style="vertical-align:middle; ">
+			<td width="30%" align="right" class="imdblt_valign_middle">
 				<div class="explain">
 					<?php esc_html_e( 'You can select the order for the information selected from "what to display" section. Select first the movie detail you want to move, use "up" or "down" to reorder IMDb Link Transformer display. Once you are happy with the new layout, click on "update settings" to keep it.', 'imdb'); ?>
 					<br /><br />
@@ -488,9 +488,9 @@ echo "<div align='center' style='border:1px solid black;padding:20px;margin-left
 				</div>
 
 			</td>
-			<td width="40%" align="center" style="vertical-align:middle; ">
+			<td width="40%" align="center" class="imdblt_valign_middle">
 
-				<select id="imdbwidgetorderContainer" name="imdbwidgetorderContainer" size="10" style="width: 200px;height:500px;">     
+				<select id="imdbwidgetorderContainer" name="imdbwidgetorderContainer" size="10" class="imdbwidgetorderContainer">     
 				<?php foreach ($imdbOptionsw['imdbwidgetorder'] as $key=>$value) {
 					if (!empty ( $key )  && ( $key ) != "source"    ) { // to eliminate empty keys, but also "source" which will always stays at the end (technical limitation, data outside the imdb-movie.inc.php loop)
 						echo '<OPTION label="'.$key.'" value="'.$key.'"';
@@ -504,7 +504,7 @@ echo "<div align='center' style='border:1px solid black;padding:20px;margin-left
 				</select>
 			</td>
 
-			<td width="30%" align="left" style="vertical-align:middle; ">
+			<td width="30%" align="left" class="imdblt_valign_middle">
 
 				Move selected movie:<br />
 				<input type="button" value="up" name="movemovieup" id="movemovieup" onClick="move(this.form,this.form.imdbwidgetorderContainer,-1)" /> 
@@ -512,7 +512,7 @@ echo "<div align='center' style='border:1px solid black;padding:20px;margin-left
 				<input type="button" value="down" name="movemoviedown" id="movemoviedown" onClick="move(this.form,this.form.imdbwidgetorderContainer,+1)" />
 
 				<!--special value, "empty", to elminate false submissions which could crush database values-->                          
-				<input type="text" name="imdb_imdbwidgetorder" id="imdb_imdbwidgetorder" value="empty" style="visibility: hidden;" />
+				<input type="text" name="imdb_imdbwidgetorder" id="imdb_imdbwidgetorder" value="empty" class="imdblt_hidden" />
 
 			</td>
 		</tr>
