@@ -195,4 +195,8 @@ table.table_ninety{margin-left:auto;	margin-right:auto;width:90%;}
 .imdblt_float_right{float:right;}
 .imdblt_float_left{float:left;}
 .accesstaxo{border:1px solid black;padding:20px;margin-left:40%;margin-right:40%;}
-.imdbwidgetorderContainer{width: 200px;height:500px;}
+.imdbwidgetorderContainer{width: 300px;height:auto;background-color:black;border-radius:10px;}
+
+
+
+

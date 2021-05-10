@@ -22,26 +22,21 @@ require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
 
 <div id="tabswrap">
 	<ul id="tabs">
-		<li><img src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/admin-widget-inside-whattodisplay.png" align="absmiddle" width="16px" />&nbsp;<a title="<?php esc_html_e( "What to display", 'imdb');?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption&widgetoption=what"><?php esc_html_e( 'What to display', 'imdb'); ?></a></li>
+		<li><img src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/admin-widget-inside-whattodisplay.png" align="absmiddle" width="16px" />&nbsp;<a title="<?php esc_html_e( "What to display", 'imdb');?>" href="<?php echo esc_url ( admin_url() . "admin.php?page=imdblt_options&subsection=widgetoption&widgetoption=what"); ?>"><?php esc_html_e( 'What to display', 'imdb'); ?></a></li>
 			<?php if ($imdbOptions['imdbtaxonomy'] == "1") { ?>
-		<li>&nbsp;&nbsp;<img src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/admin-widget-inside-whattotaxo.png" align="absmiddle" width="16px" />&nbsp;<a title="<?php esc_html_e( "What to taxonomize", 'imdb');?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption&widgetoption=taxo"><?php esc_html_e( "What to taxonomize", 'imdb'); ?></a></li>
+		<li>&nbsp;&nbsp;<img src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/admin-widget-inside-whattotaxo.png" align="absmiddle" width="16px" />&nbsp;<a title="<?php esc_html_e( "What to taxonomize", 'imdb');?>" href="<?php echo esc_url ( admin_url() . "admin.php?page=imdblt_options&subsection=widgetoption&widgetoption=taxo"); ?>"><?php esc_html_e( "What to taxonomize", 'imdb'); ?></a></li>
 			<?php } else { ?>
 		<li>&nbsp;&nbsp;<img src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/admin-widget-inside-whattodisplay.png" align="absmiddle" width="16px" />&nbsp;<i><?php esc_html_e( "Taxonomy unactivated", 'imdb');?></i></li>
 			<?php }?>
-		<li>&nbsp;&nbsp;<img src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/admin-widget-inside-order.png" align="absmiddle" width="16px" />&nbsp;<a title="<?php esc_html_e( "Display order", 'imdb');?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption&widgetoption=order"><?php esc_html_e( "Display order", 'imdb'); ?></a></li>
-		<li>&nbsp;&nbsp;<img src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/admin-widget-inside-misc.png" align="absmiddle" width="16px" />&nbsp;<a title="<?php esc_html_e( "Misc", 'imdb');?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption&widgetoption=misc"><?php esc_html_e( 'Misc', 'imdb'); ?></a></li>
+		<li>&nbsp;&nbsp;<img src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/admin-widget-inside-order.png" align="absmiddle" width="16px" />&nbsp;<a title="<?php esc_html_e( "Display order", 'imdb');?>" href="<?php echo esc_url ( admin_url() . "admin.php?page=imdblt_options&subsection=widgetoption&widgetoption=order"); ?>"><?php esc_html_e( "Display order", 'imdb'); ?></a></li>
+		<li>&nbsp;&nbsp;<img src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/admin-widget-inside-misc.png" align="absmiddle" width="16px" />&nbsp;<a title="<?php esc_html_e( "Misc", 'imdb');?>" href="<?php echo esc_url ( admin_url() . "admin.php?page=imdblt_options&subsection=widgetoption&widgetoption=misc"); ?>"><?php esc_html_e( 'Misc', 'imdb'); ?></a></li>
 	</ul>
 </div>
 
 <div id="poststuff" class="metabox-holder">
 
-	<!--<div class="postbox">
-		<h3 class="hndle" id="imdbwidgetoptions" name="imdbwidgetoptions"><?php esc_html_e( '<i>Widget</i> and <i>Inside a post</i> settings', 'imdb'); ?></h3>
-	</div>-->
-
 	<div class="inside">
 	<table class="option widefat">
-
 		
 		<?php //-------------------------------------------------------------------=[title, pic, runtime]=- ?>		
 
@@ -99,8 +94,8 @@ require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
 				<?php if ($imdbOptionsw['imdbwidgetactor'] == "1") { echo '<span class="admin-option-selected">'; esc_html_e( 'Actor', 'imdb'); echo '</span>'; } else { ?>
 				<?php  esc_html_e( 'Actor', 'imdb'); echo '&nbsp;&nbsp;'; } ?>
 				
-				<input type="radio" id="imdb_imdbwidgetactor_yes" name="imdb_imdbwidgetactor" value="1" <?php if ($imdbOptionsw['imdbwidgetactor'] == "1") { echo 'checked="checked"'; }?> onClick="GereControle('imdb_imdbwidgetactor_yes', 'imdb_imdbwidgetactornumber', '0');" /><label for="imdb_imdbwidgetactor_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label>
-				<input type="radio" id="imdb_imdbwidgetactor_no" name="imdb_imdbwidgetactor" value="" <?php if ($imdbOptionsw['imdbwidgetactor'] == 0) { echo 'checked="checked"'; } ?> onClick="GereControle('imdb_imdbwidgetactor_yes', 'imdb_imdbwidgetactornumber', '0');" /><label for="imdb_imdbwidgetactor_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbwidgetactor_yes" name="imdb_imdbwidgetactor" value="1" <?php if ($imdbOptionsw['imdbwidgetactor'] == "1") { echo 'checked="checked"'; }?> data-modificator="yes" data-field_to_change="imdb_imdbwidgetactornumber" data-field_to_change_value="0" /><label for="imdb_imdbwidgetactor_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbwidgetactor_no" name="imdb_imdbwidgetactor" value="" <?php if ($imdbOptionsw['imdbwidgetactor'] == 0) { echo 'checked="checked"'; } ?> data-modificator="yes" data-field_to_change="imdb_imdbwidgetactornumber" data-field_to_change_value="1" /><label for="imdb_imdbwidgetactor_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
 
 				<input type="text" id="imdb_imdbwidgetactornumber" name="imdb_imdbwidgetactornumber" size="3" value="<?php esc_html_e( apply_filters('format_to_edit',$imdbOptionsw['imdbwidgetactornumber']), 'imdb') ?>" <?php if ($imdbOptionsw['imdbwidgetactor'] == 0){ echo 'disabled="disabled"'; }; ?> />
 			</td>
@@ -167,8 +162,8 @@ require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
 				<?php if ($imdbOptionsw['imdbwidgetplot'] == "1") { echo '<span class="admin-option-selected">'; esc_html_e( 'Plot', 'imdb'); echo '</span>'; } else { ?>
 				<?php  esc_html_e( 'Plot', 'imdb'); echo '&nbsp;&nbsp;'; } ?>
 				
-				<input type="radio" id="imdb_imdbwidgetplot_yes" name="imdb_imdbwidgetplot" value="1" <?php if ($imdbOptionsw['imdbwidgetplot'] == "1") { echo 'checked="checked"'; }?> onClick="GereControle('imdb_imdbwidgetplot_yes', 'imdb_imdbwidgetplotnumber', '0');" /><label for="imdb_imdbwidgetplot_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label>
-				<input type="radio" id="imdb_imdbwidgetplot_no" name="imdb_imdbwidgetplot" value="" <?php if ($imdbOptionsw['imdbwidgetplot'] == 0) { echo 'checked="checked"'; } ?> onClick="GereControle('imdb_imdbwidgetplot_yes', 'imdb_imdbwidgetplotnumber', '0');" /><label for="imdb_imdbwidgetplot_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbwidgetplot_yes" name="imdb_imdbwidgetplot" value="1" <?php if ($imdbOptionsw['imdbwidgetplot'] == "1") { echo 'checked="checked"'; }?> data-modificator="yes" data-field_to_change="imdb_imdbwidgetplotnumber" data-field_to_change_value="0" /><label for="imdb_imdbwidgetplot_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbwidgetplot_no" name="imdb_imdbwidgetplot" value="" <?php if ($imdbOptionsw['imdbwidgetplot'] == 0) { echo 'checked="checked"'; } ?> data-modificator="yes" data-field_to_change="imdb_imdbwidgetplotnumber" data-field_to_change_value="1" /><label for="imdb_imdbwidgetplot_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
 
 				<input type="text" id="imdb_imdbwidgetplotnumber" name="imdb_imdbwidgetplotnumber" size="3" value="<?php esc_html_e( apply_filters('format_to_edit',$imdbOptionsw['imdbwidgetplotnumber']), 'imdb') ?>" <?php if ($imdbOptionsw['imdbwidgetplot'] == 0){ echo 'disabled="disabled"'; }; ?> />
 			</td>
@@ -193,15 +188,15 @@ require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
 				<?php if ($imdbOptionsw['imdbwidgetprodCompany'] == "1") { echo '<span class="admin-option-selected">'; esc_html_e( 'Production company', 'imdb'); echo '</span>'; } else { ?>
 				<?php  esc_html_e( 'Production company', 'imdb'); echo '&nbsp;&nbsp;'; } ?>
 				
-				<input type="radio" id="imdb_imdbwidgetprodCompany_yes" name="imdb_imdbwidgetprodCompany" value="1" <?php if ($imdbOptionsw['imdbwidgetprodCompany'] == "1") { echo 'checked="checked"'; }?> /><label for="imdb_imdbwidgetprodCompanyyes"><?php esc_html_e( 'Yes', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbwidgetprodCompany_yes" name="imdb_imdbwidgetprodCompany" value="1" <?php if ($imdbOptionsw['imdbwidgetprodCompany'] == "1") { echo 'checked="checked"'; }?> /><label for="imdb_imdbwidgetprodCompany_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label>
 				<input type="radio" id="imdb_imdbwidgetprodCompany_no" name="imdb_imdbwidgetprodCompany" value="" <?php if ($imdbOptionsw['imdbwidgetprodCompany'] == 0) { echo 'checked="checked"'; } ?> /><label for="imdb_imdbwidgetprodCompany_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
 			</td>
 			<td>
 				<?php if ($imdbOptionsw['imdbwidgetquotes'] == "1") { echo '<span class="admin-option-selected">'; esc_html_e( 'Quotes', 'imdb'); echo '</span>'; } else { ?>
 				<?php  esc_html_e( 'Quotes', 'imdb'); echo '&nbsp;&nbsp;'; } ?>
 				
-				<input type="radio" id="imdb_imdbwidgetquotes_yes" name="imdb_imdbwidgetquotes" value="1" <?php if ($imdbOptionsw['imdbwidgetquotes'] == "1") { echo 'checked="checked"'; }?> onClick="GereControle('imdb_imdbwidgetquotes_yes', 'imdb_imdbwidgetquotesnumber', '0');" /><label for="imdb_imdbwidgetquotes_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label>
-				<input type="radio" id="imdb_imdbwidgetquotes_no" name="imdb_imdbwidgetquotes" value="" <?php if ($imdbOptionsw['imdbwidgetquotes'] == 0) { echo 'checked="checked"'; } ?> onClick="GereControle('imdb_imdbwidgetquotes_yes', 'imdb_imdbwidgetquotesnumber', '0');" /><label for="imdb_imdbwidgetquotes_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbwidgetquotes_yes" name="imdb_imdbwidgetquotes" value="1" <?php if ($imdbOptionsw['imdbwidgetquotes'] == "1") { echo 'checked="checked"'; }?> data-modificator="yes" data-field_to_change="imdb_imdbwidgetquotesnumber" data-field_to_change_value="0" /><label for="imdb_imdbwidgetquotes_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbwidgetquotes_no" name="imdb_imdbwidgetquotes" value="" <?php if ($imdbOptionsw['imdbwidgetquotes'] == 0) { echo 'checked="checked"'; } ?> data-modificator="yes" data-field_to_change="imdb_imdbwidgetquotesnumber" data-field_to_change_value="1" /><label for="imdb_imdbwidgetquotes_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
 
 				<input type="text" id="imdb_imdbwidgetquotesnumber" name="imdb_imdbwidgetquotesnumber" size="3" value="<?php esc_html_e( apply_filters('format_to_edit',$imdbOptionsw['imdbwidgetquotesnumber']), 'imdb') ?>" <?php if ($imdbOptionsw['imdbwidgetquotes'] == 0){ echo 'disabled="disabled"'; }; ?> />
 			</td>
@@ -220,8 +215,8 @@ require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
 				<?php if ($imdbOptionsw['imdbwidgettaglines'] == "1") { echo '<span class="admin-option-selected">'; esc_html_e( 'Tagline', 'imdb'); echo '</span>'; } else { ?>
 				<?php  esc_html_e( 'Tagline', 'imdb'); echo '&nbsp;&nbsp;'; } ?>
 				
-				<input type="radio" id="imdb_imdbwidgettaglines_yes" name="imdb_imdbwidgettaglines" value="1" <?php if ($imdbOptionsw['imdbwidgettaglines'] == "1") { echo 'checked="checked"'; }?> onClick="GereControle('imdb_imdbwidgettaglines_yes', 'imdb_imdbwidgettaglinesnumber', '0');" /><label for="imdb_imdbwidgettaglines_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label>
-				<input type="radio" id="imdb_imdbwidgettaglines_no" name="imdb_imdbwidgettaglines" value="" <?php if ($imdbOptionsw['imdbwidgettaglines'] == 0) { echo 'checked="checked"'; } ?> onClick="GereControle('imdb_imdbwidgettaglines_yes', 'imdb_imdbwidgettaglinesnumber', '0');" /><label for="imdb_imdbwidgettaglines_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbwidgettaglines_yes" name="imdb_imdbwidgettaglines" value="1" <?php if ($imdbOptionsw['imdbwidgettaglines'] == "1") { echo 'checked="checked"'; }?> data-modificator="yes" data-field_to_change="imdb_imdbwidgettaglinesnumber" data-field_to_change_value="0" /><label for="imdb_imdbwidgettaglines_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbwidgettaglines_no" name="imdb_imdbwidgettaglines" value="" <?php if ($imdbOptionsw['imdbwidgettaglines'] == 0) { echo 'checked="checked"'; } ?> data-modificator="yes" data-field_to_change="imdb_imdbwidgettaglinesnumber" data-field_to_change_value="1" /><label for="imdb_imdbwidgettaglines_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
 
 				<input type="text" id="imdb_imdbwidgettaglinesnumber" name="imdb_imdbwidgettaglinesnumber" size="3" value="<?php esc_html_e( apply_filters('format_to_edit',$imdbOptionsw['imdbwidgettaglinesnumber']), 'imdb') ?>" <?php if ($imdbOptionsw['imdbwidgettaglines'] == 0){ echo 'disabled="disabled"'; }; ?> />
 			</td>
@@ -261,8 +256,8 @@ require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
 				<?php if ($imdbOptionsw['imdbwidgetsoundtrack'] == "1") { echo '<span class="admin-option-selected">'; esc_html_e( 'Soundtrack', 'imdb'); echo '</span>'; } else { ?>
 				<?php  esc_html_e( 'Soundtrack', 'imdb'); echo '&nbsp;&nbsp;'; } ?>
 				
-				<input type="radio" id="imdb_imdbwidgetsoundtrack_yes" name="imdb_imdbwidgetsoundtrack" value="1" <?php if ($imdbOptionsw['imdbwidgetsoundtrack'] == "1") { echo 'checked="checked"'; }?> onClick="GereControle('imdb_imdbwidgetsoundtrack_yes', 'imdb_imdbwidgetsoundtracknumber', '0');" /><label for="imdb_imdbwidgetsoundtrack_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label>
-				<input type="radio" id="imdb_imdbwidgetsoundtrack" name="imdb_imdbwidgetsoundtrack" value="" <?php if ($imdbOptionsw['imdbwidgetsoundtrack'] == 0) { echo 'checked="checked"'; } ?> onClick="GereControle('imdb_imdbwidgetsoundtrack_yes', 'imdb_imdbwidgetsoundtracknumber', '0');" /><label for="imdb_imdbwidgetsoundtrack_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbwidgetsoundtrack_yes" name="imdb_imdbwidgetsoundtrack" value="1" <?php if ($imdbOptionsw['imdbwidgetsoundtrack'] == "1") { echo 'checked="checked"'; }?> data-modificator="yes" data-field_to_change="imdb_imdbwidgetsoundtracknumber" data-field_to_change_value="0" /><label for="imdb_imdbwidgetsoundtrack_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbwidgetsoundtrack" name="imdb_imdbwidgetsoundtrack" value="" <?php if ($imdbOptionsw['imdbwidgetsoundtrack'] == 0) { echo 'checked="checked"'; } ?> data-modificator="yes" data-field_to_change="imdb_imdbwidgetsoundtracknumber" data-field_to_change_value="1" /><label for="imdb_imdbwidgetsoundtrack_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
 
 				<input type="text" id="imdb_imdbwidgetsoundtracknumber" name="imdb_imdbwidgetsoundtracknumber" size="3" value="<?php esc_html_e( apply_filters('format_to_edit',$imdbOptionsw['imdbwidgetsoundtracknumber']), 'imdb') ?>" <?php if ($imdbOptionsw['imdbwidgetsoundtrack'] == 0){ echo 'disabled="disabled"'; }; ?> />
 			</td>
@@ -270,8 +265,8 @@ require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
 				<?php if ($imdbOptionsw['imdbwidgettrailer'] == "1") { echo '<span class="admin-option-selected">'; esc_html_e( 'Trailers', 'imdb'); echo '</span>'; } else { ?>
 				<?php  esc_html_e( 'Trailers', 'imdb'); echo '&nbsp;&nbsp;'; } ?>
 				
-				<input type="radio" id="imdb_imdbwidgettrailer_yes" name="imdb_imdbwidgettrailer" value="1" <?php if ($imdbOptionsw['imdbwidgettrailer'] == "1") { echo 'checked="checked"'; }?>  onClick="GereControle('imdb_imdbwidgettrailer_yes', 'imdb_imdbwidgettrailernumber', '0');" /><label for="imdb_imdbwidgettrailer_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label>
-				<input type="radio" id="imdb_imdbwidgettrailer_no" name="imdb_imdbwidgettrailer" value="" <?php if ($imdbOptionsw['imdbwidgettrailer'] == 0) { echo 'checked="checked"'; } ?>  onClick="GereControle('imdb_imdbwidgettrailer_yes', 'imdb_imdbwidgettrailernumber', '0');" /><label for="imdb_imdbwidgettrailer_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbwidgettrailer_yes" name="imdb_imdbwidgettrailer" value="1" <?php if ($imdbOptionsw['imdbwidgettrailer'] == "1") { echo 'checked="checked"'; }?> data-modificator="yes" data-field_to_change="imdb_imdbwidgettrailernumber" data-field_to_change_value="0" /><label for="imdb_imdbwidgettrailer_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbwidgettrailer_no" name="imdb_imdbwidgettrailer" value="" <?php if ($imdbOptionsw['imdbwidgettrailer'] == 0) { echo 'checked="checked"'; } ?> data-modificator="yes" data-field_to_change="imdb_imdbwidgettrailernumber" data-field_to_change_value="1" /><label for="imdb_imdbwidgettrailer_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
 
 				<input type="text" id="imdb_imdbwidgettrailernumber" name="imdb_imdbwidgettrailernumber" size="3" value="<?php esc_html_e( apply_filters('format_to_edit',$imdbOptionsw['imdbwidgettrailernumber']), 'imdb') ?>" <?php if ($imdbOptionsw['imdbwidgettrailernumber'] == 0){ echo 'disabled="disabled"'; }; ?> />
 
@@ -327,8 +322,8 @@ require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
 				<?php if ($imdbOptionsw['imdbwidgetgoofs'] == "1") { echo '<span class="admin-option-selected">'; esc_html_e( 'Goofs', 'imdb'); echo '</span>'; } else { ?>
 				<?php  esc_html_e( 'Goofs', 'imdb'); echo '&nbsp;&nbsp;'; } ?>
 				
-				<input type="radio" id="imdb_imdbwidgetgoofs_yes" name="imdb_imdbwidgetgoofs" value="1" <?php if ($imdbOptionsw['imdbwidgetgoofs'] == "1") { echo 'checked="checked"'; }?> onClick="GereControle('imdb_imdbwidgetgoofs_yes', 'imdb_imdbwidgetgoofsnumber', '0');" /><label for="imdb_imdbwidgetgoofs_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label>
-				<input type="radio" id="imdb_imdbwidgetgoofs_no" name="imdb_imdbwidgetgoofs" value="" <?php if ($imdbOptionsw['imdbwidgetgoofs'] == 0) { echo 'checked="checked"'; } ?> onClick="GereControle('imdb_imdbwidgetgoofs_yes', 'imdb_imdbwidgetgoofsnumber', '0');" /><label for="imdb_imdbwidgetgoofs_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbwidgetgoofs_yes" name="imdb_imdbwidgetgoofs" value="1" <?php if ($imdbOptionsw['imdbwidgetgoofs'] == "1") { echo 'checked="checked"'; }?> data-modificator="yes" data-field_to_change="imdb_imdbwidgetgoofsnumber" data-field_to_change_value="0" /><label for="imdb_imdbwidgetgoofs_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbwidgetgoofs_no" name="imdb_imdbwidgetgoofs" value="" <?php if ($imdbOptionsw['imdbwidgetgoofs'] == 0) { echo 'checked="checked"'; } ?> data-modificator="yes" data-field_to_change="imdb_imdbwidgetgoofsnumber" data-field_to_change_value="1" /><label for="imdb_imdbwidgetgoofs_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
 
 				<input type="text" id="imdb_imdbwidgetgoofsnumber" name="imdb_imdbwidgetgoofsnumber" size="3" value="<?php esc_html_e( apply_filters('format_to_edit',$imdbOptionsw['imdbwidgetgoofsnumber']), 'imdb') ?>" <?php if ($imdbOptionsw['imdbwidgetgoofs'] == 0){ echo 'disabled="disabled"'; }; ?> />
 			</td>
@@ -336,8 +331,8 @@ require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
 				<?php if ($imdbOptionsw['imdbwidgetcomments'] == "1") { echo '<span class="admin-option-selected">'; esc_html_e( 'Users comment', 'imdb'); echo '</span>'; } else { ?>
 				<?php  esc_html_e( 'Users comment', 'imdb'); echo '&nbsp;&nbsp;'; } ?>
 				
-				<input type="radio" id="imdb_imdbwidgetcomments_yes" name="imdb_imdbwidgetcomments" value="1" <?php if ($imdbOptionsw['imdbwidgetcomments'] == "1") { echo 'checked="checked"'; }?> onClick="GereControle('imdb_imdbwidgetcomments_yes', 'imdb_imdbwidgetcommentsnumber', '0');" /><label for="imdb_imdbwidgetcomments_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label>
-				<input type="radio" id="imdb_imdbwidgetcomments_no" name="imdb_imdbwidgetcomments" value="" <?php if ($imdbOptionsw['imdbwidgetcomments'] == 0) { echo 'checked="checked"'; } ?> onClick="GereControle('imdb_imdbwidgetcomments_yes', 'imdb_imdbwidgetcommentsnumber', '0');" /><label for="imdb_imdbwidgetcomments_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbwidgetcomments_yes" name="imdb_imdbwidgetcomments" value="1" <?php if ($imdbOptionsw['imdbwidgetcomments'] == "1") { echo 'checked="checked"'; }?> data-modificator="yes" data-field_to_change="imdb_imdbwidgetcommentsnumber" data-field_to_change_value="0" /><label for="imdb_imdbwidgetcomments_yes"><?php esc_html_e( 'Yes', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbwidgetcomments_no" name="imdb_imdbwidgetcomments" value="" <?php if ($imdbOptionsw['imdbwidgetcomments'] == 0) { echo 'checked="checked"'; } ?> data-modificator="yes" data-field_to_change="imdb_imdbwidgetcommentsnumber" data-field_to_change_value="1" /><label for="imdb_imdbwidgetcomments_no"><?php esc_html_e( 'No', 'imdb'); ?></label>
 
 				<input type="text" id="imdb_imdbwidgetcommentsnumber" name="imdb_imdbwidgetcommentsnumber" size="3" value="<?php esc_html_e( apply_filters('format_to_edit',$imdbOptionsw['imdbwidgetcommentsnumber']), 'imdb') ?>" <?php if ($imdbOptionsw['imdbwidgetcomments'] == 0){ echo 'disabled="disabled"'; }; ?> />
 			</td>
@@ -360,10 +355,9 @@ require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
 		if ($_GET['widgetoption'] == "taxo")  { 	// Taxonomy ?>
 		<?php //-------------------------------------------------------------------=[Taxonomy]=-
 
-if ($imdbOptions['imdbtaxonomy'] != "1") {	//check if taxonomy is activated
-echo "<div align='center' class='accesstaxo'>".__('Please ', 'imdb')."<a href='".admin_url().'admin.php?page=imdblt_options&generaloption=advanced">'.__('activate taxonomy', 'imdb').'</a>'.__(' priorly', 'imdb').'<br />'.__('to access taxonomies options.', 'imdb')."</div>";
-} else { ?>
-
+			if ($imdbOptions['imdbtaxonomy'] != "1") { //check if taxonomy is activated
+				echo "<div align='center' class='accesstaxo'>".__('Please ', 'imdb')."<a href='".esc_url ( admin_url().'admin.php?page=imdblt_options&generaloption=advanced') . '">' . __('activate taxonomy', 'imdb') . '</a>' . __(' priorly', 'imdb') . '<br />' . __('to access taxonomies options.', 'imdb') . "</div>";
+			} else { // taxonomy is activated ?>
 		<tr>
 			<td colspan="4" class="titresection"><?php esc_html_e( 'Select details to use as taxonomy', 'imdb'); ?></td>
 		</tr>
@@ -486,39 +480,36 @@ echo "<div align='center' class='accesstaxo'>".__('Please ', 'imdb')."<a href='"
 					<br /><br />
 					<?php esc_html_e( '"Source" movie detail cannot be selected; if it is selected from "what to display" section, it will always appear after others movie details', 'imdb'); ?>
 				</div>
-
 			</td>
 			<td width="40%" align="center" class="imdblt_valign_middle">
-
-				<select id="imdbwidgetorderContainer" name="imdbwidgetorderContainer" size="10" class="imdbwidgetorderContainer">     
-				<?php foreach ($imdbOptionsw['imdbwidgetorder'] as $key=>$value) {
-					if (!empty ( $key )  && ( $key ) != "source"    ) { // to eliminate empty keys, but also "source" which will always stays at the end (technical limitation, data outside the imdb-movie.inc.php loop)
-						echo '<OPTION label="'.$key.'" value="'.$key.'"';
-						if ($imdbOptionsw["imdbwidget$key"] != 1 ) { // search if "imdbwidget'title'" (ie) is activated
-							echo '> '.$key.' (unactivated)';
-						} else { echo '>'.$key; }
-						echo "</OPTION>\n\t\t\t\t\t"; 
-					}
-				      }
-				?>
-				</select>
+				<select id="imdbwidgetorderContainer" name="imdbwidgetorderContainer[]" size="10" class="imdbwidgetorderContainer" multiple>
+<?php 
+ 					foreach ($imdbOptionsw['imdbwidgetorder'] as $key=>$value) {
+						if (!empty ( $key ) && ( $key ) != "source"  ) { // to eliminate empty keys, but also "source" which will always stays at the end (technical limitation, data outside the imdb-movie.inc.php loop)
+							echo "\t\t\t\t\t<option value='".$key."'";
+							if ($imdbOptionsw["imdbwidget$key"] != 1 ) { // search if "imdbwidget'title'" (ie) is activated
+								echo ' label="'.$key.' (unactivated)">'.$key;
+							} else { 
+								echo ' label="'.$key.'">'.$key; 
+							}
+								echo "</option>\n"; 
+						}
+				      	}
+				?>				</select>
 			</td>
 
 			<td width="30%" align="left" class="imdblt_valign_middle">
 
-				Move selected movie:<br />
-				<input type="button" value="up" name="movemovieup" id="movemovieup" onClick="move(this.form,this.form.imdbwidgetorderContainer,-1)" /> 
+				<?php esc_html_e( 'Move selected movie detail:', 'imdb') ?><br />
+				<input type="button" value="up" name="movemovieup" id="movemovieup" data-moveform="-1" /> 
 				
-				<input type="button" value="down" name="movemoviedown" id="movemoviedown" onClick="move(this.form,this.form.imdbwidgetorderContainer,+1)" />
-
-				<!--special value, "empty", to elminate false submissions which could crush database values-->                          
-				<input type="text" name="imdb_imdbwidgetorder" id="imdb_imdbwidgetorder" value="empty" class="imdblt_hidden" />
+				<input type="button" value="down" name="movemoviedown" id="movemoviedown" data-moveform="+1" />
+				<? 
+				// add "empty", to eliminate false submissions which could crush database values ?>	
+				<input type="hidden" name="imdb_imdbwidgetorder" id="imdb_imdbwidgetorder" value="" class="imdblt_hidden" />
 
 			</td>
 		</tr>
-
-
-
 
 <?php	} 
 		if ($_GET['widgetoption'] == "misc")  { 	// Misc ?>
@@ -565,7 +556,7 @@ echo "<div align='center' class='accesstaxo'>".__('Please ', 'imdb')."<a href='"
 		<?php wp_nonce_field('reset_imdbwidgetSettings_check', 'reset_imdbwidgetSettings_check'); //check that data has been sent only once ?>
 		<input type="submit" class="button-primary" name="reset_imdbwidgetSettings" value="<?php esc_html_e( 'Reset settings', 'imdb') ?>" />
 		<?php wp_nonce_field('update_imdbwidgetSettings_check', 'update_imdbwidgetSettings_check', false); //check that data has been sent only once -- don't send _wp_http_referer twice, already sent with first wp_nonce_field -> 3rd option to "false" ?>
-		<input type="submit" class="button-primary" name="update_imdbwidgetSettings" value="<?php esc_html_e( 'Update settings', 'imdb') ?>" />
+		<input type="submit" class="button-primary" id="update_imdbwidgetSettings" name="update_imdbwidgetSettings" value="<?php esc_html_e( 'Update settings', 'imdb') ?>" />
 	</div>
 	<br />
 </div>

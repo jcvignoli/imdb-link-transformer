@@ -237,6 +237,7 @@ class imdb_settings_conf extends mdb_config {
 		if  (isset($_POST['update_imdbwidgetSettings']) ) { //--------------save data selected (widget options)
 
 			foreach ($_POST as $key=>$postvalue) {
+				if ($key == 'imdbwidgetorderContainer') continue;
 				$keynoimdb = str_replace ( "imdb_", "", $key);
 				if (isset($_POST["$key"])) {
 					$imdbOptionsw["$keynoimdb"] = $_POST["$key"];
@@ -244,17 +245,23 @@ class imdb_settings_conf extends mdb_config {
 			}
 
 			// Special part related to details order
-			if (isset($_POST[imdb_imdbwidgetorder]) ){ 
-				$data = array_flip(explode(" ", $_POST[imdb_imdbwidgetorder]));
-				$imdbOptionsw[imdbwidgetorder] = $data;
+			if (isset($_POST['imdbwidgetorderContainer']) ){ 
+				$myinputs = $_POST['imdbwidgetorderContainer'];
+				// increment the $key of one
+				$data = array_combine(range(1, count($myinputs)), array_values($myinputs));
+				// move $key to $value and vice versa
+				$data = array_flip($data);
+				// Put in the option
+				$imdbOptionsw['imdbwidgetorder'] = $data;
 			}
 
 			// check if the refer is ok before saving data
 			check_admin_referer('update_imdbwidgetSettings_check', 'update_imdbwidgetSettings_check'); 
 
 			// make sure that data posted in imdb_imdbwidgetorder (options-widget.php) are not empty; otherwise, it would
-			// replace $imdbOptions[imdbwidgetorder] values by an empty one.
-			if ( $_POST[imdb_imdbwidgetorder] == "empty") {
+			// replace $imdbOptions['imdbwidgetorder'] values by an empty one.
+			if ( $_POST['imdb_imdbwidgetorder'] == "empty") {
+			
 				if (!headers_sent()) {
 					header("Location: ".$_SERVER[ "REQUEST_URI"], false);
 					die();
@@ -263,6 +270,7 @@ class imdb_settings_conf extends mdb_config {
 					die();
 				}
 			}
+
 			update_option($this->imdbWidgetOptionsName, $imdbOptionsw);
 			
 			// display message on top
@@ -420,12 +428,12 @@ class imdb_settings_conf extends mdb_config {
 	<?php ### select the sub-page
 	
 	if (empty($_GET['subsection'])) { ?>
-		<form method="post" name="imdbconfig_save" action="<?php echo $_SERVER[ "REQUEST_URI"]; ?>" >
+		<form method="post" id="imdbconfig_save" name="imdbconfig_save" action="<?php echo $_SERVER[ "REQUEST_URI"]; ?>" >
 			<?php include ( IMDBLTABSPATH . 'inc/options-general.php'); ?>
 		</form>
 <?php 	} 
 	if ($_GET['subsection'] == "widgetoption")  {	?>
-		<form method="post" name="imdbconfig_save" action="<?php echo $_SERVER[ "REQUEST_URI"]; ?>" >
+		<form method="post" id="imdbconfig_save" name="imdbconfig_save" action="<?php echo $_SERVER[ "REQUEST_URI"]; ?>" >
 			<?php include ( IMDBLTABSPATH . 'inc/options-widget.php'); ?>
 		</form>
 <?php 	}
