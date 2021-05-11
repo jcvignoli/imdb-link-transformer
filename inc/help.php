@@ -18,6 +18,12 @@ global $imdb_admin_values;
 $readmefile = $imdb_admin_values['imdbplugindirectory'] . "README.txt";
 $changelogfile = $imdb_admin_values['imdbplugindirectory']."CHANGELOG.txt";
 
+$allowed_html_for_esc_html_functions = [
+	'i',
+	'strong',
+];
+
+
 // Boxes
 add_meta_box('imdbLT_help_plb', esc_html__( 'Popup link builder', 'imdb'), 'imdbLT_help_plb_function', 'imdblt_help', 'left', 'core');
 add_meta_box('imdblt_help_itp', esc_html__( 'Inside the post', 'imdb'), 'imdblt_help_itp_function', 'imdblt_help', 'right', 'core');
@@ -25,22 +31,22 @@ add_meta_box('imdblt_help_w', esc_html__( 'Widget', 'imdb'), 'imdblt_help_w_func
 add_meta_box('imdblt_help_adminmenubig', esc_html__( 'Big admin menu', 'imdb'), 'imdblt_help_adminbigmenu_function', 'imdblt_help', 'right', 'core');
 add_meta_box('imdblt_help_addsearchform', esc_html__( 'Add a search form', 'imdb'), 'imdblt_help_addsearchform_function', 'imdblt_help', 'left', 'core');
 add_meta_box('imdblt_help_keepcss', esc_html__( 'Keep css through update', 'imdb'), 'imdblt_help_keepcss_function', 'imdblt_help', 'right', 'core');
-/* moviepilot cannot be used anymore 
+/* --- moviepilot is not used anymore 
 add_meta_box('imdblt_help_getridofimdb', esc_html__( 'Use a website other than IMDb', 'imdb'), 'imdblt_help_getridofimdb_function', 'imdblt_help', 'left', 'core');
-moviepilot cannot be used anymore  */
+*/
 add_meta_box('imdblt_help_usetaxonomy', esc_html__( 'Taxonomy with Wordpress', 'imdb'), 'imdblt_help_usetaxonomy_function', 'imdblt_help', 'left', 'core');
 add_meta_box('imdblt_help_autowidget_function', esc_html__( 'Widget auto according post\'s title', 'imdb'), 'imdblt_help_autowidget_function', 'imdblt_help', 'right', 'core');
 ?>
 
 <div id="tabswrap">
 	<ul id="tabs">
-		<li><img src="<?php echo $imdb_admin_values[imdbplugindirectory]; ?>pics/admin-help-howto.png" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e( "How to use IMDb link transformer", 'imdb');?>" href="?page=imdblt_options&subsection=help&helpsub=howto"><?php esc_html_e( 'How to', 'imdb'); ?></a></li>
+		<li><img src="<?php echo esc_url( $imdb_admin_values[imdbplugindirectory] ."pics/admin-help-howto.png"); ?>" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e( "How to use IMDb link transformer", 'imdb');?>" href="<?php echo esc_url( admin_url() . "admin.php?page=imdblt_options&subsection=help&helpsub=howto"); ?>"><?php esc_html_e( 'How to', 'imdb'); ?></a></li>
 
-		<li>&nbsp;&nbsp;<img src="<?php echo $imdb_admin_values[imdbplugindirectory]; ?>pics/admin-help-faq.png" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e( "Frequently asked questions", 'imdb');?>" href="?page=imdblt_options&subsection=help&helpsub=faqs"><?php esc_html_e( 'FAQs', 'imdb'); ?></a></li>
+		<li>&nbsp;&nbsp;<img src="<?php echo esc_url( $imdb_admin_values[imdbplugindirectory] . "pics/admin-help-faq.png"); ?>" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e( "Frequently asked questions", 'imdb');?>" href="<?php echo esc_url( admin_url() . "admin.php?page=imdblt_options&subsection=help&helpsub=faqs"); ?>"><?php esc_html_e( 'FAQs', 'imdb'); ?></a></li>
 
-		<li>&nbsp;&nbsp;<img src="<?php echo $imdb_admin_values[imdbplugindirectory]; ?>pics/admin-help-changelog.png" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e( "What's new", 'imdb');?>" href="?page=imdblt_options&subsection=help&helpsub=changelog"><?php esc_html_e( 'Changelog', 'imdb'); ?></a></li>
+		<li>&nbsp;&nbsp;<img src="<?php echo esc_url( $imdb_admin_values[imdbplugindirectory] . "pics/admin-help-changelog.png"); ?>" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e( "What's new", 'imdb');?>" href="<?php echo esc_url( admin_url() . "admin.php?page=imdblt_options&subsection=help&helpsub=changelog"); ?>"><?php esc_html_e( 'Changelog', 'imdb'); ?></a></li>
 
-		<li>&nbsp;&nbsp;<img src="<?php echo $imdb_admin_values[imdbplugindirectory]; ?>pics/admin-help-support.png" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e( "To get support and to support what you get", 'imdb');?>" href="?page=imdblt_options&subsection=help&helpsub=support"><?php esc_html_e( 'Support, donate & credits', 'imdb'); ?></a></li>
+		<li>&nbsp;&nbsp;<img src="<?php echo esc_url( $imdb_admin_values[imdbplugindirectory] . "pics/admin-help-support.png"); ?>" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e( "To get support and to support what you get", 'imdb');?>" href="<?php echo esc_url( admin_url() . "admin.php?page=imdblt_options&subsection=help&helpsub=support"); ?>"><?php esc_html_e( 'Support, donate & credits', 'imdb'); ?></a></li>
 	</ul>
 </div>
 
@@ -53,11 +59,11 @@ if ($_GET['helpsub'] == "faqs")  { 	// Readme section ?>
 		<div id="left-sortables" class="meta-box-sortables">
 			<div id="imdbLT_help_plb" class="postbox">
 				<div class="handlediv" title="Click to toggle"><br></div>
-				<h3 class="hndle"><span>Frequently asked questions</span></h3>
+				<h3 class="hndle"><?php esc_html_e("Frequently asked questions", "imdb"); ?></h3>
 				<div class="inside">
 					<div class="helpdiv">
 					<?php 
-					$patterntitle = '/== Frequently Asked Questions ==(.*?)== Contacts ==/ms';
+					$patterntitle = '/== Frequently Asked Questions ==(.*?)== Support ==/ms';
 					$faqfile = file_get_contents($readmefile);
 					preg_match($patterntitle, $faqfile, $faqsection);
 					$faqsection = $faqsection[1];
@@ -66,6 +72,7 @@ if ($_GET['helpsub'] == "faqs")  { 	// Readme section ?>
 					// replace links from (specially formated for wordpress website) readme with casual html
 					$patternlink = '~(\\[{1}(.*?)\\]\()(https://)(([[:punct:]]|[[:alnum:]])*)( \"{1}(.*?)\"\))~';
 					$faqsectionarray = preg_replace($patternlink,"<a href=\"\${3}\${4}\" title=\"\${7}\">\${2}</a>",$faqsectionarray);
+					$faqsectionarray = preg_replace("~\*\*(.*?)\*\*~","<i>\${1}</i>",$faqsectionarray);
 				
 					$i=0;
 					echo "<br />\n<ol>\n";
@@ -96,16 +103,17 @@ if ($_GET['helpsub'] == "faqs")  { 	// Readme section ?>
 		<div id="left-sortables" class="meta-box-sortables">
 			<div id="imdbLT_help_plb" class="postbox">
 				<div class="handlediv" title="Click to toggle"><br></div>
-				<h3 class="hndle"><span>Changelog</span></h3>
+				<h3 class="hndle"><?php esc_html_e("Changelog", "imdb"); ?></h3>
 				<div class="inside">
 					<div class="helpdiv">
 					<?php 
 					$changlelogfile = file($changelogfile, FILE_BINARY);
-
+					// replace **...** by strong and i
+					$changlelogfile = preg_replace("~(\*\s\[)(.*?)(\])~","<strong><i>\${2}</i></strong>",$changlelogfile);
 					// replace links from (specially formated for wordpress website) readme with casual html
 					$patternlink = '~(\\[{1}(.*?)\\]\()(http://)(([[:punct:]]|[[:alnum:]])*)( \"{1}(.*?)\"\))~';
-					$changlelogfile = preg_replace($patternlink,"<a href=\"\${3}\${4}\" title=\"\${7}\">\${2}</a>",$changlelogfile);
 
+					$changlelogfile = preg_replace($patternlink,"<a href=\"\${3}\${4}\" title=\"\${7}\">\${2}</a>",$changlelogfile);
 					$i=0;
 					echo "<ul>";					
 					foreach ($changlelogfile as $texte) {
@@ -128,7 +136,7 @@ if ($_GET['helpsub'] == "faqs")  { 	// Readme section ?>
 <?php
 	} elseif ($_GET['helpsub'] == "support")  { 	// Support section
 ?>
-	<div align="center"><?php esc_html_e( 'Two ways to match <strong>IMDb link transformer</strong> and <strong>support</strong>', 'imdb') ?>:</div>
+	<div align="center"><?php wp_kses( _e( 'Two ways to match <strong>IMDb link transformer</strong> and <strong>support</strong>', 'imdb'), $allowed_html_for_esc_html_functions); ?>:</div>
 	<br />
 	<br />	
 	
@@ -136,7 +144,7 @@ if ($_GET['helpsub'] == "faqs")  { 	// Readme section ?>
 		<div id="right-sortables" class="meta-box-sortables">
 			<div id="imdbLT_support" class="postbox">
 				<div class="handlediv" title="Click to toggle"><br></div>
-				<h3 class="hndle"><span><?php esc_html_e( 'Be supported!', 'imdb'); ?></span></h3>
+				<h3 class="hndle"><?php esc_html_e( 'Be supported!', 'imdb'); ?></h3>
 				<div class="inside">
 					<div class="helpdiv">
 						<?php esc_html_e( 'You will never believe there is so many ways to be supported. Yes, you can:', 'imdb'); ?><br />
@@ -154,14 +162,14 @@ if ($_GET['helpsub'] == "faqs")  { 	// Readme section ?>
 		<div id="left-sortables" class="meta-box-sortables">
 			<div id="imdbLT_support" class="postbox">
 				<div class="handlediv" title="Click to toggle"><br></div>
-				<h3 class="hndle"><span><?php esc_html_e( 'Support me!', 'imdb'); ?></span></h3>
+				<h3 class="hndle"><?php esc_html_e( 'Support me!', 'imdb'); ?></h3>
 				<div class="inside">
 					<div class="helpdiv">
 						<?php esc_html_e( 'You will never believe there is so many ways to thank me. Yes, you can:', 'imdb'); ?><br />
 		<strong>1</strong>. <?php esc_html_e( 'vote for IMDb link transformer on ', 'imdb'); ?> <a href="https://wordpress.org/extend/plugins/imdb-link-transformer/">Wordpress' website</a>.<br />
 		<strong>2</strong>. <?php esc_html_e( 'vote for IMDb link transformer on its own', 'imdb'); ?> <a href="<?php echo IMDBHOMEPAGE ?>">website</a>.<br />
 		<strong>3</strong>. <?php esc_html_e( "send as many bugfixes and propositions as you can on IMDb link transformer website.", 'imdb'); ?><br />
-		<strong>4</strong>. <?php esc_html_e( 'pay whatever you want on paypal', 'imdb'); ?> <a href="https://www.paypal.me/jcvignoli"><img src="<?php echo $imdb_admin_values[imdbplugindirectory]; ?>pics/paypal-donate.png" border="0" width="60px" class="imdblt_align_bottom" align="center"/><?php esc_html_e( 'website', 'imdb'); ?></a>.<br />
+		<strong>4</strong>. <?php esc_html_e( 'pay whatever you want on paypal', 'imdb'); ?> <a href="https://www.paypal.me/jcvignoli"><img src="<?php echo esc_url( $imdb_admin_values[imdbplugindirectory] . "pics/paypal-donate.png"); ?>" width="60px" class="imdblt_align_bottom" valign="bottom"/><?php esc_html_e( 'website', 'imdb'); ?></a>.<br />
 		<strong>5</strong>. <?php esc_html_e( "translate the plugin into your own language.", 'imdb'); ?><br />
 		<strong>6</strong>. <?php esc_html_e( "help me to improve the plugin's design. I'm not gifted at all.", 'imdb'); ?><br />
 		<strong>7</strong>. <?php esc_html_e( "place a trackback, talk about this tool, and so on.", 'imdb'); ?><br />
@@ -185,7 +193,7 @@ if ($_GET['helpsub'] == "faqs")  { 	// Readme section ?>
 						<li>Andr&eacute;s Cabrera, Spanish translation</li>
 						<li>Peter, Bulgarian translation</li>
 						<li>Web Geek Sciense (<a href="https://webhostinggeeks.com/">Web Hosting Geeks</a>), Romanian translation</li>
-						<li><a href="https://highslide.com">Highslide JS</a>, smart & pretty js libraries collection -> BTW, discovered thanks to <a href="https://www.fots.nl/index.php/imdb-tag/">Hans Sleurink</a>, an inspiring plugin maker</li>
+						<li><a href="http://highslide.com">Highslide JS</a>, smart & pretty js libraries collection -> BTW, discovered thanks to <a href="https://www.fots.nl/index.php/imdb-tag/">Hans Sleurink</a>, an inspiring plugin maker</li>
 						<li>Several icons made by <a href="https://p.yusukekamiyamane.com/">Yusuke Kamiyamane</a></li>
 					</div>
 				</div>		
@@ -229,7 +237,7 @@ function imdbLT_help_plb_function () {
 
 	<div class="helpdiv">
 		<h4><?php esc_html_e( 'Why a popup window?', 'imdb'); ?></h4>
-		<a href="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>.wordpress-org/screenshot-1.jpg"" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img align="right" width="55%" src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>.wordpress-org/screenshot-1.jpg" alt="screenshot Link creator" /></a>
+		<a href="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . ".wordpress-org/screenshot-1.jpg"); ?>" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img align="right" width="55%" src="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . ".wordpress-org/screenshot-1.jpg"); ?>" alt="screenshot Link creator" /></a>
 		<?php esc_html_e( "The first way to use Imdb link transformer is the first historically available. The idea behind was to find a solution for posts quoting many movies; blogger and reader would appreciate to have director's name, to know the alternative title's name, etc. And these data should not waste space in post itself; thus the popup idea.", 'imdb'); ?>
 	</div>
 
@@ -244,12 +252,12 @@ function imdbLT_help_plb_function () {
 	<div class="helpdiv">
 		<h4><?php esc_html_e( 'How to get a popup window', 'imdb'); ?></h4>
 		<?php esc_html_e( "To create a link to a popup window, you only need to put the <b>movie's title</b> (it doesn't work with any other data) inside dedicated tags. Either you use the HTML style to write posts, and a new button could help you to achieve that:", 'imdb'); ?><br />
-		<div align="center"><a href="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>.wordpress-org/screenshot-7.jpg"" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img width="90%" src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>.wordpress-org/screenshot-7.jpg" alt="screenshot Link creator button added for bloggers who prefer HTML writing way" /></a></div>
+		<div align="center"><a href="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . ".wordpress-org/screenshot-7.jpg"); ?>" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img width="90%" src="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . ".wordpress-org/screenshot-7.jpg"); ?>" alt="screenshot Link creator button added for bloggers who prefer HTML writing way" /></a></div>
 	</div>
 
 	<div class="helpdiv">
 		<?php esc_html_e( 'Or you use the Visual style to write posts, and a new button could help you to achieve that :', 'imdb'); ?>
-		<div align="center"><a href="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>.wordpress-org/screenshot-6.jpg"" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img width="90%" src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>.wordpress-org/screenshot-6.jpg" alt="screenshot Link creator New button added for bloggers who prefer Visual writing way" /></a></div>
+		<div align="center"><a href="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . ".wordpress-org/screenshot-6.jpg"); ?>" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img width="90%" src="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . ".wordpress-org/screenshot-6.jpg"); ?>" alt="screenshot Link creator New button added for bloggers who prefer Visual writing way" /></a></div>
 	</div>
 
 	<div class="helpdiv">
@@ -268,27 +276,27 @@ function imdblt_help_w_function () {
 
 	<div class="helpdiv">
 		<h4><?php esc_html_e( "Why to use widget?", 'imdb'); ?></h4>
-		<a href="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>.wordpress-org/screenshot-3.jpg" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img align="right" width="50%" src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>.wordpress-org/screenshot-3.jpg" alt="<?php esc_html_e( 'key and value for custom fields', 'imdb'); ?>" /></a>
+		<a href="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . ".wordpress-org/screenshot-3.jpg"); ?>" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img align="right" width="50%" src="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . ".wordpress-org/screenshot-3.jpg"); ?>" alt="<?php esc_html_e( 'key and value for custom fields', 'imdb'); ?>" /></a>
 
 		<?php esc_html_e( 'Widgets are widely used in wordpress. They allow to quickly select what information to display in an area, usually on sidebar. The main advantage is that blogger can easily select what information to display - or not, in what order.', 'imdb'); ?>
 	</div>
 	
 	<div class="helpdiv">
 		<h4><?php esc_html_e( "How to use widget", 'imdb'); ?></h4>
-		<?php esc_html_e( "<strong>Firstly</strong>, go to <a href='widgets.php'>widget</a> administration (<i>appearance</i> tab), drag <i>imdb widget</i> (from <i>inactive widgets</i>) to a sidebar, and modify the box's title (in case you don't want to have the box named <i>IMDb data</i>).", 'imdb'); ?>
+		<?php wp_kses( _e( "<strong>Firstly</strong>, go to <a href='widgets.php'>widget</a> administration (<i>appearance</i> tab), drag <i>imdb widget</i> (from <i>inactive widgets</i>) to a sidebar, and modify the box's title (in case you don't want to have the box named <i>IMDb data</i>).", 'imdb'), $allowed_html_for_esc_html_functions); ?>
 	</div>
 	
 	<div class="helpdiv">
-		<?php esc_html_e( "<strong>Secondly</strong>, open an old post (or write a new one) and add the key <i>imdb-movie-widget</i> to the <i>custom fields</i> of your message <strong>and</strong> the name of the movie you want to display to <i>value</i> (first case from the picture). IMDb link transformer will automatically display in the widget the movie selected.", 'imdb'); ?>		
+		<?php wp_kses( _e( "<strong>Secondly</strong>, open an old post (or write a new one) and add the key <i>imdb-movie-widget</i> to the <i>custom fields</i> of your message <strong>and</strong> the name of the movie you want to display to <i>value</i> (first case from the picture). IMDb link transformer will automatically display in the widget the movie selected.", 'imdb'), $allowed_html_for_esc_html_functions); ?>
 	</div>
 	
 	<div class="helpdiv">
-		<a href="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>.wordpress-org/screenshot-5.jpg" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img align="left" width="50%" src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>.wordpress-org/screenshot-5.jpg" alt="<?php esc_html_e( 'IMDb link transformer widget', 'imdb'); ?>" /></a>
-		<?php esc_html_e( "<strong>Another possibility:</strong> add to your post the key <i>imdb-movie-widget-bymid</i> into the <i>custom fields</i> from your message <strong>and</strong> the IMDb ID for the movie you want to be displayed on your sidebar to <i>value</i> (second case from the picture). Instead of looking for a name, IMDb link transformer would directly display the movie you want to display. Very useful when your movie's name does not work as it should (if there are many movies with the same name, the wrong movie is displayed, etc).", 'imdb'); ?>
+		<a href="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . ".wordpress-org/screenshot-5.jpg"); ?>" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img align="left" width="50%" src="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . ".wordpress-org/screenshot-5.jpg"); ?>" alt="<?php esc_html_e( 'IMDb link transformer widget', 'imdb'); ?>" /></a>
+		<?php wp_kses( _e( "<strong>Another possibility:</strong> add to your post the key <i>imdb-movie-widget-bymid</i> into the <i>custom fields</i> from your message <strong>and</strong> the IMDb ID for the movie you want to be displayed on your sidebar to <i>value</i> (second case from the picture). Instead of looking for a name, IMDb link transformer would directly display the movie you want to display. Very useful when your movie's name does not work as it should (if there are many movies with the same name, the wrong movie is displayed, etc).", 'imdb'),  $allowed_html_for_esc_html_functions); ?>
 	</div>
 	
 	<div class="helpdiv">
-		<?php esc_html_e( "To get the movie's IMDb id, search for a title on <a href='http://www.imdb.com' >Internet movie database</a> website, look at the adress bar for a 'ttXXXXX' section, keep only the numerical part (XXXXX) and add result to the <i>value</i> custom field. However, in this specific case, do not mix with an <i>imdb-movie-widget</i> key. Only the first one will be displayed.", 'imdb'); ?>
+		<?php wp_kses( _e( "To get the movie's IMDb id, search for a title on <a href='https://www.imdb.com' >Internet movie database</a> website, look at the adress bar for a 'ttXXXXX' section, keep only the numerical part (XXXXX) and add result to the <i>value</i> custom field. However, in this specific case, do not mix with an <i>imdb-movie-widget</i> key. Only the first one will be displayed.", 'imdb'), $allowed_html_for_esc_html_functions); ?>
 	</div>
 
 <?php } // end function imdblt_help_w_function
@@ -303,7 +311,7 @@ function imdblt_help_itp_function () {
 
 	<div class="helpdiv">
 		<h4><?php esc_html_e( "What's the point of displaying movie's data inside my post?", 'imdb'); ?></h4>
-		<a href="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>.wordpress-org/screenshot-2.jpg" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img align="right" width="50%" src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>.wordpress-org/screenshot-2.jpg" alt="<?php esc_html_e( 'IMDb link transformer widget', 'imdb'); ?>" /></a>
+		<a href="<?php echo esc_url ($imdb_admin_values['imdbplugindirectory'] . ".wordpress-org/screenshot-2.jpg"); ?>" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img align="right" width="50%" src="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . ".wordpress-org/screenshot-2.jpg"); ?>" alt="<?php esc_html_e( 'IMDb link transformer widget', 'imdb'); ?>" /></a>
 		<?php esc_html_e( "Having movie's data inside the post is quite useful; it could ingeniously decorate your message, display crucial informations (director, actors) and in the same time add links to a popup which would include these informations (but with more details). At the begining, this function could only be achieved with a special plugin. Since release 1.1.14.3, IMDb link transformer does not need any third party plugin anymore to display movie's data inside you message. ", 'imdb'); ?>
 	</div>
 
@@ -315,7 +323,7 @@ function imdblt_help_itp_function () {
 		<h4><?php esc_html_e( 'How to display data inside my post', 'imdb'); ?></h4>
 		<div align="center">**[IMDBLT]**</div>
 		<div><?php esc_html_e( "You only need to put the movie's name into brackets, to get movie's data inside your post. Data can be inserted exactly where you want, there is no limitation. Just be sure to put the movie's name inside [imdblt][/imdblt], like this:", 'imdb'); ?></div>
-		<div align="center"><a href="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>.wordpress-org/screenshot-8.jpg" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img width="90%" src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>.wordpress-org/screenshot-8.jpg" alt="<?php esc_html_e( 'IMDb link transformer Inside a post', 'imdb'); ?>" /></a></div>
+		<div align="center"><a href="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . ".wordpress-org/screenshot-8.jpg"); ?>" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img width="90%" src="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . ".wordpress-org/screenshot-8.jpg"); ?>" alt="<?php esc_html_e( 'IMDb link transformer Inside a post', 'imdb'); ?>" /></a></div>
 		<div><?php esc_html_e( "And you are done.", 'imdb'); ?></div>
 		<div align="center">**[IMDBLTID]**</div>
 		<div><?php esc_html_e( "You additionnaly can get a movie from its imdb id, using its imdb movie's id instead of its name. When writing your post, put the movie's imdb id inside tags [imdbltid][/imdbltid] (which gives ie [imdbltid]0137523[/imdbltid], for Fight Club movie). You can get movie's imdb id from imdb website, search for you movie, and check your browser's adress bar. The number after 'tt' part is the movie's id.", 'imdb'); ?></div>
@@ -349,7 +357,7 @@ function imdblt_help_adminbigmenu_function () {
 		<h4><?php esc_html_e( "IMDb link transformer is a mess! I'm lost with so many options.", 'imdb'); ?></h4>
 	</div>
 	<div class="helpdiv">
-		<a href="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/imdblt_menubig.jpg" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img align="right" width="10%" src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/imdblt_menubig.jpg" alt="imdblt big menu" /></a>
+		<a href="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . "pics/imdblt_menubig.jpg"); ?>" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img align="right" width="10%" src="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . "pics/imdblt_menubig.jpg"); ?>" alt="imdblt big menu" /></a>
 		<?php esc_html_e( "Wordpress admin area offers more and more options to user. Starting with 2.7 release, it also offers the possibility to add new admin menu for plugins. IMDb link transformer makes the most of this possibility, and can add its own admin menu. It can be added - or removed. Depending of how many plugin's admin menus you already have, you would prefer to keep access to IMDb link transformer settings only through usual 'settings' tab; it's up to you to choose to either get a complet and bigger IMDb link transformer menu - or not.", 'imdb'); ?>
 	</div>
 	
@@ -358,8 +366,8 @@ function imdblt_help_adminbigmenu_function () {
 	</div>
 	
 	<div class="helpdiv">
-		<a href="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/imdblt_menubig_ozh.jpg" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img align="left" width="20%" src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/imdblt_menubig_ozh.jpg" alt="imdblt big menu with Admin Drop Down Menu plugin" /></a>
-		<?php esc_html_e( "One can go still further; if installing <a href='https://planetozh.com/blog/my-projects/wordpress-admin-menu-drop-down-css/ '>Ozh Admin Drop Down Menu</a>, a plugin to switch classical vertical admin menu to horizontal and which gives the admin area more of a 'desktop application' feel. IMDb link transformer is ready to use improvements from Ozh's plugin, adding icons (when user select IMDb's plugin from the settings menu). Also, if you activate both Ozh's plugin and IMDb link transformer's big admin menu, you will get a nice and complete horizontal menu. Very useful.", 'imdb'); ?>
+		<a href="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/imdblt_menubig_ozh.jpg" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img align="left" width="20%" src="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . "pics/imdblt_menubig_ozh.jpg"); ?>" alt="imdblt big menu with Admin Drop Down Menu plugin" /></a>
+		<?php esc_html_e( "One can go still further; if installing Ozh Admin Drop Down Menu (https://planetozh.com/blog/my-projects/wordpress-admin-menu-drop-down-css/), a plugin to switch classical vertical admin menu to horizontal and which gives the admin area more of a 'desktop application' feel. IMDb link transformer is ready to use improvements from Ozh's plugin, adding icons (when user select IMDb's plugin from the settings menu). Also, if you activate both Ozh's plugin and IMDb link transformer's big admin menu, you will get a nice and complete horizontal menu. Very useful.", 'imdb'); ?>
 	</div>
 <?php } // end function imdblt_help_adminbigmenu_function
 
@@ -424,7 +432,7 @@ function imdblt_help_keepcss_function () {
 #######################
 ## imdblt_help_getridofimdb_function
 ######################
-
+/* Pilot is not used anymore
 function imdblt_help_getridofimdb_function () { 
 	global $imdb_admin_values; ?>
 
@@ -448,7 +456,7 @@ function imdblt_help_getridofimdb_function () {
 
 
 <?php } // end function imdblt_help_getridofimdb_function
-
+*/
 
 
 
@@ -462,15 +470,15 @@ function imdblt_help_usetaxonomy_function () {
 	<div class="helpdiv">
 		<h4><?php esc_html_e( "What is Wordpress' taxonomy?", 'imdb'); ?></h4>
 
-		<?php esc_html_e( "Starting with Wordpress 2.3, plugins makers can use <a href='https://codex.wordpress.org/WordPress_Taxonomy'>taxonomy</a>.", 'imdb'); ?>
+		<?php esc_html_e( "Starting with Wordpress 2.3, wordpress users can make use taxonomy (https://codex.wordpress.org/WordPress_Taxonomy).", 'imdb'); ?>
 		<?php esc_html_e( "Taxonomy is a feature adding a supplementary categorisation beside Categories and Tags; in other words, it is like having species (a block named 'genre') and subspecies (few words describing the genre, like 'Adventure', 'Terror'). It is not fundamentaly different from Categories and Tags, but it is much more appropriate for IMDb Link Transformer needs.", 'imdb'); ?>
 	</div>
 	<div class="helpdiv">
 		<h4><?php esc_html_e( "How to use taxonomy Wordpress capability?", 'imdb'); ?></h4>
 
-		<?php esc_html_e( "To activate the automatically generated taxonomy, turn 'General options -> Advanced ->  'Use automatical genre taxonomy?' to 'yes'. Of course, since taxonomy is to a movie detail related, the movie detail you want to be used as taxonomy has to be also activated from 'Widget/Inside post Options -> What to display'. Eventually, it will permit to select in 'Widget/Inside post Options -> What to taxonomize' menu if you want to taxonomize Genres, but also actors, colors, composers, directors and so on.", 'imdb'); ?><br />
+		<?php esc_html_e( "To activate the automatically generated taxonomy, turn 'General options -> Advanced ->  'Use automatical genre taxonomy?' to 'yes'. Note that since taxonomy is related to movie details, the movie detail you want to be used as taxonomy has to be also activated from 'Widget/Inside post Options -> What to display'. Eventually, it will permit to select in 'Widget/Inside post Options -> What to taxonomize' menu if you want to taxonomize Genres, but also actors, colors, composers, directors, etc.", 'imdb'); ?><br />
 		<div align="center">
-			<a href="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/taxonomy_details.png" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img align="center" width="60%" src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/taxonomy_details.png" alt="taxonomy details" /></a>
+			<a href="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . "pics/taxonomy_details.png"); ?>" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img align="center" width="60%" src="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . "pics/taxonomy_details.png"); ?>" alt="taxonomy details" /></a>
 		</div>
 	</div>
 	<div class="helpdiv">
@@ -482,7 +490,7 @@ function imdblt_help_usetaxonomy_function () {
 
 		<?php esc_html_e( "Once you have activated all taxonomy options and have triggered its wordpress function (by visiting your post and refreshing the page), wordpress administration posts menu will include new option(s). Depending on movie details previously selected, you will find an option to manage the words automatically generated by the taxonomy function. For instance to select 'genre':", 'imdb'); ?><br />
 		<div align="center">
-		<a href="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/taxonomy_newmenu.png" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img align="center" src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/taxonomy_newmenu.png" alt="taxonomy new options" /></a>
+		<a href="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . "pics/taxonomy_newmenu.png"); ?>" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img align="center" src="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . "pics/taxonomy_newmenu.png"); ?>" alt="taxonomy new options" /></a>
 		</div>
 	</div>
 	
@@ -499,7 +507,7 @@ function imdblt_help_usetaxonomy_function () {
 		
 		<?php esc_html_e( "To fully enjoy this feature, copy the file in IMDb link transformer folder 'theme/taxonomy-genre.php' to your 'theme' folder. Customize this page according to your tastes and theme design. The design is the same as (ie) the tag.php file.", 'imdb'); ?><br />
 		<div align="center">
-			<a href="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/taxonomy.png" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img align="center" width="80%" src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/taxonomy.png" alt="taxonomy result" /></a>
+			<a href="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . "pics/taxonomy.png"); ?>" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img align="center" width="80%" src="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . "pics/taxonomy.png"); ?>" alt="taxonomy result" /></a>
 		</div>
 	</div>	
 <?php } // end function imdblt_help_usetaxonomy_function
@@ -521,7 +529,7 @@ function imdblt_help_autowidget_function () {
 		<?php esc_html_e( "Activate Widget option in IMDbLT (it is activated by default), add the IMDbLT Widget to your sidebar, and go to 'Widget/Inside post Options' menu, select 'misc' from the new menu, and select « yes » from « Auto widget? » option at end.", 'imdb'); ?>
 
 		<div align="center">
-			<a href="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/auto-widget.png" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img align="center" width="80%" src="<?php echo $imdb_admin_values['imdbplugindirectory']; ?>pics/auto-widget.png" alt="auto widget option" /></a>
+			<a href="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . "pics/auto-widget.png"); ?>" title="<?php esc_html_e( 'click to get a larger picture', 'imdb'); ?>"><img align="center" width="80%" src="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . "pics/auto-widget.png"); ?>" alt="auto widget option" /></a>
 		</div>
 	</div>
 
