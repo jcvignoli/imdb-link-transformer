@@ -23,10 +23,8 @@ Author URI: https://www.jcvignoli.com/blog
 if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) 
 	die('You are not allowed to call this page directly.');
 
-# Requires
-require_once ( plugin_dir_path( __FILE__ ) . '/config.php' );
-require_once ( plugin_dir_path( __FILE__ )  . '/inc/functions.php');
-require_once ( plugin_dir_path( __FILE__ )  . '/inc/widget.php');
+# Bootstrap with requires
+require_once ( plugin_dir_path( __FILE__ ) . '/bootstrap.php' );
 
 # Executed upon plugin activated/deactivated
 register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );

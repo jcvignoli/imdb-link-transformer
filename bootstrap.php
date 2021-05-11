@@ -19,4 +19,6 @@ require_once __DIR__ . '/src/Imdb/TitleSearch.php';
 require_once __DIR__ . '/src/Imdb/TitleSearchAdvanced.php';
 #	IMDBLT Libraries
 require_once __DIR__ . '/config.php';
+//require_once __DIR__ . '/inc/imdblt.class.php'; #learn more about classes first
 require_once __DIR__ . '/inc/functions.php';
+require_once __DIR__ . '/inc/widget.php';
