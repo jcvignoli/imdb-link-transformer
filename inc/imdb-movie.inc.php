@@ -33,6 +33,9 @@ $config->photodir = $imdb_cache_values['imdbphotodir'] ?? NULL;
 $config->imdb_img_url = $imdb_cache_values['imdbimgdir'] ?? NULL;
 $config->photoroot = $imdb_cache_values['imdbphotoroot'] ?? NULL;
 
+// imdb.css is only loaded in /imdblt/ urls
+wp_enqueue_style('imdblt_imdbcss', $imdb_admin_values['imdbplugindirectory'] ."css/imdb.css");
+
 if (isset ($_GET["mid"])) {
 	$movieid = filter_var( $_GET["mid"], FILTER_SANITIZE_NUMBER_INT);
 	$movie = new Imdb\Title($movieid, $config);
