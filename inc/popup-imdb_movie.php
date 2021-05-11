@@ -76,8 +76,8 @@ if (($imdb_admin_values[imdbdirectsearch] == false ) OR ($_GET["norecursive"] ==
 
 <table class='TableListeResultats'>
 	<tr>
-		<th class='TableListeResultatsTitre'><?php esc_html_e('Titles matching', 'imdb'); ?></th>
-		<th class='TableListeResultatsTitre' style='width: 40%'><?php esc_html_e('Director', 'imdb'); ?></th>
+		<th class="TableListeResultatsTitre"><?php esc_html_e('Titles matching', 'imdb'); ?></th>
+		<th class="TableListeResultatsTitre imdblt_titlematchingdirector"><?php esc_html_e('Director', 'imdb'); ?></th>
 	</tr>
 
 	<?php
@@ -376,7 +376,7 @@ echo '/ >'; ?>
                 <?php for ($i = 0; $i < count ($cast); $i++) { ?>
 					<li>
 						<div align="center" class="imdbdiv-liees">
-							<div style="float:left">
+							<div class="imdblt_float_left">
 								<?php echo sanitize_text_field( $cast[$i]["role"] ); ?>
 							</div>
 							<div align="right">
@@ -407,7 +407,7 @@ echo '/ >'; ?>
                 <?php for ($i = 0; $i < count ($director); $i++) { ?>
 					<li>
 						<div align="center">
-							<div style="float:left">
+							<div class="imdblt_float_left">
 								<?php if ( $i > 0 ) echo ', '; ?>
 								<a href="<?php echo esc_url( $imdb_admin_values[imdbplugindirectory]."inc/" . "popup-imdb_person.php?mid=" . $director[$i]["imdb"] ); ?>" title='<?php esc_html_e('link to imdb', 'imdb'); ?>'>
 								<?php echo sanitize_text_field( $director[$i]["name"] ); ?></a>
@@ -435,7 +435,7 @@ echo '/ >'; ?>
 		<?php  for ($i = 0; $i < count ($write); $i++) {  ?>
 			<li>
 				<div align="center" class="imdbdiv-liees">
-					<div style="float:left">
+					<div class="imdblt_float_left">
 						<a href="<?php echo esc_url( $imdb_admin_values[imdbplugindirectory]."inc/popup-imdb_person.php?mid=" . $write[$i]["imdb"] ) ?>" title='<?php esc_html_e('link to imdb', 'imdb'); ?>'>
 						<?php echo sanitize_text_field( $write[$i]["name"] ); ?></a>
 					</div>
@@ -463,7 +463,7 @@ echo '/ >'; ?>
                 <?php  for ($i = 0; $i < count ($produce); $i++) {  ?>
 			<li>
 				<div align="center" class="imdbdiv-liees">
-					<div style="float:left">
+					<div class="imdblt_float_left">
                 		            	<a href="<?php echo esc_url( $imdb_admin_values[imdbplugindirectory]."inc/popup-imdb_person.php?mid=" . $produce[$i]["imdb"] ); ?>" title='<?php esc_html_e('link to imdb', 'imdb'); ?>'>
                 		            	<?php echo sanitize_text_field( $produce[$i]["name"] ); ?></a>
 					</div>

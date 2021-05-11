@@ -5,33 +5,15 @@
 
 /* ------------------ Basic */
 
-body.imdbpopup, body.page-header-disabled{
-	font-family: Verdana, Tahoma, Georgia, Geneva, Arial;
-	font-size: 0.7em;
-	color: #575757;
-	background: #FFFFFF;
-	margin:10px;
-}
+body.imdbpopup, body.page-header-disabled{font-family: Verdana, Tahoma, Georgia, Geneva, Arial;font-size: 0.7em;color: #575757;background: #FFFFFF;margin:10px;}
 
-body.imdbpopup a {
-	color: #909090;
-	text-decoration: none;
-}
+body.imdbpopup a {color: #909090;text-decoration: none;}
 
-body.imdbpopup a:hover {
-	color: #A8A8A8;
-	text-decoration: none;
-}
+body.imdbpopup a:hover {color: #A8A8A8;text-decoration: none;}
 
-body.imdbpopup img{
-	border:none;
-}
+body.imdbpopup img{border:none;}
 
-body.imdbpopup h1 {
-	text-align:center;
-	font-size:20px;
-	padding-bottom:10px;
-}
+body.imdbpopup h1 {text-align:center;font-size:20px;padding-bottom:10px;}
 
 .hidesection{display:none;}
 .activatehidesection {cursor:pointer;}
@@ -41,141 +23,60 @@ body.imdbpopup h1 {
 
 /* ---- Top menu */
 
-.tabletitrecolonne{
-    background-color: #FFFFFF;
-    /*display:block;*/
-    margin-bottom: 0px;
-    height: 25px;
-    left: 10px;
-    right: 10px;
-}
+.tabletitrecolonne{background-color:#FFFFFF;/*display:block;*/ margin-bottom:0px;height:25px;left:10px;right:10px;}
 
-.titrecolonne{
-	text-align: center;
-	vertical-align: middle;
-	float: left;
-	margin: 0px;
-	margin-left: 5px;
-	font-family: Arial;
-	font-weight: bold;
-	font-size: medium;
-	height: 42px;
-	/* padding-right: 13px; 
-	float: left;
-	color: #909090;*/
-	text-decoration: none;
-}
+.titrecolonne{text-align: center;vertical-align: middle;float: left;margin: 0px;margin-left: 5px;font-family: Arial;font-weight: bold;font-size: medium;height: 42px;/* padding-right: 13px;float: left;color: #909090;*/text-decoration: none;}
+.titrecolonne a:hover {color: #A8A8A8;/* text-decoration: underline; */}
 
-.titrecolonne a:hover {
-	color: #A8A8A8;
-	/* text-decoration: underline; */
-}
+.imdblt_titlematchingdirector {width: 40%;}
+.imdblt_float_left{float:left;}
 
 /* ---- Results list */
 
-.TableListeResultats{
-font-size: medium;
-margin-left:2%;
-padding: 5px;
-width: 96%;
-}
+.TableListeResultats{font-size: medium;margin-left:2%;padding: 5px;width: 96%;}
 
-.TableListeResultatsTitre{
-font-family: Arial, Helvetica, Sans-Serif;
-font-weight: bold;
-color: #909090;
-text-decoration: none;
-padding: 3px 3px 3px 3px;
-text-align: center;
-font-size: 18px;
-}
+.TableListeResultatsTitre{font-family: Arial, Helvetica, Sans-Serif;font-weight: bold;color: #909090;text-decoration: none;padding: 3px 3px 3px 3px;text-align: center;font-size: 18px;}
 
-.TableListeResultatsColGauche{
-padding-left:5px;
-}
+.TableListeResultatsColGauche{padding-left:5px;}
 
-.TableListeResultatsColDroite{
-text-align:right;
-padding-right:5px;
-}
+.TableListeResultatsColDroite{text-align:right;padding-right:5px;}
 
 /* ---- Presentation part */
 
-.TableauPresentation {
-width:100%;
-}
+.TableauPresentation {width:100%;}
 
-.colpicture {
-height:auto;
-width:20%;
-padding-right:10px;
-}
+.colpicture {height:auto;width:20%;padding-right:10px;}
 
-.picture {
-border:#000000 thick ridge;
-}
+.picture {/*border:#000000 thick ridge;*/}
 
 /* ---- Left menu */
 
-.TableauSousRubrique {
-padding: 0px 0px 0px 0px;
-width:100%;
-}
+.TableauSousRubrique {padding: 0px 0px 0px 0px;width:100%;}
 
-.TitreSousRubriqueColGauche {
-padding: 0px 0px 0px 0px;
-width: 25%;
-vertical-align:top;
-font-size:15px;
-}
+.TitreSousRubriqueColGauche {padding: 0px 0px 0px 0px;width: 25%;vertical-align:top;font-size:15px;}
 
-.TitreSousRubriqueColDroite {
-text-align:center;
-font-size:12px;
-padding-right:13px;
-padding-left:13px;
-}
+.TitreSousRubriqueColDroite {text-align:center;font-size:12px;padding-right:13px;padding-left:13px;}
 
 
 /* ------------------ Misc */
 
 /* ---- Div */
 
-.titrefilm, .identity{
-	text-align : center;
-	font-size : x-large;
-	/*text-decoration: none;*/
-	clear: both;
-}
+.titrefilm, .identity{text-align : center;font-size : x-large;	/*text-decoration: none;*/clear: both;}
 
-.titrefilm a:hover, .identity a:hover {
-	color: #FFEAFD;
-}
+.titrefilm a:hover, .identity a:hover {color: #FFEAFD;}
 
-.soustitreidentity, .soustitrefilm {
-	font-size: large;
-	text-align:center;
-}
+.soustitreidentity, .soustitrefilm {font-size: large;text-align:center;}
 
-.TitreSousRubrique{
-	font-size : 1.0em;
-	border-bottom: 1px solid #333333;
-	border-right: 1px solid #333333;
-	text-align : right;
-	padding: 3px 3px 3px 3px; 
-}
+.TitreSousRubrique{font-size : 1.0em;border-bottom: 1px solid #333333;border-right: 1px solid #333333;text-align : right;padding: 3px 3px 3px 3px;}
 
 
 /* ---- Others */
 
-.TitreSousRubriqueColDroite li {
-	list-style-type:none;
-	text-align:justify;
-}
+.TitreSousRubriqueColDroite li {list-style-type:none;text-align:justify;}
 
 .imdbdiv-liees { /* to integrate two div in one */
-border-bottom:thin inset #000000;
-}
+border-bottom:thin inset #000000;}
 
 #triviafield, #nicknamesfield, #quotesfield, #selffilmofield, #biographicalfield, #tradmarksfield, #directorfilmofield, #producerfilmofield, #actorfilmofield, #actressfilmofield, #triviafieldmovie, #soundtrackfield, #goofsfield, #soundtrackfield {
 display:none;
@@ -198,12 +99,7 @@ font-weight: bold;
 border: 2px solid #333333;  
 }  
 
-.imdblink { /*link to imdb with an imdb image, propertie for <a> tag*/
-}
-
-.img-imdb { /*imdb image, propertie for <img> */
-vertical-align:sub;
-}
+.img-imdb { /*imdb image, propertie for <img> */vertical-align:sub;}
 
 
 /***********************************************************
@@ -229,7 +125,7 @@ display: block;
 
 }
 
-/* elements inside imdbinluded, allows to manage specific cases */
+/* elements inside imdb inc, allows to manage specific cases */
 
 .imdbincluded-lined { /* common LI  to all elements */
 padding-top:15px;
