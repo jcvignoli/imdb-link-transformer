@@ -69,9 +69,9 @@ function imdblt_convert_txtwithhtml_into_popup_people ($convert) {
 	// 20210505 new way to create highslide/classic link, if either "imdbpopup_highslide" or "link-imdblt-highslidepeople" class is clicked throw "\${6}" (the mid) to javascript csp_inline_script.js
 
 	if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup
-			$result = '<a  class="link-imdblt-highslidepeople highslide" data-highslidepeople="' . "\${6}" . '" title="' . esc_html__("open a new window with IMDb informations", "imdb") . '">';
+			$result = '<a class="link-imdblt-highslidepeople highslide" data-highslidepeople="' . "\${6}" . '" title="' . esc_html__("open a new window with IMDb informations", "imdb") . '">';
 	} else {						// classic popup
-	    		$result = '<a  class="link-imdblt-classicpeople" data-classicpeople="' . "\${6}" . '" title="' . esc_html__("open a new window with IMDb informations", "imdb") . '">';
+	    		$result = '<a class="link-imdblt-classicpeople" data-classicpeople="' . "\${6}" . '" title="' . esc_html__("open a new window with IMDb informations", "imdb") . '">';
 	}
 
 	$convert = preg_replace("~(<a )((href=)(.+?))(nm)([[:alnum:]]*)\/((.+?)\">)~", $result, $convert);
@@ -309,5 +309,4 @@ if ( ! function_exists('imdblt_glob_recursive')){
         return $files;
     }
 }
-
 ?>
