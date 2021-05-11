@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		var tmppopupLarg = csp_inline_scripts_vars.popupLarg;
 		var tmppopupLong = csp_inline_scripts_vars.popupLong;
 		// var mid from the class data-highslidepeople to build the link
-		var misc_term = jQuery(this).closest('a').data('classicalfilm');
+		var misc_term = jQuery(this).closest('a').data('classicfilm');
 		var url_imdbperso = csp_inline_scripts_vars.imdb_path + 'inc/popup-search.php?film=' + misc_term;
 		
 		// classic popup
