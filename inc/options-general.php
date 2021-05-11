@@ -20,10 +20,6 @@ $allowed_html_for_esc_html_functions = [
 
 // included files
 require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
-
-// refresh wordpress rewrite rules upon options save/reset -> needed for taxonomy pages created in imdb-movie.inc.php
-if ((isset($_GET['update_imdbSettings'])) || (isset($_GET['reset_imdbSettings'])) )
-  flush_rewrite_rules();
 ?>
 
 <div id="tabswrap">
@@ -122,10 +118,10 @@ if ((isset($_GET['update_imdbSettings'])) || (isset($_GET['reset_imdbSettings'])
 		</tr>
 		<tr>
 			<td class="td-aligntop">
-				<div class="explain"><?php esc_html_e( 'Popup width, in pixels', 'imdb'); ?> <br /><?php esc_html_e( 'Default:','imdb');?> "540"</div>
+				<div class="explain"> <?php esc_html_e( 'Popup width, in pixels', 'imdb'); ?> <br /><?php esc_html_e( 'Default:','imdb');?>"540"</div>
 			</td>
 			<td class="td-aligntop">
-				<div class="explain"><?php esc_html_e( 'Popup height, in pixels', 'imdb'); ?> <br /><?php esc_html_e( 'Default:','imdb');?> "350"</div>
+				<div class="explain"> <?php esc_html_e( 'Popup height, in pixels', 'imdb'); ?> <br /><?php esc_html_e( 'Default:','imdb');?>"350"</div>
 			</td>
 			<td class="td-aligntop">
 				<?php if(is_dir( $imdbOptions['imdbplugindirectory'] . 'js/highslide')) { // If the folder "highslide" exists (manually added) ?>
@@ -134,7 +130,7 @@ if ((isset($_GET['update_imdbSettings'])) || (isset($_GET['reset_imdbSettings'])
 				echo '<div class="explain">';
 				esc_html_e( 'Please note Highslide JS is licensed under a Creative Commons Attribution-NonCommercial 2.5 License, which means you need the author\'s permission to use Highslide JS on commercial websites.','imdb');
 				echo '<br />';
-				echo esc_html__( 'Website:','imdb').'&nbsp;<a href="http://highslide.com/">Highslide</a>';
+				echo esc_html__( 'Website:','imdb').'&nbsp;<a href="https://highslide.com/">Highslide</a>';
 				echo '</div>';
 				}; ?>
 			</td>
@@ -171,14 +167,14 @@ if ((isset($_GET['update_imdbSettings'])) || (isset($_GET['reset_imdbSettings'])
 				<div class="explain"><?php esc_html_e( 'Size of the imdb picture. The value will correspond to the width in pixels.', 'imdb'); ?> <br /><?php esc_html_e( 'Default:','imdb');?> "25"</div>
 			</td>
 			<td>
-				<div class="explain"><?php esc_html_e( 'Url for the imdb picture', 'imdb'); ?> <br /><?php esc_html_e( 'Default:','imdb');?> "pics/imdb-link.png"</div>
+				<div class="explain"><?php esc_html_e( 'Url for the imdb picture', 'imdb'); ?><br /><?php esc_html_e( 'Default:','imdb');?> "pics/imdb-link.png"</div>
 			</td>
 		</tr>
 		
 		<?php //------------------------------------------------------------------ =[Imdb cover picture]=- ?>
 		<tr>
 			<td colspan="3" class="titresection">
-				<img src="<?php echo $imdbOptions['imdbplugindirectory']; ?>pics/cover.jpg" width="60" align="absmiddle" />&nbsp;&nbsp;&nbsp;
+				<img src="<?php echo esc_url( $imdbOptions['imdbplugindirectory'] . "pics/cover.jpg"); ?>" width="60" align="absmiddle" />&nbsp;&nbsp;&nbsp;
 				<?php esc_html_e( 'Imdb cover picture', 'imdb'); ?>
 			</td>
 		</tr>
@@ -216,7 +212,7 @@ if ((isset($_GET['update_imdbSettings'])) || (isset($_GET['reset_imdbSettings'])
 <?php	} 
 	if ($_GET['generaloption'] == "advanced") { 				//////////////// Advanced section  ?>
 
-	<div style="padding:0 30px 30px 30px;"><?php esc_html_e( "Options below can break a lot of things. Change them only if you know what you're doing.", 'imdb'); ?></div>
+	<div style="padding:0 30px 30px 30px;"><?php esc_html_e( "Options below can break a lot of things. Edit them only if you know what you're doing.", 'imdb'); ?></div>
 
 
 	<div class="inside">
@@ -228,6 +224,7 @@ if ((isset($_GET['update_imdbSettings'])) || (isset($_GET['reset_imdbSettings'])
 
 		<tr>
 			<td width="33%" class="td-aligntop">
+<?php /* 2021 05 10 unactivated
 				<label for="imdb_imdbwebsite"><?php esc_html_e( 'Imdb address', 'imdb'); ?></label>
 				<select name="imdb_imdbwebsite">
 					<option <?php if($imdbOptions['imdbwebsite'] == "akas.imdb.com") echo 'selected="selected"'; ?> value="akas.imdb.com">akas.imdb.com (default)</option>
@@ -236,24 +233,27 @@ if ((isset($_GET['update_imdbSettings'])) || (isset($_GET['reset_imdbSettings'])
 					<option <?php if($imdbOptions['imdbwebsite'] == "www.imdb.de") echo 'selected="selected"'; ?> value="www.imdb.de">german imdb</option>			
 					<option <?php if($imdbOptions['imdbwebsite'] == "www.imdb.it") echo 'selected="selected"'; ?> value="www.imdb.it">italian imdb</option>
 				</select>
-			</td>
-			<td width="33%">
-				<label for="imdb_imdbsearchvariant"><?php esc_html_e( 'Search variant', 'imdb'); ?></label>
-				<select name="imdb_imdbsearchvariant">
-					<option <?php if(($imdbOptions['imdbsearchvariant'] == "izzy") OR ($imdbOptions['imdbsearchvariant'] == "")) echo 'selected="selected"'; ?> value="izzy">izzy (default)</option>
-					<option <?php if($imdbOptions['imdbsearchvariant'] == "sevec") echo 'selected="selected"'; ?> value="sevec">sevec</option>
-					<option <?php if($imdbOptions['imdbsearchvariant'] == "moonface") echo 'selected="selected"'; ?> value="moonface">moonface</option>
+*/ ?>
+				<label for="imdb_imdblanguage"><?php esc_html_e( 'Language', 'imdb'); ?></label>
+				<select name="imdb_imdblanguage">
+					<option <?php if( ($imdbOptions['imdblanguage'] == "en-US") || (empty($imdbOptions['imdblanguage'])) ) echo 'selected="selected"'; ?>value="en-US"><?php esc_html_e( 'English (default)', 'imdb'); ?></option>
+					<option <?php if($imdbOptions['imdblanguage'] == "fr-FR") echo 'selected="selected"'; ?>value="fr-FR"><?php esc_html_e( 'French', 'imdb'); ?></option>
+					<option <?php if($imdbOptions['imdblanguage'] == "es-ES") echo 'selected="selected"'; ?>value="es-ES"><?php esc_html_e( 'Spanish', 'imdb'); ?></option>
 				</select>
+			<td width="33%">
 			</td>
 			<td width="33%">
 			</td>
 		</tr>
 		<tr>
 			<td class="td-aligntop">
+<?php /* 2021 05 10 unactivated
 				<div class="explain"><?php esc_html_e( "This is the imdb server to use. The localized ones (i.e. italian and german) are only qualified to find the movies ID - but parsing for the details will fail at the moment.", 'imdb'); ?></div>
+*/ ?>
+				<div class="explain"><?php esc_html_e( 'Moviename search variant. There are different ways of searching a movie name, with slightly differing result sets. Set the variant you prefer.', 'imdb'); ?></div>
+
 			</td>
 			<td class="td-aligntop">
-				<div class="explain"><?php esc_html_e( 'Moviename search variant. There are different ways of searching a movie name, with slightly differing result sets. Set the variant you prefer.', 'imdb'); ?></div>
 			</td>
 			<td class="td-aligntop">
 			</td>

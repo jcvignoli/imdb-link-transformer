@@ -66,7 +66,7 @@ class imdb_settings_conf extends mdb_config {
 	'blog_adress' => get_bloginfo('url'),
 	'imdbplugindirectory' => get_bloginfo('url').'/wp-content/plugins/imdb-link-transformer/',
 	'imdbpluginpath' => IMDBLTABSPATH,
-	'imdbwebsite' => "akas.imdb.com",
+	'imdbwebsite' => "www.imdb.com",
 	'imdbcoversize' => false,
 	'imdbcoversizewidth' => '100',
 	#--------------------------------------------------=[ Technical ]=--
@@ -78,7 +78,7 @@ class imdb_settings_conf extends mdb_config {
 	'imdbpicsize' => '25',
 	'imdbpicurl' => 'pics/imdb-link.png',
 	'imdbimgdir' => 'pics/',
-	'imdbsearchvariant' => "",
+	'imdblanguage' => "en-EN",
 	'imdbdirectsearch' => true,
 	/*'imdbsourceout' => false,*/
 	'imdbdisplaylinktoimdb' => true,
@@ -473,7 +473,7 @@ class mdb_config {
 	$this->imdb_utf8recode = $imdb_admin_values['imdb_utf8recode'] ?? NULL;
 	$this->imdbsite = $imdb_admin_values['imdbwebsite'] ?? NULL;
 	$this->imdbplugindirectory = $imdb_admin_values['imdbplugindirectory'] ?? NULL;
-	$this->searchvariant = $imdb_admin_values['imdbsearchvariant'] ?? NULL;
+	$this->language = $imdb_admin_values['imdblanguage'] ?? NULL;
 	$this->debug = $imdb_admin_values['imdbdebug'] ?? NULL;
 	$this->maxresults = $imdb_admin_values['imdbmaxresults'] ?? NULL;
 	$this->cachedir = $imdb_cache_values['imdbcachedir'] ?? NULL;
