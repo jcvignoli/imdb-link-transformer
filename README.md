@@ -104,7 +104,7 @@ How to use IMDb link transformer is explained in the **How to** page of the plug
 
 ### Can I suggest a feature/report a bug regarding the plugin?
 
-Of course, visit the [IMDb link transformer home](https://www.jcvignoli.com/blog/en/imdb-link-transformer-wordpress-plugin "IMDb link transformer home") or [GIT repository](https://github.com/jcvignoli/imdb-link-transformer). Do not hesitate to share your comments and wishes. The plugin does more or less what I do need, but users can help me improve it.
+Of course, visit the [IMDb link transformer home](https://www.jcvignoli.com/blog/en/imdb-link-transformer-wordpress-plugin "IMDb link transformer home") or [GIT repository](https://github.com/jcvignoli/imdb-link-transformer "GIT repository"). Do not hesitate to share your comments and wishes. The plugin does more or less what I do need, but users can help me improve it.
 
 ### I don't want to have links to a popup window!
 
@@ -126,11 +126,11 @@ Yes, just add in the post as many custom fields you want.
 
 ## Support
 
-Please visit [contact page](https://www.jcvignoli.com/blog/about)
+Please visit [contact page](https://www.jcvignoli.com/blog/about "IMDbLT contact page")
 
 ## Changelog
 
-Take a look at the [changelog](https://svn.wp-plugins.org/imdb-link-transformer/trunk/changelog.txt "latest changelog") to find out the latest developments. Or for even more recent changes, visit my [GIT repository](https://github.com/jcvignoli/imdb-link-transformer).
+Take a look at the [changelog](https://svn.wp-plugins.org/imdb-link-transformer/trunk/changelog.txt "latest changelog") to find out the latest developments. Or for even more recent changes, visit my [GIT repository](https://github.com/jcvignoli/imdb-link-transformer "GIT repository").
 
 Major changes:
 

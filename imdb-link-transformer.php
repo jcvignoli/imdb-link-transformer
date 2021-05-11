@@ -226,12 +226,15 @@ class imdblt {
 			wp_localize_script( "imdblt_highslide_options", 'php_vars', $dataToBePassedHighslide );
 		}
 
-		// Use local template imdb.css if it exists in current theme folder
-		if (file_exists (TEMPLATEPATH . "/imdb.css") ) { // an imdb.css exists inside theme folder, take it! 
-			wp_enqueue_style('imdblt_imdbcss', bloginfo('stylesheet_directory') . "imdb.css");
-	 	} else { // no imdb.css exists in theme, add default one
-			wp_enqueue_style('imdblt_imdbcss', $imdb_admin_values['imdbplugindirectory'] ."css/imdb.css");
-	 	} 
+		// Load imdb.css only in /imdblt/ pages
+		if ( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/imdblt/' ) ) { 
+			// Use local template imdb.css if it exists in current theme folder
+			if (file_exists (TEMPLATEPATH . "/imdb.css") ) { // an imdb.css exists inside theme folder, take it! 
+				wp_enqueue_style('imdblt_imdbcss', bloginfo('stylesheet_directory') . "imdb.css");
+		 	} else {
+				wp_enqueue_style('imdblt_imdbcss', $imdb_admin_values['imdbplugindirectory'] ."css/imdb.css");
+		 	}
+		} 
 
 		// OceanWp template css fix
 		// enqueue imdb.css only if 1/ it is a popup (url starting with /imdblt/) 2/ using template oceanwp
