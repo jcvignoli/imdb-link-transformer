@@ -68,8 +68,8 @@ if (isset ($mid_sanitized)) {
                                                 <!-- top page menu -->
 <table class='tabletitrecolonne'>
     <tr>
-        <td class='titrecolonne a:hover'>
-            <a class="historyback"><font size='-2'><?php esc_html_e('Back', 'imdb'); ?></font></a>
+        <td class='titrecolonne'>
+            <a class="historyback"><?php esc_html_e('Back', 'imdb'); ?></a>
         </td>
  		<td class='titrecolonne'>
 			<a href="<?php echo esc_url( $imdb_admin_values[imdbplugindirectory] ."inc/popup-imdb_person.php?mid=". $mid_sanitized . "&film=" . $film_sanitized . "&info=" ); ?>" title='<?php echo $person_name_sanitized.": ".esc_html__('Filmography', 'imdb'); ?>'><?php esc_html_e('Filmography', 'imdb'); ?></a>

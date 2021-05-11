@@ -34,9 +34,9 @@ body.imdbpopup h1 {
 }
 
 .hidesection{display:none;}
-.activatehidesection, .historyback {
-	cursor:pointer;
-}
+.activatehidesection {cursor:pointer;}
+.historyback, .searchaka{cursor:pointer;font-style:italic;color:#808080;}
+
 /* ------------------ Tables */
 
 /* ---- Top menu */
