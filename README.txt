@@ -9,6 +9,8 @@ Requires at least: 5.7
 Tested up to: 5.7.1
 Stable tag: 3.0
 
+THIS PLUGIN IS NOT UPDATED ANYMORE. NEW PLUGIN, **LUMIERE CINEMA**, IS AVAILABLE (ON GIT)[https://github.com/jcvignoli/lumiere-movies "Lumière Movies"]
+
 IMDb link transformer adds details information from www.imdb.com into your blog. Cache management, widget available, this is the most versatile and comprehensive plugin to retrieve data from IMDb.
 
 == Description ==
