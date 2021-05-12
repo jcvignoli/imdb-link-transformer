@@ -12,6 +12,32 @@ document.addEventListener('DOMContentLoaded', function () {
 		GereControle(optionOne, optionTwo);
 	    }
 	});
+
+	jQuery('input[data-modificator2]').change(function(){
+	    if(jQuery(this).is(":checked")){
+		var optionOne = jQuery(this).closest('input').data('field_to_change2');
+		var optionTwo = jQuery(this).closest('input').data('field_to_change_value2');
+		GereControle(optionOne, optionTwo);
+	    }
+	});
+
+	jQuery('input[data-modificator3]').change(function(){
+	    if(jQuery(this).is(":checked")){
+		var optionOne = jQuery(this).closest('input').data('field_to_change3');
+		var optionTwo = jQuery(this).closest('input').data('field_to_change_value3');
+		GereControle(optionOne, optionTwo);
+	    }
+	});
+
+	jQuery('input[data-valuemodificator]').click(function(){
+		var field_option = jQuery(this).closest('input').data('valuemodificator_field');
+
+		if(jQuery(this).is(":checked")){
+			document.getElementById (field_option).value = jQuery(this).val();
+		} else {
+			document.getElementById (field_option).value = jQuery(this).closest('input').data('valuemodificator_default');
+		}
+	});
 });
 
 // Function that activate or unactivate the other field selected previously

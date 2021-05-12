@@ -22,6 +22,8 @@ define('IMDBLTABSPATH', str_replace("\\","/", WP_PLUGIN_DIR . '/' . plugin_basen
 define('IMDBBLOG', "https://www.jcvignoli.com/blog");
 define('IMDBHOMEPAGE', IMDBBLOG . '/imdb-link-transformer-wordpress-plugin');
 define('IMDBPHP_CONFIG',dirname(__FILE__) . '/config.php');
+// use the original class in src/Imdb/Config.php
+use \Imdb\Config;
 
 #--------------------------------------------------=[ configuration class ]=--
 
@@ -35,25 +37,6 @@ class imdb_settings_conf extends mdb_config {
 			$this->get_imdb_admin_option();
 			$this->get_imdb_widget_option();
 			$this->get_imdb_cache_option();
-	}
-
-	function notice($code, $msg) { // from more smilies plugin
-		switch ($code) {
-			default:
-			case 1: // simple notice
-				echo '<div id="message" class="updated fade"><p>'. $msg .'</p></div>';
-				break;
-			case 3: // simple error
-				echo '<div id="error" class="updated fade-ff0000"><p>'. $msg .'</p></div>';
-				break;
-			case 2: // advanced notice
-			case 4: // advanced error
-				echo '<div class="wrap">'. $msg .'</div>';
-				break;
-			case 5: // super duper wicked crazy critical error!
-				die($msg);
-				break;
-		}
 	}
 
 	//Returns an array of admin options
@@ -207,7 +190,7 @@ class imdb_settings_conf extends mdb_config {
 			check_admin_referer('update_imdbSettings_check', 'update_imdbSettings_check'); // check if the refer is ok before saving data
 
 			// display message on top
-			$this->notice(1, '<strong>'. __('Options saved.', 'imdb') .'</strong>');
+			imdblt_notice(1, '<strong>'. esc_html__( 'Options saved.', 'imdb') .'</strong>');
 
 			update_option($this->imdbAdminOptionsName, $imdbOptions);
 
@@ -219,14 +202,14 @@ class imdb_settings_conf extends mdb_config {
 			update_option($this->imdbAdminOptionsName, $imdbAdminOptions);
 
 			// display message on top
-			$this->notice(1, '<strong>'. __('Options reset.', 'imdb') .'</strong>');
+			imdblt_notice(1, '<strong>'. esc_html__( 'Options reset.', 'imdb') .'</strong>');
 
 			// refresh the page to reset display for values; &reset=true is the only way to reset all values and truly see them reset
 			// also check plugin collision -> follow a link instead of automatic refresh
 			if (!headers_sent()) {
 				header("Refresh: 0;url=".$_SERVER[ "REQUEST_URI"]."&reset=true", false);
 			} else {
-			$this->notice(1, '<strong>'. __('Plugin collision. Please follow ').'<a href="'.$_SERVER[ "REQUEST_URI"].'&reset=true">'.__('this link.', 'imdb').'</a>'.'</strong>');
+				imdblt_notice(1, '<strong>'. esc_html__( 'Plugin collision. Please follow ').'<a href="'.$_SERVER[ "REQUEST_URI"].'&reset=true">'.esc_html__( 'this link.', 'imdb').'</a>'.'</strong>');
 			}
 			//header("Location: ".$_SERVER[ "REQUEST_URI"]."&reset=true"); --- less sexy way
 
@@ -234,20 +217,33 @@ class imdb_settings_conf extends mdb_config {
 		if  (isset($_POST['update_imdbwidgetSettings']) ) { //--------------save data selected (widget options)
 
 			foreach ($_POST as $key=>$postvalue) {
-				if ($key == 'imdbwidgetorderContainer') continue;
-				$keynoimdb = str_replace ( "imdb_", "", $key);
+				// Sanitize
+				$key_sanitized = sanitize_text_field($key);
+
+				// Keep $_POST['imdbwidgetorderContainer'] untouched 
+				if ($key_sanitized == 'imdbwidgetorderContainer') continue;
+
+				// remove "imdb_" from $key
+				$keynoimdb = str_replace ( "imdb_", "", $key_sanitized);
+
+				// Copy $_POST to $imdbOptionsw var
 				if (isset($_POST["$key"])) {
-					$imdbOptionsw["$keynoimdb"] = $_POST["$key"];
+					$imdbOptionsw["$keynoimdb"] = $_POST["$key_sanitized"];
 				}
 			}
 
 			// Special part related to details order
 			if (isset($_POST['imdbwidgetorderContainer']) ){
+				// Sanitize
+				$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 				$myinputs = $_POST['imdbwidgetorderContainer'];
+
 				// increment the $key of one
 				$data = array_combine(range(1, count($myinputs)), array_values($myinputs));
-				// move $key to $value and vice versa
+
+				// flip $key with $value
 				$data = array_flip($data);
+
 				// Put in the option
 				$imdbOptionsw['imdbwidgetorder'] = $data;
 			}
@@ -255,15 +251,15 @@ class imdb_settings_conf extends mdb_config {
 			// check if the refer is ok before saving data
 			check_admin_referer('update_imdbwidgetSettings_check', 'update_imdbwidgetSettings_check');
 
-			// make sure that data posted in imdb_imdbwidgetorder (options-widget.php) are not empty; otherwise, it would
-			// replace $imdbOptions['imdbwidgetorder'] values by an empty one.
+			// make sure that data posted in imdb_imdbwidgetorder (options-widget.php) is not empty; 
+			// otherwise, it will replace $imdbOptions['imdbwidgetorder'] values by an empty one.
 			if ( $_POST['imdb_imdbwidgetorder'] == "empty") {
 
 				if (!headers_sent()) {
 					header("Location: ".$_SERVER[ "REQUEST_URI"], false);
 					die();
 				} else {
-					$this->notice(1, '<strong>'. __('Error. You have to select a value.', 'imdb'). '</strong>' );
+					imdblt_notice(1, '<strong>'. esc_html__( 'Error. You have to select a value.', 'imdb'). '</strong>' );
 					die();
 				}
 			}
@@ -271,7 +267,7 @@ class imdb_settings_conf extends mdb_config {
 			update_option($this->imdbWidgetOptionsName, $imdbOptionsw);
 
 			// display message on top
-			$this->notice(1, '<strong>'. __('Options saved.', 'imdb') .'</strong>');
+			imdblt_notice(1, '<strong>'. esc_html__( 'Options saved.', 'imdb') .'</strong>');
 
 			// flush rewrite rules for taxonomy pages
 			flush_rewrite_rules();
@@ -283,14 +279,14 @@ class imdb_settings_conf extends mdb_config {
 			update_option($this->imdbWidgetOptionsName, $imdbWidgetOptionsw);
 
 			// display message on top
-			$this->notice(1, '<strong>'. __('Options reset.', 'imdb') .'</strong>');
+			imdblt_notice(1, '<strong>'. esc_html__( 'Options reset.', 'imdb') .'</strong>');
 
 			// refresh the page to reset display for values; &reset=true is the only way to reset all values and truly see them reset
 			// also check plugin collision -> follow a link instead of automatic refresh
 			if (!headers_sent()) {
 				header("Refresh: 0;url=".$_SERVER[ "REQUEST_URI"]."&reset=true", false);
 			} else {
-				$this->notice(1, '<strong>'. __('Plugin collision. Please follow ').'<a href="'.$_SERVER[ "REQUEST_URI"].'&reset=true">'.__('this link.', 'imdb').'</a>'.'</strong>');
+				imdblt_notice(1, '<strong>'. esc_html__( 'Plugin collision. Please follow ').'<a href="'.$_SERVER[ "REQUEST_URI"].'&reset=true">'.esc_html__( 'this link.', 'imdb').'</a>'.'</strong>');
 			}
 
 			// flush rewrite rules for taxonomy pages
@@ -309,7 +305,7 @@ class imdb_settings_conf extends mdb_config {
 			check_admin_referer('update_cache_options_check', 'update_cache_options_check'); // check if the refer is ok before saving data
 
 			// display message on top
-			$this->notice(1, '<strong>'. __('Options saved.', 'imdb') .'</strong>');
+			imdblt_notice(1, '<strong>'. esc_html__( 'Options saved.', 'imdb') .'</strong>');
 
 			update_option($this->imdbCacheOptionsName, $imdbOptionsc);
 
@@ -321,14 +317,14 @@ class imdb_settings_conf extends mdb_config {
 			update_option($this->imdbCacheOptionsName, $imdbCacheOptions);
 
 			// display message on top
-			$this->notice(1, '<strong>'. __('Options reset.', 'imdb') .'</strong>');
+			imdblt_notice(1, '<strong>'. esc_html__( 'Options reset.', 'imdb') .'</strong>');
 
 			// refresh the page to reset display for values; &reset=true is the only way to reset all values and truly see them reset
 			// also check plugin collision -> follow a link instead of automatic refresh
 			if (!headers_sent()) {
 				header("Refresh: 0;url=".$_SERVER[ "REQUEST_URI"]."&reset=true", false);
 			} else {
-				$this->notice(1, '<strong>'. __('Plugin collision. Please follow ').'<a href="'.$_SERVER[ "REQUEST_URI"].'&reset=true">'.__('this link.', 'imdb').'</a>'.'</strong>');
+				imdblt_notice(1, '<strong>'. esc_html__( 'Plugin collision. Please follow ').'<a href="'.$_SERVER[ "REQUEST_URI"].'&reset=true">'.esc_html__( 'this link.', 'imdb').'</a>'.'</strong>');
 			}
 			//header("Location: ".$_SERVER[ "REQUEST_URI"]."&reset=true"); --- less sexy way
 
@@ -337,14 +333,14 @@ class imdb_settings_conf extends mdb_config {
 
 			check_admin_referer('reset_imdbltcache_check', 'reset_imdbltcache_check'); // check if the refer is ok before saving data
 
-			$this->notice(1, '<strong>'. __('All cache deleted.', 'imdb') .'</strong>');
+			imdblt_notice(1, '<strong>'. esc_html__( 'All cache deleted.', 'imdb') .'</strong>');
 
 			// refresh the page to reset display for values; &reset=true is the only way to reset all values and truly see them reset
 			// also check plugin collision -> follow a link instead of automatic refresh
 			if (!headers_sent()) {
 				header("Refresh: 0;url=".$_SERVER[ "REQUEST_URI"]."&reset=true", false);
 			} else {
-				$this->notice(1, '<strong>'. __('Plugin collision. Please follow ').'<a href="'.$_SERVER[ "REQUEST_URI"].'&reset=true">'.__('this link.', 'imdb').'</a>'.'</strong>');
+				imdblt_notice(1, '<strong>'. esc_html__( 'Plugin collision. Please follow ').'<a href="'.$_SERVER[ "REQUEST_URI"].'&reset=true">'.esc_html__( 'this link.', 'imdb').'</a>'.'</strong>');
 			}
 
 			unlinkRecursive ( $imdbOptionsc['imdbcachedir'] );
@@ -355,7 +351,7 @@ class imdb_settings_conf extends mdb_config {
 
 			check_admin_referer('update_imdbltcache_check', 'update_imdbltcache_check'); // check if the refer is ok before saving data
 
-			$this->notice(1, '<strong>'. __('Part cache deleted.', 'imdb') .'</strong>');
+			imdblt_notice(1, '<strong>'. esc_html__( 'Part cache deleted.', 'imdb') .'</strong>');
 
 			// for movies
 			for ($i = 0; $i < count ($_POST ['imdb_cachedeletefor']); $i++) {
@@ -390,34 +386,34 @@ class imdb_settings_conf extends mdb_config {
 
 	<div align="left" class="imdblt_float_left">
 		<img src="<?php echo IMDBLTURLPATH; ?>pics/admin-general.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('General Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options"> <?php _e('General Options', 'imdb'); ?></a>
+		<a title="<?php esc_html_e( 'General Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options"> <?php esc_html_e( 'General Options', 'imdb'); ?></a>
 
 		<?php 	### sub-page is relative to what is activated
 			### check if widget is active, and/or direct search option
 		if ( ($imdbOptions['imdbdirectsearch'] == "1") && (is_active_widget(widget_imdbwidget)) ){ ?>
 
 		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH ?>pics/admin-widget-inside.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('Widget/Inside post Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption"><?php _e('Widget/Inside post Options', 'imdb'); ?></a>
+		<a title="<?php esc_html_e( 'Widget/Inside post Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption"><?php esc_html_e( 'Widget/Inside post Options', 'imdb'); ?></a>
 		<?php } elseif ( ($imdbOptions['imdbdirectsearch'] == "1") && (! is_active_widget(widget_imdbwidget)) ) { ?>
 		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH; ?>pics/admin-widget-inside.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('Widget/Inside post Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption"><?php _e('Widget/Inside post Options', 'imdb'); ?></a> (<em><a href="widgets.php"><?php _e('Widget unactivated', 'imdb'); ?>)</a></em>)
+		<a title="<?php esc_html_e( 'Widget/Inside post Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption"><?php esc_html_e( 'Widget/Inside post Options', 'imdb'); ?></a> (<em><a href="widgets.php"><?php esc_html_e( 'Widget unactivated', 'imdb'); ?>)</a></em>)
 
 		<?php } elseif ( (!$imdbOptions['imdbdirectsearch'] == "1") && (is_active_widget(widget_imdbwidget)) )  { ?>
 		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH; ?>pics/admin-widget-inside.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('Widget/Inside post Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption"><?php _e('Widget/Inside post Options', 'imdb'); ?></a> (<em><a href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&generaloption=advanced#imdb_imdbdirectsearch_yes"><?php _e('Direct search', 'imdb'); ?></a> <?php _e('unactivated', 'imdb'); ?></em>)
+		<a title="<?php esc_html_e( 'Widget/Inside post Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption"><?php esc_html_e( 'Widget/Inside post Options', 'imdb'); ?></a> (<em><a href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&generaloption=advanced#imdb_imdbdirectsearch_yes"><?php esc_html_e( 'Direct search', 'imdb'); ?></a> <?php esc_html_e( 'unactivated', 'imdb'); ?></em>)
 
 <?php		} else { ?>
 		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH; ?>pics/admin-widget-inside.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('Widget/Inside post Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption"><?php _e('Widget/Inside post Options', 'imdb'); ?></a> (<em><a href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&generaloption=advanced#imdb_imdbdirectsearch_yes"><?php _e('Direct search', 'imdb'); ?></a></em> & <em><a href="widgets.php"><?php _e('Widget unactivated', 'imdb'); ?></a></em>)
+		<a title="<?php esc_html_e( 'Widget/Inside post Options', 'imdb'); ?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=widgetoption"><?php esc_html_e( 'Widget/Inside post Options', 'imdb'); ?></a> (<em><a href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&generaloption=advanced#imdb_imdbdirectsearch_yes"><?php esc_html_e( 'Direct search', 'imdb'); ?></a></em> & <em><a href="widgets.php"><?php esc_html_e( 'Widget unactivated', 'imdb'); ?></a></em>)
 
 <?php 		} ?>
 		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH; ?>pics/admin-cache.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('Cache management', 'imdb'); ?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=cache"><?php _e('Cache management', 'imdb'); ?></a>
+		<a title="<?php esc_html_e( 'Cache management', 'imdb'); ?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=cache"><?php esc_html_e( 'Cache management', 'imdb'); ?></a>
 	</div>
 	<div align="right" >
 		&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH; ?>pics/admin-help.png" align="absmiddle" width="16px" />&nbsp;
-		<a title="<?php _e('How to use IMDb link transformer, check FAQs & changelog', 'imdb');?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=help">
-			<?php _e('IMDb link transformer help', 'imdb'); ?>
+		<a title="<?php esc_html_e( 'How to use IMDb link transformer, check FAQs & changelog', 'imdb');?>" href="<?php echo admin_url(); ?>admin.php?page=imdblt_options&subsection=help">
+			<?php esc_html_e( 'IMDb link transformer help', 'imdb'); ?>
 		</a>
 	</div>
 	</div>
@@ -459,8 +455,6 @@ class imdb_settings_conf extends mdb_config {
 load_plugin_textdomain('imdb', false, IMDBLTURLPATH . 'lang' );
 
 #--------------------------------------------------=[ Class to be called from original imdb classes ]=--
-// use the original class in src/Imdb/Config.php
-use \Imdb\Config;
 
 class mdb_config extends Config {
 	var $imdb_admin_values;

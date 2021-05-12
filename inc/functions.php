@@ -309,4 +309,28 @@ if ( ! function_exists('imdblt_glob_recursive')){
         return $files;
     }
 }
+
+/**
+ * Function imdblt_notice
+ * Display a confirmation notice, such as "options saved"
+ */
+
+function imdblt_notice($code, $msg) { 
+	switch ($code) {
+		default:
+		case 1: // simple notice
+			echo '<div id="message" class="updated fade"><p>'. $msg .'</p></div>';
+			break;
+		case 3: // simple error
+			echo '<div id="error" class="updated fade-ff0000"><p>'. $msg .'</p></div>';
+			break;
+		case 2: // advanced notice
+		case 4: // advanced error
+			echo '<div class="wrap">'. $msg .'</div>';
+			break;
+		case 5: // super duper wicked crazy critical error!
+			die($msg);
+			break;
+	}
+}
 ?>

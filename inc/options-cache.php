@@ -14,24 +14,29 @@
  #									              #
  #############################################################################
 
-
 // included files
 require_once (dirname(__FILE__).'/../bootstrap.php');
 
 use \Imdb\Title;
 use \Imdb\Person;
-use \Imdb\Config;
 
+// Vars
 global $imdb_admin_values, $imdb_widget_values, $imdb_cache_values;
+$allowed_html_for_esc_html_functions = [
+    'strong',
+];
 
-$config = new Config();
-$config->cachedir = $imdb_cache_values['imdbcachedir'] ?? NULL;
-$config->photodir = $imdb_cache_values['imdbphotodir'] ?? NULL;
-$config->imdb_img_url = $imdb_cache_values['imdbimgdir'] ?? NULL;
-$config->cache_expire = $imdb_cache_values['imdbcacheexpire'] ?? NULL;
-$config->photoroot = $imdb_cache_values['imdbphotoroot'] ?? NULL;
-$config->storecache = $imdb_cache_values['imdbstorecache'] ?? NULL;
-$config->usecache = $imdb_cache_values['imdbusecache'] ?? NULL;
+// Start config class for $config in below Imdb\Title class calls
+if (class_exists("imdb_settings_conf")) {
+	$config = new imdb_settings_conf();
+	$config->cachedir = $imdb_cache_values['imdbcachedir'] ?? NULL;
+	$config->photodir = $imdb_cache_values['imdbphotodir'] ?? NULL;
+	$config->imdb_img_url = $imdb_cache_values['imdbimgdir'] ?? NULL;
+	$config->cache_expire = $imdb_cache_values['imdbcacheexpire'] ?? NULL;
+	$config->photoroot = $imdb_cache_values['imdbphotoroot'] ?? NULL;
+	$config->storecache = $imdb_cache_values['imdbstorecache'] ?? NULL;
+	$config->usecache = $imdb_cache_values['imdbusecache'] ?? NULL;
+}
 
 ##################################### delete several files
 
@@ -177,10 +182,9 @@ if (($_GET['dothis'] == 'delete') && ($_GET['type'])) {
 		 	if (file_exists($filetodeletepics )) unlink ($filetodeletepics);
 		}
 	}
-?>
-		<div class="imdblt_success"><?php esc_html_e("Cache successfully deleted, back to the", "imdb"); ?> <a href="<?php echo esc_url (admin_url() . "admin.php?page=imdblt_options&subsection=cache&cacheoption=manage"); ?>"><?php esc_html_e("previous page", "imdb"); ?></a></div>
-		<?php
-	exit();
+
+	// display message on top
+	imdblt_notice(1, '<strong>'. esc_html__("Cache successfully deleted.", "imdb").'</strong>');
 }
 
 ##################################### refresh a peliculiar file
@@ -269,11 +273,10 @@ if (($_GET['dothis'] == 'refresh') && ($_GET['type'])) {
 		$pubmovies = $person->pubmovies();
 		$photo_url = $person->photo_localurl();
 	}
-?>
-	<div id="theend" name="theend" class="imdblt_success"><?php esc_html_e("Cache succesfully refreshed.", "imdb"); ?></div>
 
-<?php
-exit();
+	// display message on top
+	imdblt_notice(1, '<strong>'. esc_html__( 'Cache succesfully refreshed.', 'imdb') .'</strong>');
+
 }
 
 ##################################### let's display real cache option page
@@ -282,7 +285,9 @@ exit();
 <div id="tabswrap">
 	<ul id="tabs">
 		<li><img src="<?php echo IMDBLTURLPATH ?>pics/admin-cache-options.png" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e("General options", 'imdb');?>" href="<?php echo esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&cacheoption=option'); ?>"><?php esc_html_e( 'General options', 'imdb'); ?></a></li>
+ 		<?php if ($imdbOptionsc['imdbcachedetails'] == "1") { ?>
 		<li>&nbsp;&nbsp;<img src="<?php echo IMDBLTURLPATH ?>pics/admin-cache-management.png" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e("Manage Cache", 'imdb');?>" href="<?php echo esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&cacheoption=manage'); ?>"><?php esc_html_e( "Manage Cache", 'imdb'); ?></a></li>
+		<?php }; ?>
 	</ul>
 </div>
 
@@ -389,8 +394,8 @@ exit();
 		<tr>
 			<td class="td-aligntop"><label for="imdb_imdbphotoroot"><?php esc_html_e('Photo directory (url)', 'imdb'); ?></label>
 			</td>
-			<td colspan="2"><input type="text" name="imdb_imdbphotoroot" size="70" value="<?php esc_html_e(apply_filters('format_to_edit',$imdbOptionsc['imdbphotoroot']), 'imdb') ?>">
-				<div class="explain"><?php esc_html_e('URL corresponding to photo directory.','imdb');?> <br /><?php esc_html_e('Default:','imdb');?> "<?php echo $imdbOptions['blog_adress']; ?>/wp-content/plugins/imdb-link-transformer/cache/images/"</div>
+			<td colspan="2"><input type="text" name="imdb_imdbphotoroot" size="70" value="<?php esc_html_e(apply_filters('format_to_edit', $imdbOptionsc['imdbphotoroot']), 'imdb') ?>">
+				<div class="explain"><?php esc_html_e('URL corresponding to photo directory.','imdb');?> <br /><?php esc_html_e('Default:','imdb');?> "<?php echo esc_url( $imdbOptions['blog_adress'] . "/wp-content/plugins/imdb-link-transformer/cache/images/"); ?>"</div>
 			</td>
 		</tr>
 
@@ -403,17 +408,17 @@ exit();
 		<tr>
 			<td>
 				<?php esc_html_e('Store cache?', 'imdb'); ?>&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="radio" id="imdb_imdbstorecache_yes" name="imdb_imdbstorecache" value="1" <?php if ($imdbOptionsc['imdbstorecache'] == "1") { echo 'checked="checked"'; }?> onClick="GereControle('imdb_imdbstorecache_yes', 'imdb_imdbusecache_yes', '0');GereControle('imdb_imdbstorecache_yes', 'imdb_imdbcacheexpire', '0');GereControle('imdb_imdbstorecache_yes', 'imdb_imdbconverttozip_yes', '0');GereControle('imdb_imdbstorecache_yes', 'imdb_imdbusezip_yes', '0');" /><label for="imdb_imdbstorecache_yes"><?php esc_html_e('Yes', 'imdb'); ?></label><input type="radio" id="imdb_imdbstorecache_no" name="imdb_imdbstorecache" value="" <?php if ($imdbOptionsc['imdbstorecache'] == 0) { echo 'checked="checked"'; } ?> onClick="GereControle('imdb_imdbstorecache_yes', 'imdb_imdbusecache_yes', '0');GereControle('imdb_imdbstorecache_yes', 'imdb_imdbcacheexpire', '0');GereControle('imdb_imdbstorecache_yes', 'imdb_imdbconverttozip_yes', '0');GereControle('imdb_imdbstorecache_yes', 'imdb_imdbusezip_yes', '0');"/><label for="imdb_imdbstorecache_no"><?php esc_html_e('No', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbstorecache_yes" name="imdb_imdbstorecache" value="1" <?php if ($imdbOptionsc['imdbstorecache'] == "1") { echo 'checked="checked"'; }?> data-modificator="yes" data-field_to_change="imdb_imdbusecache_yes" data-field_to_change_value="0" data-modificator2="yes" data-field_to_change2="imdb_imdbconverttozip_yes" data-field_to_change_value2="0" data-modificator3="yes" data-field_to_change3="imdb_imdbusezip_yes" data-field_to_change_value3="0" /><label for="imdb_imdbstorecache_yes"><?php esc_html_e('Yes', 'imdb'); ?></label><input type="radio" id="imdb_imdbstorecache_no" name="imdb_imdbstorecache" value="" <?php if ($imdbOptionsc['imdbstorecache'] == 0) { echo 'checked="checked"'; } ?> data-modificator="yes" data-field_to_change="imdb_imdbusecache_yes" data-field_to_change_value="1" data-modificator2="yes" data-field_to_change2="imdb_imdbconverttozip_yes" data-field_to_change_value2="1" data-modificator3="yes" data-field_to_change3="imdb_imdbusezip_yes" data-field_to_change_value3="1" /><label for="imdb_imdbstorecache_no"><?php esc_html_e('No', 'imdb'); ?></label>
 			</td>
 			<td>
 				<?php esc_html_e('Use cache?', 'imdb'); ?>&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="radio" id="imdb_imdbusecache_yes" name="imdb_imdbusecache" value="1" <?php if ($imdbOptionsc['imdbusecache'] == "1") { echo 'checked="checked"'; }?> onClick="GereControle('imdb_imdbusecache_yes', 'imdb_imdbcacheexpire', '0');" /><label for="imdb_imdbusecache_yes"><?php esc_html_e('Yes', 'imdb'); ?></label><input type="radio" id="imdb_imdbconverttozip_no" name="imdb_imdbusecache" value="" <?php if ($imdbOptionsc['imdbusecache'] == 0) { echo 'checked="checked"'; } ?> onClick="GereControle('imdb_imdbusecache_yes', 'imdb_imdbcacheexpire', '0');" /><label for="imdb_imdbusecache_no"><?php esc_html_e('No', 'imdb'); ?></label>
+				<input type="radio" id="imdb_imdbusecache_yes" name="imdb_imdbusecache" value="1" <?php if ($imdbOptionsc['imdbusecache'] == "1") { echo 'checked="checked"'; }?> data-modificator="yes" data-field_to_change="imdb_imdbcacheexpire" data-field_to_change_value="0" /><label for="imdb_imdbusecache_yes"><?php esc_html_e('Yes', 'imdb'); ?></label><input type="radio" id="imdb_imdbconverttozip_no" name="imdb_imdbusecache" value="" <?php if ($imdbOptionsc['imdbusecache'] == 0) { echo 'checked="checked"'; } ?> data-modificator="yes" data-field_to_change="imdb_imdbcacheexpire" data-field_to_change_value="1" /><label for="imdb_imdbusecache_no"><?php esc_html_e('No', 'imdb'); ?></label>
 			</td>
 			<td>
 				<label for="imdb_imdbcacheexpire"><?php esc_html_e('Cache expire', 'imdb'); ?></label>
 				<input type="text" id="imdb_imdbcacheexpire" name="imdb_imdbcacheexpire" size="7" value="<?php esc_html_e(apply_filters('format_to_edit',$imdbOptionsc['imdbcacheexpire']), 'imdb') ?>" <?php if ( ($imdbOptionsc['imdbusecache'] == 0) || ($imdbOptionsc['imdbstorecache'] == 0) ) { echo 'disabled="disabled"'; }; ?> />
 				 
-				<input type="checkbox"  value="0" id="imdb_imdbcacheexpire_definitive" onclick="javascript:document.getElementById ('imdb_imdbcacheexpire').value = document.getElementById ('imdb_imdbcacheexpire_definitive').value;" <?php if ($imdbOptionsc['imdbcacheexpire'] == 0) { echo 'checked="checked"'; }; ?> /><label for="imdb_imdbcacheexpire"><?php esc_html_e('(never)','imdb');?></label>
+				<input type="checkbox" value="0" id="imdb_imdbcacheexpire_definitive" name="imdb_imdbcacheexpire_definitive" data-valuemodificator="yes" data-valuemodificator_field="imdb_imdbcacheexpire" data-valuemodificator_default="2592000"<?php if ($imdbOptionsc['imdbcacheexpire'] == 0) { echo 'checked="checked"'; }; ?> /><label for="imdb_imdbcacheexpire"><?php esc_html_e('(never)','imdb');?></label>
 
 			</td>
 		</tr>
@@ -463,9 +468,9 @@ exit();
 		<tr>
 			<td>
 				<?php esc_html_e('Show advanced cache details', 'imdb'); ?>&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="radio" id="imdb_imdbcachedetails_yes" name="imdb_imdbcachedetails" value="1" <?php if ($imdbOptionsc['imdbcachedetails'] == "1") { echo 'checked="checked"'; }?> onClick="GereControle('imdb_imdbcachedetails_yes', 'imdb_imdbcachedetailsshort_yes', '0');GereControle('imdb_imdbcachedetails_yes', 'imdb_imdbcachedetailsshort_no', '0');" />
+				<input type="radio" id="imdb_imdbcachedetails_yes" name="imdb_imdbcachedetails" value="1" <?php if ($imdbOptionsc['imdbcachedetails'] == "1") { echo 'checked="checked"'; }?> data-modificator="yes" data-field_to_change="imdb_imdbcachedetailsshort_yes" data-field_to_change_value="0" />
 				<label for="imdb_imdbcachedetails_yes"><?php esc_html_e('Yes', 'imdb'); ?></label>
-				<input type="radio" id="imdb_imdbcachedetails_no" name="imdb_imdbcachedetails" value="" <?php if ($imdbOptionsc['imdbcachedetails'] == 0) { echo 'checked="checked"'; } ?> onClick="GereControle('imdb_imdbcachedetails_yes', 'imdb_imdbcachedetailsshort_yes', '0');GereControle('imdb_imdbcachedetails_yes', 'imdb_imdbcachedetailsshort_no', '0');" />
+				<input type="radio" id="imdb_imdbcachedetails_no" name="imdb_imdbcachedetails" value="" <?php if ($imdbOptionsc['imdbcachedetails'] == 0) { echo 'checked="checked"'; } ?> data-modificator="yes" data-field_to_change="imdb_imdbcachedetailsshort_yes" data-field_to_change_value="1" />
 				<label for="imdb_imdbcachedetails_no"><?php esc_html_e('No', 'imdb'); ?></label>
 
 			</td>
@@ -474,6 +479,7 @@ exit();
 				<?php esc_html_e('Quick advanced cache details', 'imdb'); ?>&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="radio" id="imdb_imdbcachedetailsshort_yes" name="imdb_imdbcachedetailsshort" value="1" <?php if ($imdbOptionsc['imdbcachedetailsshort'] == "1") { echo 'checked="checked"'; }?> <?php if ($imdbOptionsc['imdbcachedetails'] == 0) { echo 'disabled="disabled"'; }; ?> />
 				<label for="imdb_imdbcachedetailsshort_yes"><?php esc_html_e('Yes', 'imdb'); ?></label>
+
 				<input type="radio" id="imdb_imdbcachedetailsshort_no" name="imdb_imdbcachedetailsshort" value="" <?php if ($imdbOptionsc['imdbcachedetailsshort'] == 0) { echo 'checked="checked"'; } ?> <?php if ($imdbOptionsc['imdbcachedetails'] == 0) { echo 'disabled="disabled"'; }; ?> />
 				<label for="imdb_imdbcachedetailsshort_no"><?php esc_html_e('No', 'imdb'); ?></label>
 			</td>
@@ -484,7 +490,7 @@ exit();
 				<div class="explain"><?php esc_html_e('To show or not advanced cache details, which allows to specifically delete a movie cache. Be carefull with this option, if you have a lot of cached movies, it could crash this page. When yes is selected, an additional menu "manage cache" will appear next to the cache "General Options" menu.', 'imdb'); ?> <br /><?php esc_html_e('Default:','imdb');?> <?php esc_html_e('No', 'imdb'); ?></div>
 			</td>
 			<td class="td-aligntop">
-				<div class="explain"><?php esc_html_e('Allow a quicker load time for the "manage cache" page, by displaying shorter movies and people presentation. Usefull when you have several of those. This option is available when "Show advanced cache details" is activated.', 'imdb'); ?> <br /><?php esc_html_e('Default:','imdb');?> <?php esc_html_e('No', 'imdb'); ?></div>
+				<div class="explain"><?php esc_html_e('Allow faster loading time for the "manage cache" page, by displaying shorter movies and people presentation. Usefull when you have several of those. This option is available when "Show advanced cache details" is activated.', 'imdb'); ?> <br /><?php esc_html_e('Default:','imdb');?> <?php esc_html_e('No', 'imdb'); ?></div>
 			</td>
 			<td></td>
 		</tr>
@@ -549,10 +555,10 @@ if (is_dir($imdb_cache_values['imdbcachedir'])) {
   $files = glob($imdb_cache_values['imdbcachedir'] . '{title.tt*,name.nm*}', GLOB_BRACE);
   foreach ($files as $file) {
     if (preg_match('!^title\.tt(\d{7,8})$!i', basename($file), $match)) {
-      $results[] = new Title($match[1]);
+      $results[] = new Title($match[1], $config);
     }
     if (preg_match('!^name\.nm(\d{7,8})$!i', basename($file), $match)) {
-      $results[] = new Person($match[1]);
+      $results[] = new Person($match[1], $config);
     }
   }
 }
@@ -574,11 +580,10 @@ if (!empty($results)){
 						<img id="pic_'.$title_sanitized.'" class="picfloat" '.$moviepicturelink.' width="40px">
 
 						<input type="checkbox" id="imdb_cachedeletefor_'.$title_sanitized.'" name="imdb_cachedeletefor[]" value="'.$obj_sanitized.'" /><label for="imdb_cachedeletefor[]" class="imdblt_bold">'.$title_sanitized.'</label> <br />'. esc_html__("last updated on ", "imdb").date ("j M Y H:i:s", filemtime($filepath_sanitized)).' 
-
 						<div id="refresh_edit_'.$title_sanitized.'" class="row-actions">
-							<span class="edit"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&dothis=refresh&where='.$obj_sanitized.'&type=movie').'" class="admin-cache-confirm-refresh" data-confirm="Refresh cache for *'.$title_sanitized.'*">'.esc_html__("refresh", "imdb").'</a></span>
+							<span class="edit"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&cacheoption=manage&dothis=refresh&where='.$obj_sanitized.'&type=movie').'" class="admin-cache-confirm-refresh" data-confirm="'. esc_html__("Refresh cache for *", "imdb") .$title_sanitized.'*?">'.esc_html__("refresh", "imdb").'</a></span>
 
-							<span class="delete"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&dothis=delete&where='.$obj_sanitized.'&type=movie').'" class="admin-cache-confirm-delete" data-confirm="You are about to delete *'.$title_sanitized.'* from cache. Click Cancel to stop or OK to continue." title="Delete cache for *'.$title_sanitized.'*">'.esc_html__("delete", "imdb").'</a></span>
+							<span class="delete"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&cacheoption=manage&dothis=delete&where='.$obj_sanitized.'&type=movie').'" class="admin-cache-confirm-delete" data-confirm="'. esc_html__("Delete *", "imdb") . $title_sanitized.esc_html__("* from cache?", "imdb").'" title="'. esc_html__("Delete *", "imdb") . $title_sanitized.esc_html__("* from cache?", "imdb").'">'.esc_html__("delete", "imdb").'</a></span>
 						</div>
 					</td>'; // send input and results into array
 
@@ -614,7 +619,7 @@ if (!empty($results)){
 						<br />
 					<div align="center">
 						<?php wp_nonce_field('update_imdbltcache_check', 'update_imdbltcache_check'); //check that data has been sent only once  ?>
-						<input type="submit" class="button-primary" name="update_imdbltcache" value="<?php esc_html_e('Delete cache', 'imdb') ?>" />
+						<input type="submit" class="button-primary" name="update_imdbltcache" data-confirm="<?php esc_html__( "Delete selected cache?", "imdb"); ?>" value="<?php esc_html_e('Delete cache', 'imdb') ?>" />
 						<br/>
 						<?php echo esc_html_e('Warning!', 'imdb'); ?>
 						<?php echo esc_html_e('This button will to delete specific cache files selected from cache folder.', 'imdb'); ?>
@@ -652,9 +657,9 @@ if (!empty($results)){
 							<input type="checkbox" id="imdb_cachedeletefor_people_'.$name_sanitized.'" name="imdb_cachedeletefor_people[]" value="'.$objpiple_sanitized.'" /><label for="imdb_cachedeletefor_people_[]" class="imdblt_bold">'.$name_sanitized.'</label><br />'. esc_html__('last updated on ', 'imdb').date ("j M Y H:i:s", filemtime($filepath_sanitized)).'
 							
 							<div class="row-actions">
-								<span class="view"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&dothis=refresh&where='.$objpiple_sanitized.'&type=people').'" class="admin-cache-confirm-refresh" data-confirm="Refresh cache for *'.$name_sanitized.'*" title="Refresh cache for *'.$name_sanitized.'*">'.esc_html__("refresh", "imdb").'</a></span> 
+								<span class="view"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&cacheoption=manage&dothis=refresh&where='.$objpiple_sanitized.'&type=people').'" class="admin-cache-confirm-refresh" data-confirm="Refresh cache for *'.$name_sanitized.'*" title="Refresh cache for *'.$name_sanitized.'*">'.esc_html__("refresh", "imdb").'</a></span> 
 
-								<span class="delete"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&dothis=delete&where='.$objpiple_sanitized.'&type=people').'" class="admin-cache-confirm-delete" data-confirm="You are about to delete *'.$name_sanitized.'* from cache. Click Cancel to stop or OK to continue." title="Delete cache for *'.$name_sanitized.'*">'.esc_html__("delete", "imdb").'</a></span>
+								<span class="delete"><a href="'.esc_url( admin_url().'admin.php?page=imdblt_options&subsection=cache&cacheoption=manage&dothis=delete&where='.$objpiple_sanitized.'&type=people').'" class="admin-cache-confirm-delete" data-confirm="You are about to delete *'.$name_sanitized.'* from cache. Click Cancel to stop or OK to continue." title="Delete cache for *'.$name_sanitized.'*">'.esc_html__("delete", "imdb").'</a></span>
 							</div>
 						</td>'; // send input and results into array
 
@@ -688,7 +693,7 @@ if (!empty($results)){
 						<br />
 					<div align="center">
 						<?php wp_nonce_field('update_imdbltcache_check', 'update_imdbltcache_check'); //check that data has been sent only once  ?>
-						<input type="submit" class="button-primary" name="update_imdbltcache" value="<?php esc_html_e('Delete cache', 'imdb') ?>" />
+						<input type="submit" class="button-primary" data-confirm="<?php esc_html__( "Delete selected cache?", "imdb"); ?>" name="update_imdbltcache" value="<?php esc_html_e('Delete cache', 'imdb') ?>" />
 						<br/>
 						<?php echo esc_html_e('Warning!', 'imdb'); ?>
 						<?php echo esc_html_e('This button will to delete specific cache files selected from cache folder.', 'imdb'); ?>
@@ -705,14 +710,13 @@ if (!empty($results)){
 				<div class="submit submit-imdb" align="center">
 					<strong><?php echo esc_html__('Warning!', 'imdb'); ?></strong>
 
-
 					<br/>
 <?php				 	//check that data has been sent only once -- don't send _wp_http_referer twice, 
 					//already sent with first wp_nonce_field -> 3rd option to "false" 
 					wp_nonce_field('reset_imdbltcache_check', 'reset_imdbltcache_check', false); ?>
-					<input type="submit" class="button-primary" name="reset_imdbltcache" value="<?php esc_html_e('Delete all cache', 'imdb') ?>" /> 
+					<input type="submit" class="button-primary" name="reset_imdbltcache"  data-confirm="<?php esc_html__( "Delete all cache? Really?", "imdb"); ?>" value="<?php esc_html_e('Delete all cache', 'imdb') ?>" /> 
 					<br/>
-					<?php echo esc_html_e('This button will <strong>delete all cache</strong> stored in cache folder.', 'imdb'); ?>
+					<?php wp_kses( _e('This button will <strong>delete all cache</strong> stored in cache folder.', 'imdb'), $allowed_html_for_esc_html_functions ); ?>
 
 				</div>
 			</td>
