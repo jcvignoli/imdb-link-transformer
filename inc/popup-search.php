@@ -43,7 +43,7 @@ else
 
 //--------------------------------------=[Layout]=---------------
 
-if (($imdb_admin_values[imdbdirectsearch] == false ) OR ($_GET["norecursive"] == 'yes')) { //------------------------- 1. recherche, comportement classique
+if (($imdb_admin_values['imdbdirectsearch'] == false ) OR ($_GET["norecursive"] == 'yes')) { //------------------------- 1. recherche, comportement classique
 	//require_once ('popup-header.php'); 
 	get_header(); 
 ?>
@@ -60,11 +60,11 @@ if (($imdb_admin_values[imdbdirectsearch] == false ) OR ($_GET["norecursive"] ==
 		echo "	<tr>\n";
 		
 		// ---- movie part
-		echo "		<td class='TableListeResultatsColGauche'><a href=\"".esc_url($imdb_admin_values[imdbplugindirectory]."inc/popup-imdb_movie.php?mid=".intval($res->imdbid()) )."\" title=\"".esc_html__('more on', 'imdb')." ".sanitize_text_field( $res->title() )."\" >".sanitize_text_field( $res->title() )."(".intval( $res->year() ).")"."</a> \n";
+		echo "		<td class='TableListeResultatsColGauche'><a href=\"".esc_url($imdb_admin_values['imdbplugindirectory']."inc/popup-imdb_movie.php?mid=".intval($res->imdbid()) )."&film=".$film_sanitized."\" title=\"".esc_html__('more on', 'imdb')." ".sanitize_text_field( $res->title() )."\" >".sanitize_text_field( $res->title() )."(".intval( $res->year() ).")"."</a> \n";
 		echo "&nbsp;&nbsp;<a class=\"imdblink\" href=\"".esc_url( "https://www.imdb.com/title/tt".intval($res->imdbid()) )."\" target=\"_blank\" title='".esc_html__('link to imdb for', 'imdb')." ".sanitize_text_field( $res->title() )."'>";
 
 		if ($imdb_admin_values[imdbdisplaylinktoimdb] == true) { # if the user has selected so
-			echo "<img  class='img-imdb' src='".esc_url( $imdb_admin_values[imdbplugindirectory].$imdb_admin_values[imdbpicurl] )."' width='".intval($imdb_admin_values[imdbpicsize])."' alt='".esc_html__('link to imdb for', 'imdb')." ".sanitize_text_field( $res->title() )."'/></a>";	
+			echo "<img  class='img-imdb' src='".esc_url( $imdb_admin_values['imdbplugindirectory'].$imdb_admin_values['imdbpicurl'] )."' width='".intval($imdb_admin_values['imdbpicsize'])."' alt='".esc_html__('link to imdb for', 'imdb')." ".sanitize_text_field( $res->title() )."'/></a>";	
 		}
 		echo "</td>\n";
 		flush ();
@@ -106,7 +106,6 @@ wp_footer();
 	}	
 	$midPremierResultat = $results[$nbarrayresult]->imdbid() ?? NULL;
 	$_GET['mid'] = $midPremierResultat; //"mid" will be transmitted to next include
-	require_once ( $imdb_admin_values[imdbplugindirectory] . "inc/popup-imdb_movie.php");
+	require_once ( $imdb_admin_values['imdbplugindirectory'] . "inc/popup-imdb_movie.php");
 }
-
 ?>
