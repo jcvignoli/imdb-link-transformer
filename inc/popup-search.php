@@ -19,10 +19,19 @@ do_action('wp_loaded'); // execute wordpress first codes
 
 //---------------------------------------=[Vars]=----------------
 
-global $imdb_admin_values, $imdb_widget_values;
+global $imdb_admin_values, $imdb_widget_values, $imdb_cache_values;;
+
+// Start config class for $config in below Imdb\Title class calls
+if (class_exists("imdb_settings_conf")) {
+	$config = new imdb_settings_conf();
+	$config->cachedir = $imdb_cache_values['imdbcachedir'] ?? NULL;
+	$config->photodir = $imdb_cache_values['imdbphotodir'] ?? NULL;
+	$config->imdb_img_url = $imdb_cache_values['imdbimgdir'] ?? NULL;
+	$config->photoroot = $imdb_cache_values['imdbphotoroot'] ?? NULL;
+}
 
 # Initialization of IMDBphp
-$search = new Imdb\TitleSearch();
+$search = new Imdb\TitleSearch($config);
 
 if (isset ($_GET["film"]))
 	$film_sanitized = sanitize_text_field( $_GET["film"] ) ?? NULL;

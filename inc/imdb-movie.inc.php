@@ -17,21 +17,20 @@
 
 require_once (dirname(__FILE__).'/../bootstrap.php');
 
-use \Imdb\Title;
-use \Imdb\Config;
-
 //---------------------------------------=[Vars]=----------------
 
 global $imdb_admin_values, $imdb_widget_values, $imdb_cache_values;
 
-$count_me_siffer= 0; // value to allow movie total count (called from every 'taxonomised' part)
+// Start config class for $config in below Imdb\Title class calls
+if (class_exists("imdb_settings_conf")) {
+	$config = new imdb_settings_conf();
+	$config->cachedir = $imdb_cache_values['imdbcachedir'] ?? NULL;
+	$config->photodir = $imdb_cache_values['imdbphotodir'] ?? NULL;
+	$config->imdb_img_url = $imdb_cache_values['imdbimgdir'] ?? NULL;
+	$config->photoroot = $imdb_cache_values['imdbphotoroot'] ?? NULL;
+}
 
-# Initialization of IMDBphp
-$config = new Config();
-$config->cachedir = $imdb_cache_values['imdbcachedir'] ?? NULL;
-$config->photodir = $imdb_cache_values['imdbphotodir'] ?? NULL;
-$config->imdb_img_url = $imdb_cache_values['imdbimgdir'] ?? NULL;
-$config->photoroot = $imdb_cache_values['imdbphotoroot'] ?? NULL;
+$count_me_siffer= 0; // value to allow movie total count (called from every 'taxonomised' part)
 
 if (isset ($_GET["mid"])) {
 	$movieid = filter_var( $_GET["mid"], FILTER_SANITIZE_NUMBER_INT);
@@ -178,7 +177,7 @@ while ($imovie < count($imdballmeta)) {
 
 	if  ($magicnumber==$imdb_widget_values['imdbwidgetorder']['runtime'] ) {
 	$runtime_sanitized = sanitize_text_field( $movie->runtime() ); 
-		if (!empty($runtime) && ($imdb_widget_values['imdbwidgetruntime'] == true )) { ?>
+		if (!empty($runtime_sanitized) && ($imdb_widget_values['imdbwidgetruntime'] == true )) { ?>
 										<!-- runtime -->
 			<ul class="imdbelementRUNTIMEul">
 			<li class="imdbincluded-lined imdbelementRUNTIMEli">

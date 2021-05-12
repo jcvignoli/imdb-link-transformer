@@ -31,7 +31,10 @@ class imdb_settings_conf extends mdb_config {
 	var $imdbWidgetOptionsName = "imdbWidgetOptions";
 	var $imdbCacheOptionsName = "imdbCacheOptions";
 
-	function imdb_settings_conf_constr() { //constructor
+	function __construct() {
+			$this->get_imdb_admin_option();
+			$this->get_imdb_widget_option();
+			$this->get_imdb_cache_option();
 	}
 
 	function notice($code, $msg) { // from more smilies plugin
@@ -51,12 +54,6 @@ class imdb_settings_conf extends mdb_config {
 				die($msg);
 				break;
 		}
-	}
-
-	function init() {
-			$this->get_imdb_admin_option();
-			$this->get_imdb_widget_option();
-			$this->get_imdb_cache_option();
 	}
 
 	//Returns an array of admin options
@@ -462,8 +459,10 @@ class imdb_settings_conf extends mdb_config {
 load_plugin_textdomain('imdb', false, IMDBLTURLPATH . 'lang' );
 
 #--------------------------------------------------=[ Class to be called from original imdb classes ]=--
+// use the original class in src/Imdb/Config.php
+use \Imdb\Config;
 
-class mdb_config {
+class mdb_config extends Config {
 	var $imdb_admin_values;
 	var $imdb_cache_values;
 
