@@ -79,7 +79,7 @@ class imdblt_core {
 
 		// .htaccess text, including Rewritebase with $blog_subdomain
 		$imdblt_htaccess_file_txt = "<IfModule mod_rewrite.c>\nRewriteEngine On\nRewriteBase ".$imdblt_blog_subdomain."/"."\n\n";
-		$imdblt_htaccess_file_txt .= "## popup.php\nRewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-search.php\?film=([^\s]+)?&norecursive=(̣.*)?"."\n"."RewriteRule ^.+$ imdblt/film/%1/ [L,R,QSA]"."\n\n";
+		$imdblt_htaccess_file_txt .= "## popup.php\nRewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-search.php\?film=([^\s]+)?(&norecursive=)?(̣.*)?"."\n"."RewriteRule ^.+$ imdblt/film/%1/ [L,R,QSA]"."\n\n";
 		$imdblt_htaccess_file_txt .= "## popup-imdb_movie.php"."\n"."RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_movie.php\?film=([^\s]+) [NC]\nRewriteRule ^.+$ imdblt/film/%1/ [L,R,QSA]"."\n\n";
 		$imdblt_htaccess_file_txt .= "RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_movie.php\?mid=([^\s]+)&film=&info=([^\s]+)? [NC]"."\n"."RewriteRule ^.+$ imdblt/film/%1/ [L,R,QSA]"."\n\n";
 		$imdblt_htaccess_file_txt .= "RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_movie.php\?mid=([^\s]+)?&film=([^\s]+)?&info=([^\s]+)? [NC]"."\n"."RewriteRule ^.+$ imdblt/film/%2/ [L,R,QSA]"."\n\n";
@@ -217,7 +217,7 @@ class imdblt_core {
 		global $imdb_admin_values;
 
 		// Load js and css in /imdblt/ URLs or if the function is called with imdblt_add_head_blog("inc.movie")
-		if (( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/imdblt/' ) ) || ($bypass=="inc.movie") ) { 
+		if ( ($bypass=="inc.movie") || ( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/imdblt/' ) ) || ( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/wp-content/plugins/imdb-link-transformer/inc/' ) ) ) { 
 
 			// Highslide popup
 			if ($imdb_admin_values['imdbpopup_highslide'] == 1) {
@@ -239,9 +239,8 @@ class imdblt_core {
 		 	}
 
 			// OceanWp template css fix
-			// enqueue imdb.css only if 1/ it is a popup (url starting with /imdblt/) 2/ using template oceanwp
-			if ( ( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/imdblt/' ) ) 
-		&& ( stripos( TEMPLATEPATH, '/wp-content/themes/oceanwp' ) ) ){
+			// enqueue imdb.css only if using oceanwp template
+			if ( stripos( TEMPLATEPATH, '/wp-content/themes/oceanwp' ) ) {
 				wp_enqueue_style('imdblt_imdbcss_oceanwpfixes', $imdb_admin_values['imdbplugindirectory'] ."css/imdb-oceanwpfixes.css");
 			}
 		}
@@ -251,7 +250,7 @@ class imdblt_core {
 		global $imdb_admin_values; 
 
 		// Load js and css in /imdblt/ URLs or if the function is called with imdblt_add_footer_blog("inc.movie")
-		if (( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/imdblt/' ) ) || ($bypass=="inc.movie") ) { 
+		if ( ($bypass=="inc.movie") || ( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/imdblt/' ) ) || ( 0 === stripos( $_SERVER['REQUEST_URI'], site_url( '', 'relative' ) . '/wp-content/plugins/imdb-link-transformer/inc/' ) ) ) { 
 
 			wp_enqueue_script( "imdblt_hide-show_csp", $imdb_admin_values['imdbplugindirectory'] ."js/hide-show_csp.js");
 
