@@ -79,12 +79,12 @@ class imdblt_core {
 
 		// .htaccess text, including Rewritebase with $blog_subdomain
 		$imdblt_htaccess_file_txt = "<IfModule mod_rewrite.c>\nRewriteEngine On\nRewriteBase ".$imdblt_blog_subdomain."/"."\n\n";
-		$imdblt_htaccess_file_txt .= "## popup.php\nRewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-search.php\?film=([^\s]+)(&norecursive=)?(̣.*)? [NC]"."\n"."RewriteRule ^.+$ imdblt/film/%1/ [L,R,QSA]"."\n\n";
+		$imdblt_htaccess_file_txt .= "## popup.php\nRewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-search.php\?film=([^\s]+)?&norecursive=(̣.*)?"."\n"."RewriteRule ^.+$ imdblt/film/%1/ [L,R,QSA]"."\n\n";
 		$imdblt_htaccess_file_txt .= "## popup-imdb_movie.php"."\n"."RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_movie.php\?film=([^\s]+) [NC]\nRewriteRule ^.+$ imdblt/film/%1/ [L,R,QSA]"."\n\n";
 		$imdblt_htaccess_file_txt .= "RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_movie.php\?mid=([^\s]+)&film=&info=([^\s]+)? [NC]"."\n"."RewriteRule ^.+$ imdblt/film/%1/ [L,R,QSA]"."\n\n";
 		$imdblt_htaccess_file_txt .= "RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_movie.php\?mid=([^\s]+)?&film=([^\s]+)&info=([^\s]+)? [NC]"."\n"."RewriteRule ^.+$ imdblt/film/%2/ [L,R,QSA]"."\n\n";
 		$imdblt_htaccess_file_txt .= "RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_movie.php\?mid=([^\s]+) [NC]"."\n"."RewriteRule ^.+$ imdblt/film/%1/ [L,R,QSA]"."\n\n";
-		$imdblt_htaccess_file_txt .= "## popup-imdb_person.php"."\n"."RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_person.php\?mid=([^\s]+)&film=([^\s]+)?&info=([^\s]+)? [NC]"."\n"."RewriteRule ^.+$ imdblt/person/%1/ [L,R,QSA]"."\n\n";
+		$imdblt_htaccess_file_txt .= "## popup-imdb_person.php"."\n"."RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_person.php\?mid=([^\s]+)?&film=([^\s]+)?&info=([^\s]+)? [NC]"."\n"."RewriteRule ^.+$ imdblt/person/%1/ [L,R,QSA]"."\n\n";
 		$imdblt_htaccess_file_txt .= "RewriteCond %{THE_REQUEST} /wp-content/plugins/imdb-link-transformer/inc/popup-imdb_person.php\?mid=([^\s]+) [NC]"."\n"."RewriteRule ^.+$ imdblt/person/%1/ [L,R,QSA]"."\n\n";
 		$imdblt_htaccess_file_txt .= "</IfModule>"."\n";
 

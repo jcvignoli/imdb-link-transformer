@@ -160,7 +160,7 @@ get_header();
 <table class="TableauPresentation" width="100%">
     <tr width="100%">
         <td colspan="2">
-            <div class="titrefilm"><?php echo sanitize_text_field( $movie->title() ); ?> &nbsp;&nbsp;(<?php echo sanitize_text_field( $movie->year () ); ?>)</div>
+            <div class="titrefilm"><?php $title_sanitized=sanitize_text_field($movie->title()); echo $title_sanitized; ?> &nbsp;&nbsp;(<?php echo sanitize_text_field( $movie->year () ); ?>)</div>
             <div class="soustitrefilm"><?php echo sanitize_text_field( $movie->tagline() ); ?> </div>
             <?php flush (); ?>
         </td>
@@ -381,7 +381,7 @@ echo '/ >'; ?>
 								<?php echo sanitize_text_field( $cast[$i]["role"] ); ?>
 							</div>
 							<div align="right">
-								<a href="<?php echo esc_url( $imdb_admin_values[imdbplugindirectory]."inc/" . "popup-imdb_person.php?mid=" . $cast[$i]["imdb"] ); ?>" title='<?php esc_html_e('link to imdb', 'imdb'); ?>'>
+								<a href="<?php echo esc_url( $imdb_admin_values[imdbplugindirectory]."inc/" . "popup-imdb_person.php?mid=" . $cast[$i]["imdb"] . "&film=".  $title_sanitized ); ?>" title='<?php esc_html_e('link to imdb', 'imdb'); ?>'>
 								<?php echo sanitize_text_field( $cast[$i]["name"] ); ?></a>
 							</div>
 						</div>
@@ -410,7 +410,7 @@ echo '/ >'; ?>
 						<div align="center">
 							<div class="imdblt_float_left">
 								<?php if ( $i > 0 ) echo ', '; ?>
-								<a href="<?php echo esc_url( $imdb_admin_values[imdbplugindirectory]."inc/" . "popup-imdb_person.php?mid=" . $director[$i]["imdb"] ); ?>" title='<?php esc_html_e('link to imdb', 'imdb'); ?>'>
+								<a href="<?php echo esc_url( $imdb_admin_values[imdbplugindirectory]."inc/" . "popup-imdb_person.php?mid=" . $director[$i]["imdb"] . "&film=".  $title_sanitized  ); ?>" title='<?php esc_html_e('link to imdb', 'imdb'); ?>'>
 								<?php echo sanitize_text_field( $director[$i]["name"] ); ?></a>
 							</div>
 							<div align="right">
@@ -437,7 +437,7 @@ echo '/ >'; ?>
 			<li>
 				<div align="center" class="imdbdiv-liees">
 					<div class="imdblt_float_left">
-						<a href="<?php echo esc_url( $imdb_admin_values[imdbplugindirectory]."inc/popup-imdb_person.php?mid=" . $write[$i]["imdb"] ) ?>" title='<?php esc_html_e('link to imdb', 'imdb'); ?>'>
+						<a href="<?php echo esc_url( $imdb_admin_values[imdbplugindirectory]."inc/popup-imdb_person.php?mid=" . $write[$i]["imdb"] . "&film=".  $title_sanitized  ) ?>" title='<?php esc_html_e('link to imdb', 'imdb'); ?>'>
 						<?php echo sanitize_text_field( $write[$i]["name"] ); ?></a>
 					</div>
 					<div align="right">
@@ -465,7 +465,7 @@ echo '/ >'; ?>
 			<li>
 				<div align="center" class="imdbdiv-liees">
 					<div class="imdblt_float_left">
-                		            	<a href="<?php echo esc_url( $imdb_admin_values[imdbplugindirectory]."inc/popup-imdb_person.php?mid=" . $produce[$i]["imdb"] ); ?>" title='<?php esc_html_e('link to imdb', 'imdb'); ?>'>
+                		            	<a href="<?php echo esc_url( $imdb_admin_values[imdbplugindirectory]."inc/popup-imdb_person.php?mid=" . $produce[$i]["imdb"] . "&film=".  $title_sanitized  ); ?>" title='<?php esc_html_e('link to imdb', 'imdb'); ?>'>
                 		            	<?php echo sanitize_text_field( $produce[$i]["name"] ); ?></a>
 					</div>
 					<div align="right">
