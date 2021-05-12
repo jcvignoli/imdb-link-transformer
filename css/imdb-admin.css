@@ -174,10 +174,12 @@ text-align:justify;
 }
 
 .row-actions{float:right;}
+
 .imdblt_nofilefound{font-weight:bold;color:red;text-align:center;}
 .imdblt_green{color:green;}
-.imdblt_red{color:green;}
-table.table_ninety{margin-left:auto;	margin-right:auto;width:90%;}
+.imdblt_red{color:red;}
+.imdblt_red_bold{color:red;font-weight: bold;}
+table.table_ninety{margin-left:auto;margin-right:auto;width:90%;}
 .intro_cache {padding:0 30px 30px 30px;}
 .imdblt_smaller{font-size:smaller;}
 .imdblt_bold{font-weight:bold;}
@@ -194,6 +196,8 @@ table.table_ninety{margin-left:auto;	margin-right:auto;width:90%;}
 .imdblt_align_bottom{vertical-align:bottom;}
 .imdblt_float_right{float:right;}
 .imdblt_float_left{float:left;}
+
+.imdblt_width_twohundredfifty{width: 250px;}
 .accesstaxo{border:1px solid black;padding:20px;margin-left:40%;margin-right:40%;}
 .imdbwidgetorderContainer{width: 300px;height:auto;background-color:black;border-radius:10px;}
 

@@ -667,7 +667,7 @@ while ($imovie < count($imdballmeta)) {
 			} else { 
 				for ($i = 0; $i < count ($producer); $i++) { ?>
 						<div align="center" class="imdbdiv-liees">
-							<div style="float:left">
+							<div class="imdblt_float_left">
 <?php					if  ($imdb_widget_values['imdblinkingkill'] == false ) { // if "Remove all links" option is not selected 
 						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup ?>
 							<a class="link-imdblt-highslidepeople highslide" data-highslidepeople="<?php echo esc_attr( $producer[$i]["imdb"] ); ?>" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>"><?php echo sanitize_text_field( $producer[$i]["name"] ); ?></a>
@@ -708,7 +708,7 @@ while ($imovie < count($imdballmeta)) {
 			} else { 
 				for ($i = 0; $i < count ($writer); $i++) { ?>
 						<div align="center" class="imdbdiv-liees">
-							<div style="float:left">
+							<div class="imdblt_float_left">
 <?php					if  ($imdb_widget_values['imdblinkingkill'] == false ) { // if "Remove all links" option is not selected 
 						if ($imdb_admin_values['imdbpopup_highslide'] == 1) { // highslide popup ?>
 							<a class="link-imdblt-highslidepeople highslide" data-highslidepeople="<?php echo esc_attr( $writer[$i]["imdb"] ); ?>" title="<?php esc_html_e('open a new window with IMDb informations', 'imdb'); ?>"><?php echo sanitize_text_field( $writer[$i]["name"] ); ?></a>
@@ -758,7 +758,7 @@ while ($imovie < count($imdballmeta)) {
 
 				for ($i = 0; $i < $nbactors && ($i < count($cast)); $i++) { ?>
 						<div align="center" class="imdbdiv-liees">
-							<div style="float:left"><?php 
+							<div class="imdblt_float_left"><?php 
 								echo sanitize_text_field( preg_replace('/\n/', "", $cast[$i]["role"]) ); // remove the <br> which break the layout
 							?></div>
 							<div align="right">

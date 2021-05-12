@@ -103,7 +103,7 @@ function widget_imdbwidget_control() {
 	}
 	$title = sanitize_text_field( $options['title']);
 	echo "<p><label for=\"imdbW-title\">" . __('Title:');
-	echo "<input style=\"width: 250px;\" id=\"imdbW-title\" name=\"imdbW-title\" type=\"text\" value=\"" . $title . "\" /></label></p>";
+	echo "<input class=\"imdblt_width_twohundredfifty\" id=\"imdbW-title\" name=\"imdbW-title\" type=\"text\" value=\"" . $title . "\" /></label></p>";
 	echo "<input type=\"hidden\" id=\"imdbW-submit\" name=\"imdbW-submit\" value=\"1\" />";
 }
 

@@ -24,9 +24,9 @@ require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
 
 <div id="tabswrap">
 	<ul id="tabs">
-		<li><img src="<?php echo $imdb_admin_values['imdbplugindirectory'] ?>pics/admin-general-path.png" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e( "Paths & Layout", 'imdb');?>" href="<?php echo esc_url(admin_url() . "admin.php?page=imdblt_options&generaloption=base" ); ?>"><?php esc_html_e( 'Paths & Layout', 'imdb'); ?></a></li>
+		<li><img src="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . "pics/admin-general-path.png"); ?>" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e( "Paths & Layout", 'imdb');?>" href="<?php echo esc_url(admin_url() . "admin.php?page=imdblt_options&generaloption=base" ); ?>"><?php esc_html_e( 'Paths & Layout', 'imdb'); ?></a></li>
 
-		<li>&nbsp;&nbsp;<img src="<?php echo $imdb_admin_values['imdbplugindirectory'] ?>pics/admin-general-advanced.png" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e( "Advanced", 'imdb');?>" href="<?php echo esc_url (admin_url() . "admin.php?page=imdblt_options&generaloption=advanced" ); ?>"><?php esc_html_e( "Advanced", 'imdb'); ?></a></li>
+		<li>&nbsp;&nbsp;<img src="<?php echo esc_url( $imdb_admin_values['imdbplugindirectory'] . "pics/admin-general-advanced.png"); ?>" align="absmiddle" width="16px" />&nbsp;&nbsp;<a title="<?php esc_html_e( "Advanced", 'imdb');?>" href="<?php echo esc_url (admin_url() . "admin.php?page=imdblt_options&generaloption=advanced" ); ?>"><?php esc_html_e( "Advanced", 'imdb'); ?></a></li>
 	</ul>
 </div>
 
@@ -78,7 +78,7 @@ require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
 		<?php //------------------------------------------------------------------ =[Popup]=- ?>
 		<tr>
 			<td colspan="3" class="titresection">
-				<img src="<?php echo $imdbOptions['imdbplugindirectory']; ?>pics/popup.png" width="60" align="absmiddle" />&nbsp;&nbsp;&nbsp;
+				<img src="<?php echo esc_url( $imdbOptions['imdbplugindirectory'] . "pics/popup.png"); ?>" width="60" align="absmiddle" />&nbsp;&nbsp;&nbsp;
 				<?php esc_html_e( 'Popup', 'imdb'); ?></td>
 		</tr>
 		
@@ -95,9 +95,9 @@ require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
 				<?php // Warning message displayed if highslide option is set but no "highslide" folder exists
 				if (($imdbOptions['imdbpopup_highslide'] == "1") && (!is_dir(IMDBLTABSPATH.'js/highslide'))) {
 				#notice displayed on top page
-				$this->notice(1, '<span style="color:red;"><strong>'.__ ('Warning! Highslide is activated but no Highslide folder was found. Either download Highslide (see below) or click on "reset setting" at the bottom', 'imdb') .'</strong></span>');
+				$this->notice(1, '<span class="imdblt_red_bold">'.esc_html__('Warning! Highslide is activated but no Highslide folder was found. Either download Highslide (see below) or click on "reset setting" at the bottom', 'imdb') .'</span>');
 				#notice display in highslide option field
-				echo '<span style="color:red;">'.esc_html__( 'Warning! Highslide is activated but no Highslide folder was found. Either download Highslide (see below) or click on "reset setting" at the bottom.', 'imdb').'</span><br />'; 
+				echo '<span class="imdblt_red">'.esc_html__( 'Warning! Highslide is activated but no Highslide folder was found. Either download Highslide (see below) or click on "reset setting" at the bottom.', 'imdb').'</span><br />'; 
 				} ?>
 
 				<?php if(is_dir(IMDBLTABSPATH.'js/highslide')) { // If the folder "highslide" exists (manually added)
@@ -212,7 +212,7 @@ require_once ( $imdb_admin_values['imdbplugindirectory'] . 'inc/functions.php');
 <?php	} 
 	if ($_GET['generaloption'] == "advanced") { 				//////////////// Advanced section  ?>
 
-	<div style="padding:0 30px 30px 30px;"><?php esc_html_e( "Options below can break a lot of things. Edit them only if you know what you're doing.", 'imdb'); ?></div>
+	<div class="intro_cache"><?php esc_html_e( "Options below can break a lot of things. Edit them only if you know what you're doing.", 'imdb'); ?></div>
 
 
 	<div class="inside">
