@@ -4,6 +4,8 @@
 // ********************* CLASS imdblt_core
 // *********************
 
+// namespace imdblt;
+
 require_once (plugin_dir_path( __FILE__ ).'/../bootstrap.php');
 
 if (class_exists("imdb_settings_conf")) {
@@ -15,8 +17,6 @@ if (class_exists("imdb_settings_conf")) {
 
 
 global $imdb_ft, $imdb_admin_values, $imdb_widget_values, $imdb_cache_values;
-
-namespace imdblt;
 
 class imdblt_core {
 
